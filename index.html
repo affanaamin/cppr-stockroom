@@ -183,6 +183,41 @@
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.75); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
         .modal-content { background: var(--card-bg); width: 90%; max-width: 1100px; height: 90%; border-radius: 12px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); }
         .modal-header { padding: 1.2rem 1.5rem; background: var(--header-gradient); color: white; display: flex; justify-content: space-between; align-items: center; }
+
+        /* Floating Policy Assistant Widget */
+        .chatbot-bubble { position: fixed; bottom: 24px; right: 24px; z-index: 999; background: linear-gradient(135deg, #1F4E78, #2E75B6); color: white; padding: 0.8rem 1.4rem; border-radius: 30px; font-weight: 700; font-size: 0.95rem; cursor: pointer; box-shadow: 0 10px 25px rgba(31,78,120,0.4); display: flex; align-items: center; gap: 0.6rem; transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease; border: 1px solid rgba(255,255,255,0.2); }
+        .chatbot-bubble:hover { transform: translateY(-4px) scale(1.03); box-shadow: 0 15px 30px rgba(31,78,120,0.5); }
+        body.dark-mode .chatbot-bubble { background: linear-gradient(135deg, #2563EB, #3B82F6); box-shadow: 0 10px 25px rgba(59,130,246,0.4); }
+
+        .chatbot-window { position: fixed; bottom: 85px; right: 24px; width: 380px; max-width: calc(100vw - 32px); height: 520px; max-height: calc(100vh - 110px); background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 18px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); z-index: 1000; display: none; flex-direction: column; overflow: hidden; animation: popUp 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        @keyframes popUp { from { opacity: 0; transform: translateY(20px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+        .chat-header { background: var(--header-gradient); color: white; padding: 1rem 1.2rem; display: flex; justify-content: space-between; align-items: center; }
+        .chat-header h4 { font-size: 1rem; font-weight: 700; display: flex; align-items: center; gap: 0.5rem; }
+        .chat-status { font-size: 0.72rem; background: rgba(16,185,129,0.25); color: #34D399; padding: 0.15rem 0.5rem; border-radius: 12px; font-weight: 600; }
+        .chat-header-actions { display: flex; gap: 0.4rem; align-items: center; }
+        .chat-icon-btn { background: none; border: none; color: white; cursor: pointer; font-size: 1.1rem; opacity: 0.85; transition: opacity 0.2s; padding: 0.2rem; }
+        .chat-icon-btn:hover { opacity: 1; }
+
+        .chat-messages { flex: 1; padding: 1rem; overflow-y: auto; display: flex; flex-direction: column; gap: 0.8rem; background: var(--bg-color); }
+        .chat-msg { max-width: 88%; padding: 0.75rem 1rem; border-radius: 14px; font-size: 0.88rem; line-height: 1.5; }
+        .chat-msg.bot { background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-color); align-self: flex-start; border-bottom-left-radius: 4px; box-shadow: var(--shadow-sm); }
+        .chat-msg.user { background: #1F4E78; color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
+        body.dark-mode .chat-msg.user { background: #3B82F6; }
+
+        .chat-chips { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.5rem; }
+        .chat-chip { background: var(--hover-bg); border: 1px solid var(--border-color); color: var(--text-color); padding: 0.3rem 0.6rem; border-radius: 14px; font-size: 0.76rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        .chat-chip:hover { background: #1F4E78; color: white; border-color: #1F4E78; }
+        body.dark-mode .chat-chip:hover { background: #3B82F6; border-color: #3B82F6; }
+
+        .chat-card { background: var(--hover-bg); border: 1px solid var(--border-color); border-radius: 10px; padding: 0.6rem 0.8rem; margin-top: 0.5rem; font-size: 0.82rem; }
+        .chat-card-title { font-weight: 700; color: #1F4E78; margin-bottom: 0.2rem; display: block; }
+        body.dark-mode .chat-card-title { color: #60A5FA; }
+
+        .chat-input-area { padding: 0.75rem 1rem; background: var(--card-bg); border-top: 1px solid var(--border-color); display: flex; gap: 0.5rem; }
+        .chat-input { flex: 1; padding: 0.65rem 0.9rem; border-radius: 20px; border: 1px solid var(--border-color); outline: none; font-size: 0.88rem; background: var(--input-bg); color: var(--text-color); }
+        .chat-send-btn { background: #1F4E78; color: white; border: none; padding: 0.65rem 1rem; border-radius: 20px; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: background-color 0.2s; }
+        body.dark-mode .chat-send-btn { background: #3B82F6; }
         .modal-header h3 { font-size: 1.1rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70%; }
         .modal-actions { display: flex; gap: 0.5rem; align-items: center; }
         .close-btn { background: none; border: none; color: white; font-size: 1.8rem; cursor: pointer; line-height: 1; margin-left: 0.5rem; }
@@ -2137,6 +2172,132 @@
         function closeBrief() {
             document.getElementById("briefModal").style.display = "none";
         }
+
+        // --- Policy Assistant Chatbot Logic ---
+        function toggleChat() {
+            const win = document.getElementById("chatWindow");
+            win.style.display = (win.style.display === "flex") ? "none" : "flex";
+            if (win.style.display === "flex") {
+                document.getElementById("chatInput").focus();
+            }
+        }
+
+        function clearChat() {
+            document.getElementById("chatMessages").innerHTML = `
+                <div class="chat-msg bot">
+                    🧹 Chat history cleared! Ask me anything about CPPR public policies.
+                    <div class="chat-chips">
+                        <span class="chat-chip" onclick="askChip('Show me Health policies')">💊 Health Policies</span>
+                        <span class="chat-chip" onclick="askChip('What Law Acts are available?')">⚖️ Law & Justice</span>
+                        <span class="chat-chip" onclick="askChip('Local Government Rules')">🏛️ Local Gov</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        function askChip(queryText) {
+            document.getElementById("chatInput").value = queryText;
+            sendChat();
+        }
+
+        function sendChat() {
+            const input = document.getElementById("chatInput");
+            const query = input.value.trim();
+            if (!query) return;
+
+            const msgs = document.getElementById("chatMessages");
+
+            // User Message
+            const userBubble = document.createElement("div");
+            userBubble.className = "chat-msg user";
+            userBubble.innerText = query;
+            msgs.appendChild(userBubble);
+            input.value = "";
+            msgs.scrollTop = msgs.scrollHeight;
+
+            // Search Repository
+            setTimeout(() => {
+                const botBubble = document.createElement("div");
+                botBubble.className = "chat-msg bot";
+
+                const terms = query.toLowerCase().split(/\s+/).filter(t => t.length > 2);
+                const allRows = Array.from(document.querySelectorAll("#policyTable tbody tr"));
+                
+                let matches = allRows.filter(row => {
+                    const text = row.innerText.toLowerCase();
+                    const ocr = (row.getAttribute("data-ocr") || "").toLowerCase();
+                    const cat = (row.getAttribute("data-category") || "").toLowerCase();
+                    const sec = (row.getAttribute("data-sector") || "").toLowerCase();
+                    
+                    return terms.some(t => text.includes(t) || ocr.includes(t) || cat.includes(t) || sec.includes(t));
+                });
+
+                if (matches.length > 0) {
+                    let html = `I found <strong>${matches.length}</strong> matching policy instruments for your query:`;
+                    matches.slice(0, 3).forEach(row => {
+                        const titleEl = row.querySelector(".col-title");
+                        const title = titleEl ? titleEl.innerText : "Policy Document";
+                        const cat = row.getAttribute("data-category") || "Document";
+                        const sec = row.getAttribute("data-sector") || "General";
+                        const yr = row.getAttribute("data-year") || "";
+                        
+                        const previewBtn = row.querySelector(".btn-preview");
+                        const previewOnClick = previewBtn ? previewBtn.getAttribute("onclick") : "";
+
+                        html += `
+                            <div class="chat-card">
+                                <span class="chat-card-title">${title}</span>
+                                <div style="font-size:0.75rem; color:var(--muted-color); margin-bottom:0.4rem;">
+                                    📌 <strong>${cat}</strong> | Sector: ${sec} (${yr})
+                                </div>
+                                ${previewOnClick ? `<button class="btn-sm btn-preview" style="padding:0.25rem 0.55rem; font-size:0.75rem;" onclick="${previewOnClick}">Preview PDF</button>` : ''}
+                            </div>
+                        `;
+                    });
+
+                    if (matches.length > 3) {
+                        html += `<div style="margin-top:0.4rem; font-size:0.78rem; color:var(--muted-color);"><em>+${matches.length - 3} more results in the inventory tab.</em></div>`;
+                    }
+                    botBubble.innerHTML = html;
+                } else {
+                    botBubble.innerHTML = `I couldn't find an exact document matching <em>"${query}"</em>. Try searching by sector (e.g. <em>Health, Law, Governance</em>) or keyword (e.g. <em>Local Government, Rules, SOPs</em>).`;
+                }
+
+                msgs.appendChild(botBubble);
+                msgs.scrollTop = msgs.scrollHeight;
+            }, 300);
+        }
     </script>
+
+    <!-- Floating Policy AI Assistant Bubble -->
+    <div id="chatBubble" class="chatbot-bubble" onclick="toggleChat()">
+        <span>🤖 Policy Assistant</span>
+    </div>
+
+    <!-- Policy AI Assistant Window -->
+    <div id="chatWindow" class="chatbot-window">
+        <div class="chat-header">
+            <h4>🤖 Policy Assistant <span class="chat-status">● Ready</span></h4>
+            <div class="chat-header-actions">
+                <button class="chat-icon-btn" onclick="clearChat()" title="Clear Chat">🧹</button>
+                <button class="chat-icon-btn" onclick="toggleChat()" title="Close">&times;</button>
+            </div>
+        </div>
+        <div id="chatMessages" class="chat-messages">
+            <div class="chat-msg bot">
+                👋 Hello! I am the <strong>CPPR Policy Assistant</strong>.<br>Ask me any question about Pakistan's public policy documents, Acts, Rules, SOPs, or sectors!
+                <div class="chat-chips">
+                    <span class="chat-chip" onclick="askChip('Show me Health policies')">💊 Health Policies</span>
+                    <span class="chat-chip" onclick="askChip('What Law Acts are available?')">⚖️ Law & Justice</span>
+                    <span class="chat-chip" onclick="askChip('Local Government Rules')">🏛️ Local Gov</span>
+                    <span class="chat-chip" onclick="askChip('Show 2021 Legislation')">📜 2021 Rules</span>
+                </div>
+            </div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chatInput" class="chat-input" placeholder="Ask a policy question..." onkeydown="if(event.key==='Enter') sendChat()">
+            <button class="chat-send-btn" onclick="sendChat()">Send</button>
+        </div>
+    </div>
 </body>
 </html>

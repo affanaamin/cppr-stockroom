@@ -2334,6 +2334,23 @@
             return html;
         }
 
+        let geminiConversationHistory = [];
+
+        function clearChat() {
+            geminiConversationHistory = [];
+            document.getElementById("chatMessages").innerHTML = `
+                <div class="chat-msg bot">
+                    🧹 Conversation memory reset!<br><br>
+                    👋 Welcome! I am your <strong>Gemini Conversational Policy AI Assistant</strong>. Ask me anything, or follow up on your previous questions!
+                    <div class="chat-chips">
+                        <span class="chat-chip" onclick="askChip('Summarize KP local government rules')">🏛️ Local Gov Analysis</span>
+                        <span class="chat-chip" onclick="askChip('Health sector policies')">💊 Health Policies</span>
+                        <span class="chat-chip" onclick="askChip('Acts for women protection')">⚖️ Legal Policy Brief</span>
+                    </div>
+                </div>
+            `;
+        }
+
         // Synchronize Inventory Table
         function filterInventoryByQuery(queryStr) {
             switchTab('tabInventory');
@@ -2342,7 +2359,7 @@
             toggleChat();
         }
 
-        // Gemini Cloud API Proxy (Ultra-fast Gemini 2.5 Flash endpoint with 2.5s timeout)
+        // Gemini Cloud API Proxy (Multi-Turn Conversational Engine with Automatic Fallback)
         async function queryGeminiAi(promptText, keyOverride) {
             const keyToUse = keyOverride || geminiApiKey || DEFAULT_PUBLIC_GEMINI_KEY;
             if (!keyToUse) throw new Error("No API Key configured");
@@ -2360,34 +2377,56 @@
 
             const topContext = top5Matches.map(d => `• ${d.title} (${d.cat}, ${d.sec}, ${d.yr}): ${d.summary}`).join("\n");
             
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 2500);
+            // Conversational System Instructions & Context Grounding
+            const systemText = `You are the friendly, expert, and conversational CPPR Public Policy AI Assistant for IMSciences Peshawar. Respond warmly to greetings, engage naturally in multi-turn dialogue, remember previous messages in this conversation, and reference the policy repository context below when answering policy questions.\n\nPolicy Repository Snapshot:\n${topContext}`;
 
-            try {
-                const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${keyToUse}`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    signal: controller.signal,
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: `You are the expert CPPR Public Policy AI Assistant for IMSciences Peshawar. Answer the user query clearly, concisely, and insightfully in 2-4 short bullet points using the policy snapshot context below.\n\nPolicy Snapshot:\n${topContext}\n\nUser Question: ${promptText}` }] }]
-                    })
-                });
-                clearTimeout(timeoutId);
-                const data = await res.json();
-                if (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts[0].text) {
-                    const rawText = data.candidates[0].content.parts[0].text;
-                    const formattedHtml = rawText
-                        .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-                        .replace(/\*(.*?)\*/g, "<em>$1</em>")
-                        .replace(/\n\n/g, "<br><br>")
-                        .replace(/\n/g, "<br>");
-                    return `✨ <strong>Gemini Cloud AI Synthesis</strong>:<br><br>${formattedHtml}`;
+            const contentsPayload = [
+                { role: "user", parts: [{ text: systemText }] },
+                { role: "model", parts: [{ text: "Understood! I am ready to assist with friendly, conversational public policy research for CPPR IMSciences Peshawar." }] },
+                ...geminiConversationHistory.slice(-10),
+                { role: "user", parts: [{ text: promptText }] }
+            ];
+
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 6000);
+
+            // Model Fallback Endpoints
+            const modelsToTry = ["gemini-flash-latest", "gemini-2.5-flash", "gemini-3.5-flash"];
+            let lastError = null;
+
+            for (const modelName of modelsToTry) {
+                try {
+                    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${keyToUse}`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        signal: controller.signal,
+                        body: JSON.stringify({ contents: contentsPayload })
+                    });
+                    const data = await res.json();
+                    if (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts[0].text) {
+                        clearTimeout(timeoutId);
+                        const rawText = data.candidates[0].content.parts[0].text;
+                        
+                        // Save turn to Conversational History
+                        geminiConversationHistory.push({ role: "user", parts: [{ text: promptText }] });
+                        geminiConversationHistory.push({ role: "model", parts: [{ text: rawText }] });
+                        if (geminiConversationHistory.length > 20) geminiConversationHistory = geminiConversationHistory.slice(-20);
+
+                        const formattedHtml = rawText
+                            .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+                            .replace(/\*(.*?)\*/g, "<em>$1</em>")
+                            .replace(/\n\n/g, "<br><br>")
+                            .replace(/\n/g, "<br>");
+                        return `✨ <strong>Gemini Conversational AI</strong>:<br><br>${formattedHtml}`;
+                    }
+                    if (data.error) lastError = data.error.message;
+                } catch(e) {
+                    lastError = e.message;
                 }
-                throw new Error(data.error ? data.error.message : "Gemini API call failed");
-            } catch(e) {
-                clearTimeout(timeoutId);
-                throw e;
             }
+
+            clearTimeout(timeoutId);
+            throw new Error(lastError || "Gemini API call failed");
         }
 
         document.addEventListener("DOMContentLoaded", () => {

@@ -2257,7 +2257,6 @@
                 const dateCell = row.children[4];
                 const previewBtn = row.querySelector(".btn-preview");
                 const briefBtn = row.querySelector(".btn-brief");
-
                 const title = titleEl ? titleEl.innerText.trim() : "Policy Instrument";
                 const cat = row.getAttribute("data-category") || "Policy Instrument";
                 const sec = row.getAttribute("data-sector") || "General";
@@ -2266,7 +2265,6 @@
                 const date = dateCell ? dateCell.innerText.trim() : "";
                 const ocr = (row.getAttribute("data-ocr") || "").toLowerCase();
 
-                // Extract summary from brief button onclick attribute if present
                 let summary = "Official public policy and legal instrument registered under CPPR Stockroom.";
                 if (briefBtn) {
                     const onclickAttr = briefBtn.getAttribute("onclick") || "";
@@ -2385,8 +2383,25 @@
 
         // --- Custom ML Predictive Engine ---
         function processCustomMlPrediction(query) {
+            const q = query.toLowerCase().trim();
+            const cleanQ = q.replace(/[^a-z0-9\s]/g, "");
+
+            // Conversational Greetings & Intent Handling
+            const greetings = ["hi", "hello", "hey", "greetings", "good morning", "good afternoon", "good evening", "assalam", "salam", "who are you", "what can you do", "help"];
+            if (greetings.some(g => cleanQ === g || cleanQ.startsWith(g + " ") || cleanQ.endsWith(" " + g))) {
+                return `
+                    👋 <strong>Hello there!</strong><br><br>
+                    I am your <strong>CPPR Custom Policy AI Model</strong>, trained on 91+ public policy documents, Acts, Rules of Business, and SOPs.<br><br>
+                    <strong>How can I assist your policy research today?</strong> Try asking:
+                    <div class="chat-chips" style="margin-top:0.5rem;">
+                        <span class="chat-chip" onclick="askChip('Summarize KP local government rules')">🏛️ Local Gov Analysis</span>
+                        <span class="chat-chip" onclick="askChip('Health sector policies')">💊 Health Policies</span>
+                        <span class="chat-chip" onclick="askChip('Acts for women protection')">⚖️ Women Protection Acts</span>
+                    </div>
+                `;
+            }
+
             const mlResult = customAiModel.predict(query);
-            const q = query.toLowerCase();
 
             const yearMatches = q.match(/\b(200[8-9]|201[0-9]|202[0-2])\b/g);
             const targetYears = yearMatches ? yearMatches : [];

@@ -2362,24 +2362,23 @@
             input.value = "";
             msgs.scrollTop = msgs.scrollHeight;
 
-            // Thinking State
+            // Create Bot Bubble & Render instant in-browser ML prediction immediately (0ms delay)
             const botBubble = document.createElement("div");
             botBubble.className = "chat-msg bot";
-            botBubble.innerHTML = `<div style="font-size:0.82rem; color:var(--muted-color); font-weight:600;">🧠 Computing Naive Bayes Probabilities & Vector Similarity...</div>`;
+            botBubble.innerHTML = processCustomMlPrediction(query);
             msgs.appendChild(botBubble);
             msgs.scrollTop = msgs.scrollHeight;
 
-            // Try Cloud AI with instant fallback to built-in ML Model if API fails or hangs
+            // Background upgrade using Cloud AI if key available
             const activeApiKey = geminiApiKey || DEFAULT_PUBLIC_GEMINI_KEY;
-            try {
-                const aiAnswer = await queryGeminiAi(query, activeApiKey);
-                botBubble.innerHTML = aiAnswer;
-            } catch (err) {
-                console.warn("Cloud API fallback to local ML model:", err);
-                const answerHtml = processCustomMlPrediction(query);
-                botBubble.innerHTML = answerHtml;
+            if (activeApiKey) {
+                queryGeminiAi(query, activeApiKey).then(aiAnswer => {
+                    botBubble.innerHTML = aiAnswer;
+                    msgs.scrollTop = msgs.scrollHeight;
+                }).catch(err => {
+                    console.warn("Cloud AI background upgrade skipped:", err);
+                });
             }
-            msgs.scrollTop = msgs.scrollHeight;
         }
 
         // --- Custom ML Predictive Engine ---
@@ -2538,9 +2537,7 @@
         document.addEventListener("DOMContentLoaded", () => {
             applyFilters();
             buildPolicyIndex();
-    
         });
-</script>
 </script>
 
     <!-- Floating Policy AI Assistant Bubble -->

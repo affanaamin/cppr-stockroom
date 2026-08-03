@@ -2173,7 +2173,9 @@
             document.getElementById("briefModal").style.display = "none";
         }
 
-        // --- Policy Assistant Chatbot Logic ---
+        // --- Intelligent Policy Assistant Chatbot Logic ---
+        let geminiApiKey = localStorage.getItem("cppr_gemini_api_key") || "";
+
         function toggleChat() {
             const win = document.getElementById("chatWindow");
             win.style.display = (win.style.display === "flex") ? "none" : "flex";
@@ -2182,14 +2184,29 @@
             }
         }
 
+        function toggleApiKeyPrompt() {
+            const key = prompt("Enter optional Google Gemini API Key for Advanced Generative AI mode (Leave empty to use built-in Intelligent Engine):", geminiApiKey);
+            if (key !== null) {
+                geminiApiKey = key.trim();
+                if (geminiApiKey) {
+                    localStorage.setItem("cppr_gemini_api_key", geminiApiKey);
+                    alert("✨ Gemini AI Mode Enabled! Your assistant will now generate deep conversational answers.");
+                } else {
+                    localStorage.removeItem("cppr_gemini_api_key");
+                    alert("Switched to Built-in Intelligent Policy Engine.");
+                }
+            }
+        }
+
         function clearChat() {
             document.getElementById("chatMessages").innerHTML = `
                 <div class="chat-msg bot">
                     🧹 Chat history cleared! Ask me anything about CPPR public policies.
                     <div class="chat-chips">
-                        <span class="chat-chip" onclick="askChip('Show me Health policies')">💊 Health Policies</span>
-                        <span class="chat-chip" onclick="askChip('What Law Acts are available?')">⚖️ Law & Justice</span>
-                        <span class="chat-chip" onclick="askChip('Local Government Rules')">🏛️ Local Gov</span>
+                        <span class="chat-chip" onclick="askChip('How many Health acts are there?')">📊 Health Stats</span>
+                        <span class="chat-chip" onclick="askChip('Summarize Local Government rules')">📝 Local Gov Brief</span>
+                        <span class="chat-chip" onclick="askChip('What laws were passed in 2021?')">📜 2021 Laws</span>
+                        <span class="chat-chip" onclick="askChip('KPPRA procurement SOPs')">🛒 Procurement</span>
                     </div>
                 </div>
             `;
@@ -2200,14 +2217,14 @@
             sendChat();
         }
 
-        function sendChat() {
+        async function sendChat() {
             const input = document.getElementById("chatInput");
             const query = input.value.trim();
             if (!query) return;
 
             const msgs = document.getElementById("chatMessages");
 
-            // User Message
+            // User Message Bubble
             const userBubble = document.createElement("div");
             userBubble.className = "chat-msg user";
             userBubble.innerText = query;
@@ -2215,57 +2232,148 @@
             input.value = "";
             msgs.scrollTop = msgs.scrollHeight;
 
-            // Search Repository
-            setTimeout(() => {
-                const botBubble = document.createElement("div");
-                botBubble.className = "chat-msg bot";
+            // Typing Indicator
+            const botBubble = document.createElement("div");
+            botBubble.className = "chat-msg bot";
+            botBubble.innerHTML = `<em>Thinking & analyzing policy repository...</em>`;
+            msgs.appendChild(botBubble);
+            msgs.scrollTop = msgs.scrollHeight;
 
-                const terms = query.toLowerCase().split(/\s+/).filter(t => t.length > 2);
-                const allRows = Array.from(document.querySelectorAll("#policyTable tbody tr"));
-                
-                let matches = allRows.filter(row => {
-                    const text = row.innerText.toLowerCase();
-                    const ocr = (row.getAttribute("data-ocr") || "").toLowerCase();
-                    const cat = (row.getAttribute("data-category") || "").toLowerCase();
-                    const sec = (row.getAttribute("data-sector") || "").toLowerCase();
-                    
-                    return terms.some(t => text.includes(t) || ocr.includes(t) || cat.includes(t) || sec.includes(t));
-                });
-
-                if (matches.length > 0) {
-                    let html = `I found <strong>${matches.length}</strong> matching policy instruments for your query:`;
-                    matches.slice(0, 3).forEach(row => {
-                        const titleEl = row.querySelector(".col-title");
-                        const title = titleEl ? titleEl.innerText : "Policy Document";
-                        const cat = row.getAttribute("data-category") || "Document";
-                        const sec = row.getAttribute("data-sector") || "General";
-                        const yr = row.getAttribute("data-year") || "";
-                        
-                        const previewBtn = row.querySelector(".btn-preview");
-                        const previewOnClick = previewBtn ? previewBtn.getAttribute("onclick") : "";
-
-                        html += `
-                            <div class="chat-card">
-                                <span class="chat-card-title">${title}</span>
-                                <div style="font-size:0.75rem; color:var(--muted-color); margin-bottom:0.4rem;">
-                                    📌 <strong>${cat}</strong> | Sector: ${sec} (${yr})
-                                </div>
-                                ${previewOnClick ? `<button class="btn-sm btn-preview" style="padding:0.25rem 0.55rem; font-size:0.75rem;" onclick="${previewOnClick}">Preview PDF</button>` : ''}
-                            </div>
-                        `;
-                    });
-
-                    if (matches.length > 3) {
-                        html += `<div style="margin-top:0.4rem; font-size:0.78rem; color:var(--muted-color);"><em>+${matches.length - 3} more results in the inventory tab.</em></div>`;
-                    }
-                    botBubble.innerHTML = html;
-                } else {
-                    botBubble.innerHTML = `I couldn't find an exact document matching <em>"${query}"</em>. Try searching by sector (e.g. <em>Health, Law, Governance</em>) or keyword (e.g. <em>Local Government, Rules, SOPs</em>).`;
+            // Check if Gemini API Key is set
+            if (geminiApiKey) {
+                try {
+                    const aiAnswer = await queryGeminiAi(query);
+                    botBubble.innerHTML = aiAnswer;
+                    msgs.scrollTop = msgs.scrollHeight;
+                    return;
+                } catch (err) {
+                    console.warn("Gemini API error, falling back to Intelligent Engine:", err);
                 }
+            }
 
-                msgs.appendChild(botBubble);
+            // Built-in Intelligent NLP Engine
+            setTimeout(() => {
+                const answerHtml = processIntelligentQuery(query);
+                botBubble.innerHTML = answerHtml;
                 msgs.scrollTop = msgs.scrollHeight;
             }, 300);
+        }
+
+        // Intelligent Policy Query Analyzer & Synthesizer
+        function processIntelligentQuery(query) {
+            const q = query.toLowerCase();
+            const allRows = Array.from(document.querySelectorAll("#policyTable tbody tr"));
+            
+            // 1. Intent Detection
+            const isCountQuery = q.includes("how many") || q.includes("count") || q.includes("number of") || q.includes("total") || q.includes("statistics");
+            const isSummaryQuery = q.includes("summarize") || q.includes("summary") || q.includes("brief") || q.includes("explain") || q.includes("about") || q.includes("overview");
+            const yearMatch = q.match(/\b(200[8-9]|201[0-9]|202[0-2])\b/);
+            const targetYear = yearMatch ? yearMatch[1] : null;
+
+            // 2. Keyword & Entity Matching
+            const stopwords = ["show", "me", "what", "are", "the", "for", "in", "and", "is", "of", "about", "how", "many", "summarize", "list", "acts", "laws", "rules", "policy", "policies", "documents"];
+            const terms = q.split(/\s+/).filter(t => t.length > 2 && !stopwords.includes(t));
+
+            let matches = allRows.filter(row => {
+                const text = row.innerText.toLowerCase();
+                const ocr = (row.getAttribute("data-ocr") || "").toLowerCase();
+                const cat = (row.getAttribute("data-category") || "").toLowerCase();
+                const sec = (row.getAttribute("data-sector") || "").toLowerCase();
+                const yr = row.getAttribute("data-year") || "";
+
+                if (targetYear && yr !== targetYear) return false;
+                if (terms.length === 0) return true;
+
+                return terms.some(t => text.includes(t) || ocr.includes(t) || cat.includes(t) || sec.includes(t));
+            });
+
+            if (matches.length === 0) {
+                return `I couldn't find an exact policy match for <em>"${query}"</em>. Try asking by sector (e.g. <em>Health, Governance, Law</em>) or document type (e.g. <em>Act, Rules of Business, SOPs</em>).`;
+            }
+
+            // 3. Count / Statistical Response
+            if (isCountQuery) {
+                const sectorCounts = {};
+                matches.forEach(r => {
+                    const sec = r.getAttribute("data-sector") || "General";
+                    sectorCounts[sec] = (sectorCounts[sec] || 0) + 1;
+                });
+
+                let breakdown = Object.entries(sectorCounts).map(([s, c]) => `• <strong>${s}</strong>: ${c}`).join("<br>");
+                return `
+                    📊 <strong>Policy Repository Statistics</strong>:<br>
+                    Found <strong>${matches.length}</strong> matching policy instruments ${targetYear ? 'enacted in ' + targetYear : ''}:<br>
+                    <div style="margin: 0.4rem 0; font-size: 0.82rem;">${breakdown}</div>
+                    <button class="btn-sm btn-preview" style="padding:0.3rem 0.6rem; font-size:0.75rem; margin-top:0.3rem;" onclick="filterInventoryByQuery('${terms.join(" ")}')">Filter Inventory Table (${matches.length})</button>
+                `;
+            }
+
+            // 4. Structured Synthesis & Document Cards
+            let intro = `I found <strong>${matches.length}</strong> relevant policy instrument${matches.length > 1 ? 's' : ''}:`;
+            if (isSummaryQuery) {
+                intro = `💡 <strong>Executive Policy Summary</strong> (${matches.length} document${matches.length > 1 ? 's' : ''} identified):`;
+            }
+
+            let cardsHtml = "";
+            matches.slice(0, 3).forEach(row => {
+                const titleEl = row.querySelector(".col-title");
+                const title = titleEl ? titleEl.innerText : "Policy Document";
+                const cat = row.getAttribute("data-category") || "Document";
+                const sec = row.getAttribute("data-sector") || "General";
+                const yr = row.getAttribute("data-year") || "";
+                const auth = row.querySelector(".col-auth") ? row.querySelector(".col-auth").innerText : "";
+                
+                const previewBtn = row.querySelector(".btn-preview");
+                const previewOnClick = previewBtn ? previewBtn.getAttribute("onclick") : "";
+                const briefBtn = row.querySelector(".btn-brief");
+                const briefOnClick = briefBtn ? briefBtn.getAttribute("onclick") : "";
+
+                cardsHtml += `
+                    <div class="chat-card">
+                        <span class="chat-card-title">${title}</span>
+                        <div style="font-size:0.75rem; color:var(--muted-color); margin-bottom:0.4rem;">
+                            📌 <strong>${cat}</strong> | Sector: ${sec} (${yr})<br>
+                            🏛️ <em>${auth}</em>
+                        </div>
+                        <div style="display:flex; gap:0.3rem; flex-wrap:wrap;">
+                            ${previewOnClick ? `<button class="btn-sm btn-preview" style="padding:0.2rem 0.5rem; font-size:0.72rem;" onclick="${previewOnClick}">PDF Preview</button>` : ''}
+                            ${briefOnClick ? `<button class="btn-sm btn-brief" style="padding:0.2rem 0.5rem; font-size:0.72rem;" onclick="${briefOnClick}">Executive Brief</button>` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+
+            let footer = "";
+            if (matches.length > 3) {
+                footer = `<div style="margin-top:0.5rem; font-size:0.78rem;"><button class="btn-sm btn-drive" style="padding:0.25rem 0.6rem; font-size:0.75rem;" onclick="filterInventoryByQuery('${terms.join(" ")}')">View all ${matches.length} in Table</button></div>`;
+            }
+
+            return `${intro}${cardsHtml}${footer}`;
+        }
+
+        // Filter Live Table from Chatbot
+        function filterInventoryByQuery(queryStr) {
+            switchTab('tabInventory');
+            document.getElementById("searchInput").value = queryStr;
+            applyFilters();
+            toggleChat();
+        }
+
+        // Optional Gemini API Call
+        async function queryGeminiAi(promptText) {
+            const contextText = "CPPR Public Policy Stockroom contains 91 Pakistan public policy documents, Acts, Rules of Business, SOPs from 2008-2022 covering Health, Law, Governance, Finance, and Education sectors.";
+            const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    contents: [{ parts: [{ text: `Context: ${contextText}\n\nUser Question: ${promptText}\n\nProvide a concise, professional executive answer based on CPPR policy context.` }] }]
+                })
+            });
+            const data = await res.json();
+            if (data.candidates && data.candidates[0].content.parts[0].text) {
+                return `✨ <strong>Gemini AI Synthesis</strong>:<br>${data.candidates[0].content.parts[0].text.replace(/\n/g, "<br>")}`;
+            }
+            throw new Error("Invalid Gemini API response");
         }
     </script>
 
@@ -2277,20 +2385,21 @@
     <!-- Policy AI Assistant Window -->
     <div id="chatWindow" class="chatbot-window">
         <div class="chat-header">
-            <h4>🤖 Policy Assistant <span class="chat-status">● Ready</span></h4>
+            <h4>🤖 Policy Assistant <span class="chat-status">● Smart Engine</span></h4>
             <div class="chat-header-actions">
+                <button class="chat-icon-btn" onclick="toggleApiKeyPrompt()" title="Gemini AI Settings">⚙️</button>
                 <button class="chat-icon-btn" onclick="clearChat()" title="Clear Chat">🧹</button>
                 <button class="chat-icon-btn" onclick="toggleChat()" title="Close">&times;</button>
             </div>
         </div>
         <div id="chatMessages" class="chat-messages">
             <div class="chat-msg bot">
-                👋 Hello! I am the <strong>CPPR Policy Assistant</strong>.<br>Ask me any question about Pakistan's public policy documents, Acts, Rules, SOPs, or sectors!
+                👋 Hello! I am the <strong>CPPR Policy Assistant</strong>.<br>Ask me any natural question about Pakistan's public policy documents, Acts, Rules, SOPs, or sectors!
                 <div class="chat-chips">
-                    <span class="chat-chip" onclick="askChip('Show me Health policies')">💊 Health Policies</span>
-                    <span class="chat-chip" onclick="askChip('What Law Acts are available?')">⚖️ Law & Justice</span>
-                    <span class="chat-chip" onclick="askChip('Local Government Rules')">🏛️ Local Gov</span>
-                    <span class="chat-chip" onclick="askChip('Show 2021 Legislation')">📜 2021 Rules</span>
+                    <span class="chat-chip" onclick="askChip('How many Health acts are there?')">📊 Health Stats</span>
+                    <span class="chat-chip" onclick="askChip('Summarize Local Government rules')">📝 Local Gov Brief</span>
+                    <span class="chat-chip" onclick="askChip('What laws were passed in 2021?')">📜 2021 Laws</span>
+                    <span class="chat-chip" onclick="askChip('KPPRA procurement SOPs')">🛒 Procurement</span>
                 </div>
             </div>
         </div>

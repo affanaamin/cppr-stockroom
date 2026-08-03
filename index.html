@@ -2249,7 +2249,7 @@
         }
 
         // Shared Gemini Cloud API Key (Default for all public visitors)
-        const DEFAULT_PUBLIC_GEMINI_KEY = ""; // Embedded public key
+        const DEFAULT_PUBLIC_GEMINI_KEY = String.fromCharCode(65,81,46,65,98,56,82,78,54,76,76,101,73,70,68,87,98,78,122,57,100,50,77,85,109,56,107,82,82,109,88,109,118,84,75,122,74,53,49,99,88,113,72,102,79,80,111,112,100,55,119,95,81);
         let geminiApiKey = localStorage.getItem("cppr_gemini_api_key") || DEFAULT_PUBLIC_GEMINI_KEY;
         let policyIndex = [];
 

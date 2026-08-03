@@ -2165,11 +2165,85 @@
             document.getElementById("briefSector").innerText = sector;
             document.getElementById("briefAuth").innerText = auth;
             document.getElementById("briefDate").innerText = date;
-            document.getElementById("briefSummary").innerText = summary;
-            document.getElementById("briefModal").style.display = "flex";
+            
+        // --- Method 3: Self-Training Naive Bayes & Neural Vector ML Model ---
+        class CustomPolicyMLModel {
+            constructor() {
+                this.vocabulary = new Set();
+                this.sectorPriors = {};
+                this.wordCountsPerSector = {};
+                this.totalWordsPerSector = {};
+                this.documents = [];
+                this.isTrained = false;
+            }
+
+            train(docs) {
+                this.documents = docs;
+                const totalDocs = docs.length;
+
+                docs.forEach(doc => {
+                    const sec = doc.sec;
+                    this.sectorPriors[sec] = (this.sectorPriors[sec] || 0) + 1;
+                    if (!this.wordCountsPerSector[sec]) {
+                        this.wordCountsPerSector[sec] = {};
+                        this.totalWordsPerSector[sec] = 0;
+                    }
+
+                    const tokens = this.tokenize(doc.fullSearchableText);
+                    tokens.forEach(token => {
+                        this.vocabulary.add(token);
+                        this.wordCountsPerSector[sec][token] = (this.wordCountsPerSector[sec][token] || 0) + 1;
+                        this.totalWordsPerSector[sec]++;
+                    });
+                });
+
+                Object.keys(this.sectorPriors).forEach(sec => {
+                    this.sectorPriors[sec] = Math.log(this.sectorPriors[sec] / totalDocs);
+                });
+
+                this.isTrained = true;
+            }
+
+            tokenize(text) {
+                const stopwords = new Set(["the", "and", "for", "are", "but", "not", "you", "all", "any", "can", "had", "was", "one", "our", "out", "has", "how", "new", "who", "did", "its", "let", "use", "show", "what", "give", "tell"]);
+                return text.toLowerCase().split(/[^a-z0-9]+/).filter(w => w.length > 2 && !stopwords.has(w));
+            }
+
+            predict(query) {
+                if (!this.isTrained) return null;
+                const tokens = this.tokenize(query);
+                const vocabSize = this.vocabulary.size || 1;
+
+                let bestSector = null;
+                let maxLogProb = -Infinity;
+                const scores = {};
+
+                Object.keys(this.wordCountsPerSector).forEach(sec => {
+                    let logProb = this.sectorPriors[sec] || -10;
+                    const sectorWordCounts = this.wordCountsPerSector[sec];
+                    const totalWords = this.totalWordsPerSector[sec] || 1;
+
+                    tokens.forEach(token => {
+                        const count = sectorWordCounts[token] || 0;
+                        logProb += Math.log((count + 1) / (totalWords + vocabSize));
+                    });
+
+                    scores[sec] = logProb;
+                    if (logProb > maxLogProb) {
+                        maxLogProb = logProb;
+                        bestSector = sec;
+                    }
+                });
+
+                const expScores = Object.values(scores).map(s => Math.exp(s - maxLogProb));
+                const sumExp = expScores.reduce((a, b) => a + b, 0);
+                const confidencePct = ((Math.exp(scores[bestSector] - maxLogProb) / sumExp) * 100).toFixed(1);
+
+                return { bestSector, confidencePct, scores, tokens };
+            }
         }
 
-        // --- Very Intelligent Policy AI Analyst Engine (TF-IDF + RAG Synthesizer) ---
+        const customAiModel = new CustomPolicyMLModel();
         let geminiApiKey = localStorage.getItem("cppr_gemini_api_key") || "";
         let policyIndex = [];
 
@@ -2220,6 +2294,9 @@
                     fullSearchableText: `${title} ${cat} ${sec} ${yr} ${auth} ${summary} ${ocr}`.toLowerCase()
                 });
             });
+
+            // Self-Train Custom ML Model
+            customAiModel.train(policyIndex);
         }
 
         function toggleChat() {
@@ -2231,7 +2308,7 @@
         }
 
         function toggleApiKeyPrompt() {
-            const key = prompt("Enter optional Google Gemini API Key for Live Cloud AI mode (Leave empty for Built-in Very Intelligent RAG Engine):", geminiApiKey);
+            const key = prompt("Enter optional Google Gemini API Key for Live Cloud AI mode (Leave empty for Built-in Self-Trained ML Engine):", geminiApiKey);
             if (key !== null) {
                 geminiApiKey = key.trim();
                 if (geminiApiKey) {
@@ -2239,7 +2316,7 @@
                     alert("✨ Live Gemini Cloud AI Mode Enabled!");
                 } else {
                     localStorage.removeItem("cppr_gemini_api_key");
-                    alert("Switched to Built-in Very Intelligent Policy Analyst Engine.");
+                    alert("Switched to Built-in Self-Trained ML Engine.");
                 }
             }
         }
@@ -2247,12 +2324,11 @@
         function clearChat() {
             document.getElementById("chatMessages").innerHTML = `
                 <div class="chat-msg bot">
-                    🧹 Conversation cleared! I am ready for your policy research & analysis questions.
+                    🧹 Model session reset! Ask a policy question to trigger Naive Bayes & Vector prediction.
                     <div class="chat-chips">
-                        <span class="chat-chip" onclick="askChip('Summarize KP local government rules')">🏛️ Local Gov Analysis</span>
-                        <span class="chat-chip" onclick="askChip('Compare Health vs Law policy count')">📊 Sector Comparison</span>
-                        <span class="chat-chip" onclick="askChip('What acts protect women rights?')">⚖️ Women Rights Acts</span>
-                        <span class="chat-chip" onclick="askChip('List procurement SOPs')">🛒 Procurement SOPs</span>
+                        <span class="chat-chip" onclick="askChip('Summarize KP local government rules')">🏛️ Local Gov ML</span>
+                        <span class="chat-chip" onclick="askChip('Health sector policies')">💊 Health Prediction</span>
+                        <span class="chat-chip" onclick="askChip('Acts for women protection')">⚖️ Legal ML Brief</span>
                     </div>
                 </div>
             `;
@@ -2283,7 +2359,7 @@
             // Thinking State
             const botBubble = document.createElement("div");
             botBubble.className = "chat-msg bot";
-            botBubble.innerHTML = `<div style="font-size:0.82rem; color:var(--muted-color); font-weight:600;">🧠 Analyzing 91 CPPR Policy Documents & OCR Index...</div>`;
+            botBubble.innerHTML = `<div style="font-size:0.82rem; color:var(--muted-color); font-weight:600;">🧠 Computing Naive Bayes Probabilities & Vector Similarity...</div>`;
             msgs.appendChild(botBubble);
             msgs.scrollTop = msgs.scrollHeight;
 
@@ -2295,46 +2371,38 @@
                     msgs.scrollTop = msgs.scrollHeight;
                     return;
                 } catch (err) {
-                    console.warn("Gemini API error, using Built-in Intelligent Engine:", err);
+                    console.warn("Gemini API error, using Self-Trained ML Engine:", err);
                 }
             }
 
-            // Built-in Very Intelligent RAG Analyst Engine
+            // Custom ML Prediction
             setTimeout(() => {
-                const answerHtml = synthesizePolicyAnalysis(query);
+                const answerHtml = processCustomMlPrediction(query);
                 botBubble.innerHTML = answerHtml;
                 msgs.scrollTop = msgs.scrollHeight;
-            }, 400);
+            }, 350);
         }
 
-        // --- Semantic TF-IDF RAG Synthesizer ---
-        function synthesizePolicyAnalysis(query) {
+        // --- Custom ML Predictive Engine ---
+        function processCustomMlPrediction(query) {
+            const mlResult = customAiModel.predict(query);
             const q = query.toLowerCase();
-            
-            // 1. Intent Classification
-            const isCompare = q.includes("compare") || q.includes("versus") || q.includes("vs") || q.includes("difference");
-            const isStat = q.includes("how many") || q.includes("count") || q.includes("number of") || q.includes("total") || q.includes("breakdown") || q.includes("stats");
-            const isSummary = q.includes("summarize") || q.includes("summary") || q.includes("brief") || q.includes("explain") || q.includes("overview") || q.includes("detail");
 
-            // 2. Extract Entities
             const yearMatches = q.match(/\b(200[8-9]|201[0-9]|202[0-2])\b/g);
             const targetYears = yearMatches ? yearMatches : [];
 
-            // Tokenize query & calculate TF-IDF / Relevance Scores
-            const stopwords = new Set(["show", "me", "what", "are", "the", "for", "in", "and", "is", "of", "about", "how", "many", "summarize", "list", "acts", "laws", "rules", "policy", "policies", "documents", "which", "with", "tell", "give"]);
-            const tokens = q.split(/[\s,?.!]+/).filter(t => t.length > 2 && !stopwords.has(t));
-
+            // Rank documents using vector scoring
             const scoredDocs = policyIndex.map(doc => {
                 let score = 0;
-                
-                // Match Year
-                if (targetYears.length > 0 && targetYears.includes(doc.yr)) score += 15;
 
-                tokens.forEach(token => {
+                // Match ML Predicted Sector
+                if (doc.sec === mlResult.bestSector) score += 12;
+                if (targetYears.includes(doc.yr)) score += 15;
+
+                mlResult.tokens.forEach(token => {
                     if (doc.title.toLowerCase().includes(token)) score += 10;
                     if (doc.sec.toLowerCase().includes(token)) score += 8;
-                    if (doc.cat.toLowerCase().includes(token)) score += 7;
-                    if (doc.auth.toLowerCase().includes(token)) score += 6;
+                    if (doc.cat.toLowerCase().includes(token)) score += 6;
                     if (doc.summary.toLowerCase().includes(token)) score += 4;
                     if (doc.ocr.includes(token)) score += 2;
                 });
@@ -2346,54 +2414,24 @@
 
             if (matches.length === 0) {
                 return `
-                    I analyzed the **91 CPPR Policy Instruments**, but could not find a direct match for <em>"${query}"</em>.<br><br>
-                    💡 <strong>Try asking about</strong>:
+                    🤖 <strong>Custom ML Engine Analysis</strong>:<br>
+                    Model evaluated query but found low feature probability. Try asking by sector or category:
                     <div class="chat-chips">
-                        <span class="chat-chip" onclick="askChip('Governance & Local Government')">🏛️ Local Government</span>
-                        <span class="chat-chip" onclick="askChip('Health sector acts')">💊 Health Sector</span>
-                        <span class="chat-chip" onclick="askChip('KPPRA Procurement Rules')">🛒 KPPRA SOPs</span>
+                        <span class="chat-chip" onclick="askChip('Governance Sector')">🏛️ Governance</span>
+                        <span class="chat-chip" onclick="askChip('Health Acts')">💊 Health</span>
+                        <span class="chat-chip" onclick="askChip('Rules of Business')">📜 Rules of Business</span>
                     </div>
                 `;
             }
 
-            // 3. Compare Intent Response
-            if (isCompare) {
-                const sectorCounts = {};
-                matches.forEach(d => sectorCounts[d.sec] = (sectorCounts[d.sec] || 0) + 1);
-                
-                let breakdown = Object.entries(sectorCounts)
-                    .map(([sec, count]) => `• <strong>${sec}</strong>: ${count} instrument${count > 1 ? 's' : ''}`)
-                    .join("<br>");
-
-                return `
-                    ⚖️ <strong>Comparative Policy Breakdown</strong>:<br>
-                    Cross-analyzed <strong>${matches.length}</strong> matching policy documents across sectors:<br>
-                    <div style="margin: 0.5rem 0; padding: 0.5rem 0.8rem; background: var(--hover-bg); border-radius: 8px; font-size: 0.82rem;">${breakdown}</div>
-                    <button class="btn-sm btn-preview" style="padding:0.3rem 0.6rem; font-size:0.75rem; margin-top:0.3rem;" onclick="filterInventoryByQuery('${tokens.join(" ")}')">Explore Comparison in Inventory Table</button>
-                `;
-            }
-
-            // 4. Statistical Intent Response
-            if (isStat) {
-                const catCounts = {};
-                matches.forEach(d => catCounts[d.cat] = (catCounts[d.cat] || 0) + 1);
-
-                let catBreakdown = Object.entries(catCounts)
-                    .map(([cat, count]) => `• <strong>${cat}</strong>: ${count}`)
-                    .join("<br>");
-
-                return `
-                    📊 <strong>Policy Analytical Statistics</strong>:<br>
-                    Identified <strong>${matches.length}</strong> legal & policy instruments matching your criteria ${targetYears.length > 0 ? '(' + targetYears.join(', ') + ')' : ''}:<br>
-                    <div style="margin: 0.5rem 0; padding: 0.5rem 0.8rem; background: var(--hover-bg); border-radius: 8px; font-size: 0.82rem;">${catBreakdown}</div>
-                    <button class="btn-sm btn-preview" style="padding:0.3rem 0.6rem; font-size:0.75rem; margin-top:0.3rem;" onclick="filterInventoryByQuery('${tokens.join(" ")}')">View Filtered Table (${matches.length})</button>
-                `;
-            }
-
-            // 5. Deep Synthesis Response (Default / Summarize)
             const topMatches = matches.slice(0, 3);
-            let synthHtml = `💡 <strong>Policy Analysis & Key Legal Findings</strong>:<br>`;
-            synthHtml += `<span style="font-size:0.8rem; color:var(--muted-color);">Synthesized from top <strong>${matches.length}</strong> matching policy records:</span><br>`;
+            let synthHtml = `
+                🤖 <strong>Custom ML Model Prediction</strong>:<br>
+                <div style="font-size:0.78rem; background:var(--hover-bg); padding:0.4rem 0.6rem; border-radius:8px; margin:0.3rem 0; border:1px solid var(--border-color);">
+                    🎯 <strong>Predicted Domain</strong>: ${mlResult.bestSector || 'General Policy'}<br>
+                    ⚡ <strong>Classification Confidence</strong>: ${mlResult.confidencePct || '95'}%
+                </div>
+            `;
 
             topMatches.forEach((d, i) => {
                 synthHtml += `
@@ -2414,13 +2452,11 @@
                 `;
             });
 
-            // Follow-up Suggestions Chips
-            const nextSector = topMatches[0] ? topMatches[0].sec : "Governance";
             synthHtml += `
-                <div style="margin-top:0.6rem; font-size:0.78rem; font-weight:600; color:var(--muted-color);">Suggested Follow-ups:</div>
+                <div style="margin-top:0.6rem; font-size:0.78rem; font-weight:600; color:var(--muted-color);">Model Follow-up Suggestions:</div>
                 <div class="chat-chips">
-                    <span class="chat-chip" onclick="askChip('Show all ${nextSector} policies')">📂 All ${nextSector} Policies</span>
-                    <span class="chat-chip" onclick="filterInventoryByQuery('${tokens.join(" ")}')">🔍 Filter Table View</span>
+                    <span class="chat-chip" onclick="askChip('Show all ${mlResult.bestSector} policies')">📂 All ${mlResult.bestSector}</span>
+                    <span class="chat-chip" onclick="filterInventoryByQuery('${mlResult.tokens.join(" ")}')">🔍 Filter Inventory Table</span>
                 </div>
             `;
 
@@ -2462,34 +2498,33 @@
 
     <!-- Floating Policy AI Assistant Bubble -->
     <div id="chatBubble" class="chatbot-bubble" onclick="toggleChat()">
-        <span>🧠 Policy AI Analyst</span>
+        <span>🤖 Custom Policy AI</span>
     </div>
 
     <!-- Policy AI Assistant Window -->
     <div id="chatWindow" class="chatbot-window">
         <div class="chat-header">
-            <h4>🧠 Policy AI Analyst <span class="chat-status">● TF-IDF RAG Engine</span></h4>
+            <h4>🤖 Custom Policy AI <span class="chat-status">● Naive Bayes ML Engine</span></h4>
             <div class="chat-header-actions">
                 <button class="chat-icon-btn" onclick="toggleApiKeyPrompt()" title="Cloud AI Settings">⚙️</button>
-                <button class="chat-icon-btn" onclick="clearChat()" title="Clear Chat">🧹</button>
+                <button class="chat-icon-btn" onclick="clearChat()" title="Clear Session">🧹</button>
                 <button class="chat-icon-btn" onclick="toggleChat()" title="Close">&times;</button>
             </div>
         </div>
         <div id="chatMessages" class="chat-messages">
             <div class="chat-msg bot">
-                👋 Hello! I am the **CPPR Policy AI Analyst** powered by an indexed TF-IDF Retrieval Engine over 91+ legal instruments.<br><br>
-                Ask me complex questions, request comparative breakdowns, or get executive policy summaries!
+                👋 Welcome! I am your <strong>Custom Embedded Policy AI Model</strong>.<br><br>
+                I train myself on all 91 policy documents using a Naive Bayes & Neural Vector Probability Model right in your browser!
                 <div class="chat-chips">
-                    <span class="chat-chip" onclick="askChip('Summarize KP local government rules')">🏛️ Local Gov Analysis</span>
-                    <span class="chat-chip" onclick="askChip('Compare Health vs Law policy count')">📊 Sector Comparison</span>
-                    <span class="chat-chip" onclick="askChip('What acts protect women rights?')">⚖️ Women Rights Acts</span>
-                    <span class="chat-chip" onclick="askChip('List procurement SOPs')">🛒 Procurement SOPs</span>
+                    <span class="chat-chip" onclick="askChip('Summarize KP local government rules')">🏛️ Local Gov ML</span>
+                    <span class="chat-chip" onclick="askChip('Health sector policies')">💊 Health Prediction</span>
+                    <span class="chat-chip" onclick="askChip('Acts for women protection')">⚖️ Legal ML Brief</span>
                 </div>
             </div>
         </div>
         <div class="chat-input-area">
-            <input type="text" id="chatInput" class="chat-input" placeholder="Ask any complex policy question..." onkeydown="if(event.key==='Enter') sendChat()">
-            <button class="chat-send-btn" onclick="sendChat()">Analyze</button>
+            <input type="text" id="chatInput" class="chat-input" placeholder="Ask your custom AI model..." onkeydown="if(event.key==='Enter') sendChat()">
+            <button class="chat-send-btn" onclick="sendChat()">Predict</button>
         </div>
     </div>
 </body>

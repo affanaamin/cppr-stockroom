@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CPPR Public Policy Stockroom Portal</title>
+    <title>Public Policy Stockroom Portal</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -46,7 +46,7 @@
         .brand-logo h2 { font-size: 1.25rem; font-weight: 700; color: var(--text-color); }
         .theme-toggle { background: var(--card-bg); border: 1px solid var(--border-color); padding: 0.6rem 1.2rem; border-radius: 8px; font-weight: 600; cursor: pointer; color: var(--text-color); display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
 
-        .header { background: var(--header-gradient); color: var(--header-text); padding: 2.5rem 2.5rem; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 10px 25px -5px rgba(31,78,120,0.3); }
+        .header { background: var(--header-gradient); color: var(--header-text); padding: 2.2rem 2.5rem; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 10px 25px -5px rgba(31,78,120,0.3); }
         .header h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 0.5rem; }
         .header p { opacity: 0.95; font-size: 1.05rem; max-width: 800px; line-height: 1.6; }
 
@@ -63,6 +63,11 @@
         .hero-search-box { display: flex; gap: 1rem; margin-top: 1.5rem; }
         .hero-search-box input { flex: 1; padding: 1rem 1.2rem; font-size: 1rem; border-radius: 8px; border: 1px solid var(--border-color); outline: none; background: var(--input-bg); color: var(--text-color); }
         .hero-search-box button { padding: 1rem 2rem; font-size: 1rem; font-weight: 700; border-radius: 8px; background: #1F4E78; color: white; border: none; cursor: pointer; }
+
+        .about-section-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem; }
+        .about-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 2rem; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .about-card h3 { color: #1F4E78; font-size: 1.3rem; font-weight: 700; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem; }
+        .about-card p { font-size: 0.95rem; color: var(--text-color); line-height: 1.7; margin-bottom: 0.8rem; }
 
         .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem; }
         .feature-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; padding: 1.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
@@ -174,13 +179,13 @@
     </div>
 
     <div class="header">
-        <h1>CPPR Public Policy Stockroom Portal</h1>
+        <h1>Public Policy Stockroom Portal</h1>
         <p>Comprehensive Digital Repository of Laws, Acts, Rules of Business, Policies & Operational SOPs</p>
     </div>
 
     <!-- Top Navigation Tabs -->
     <div class="nav-tabs">
-        <button class="tab-btn active" onclick="switchTab('tabHome')">🏠 Home & Executive Overview</button>
+        <button class="tab-btn active" onclick="switchTab('tabHome')">🏠 Home</button>
         <button class="tab-btn" onclick="switchTab('tabInventory')">📂 Policy Inventory Repository</button>
         <button class="tab-btn" onclick="switchTab('tabTimeline')">⚖️ Legislative Timeline (2008–2022)</button>
         <button class="tab-btn" onclick="switchTab('tabDept')">🏛️ Departmental Directory</button>
@@ -196,6 +201,29 @@
             <div class="hero-search-box">
                 <input type="text" id="homeSearchInput" placeholder="Quick search any law, keyword, or department (e.g. Local Government, Healthcare, KPPRA)...">
                 <button onclick="executeHomeSearch()">Search Repository</button>
+            </div>
+        </div>
+
+        <!-- Detailed CPPR & Stockroom Description Section -->
+        <div class="about-section-grid">
+            <div class="about-card">
+                <h3>🏛️ Center for Public Policy Research (CPPR)</h3>
+                <p>
+                    The <strong>Center for Public Policy Research (CPPR)</strong> is a premier non-partisan policy research organization dedicated to advancing evidence-based governance, legal reform, and institutional development across Pakistan.
+                </p>
+                <p>
+                    CPPR conducts rigorous multi-disciplinary analysis of primary legislation, subordinate regulations, and public sector governance frameworks to empower policymakers, legal practitioners, scholars, and civil society with transparent, accessible legal intelligence.
+                </p>
+            </div>
+
+            <div class="about-card">
+                <h3>📂 Public Policy Stockroom Archive</h3>
+                <p>
+                    The <strong>Public Policy Stockroom Archive</strong> serves as an exhaustive, structured digital inventory of provincial policy instruments compiled from 2008 through 2022.
+                </p>
+                <p>
+                    Every document is systematically indexed according to a 13-level taxonomy hierarchy, 3 legal dimensions (Primary Legislation, Subordinate Regulations, Executive Administration), 10 strategic policy sectors, enforcing departments, and exact statutory dates.
+                </p>
             </div>
         </div>
 
@@ -946,14 +974,14 @@
                 </tr>
                 <tr data-category="Act" data-sector="Social Welfare & Human Rights" data-year="2012" data-ocr="extraordinary government e khat unk published by authority registered no p 11 gazette peshawar thursday 20th september 2012 provincial assembly secretariat kiiyber pakh tunkhw a nqltifica110n dated peshawar the 20th september 2012 no pa khyber pakhtunkhwa bills 2012 6089 the khyoer pakhtunkiwa disabled persons employment and rehabilitation amendment bi 2012 having been passed by the provincial assembly of khyber pakhtunkhwa on 10th september 2012 and assented to by the governor of the khyber pakhtunkhwa on 17th september 2012 is hereby published as an act of the provincial legislature of the khyber pakhtunkhwa the khyber pakhtunhwa disabled persons employment and rehabilitation a endme it act 2012 khyber pakhtu khwa ac f no xvi of 2012 first published after having received the assent of the govemor o f the khyber pakhtunkhwa in the gazette of the l hyber pakhtunkhwa extraordinary dated the 20th september 2012 an act to">
                     <td><span class="badge badge-act">Act</span></td>
-                    <td class="col-title" data-raw="The Disabled Persons (employment and Rehabilitation) Ordinance, 1981"><strong>The Disabled Persons (employment and Rehabilitation) Ordinance, 1981</strong></td>
+                    <td class="col-title" data-raw="The Khyber Pakhtunkhwa Disabled Persons (employment and Rehabilitation) (amendment) Act, 2012"><strong>The Khyber Pakhtunkhwa Disabled Persons (employment and Rehabilitation) (amendment) Act, 2012</strong></td>
                     <td><span class="badge sec-wel">Social Welfare & Human Rights</span></td>
                     <td class="col-auth" data-raw="Provincial Assembly of Khyber Pakhtunkhwa">Provincial Assembly of Khyber Pakhtunkhwa</td>
                     <td>20th September, 2012</td>
                     <td class="no-print">
                         <div class="action-btns">
-                            <button class="btn-sm btn-preview" onclick="openPreview('The Disabled Persons (employment and Rehabilitation) Ordinance, 1981', 'completed/The-Khyber-Pakhtunkhwa-Disabled-Persons-Employement-And-Rehabilitation-Amendment-Act-2012-Act-No.-XVI-2012.pdf', 'https://drive.google.com/file/d/1TihoTUS7ohOPwxGCsiMO0kff120V009n/view?usp=sharing')">Preview</button>
-                            <button class="btn-sm btn-brief" onclick="openBrief('The Disabled Persons (employment and Rehabilitation) Ordinance, 1981', 'Act', 'Social Welfare & Human Rights', 'Provincial Assembly of Khyber Pakhtunkhwa', '20th September, 2012', 'Enforces legal protection of fundamental rights, social welfare administration, human rights safeguards, and community support.')">Brief</button>
+                            <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Disabled Persons (employment and Rehabilitation) (amendment) Act, 2012', 'completed/The-Khyber-Pakhtunkhwa-Disabled-Persons-Employement-And-Rehabilitation-Amendment-Act-2012-Act-No.-XVI-2012.pdf', 'https://drive.google.com/file/d/1TihoTUS7ohOPwxGCsiMO0kff120V009n/view?usp=sharing')">Preview</button>
+                            <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Disabled Persons (employment and Rehabilitation) (amendment) Act, 2012', 'Act', 'Social Welfare & Human Rights', 'Provincial Assembly of Khyber Pakhtunkhwa', '20th September, 2012', 'Enforces legal protection of fundamental rights, social welfare administration, human rights safeguards, and community support.')">Brief</button>
                             <a href="https://drive.google.com/file/d/1TihoTUS7ohOPwxGCsiMO0kff120V009n/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1630,7 +1658,7 @@
             <div class="timeline-year">2012</div>
             <div class="timeline-content">
                 <h4>Legislative Enactments (15 Documents)</h4>
-                <ul><li><strong>Act</strong>: The Khyber Pakhtunkhwa Apprenticeship (amendment) Act, 2012</li><li><strong>Act</strong>: The Khyber Pakhtunkhwa Borstal Institutions Act, 2012</li><li><strong>Act</strong>: The Khyber Pakhtunkhwa Cessation of Payment of Arrears on Advance Increments on Higher Educational Qualification Act, 2012</li><li><strong>Act</strong>: The Disabled Persons (employment and Rehabilitation) Ordinance, 1981</li><li><em>...and 11 more instruments</em></li></ul>
+                <ul><li><strong>Act</strong>: The Khyber Pakhtunkhwa Apprenticeship (amendment) Act, 2012</li><li><strong>Act</strong>: The Khyber Pakhtunkhwa Borstal Institutions Act, 2012</li><li><strong>Act</strong>: The Khyber Pakhtunkhwa Cessation of Payment of Arrears on Advance Increments on Higher Educational Qualification Act, 2012</li><li><strong>Act</strong>: The Khyber Pakhtunkhwa Disabled Persons (employment and Rehabilitation) (amendment) Act, 2012</li><li><em>...and 11 more instruments</em></li></ul>
             </div>
         </div>
         <div class="timeline-card" data-year="2013">

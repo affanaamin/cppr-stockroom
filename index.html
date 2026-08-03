@@ -2101,15 +2101,11 @@
         function nextPage() {
             currentPage++;
             applyFilters();
-            scrollToTableTop();
-        }
-
         function scrollToTableTop() {
             const tableContainer = document.querySelector(".table-container");
             if (tableContainer) tableContainer.scrollTop = 0;
         }
 
-        // Reset Filters
         function resetFilters() {
             document.getElementById("searchInput").value = "";
             document.getElementById("sectorFilter").value = "ALL";
@@ -2165,7 +2161,14 @@
             document.getElementById("briefSector").innerText = sector;
             document.getElementById("briefAuth").innerText = auth;
             document.getElementById("briefDate").innerText = date;
-            
+            document.getElementById("briefSummary").innerText = summary;
+            document.getElementById("briefModal").style.display = "flex";
+        }
+
+        function closeBrief() {
+            document.getElementById("briefModal").style.display = "none";
+        }
+
         // --- Method 3: Self-Training Naive Bayes & Neural Vector ML Model ---
         class CustomPolicyMLModel {
             constructor() {

@@ -64,10 +64,18 @@
         .hero-search-box input { flex: 1; padding: 1rem 1.2rem; font-size: 1rem; border-radius: 8px; border: 1px solid var(--border-color); outline: none; background: var(--input-bg); color: var(--text-color); }
         .hero-search-box button { padding: 1rem 2rem; font-size: 1rem; font-weight: 700; border-radius: 8px; background: #1F4E78; color: white; border: none; cursor: pointer; }
 
-        .about-section-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem; }
+        .about-section-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
         .about-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 2rem; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-        .about-card h3 { color: #1F4E78; font-size: 1.3rem; font-weight: 700; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem; }
+        .about-card h3 { color: #1F4E78; font-size: 1.25rem; font-weight: 700; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem; }
         .about-card p { font-size: 0.95rem; color: var(--text-color); line-height: 1.7; margin-bottom: 0.8rem; }
+
+        .objectives-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; margin-bottom: 2.5rem; }
+        .obj-card { background: var(--card-bg); border-left: 4px solid #1F4E78; border-top: 1px solid var(--border-color); border-right: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); border-radius: 8px; padding: 1.2rem 1.4rem; font-size: 0.93rem; color: var(--text-color); line-height: 1.6; }
+        .obj-card strong { color: #1F4E78; display: block; margin-bottom: 0.3rem; font-size: 1rem; }
+
+        .users-list-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 2rem; margin-bottom: 2.5rem; }
+        .users-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1rem; }
+        .user-tag { background: #D9E1F2; color: #1F4E78; padding: 0.4rem 0.9rem; border-radius: 20px; font-weight: 600; font-size: 0.85rem; }
 
         .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem; }
         .feature-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; padding: 1.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
@@ -171,8 +179,8 @@
     <div class="top-bar">
         <div class="brand-logo">
             <div>
-                <h2>Center for Public Policy Research (CPPR)</h2>
-                <small style="color: var(--muted-color); font-weight: 500;">Stockroom Inventory & Policy Intelligence Hub</small>
+                <h2>Centre for Public Policy Research (CPPR)</h2>
+                <small style="color: var(--muted-color); font-weight: 500;">IMSciences Peshawar — Public Policy Stockroom Platform</small>
             </div>
         </div>
         <button class="theme-toggle" onclick="toggleDarkMode()"><span id="themeLabel">Dark Mode</span></button>
@@ -180,7 +188,7 @@
 
     <div class="header">
         <h1>Public Policy Stockroom Portal</h1>
-        <p>Comprehensive Digital Repository of Laws, Acts, Rules of Business, Policies & Operational SOPs</p>
+        <p>Centralized Reference & Resource Hub for Public Policy & Legal Documentation in Pakistan</p>
     </div>
 
     <!-- Top Navigation Tabs -->
@@ -194,17 +202,17 @@
     <!-- TAB 1: HOME PAGE -->
     <div id="tabHome" class="tab-content active">
         <div class="hero-banner">
-            <h2 style="color: #1F4E78; font-size: 1.6rem; margin-bottom: 0.5rem;">Welcome to the Public Policy Stockroom Archive</h2>
+            <h2 style="color: #1F4E78; font-size: 1.6rem; margin-bottom: 0.5rem;">Establishment of a Public Policy Stockroom at CPPR</h2>
             <p style="color: var(--muted-color); font-size: 1rem; line-height: 1.6;">
-                A centralized, standardized policy intelligence platform classifying 91 statutory enactments, executive rules, model by-laws, and operational manuals across Khyber Pakhtunkhwa.
+                A centralized, organized, and regularly updated repository bringing together key public policy resources, primary laws, rules of business, strategies, and operational SOPs at a single platform.
             </p>
             <div class="hero-search-box">
-                <input type="text" id="homeSearchInput" placeholder="Quick search any law, keyword, or department (e.g. Local Government, Healthcare, KPPRA)...">
+                <input type="text" id="homeSearchInput" placeholder="Search any law, policy keyword, or department (e.g. Local Government, Healthcare, KPPRA)...">
                 <button onclick="executeHomeSearch()">Search Repository</button>
             </div>
         </div>
 
-        <!-- Official CPPR Description & Stockroom Description Cards -->
+        <!-- 1. Background & Rationale and Purpose Cards -->
         <div class="about-section-grid">
             <div class="about-card">
                 <h3>🏛️ Centre for Public Policy Research (CPPR)</h3>
@@ -217,16 +225,72 @@
             </div>
 
             <div class="about-card">
-                <h3>📂 Public Policy Stockroom Archive</h3>
+                <h3>📜 Background & Purpose of the Stockroom</h3>
                 <p>
-                    The <strong>Public Policy Stockroom Archive</strong> serves as an exhaustive, structured digital inventory of provincial policy instruments compiled from 2008 through 2022.
+                    Public policy practitioners, researchers, students, academics, government officials, media professionals, development partners, and civil society organizations often require access to a wide range of laws, Acts, rules of business, policies, strategies, and SOPs. However, these resources are generally dispersed across different departments and archives, making retrieval time-consuming and inefficient.
                 </p>
                 <p>
-                    Every document is systematically indexed according to a 13-level taxonomy hierarchy, 3 legal dimensions (Primary Legislation, Subordinate Regulations, Executive Administration), 10 strategic policy sectors, enforcing departments, and exact statutory dates.
+                    To address this gap, CPPR established the <strong>Public Policy Stockroom</strong> to create a centralized, organized, and regularly updated repository of Pakistan's public policy and legal documents. It enables users to find relevant information in a few simple clicks, reducing duplication of effort and supporting evidence-based research.
                 </p>
             </div>
         </div>
 
+        <!-- 2. Strategic Key Objectives Grid -->
+        <h3 style="color: #1F4E78; margin-bottom: 1rem;">Key Strategic Objectives</h3>
+        <div class="objectives-grid">
+            <div class="obj-card">
+                <strong>1. Centralized Repository</strong>
+                Establish a single, organized point of reference for public policies, laws, Acts, rules, strategies, and SOPs.
+            </div>
+            <div class="obj-card">
+                <strong>2. Sector-Wise Organization</strong>
+                Categorize policy resources sector-wise, enabling users to locate relevant primary documents quickly.
+            </div>
+            <div class="obj-card">
+                <strong>3. Enhanced Access</strong>
+                Improve access to primary policy and legal source documents for researchers, students, and practitioners.
+            </div>
+            <div class="obj-card">
+                <strong>4. International Commitments</strong>
+                Document Pakistan's international legal commitments, including relevant United Nations treaties and conventions.
+            </div>
+            <div class="obj-card">
+                <strong>5. Historical Record</strong>
+                Develop a historical record of public policymaking, initially focusing post-18th Amendment (2010 onward).
+            </div>
+            <div class="obj-card">
+                <strong>6. Evidence-Based Research</strong>
+                Support evidence-based research and policy analysis by providing direct access to original primary sources.
+            </div>
+            <div class="obj-card">
+                <strong>7. Resource Conservation</strong>
+                Reduce duplication of effort and resource wastage by bringing scattered information together on one platform.
+            </div>
+            <div class="obj-card">
+                <strong>8. Sustainable Institutional Hub</strong>
+                Create a sustainable institutional resource that is regularly updated and continuously expanded over time.
+            </div>
+        </div>
+
+        <!-- 3. Target Users & Beneficiaries Tags -->
+        <div class="users-list-card">
+            <h3 style="color: #1F4E78; font-size: 1.2rem; margin-bottom: 0.5rem;">Target Users & Stakeholder Beneficiaries</h3>
+            <p style="color: var(--muted-color); font-size: 0.95rem;">
+                The Public Policy Stockroom serves both academic and practical purposes, supporting teaching, research, policy analysis, advocacy, journalism, governance, and institutional decision-making:
+            </p>
+            <div class="users-tags">
+                <span class="user-tag">🎓 Students & Faculty</span>
+                <span class="user-tag">🔬 Policy Researchers</span>
+                <span class="user-tag">🏛️ Government Departments</span>
+                <span class="user-tag">⚖️ Policymakers & Officials</span>
+                <span class="user-tag">📰 Media & Journalists</span>
+                <span class="user-tag">🇺🇳 UN Agencies & Partners</span>
+                <span class="user-tag">🌐 Non-Governmental Organizations</span>
+                <span class="user-tag">🤝 Civil Society Organizations</span>
+            </div>
+        </div>
+
+        <!-- 4. Repository Metrics -->
         <h3 style="color: #1F4E78; margin-bottom: 1rem;">Core Repository Metrics</h3>
         <div class="stats-grid">
             <div class="stat-card"><div class="num">91</div><div class="label">Total Policy Instruments</div></div>
@@ -235,6 +299,7 @@
             <div class="stat-card"><div class="num">10</div><div class="label">Policy Sectors</div></div>
         </div>
 
+        <!-- 5. Featured Legislation Showcase -->
         <h3 style="color: #1F4E78; margin-bottom: 1rem;">Featured Key Legislation</h3>
         <div class="feature-grid">
 

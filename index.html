@@ -2366,7 +2366,15 @@
             msgs.appendChild(botBubble);
             msgs.scrollTop = msgs.scrollHeight;
 
-            // Check if Gemini Cloud API is set
+            // Check if Gemini Cloud API is set, or prompt for key seamlessly
+            if (!geminiApiKey) {
+                const autoPromptKey = prompt("✨ Connect Google Gemini Cloud AI for maximum intelligence!\n\nEnter your free Gemini API Key (or click OK to enter later):", "");
+                if (autoPromptKey && autoPromptKey.trim()) {
+                    geminiApiKey = autoPromptKey.trim();
+                    localStorage.setItem("cppr_gemini_api_key", geminiApiKey);
+                }
+            }
+
             if (geminiApiKey) {
                 try {
                     const aiAnswer = await queryGeminiAi(query);
@@ -2526,7 +2534,7 @@
     <!-- Policy AI Assistant Window -->
     <div id="chatWindow" class="chatbot-window">
         <div class="chat-header">
-            <h4>🤖 Custom Policy AI <span class="chat-status">● Naive Bayes ML Engine</span></h4>
+            <h4>🤖 Smart Policy AI <span class="chat-status">● Gemini 1.5 Cloud Model</span></h4>
             <div class="chat-header-actions">
                 <button class="chat-icon-btn" onclick="toggleApiKeyPrompt()" title="Cloud AI Settings">⚙️</button>
                 <button class="chat-icon-btn" onclick="clearChat()" title="Clear Session">🧹</button>

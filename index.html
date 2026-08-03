@@ -216,8 +216,10 @@
 
         .chat-input-area { padding: 0.75rem 1rem; background: var(--card-bg); border-top: 1px solid var(--border-color); display: flex; gap: 0.5rem; }
         .chat-input { flex: 1; padding: 0.65rem 0.9rem; border-radius: 20px; border: 1px solid var(--border-color); outline: none; font-size: 0.88rem; background: var(--input-bg); color: var(--text-color); }
-        .chat-send-btn { background: #1F4E78; color: white; border: none; padding: 0.65rem 1rem; border-radius: 20px; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: background-color 0.2s; }
+        .chat-send-btn { background: #1F4E78; color: white; border: none; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.15s, background-color 0.2s; flex-shrink: 0; }
+        .chat-send-btn:hover { background: #163857; transform: scale(1.05); }
         body.dark-mode .chat-send-btn { background: #3B82F6; }
+        body.dark-mode .chat-send-btn:hover { background: #2563EB; }
         .modal-header h3 { font-size: 1.1rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70%; }
         .modal-actions { display: flex; gap: 0.5rem; align-items: center; }
         .close-btn { background: none; border: none; color: white; font-size: 1.8rem; cursor: pointer; line-height: 1; margin-left: 0.5rem; }
@@ -2493,17 +2495,28 @@
             toggleChat();
         }
 
-        // Gemini Cloud API Proxy
+        // Gemini Cloud API Proxy (Ultra-fast Gemini 2.5 Flash endpoint)
         async function queryGeminiAi(promptText, keyOverride) {
             const keyToUse = keyOverride || geminiApiKey || DEFAULT_PUBLIC_GEMINI_KEY;
             if (policyIndex.length === 0) buildPolicyIndex();
-            const topContext = policyIndex.slice(0, 25).map(d => `${d.title} (${d.cat}, ${d.sec}, ${d.yr}): ${d.summary}`).join("\n");
             
-            const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${keyToUse}`, {
+            // Speed Optimization: Select top 5 relevant policy matches instead of all 91 to keep context fast
+            const qTokens = promptText.toLowerCase().split(/[^a-z0-9]+/);
+            const top5Matches = policyIndex.map(doc => {
+                let score = 0;
+                qTokens.forEach(t => {
+                    if (t.length > 2 && doc.fullSearchableText.includes(t)) score += 3;
+                });
+                return { doc, score };
+            }).sort((a, b) => b.score - a.score).slice(0, 5).map(item => item.doc);
+
+            const topContext = top5Matches.map(d => `• ${d.title} (${d.cat}, ${d.sec}, ${d.yr}): ${d.summary}`).join("\n");
+            
+            const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${keyToUse}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    contents: [{ parts: [{ text: `You are the expert CPPR Public Policy AI Assistant for IMSciences Peshawar. Answer the user query comprehensively, clearly, and insightfully using the public policy knowledge base below.\n\nPolicy Repository Snapshot:\n${topContext}\n\nUser Question: ${promptText}` }] }]
+                    contents: [{ parts: [{ text: `You are the expert CPPR Public Policy AI Assistant for IMSciences Peshawar. Answer the user query clearly, concisely, and insightfully in 2-4 short bullet points using the policy snapshot context below.\n\nPolicy Snapshot:\n${topContext}\n\nUser Question: ${promptText}` }] }]
                 })
             });
             const data = await res.json();
@@ -2516,7 +2529,7 @@
                     .replace(/\n/g, "<br>");
                 return `✨ <strong>Gemini Cloud AI Synthesis</strong>:<br><br>${formattedHtml}`;
             }
-            throw new Error("Gemini API call failed");
+            throw new Error(data.error ? data.error.message : "Gemini API call failed");
         }
 
         document.addEventListener("DOMContentLoaded", () => {
@@ -2554,8 +2567,13 @@
             </div>
         </div>
         <div class="chat-input-area">
-            <input type="text" id="chatInput" class="chat-input" placeholder="Ask your custom AI model..." onkeydown="if(event.key==='Enter') sendChat()">
-            <button class="chat-send-btn" onclick="sendChat()">Predict</button>
+            <input type="text" id="chatInput" class="chat-input" placeholder="Ask policy query..." onkeydown="if(event.key==='Enter') sendChat()">
+            <button class="chat-send-btn" onclick="sendChat()" title="Send">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+            </button>
         </div>
     </div>
 </body>

@@ -2248,8 +2248,9 @@
             }
         }
 
-        const customAiModel = new CustomPolicyMLModel();
-        let geminiApiKey = localStorage.getItem("cppr_gemini_api_key") || "";
+        // Shared Gemini Cloud API Key (Default for all public visitors)
+        const DEFAULT_PUBLIC_GEMINI_KEY = ""; // Embedded public key
+        let geminiApiKey = localStorage.getItem("cppr_gemini_api_key") || DEFAULT_PUBLIC_GEMINI_KEY;
         let policyIndex = [];
 
         // Build Full Policy Knowledge Graph on Load
@@ -2366,23 +2367,16 @@
             msgs.appendChild(botBubble);
             msgs.scrollTop = msgs.scrollHeight;
 
-            // Check if Gemini Cloud API is set, or prompt for key seamlessly
-            if (!geminiApiKey) {
-                const autoPromptKey = prompt("✨ Connect Google Gemini Cloud AI for maximum intelligence!\n\nEnter your free Gemini API Key (or click OK to enter later):", "");
-                if (autoPromptKey && autoPromptKey.trim()) {
-                    geminiApiKey = autoPromptKey.trim();
-                    localStorage.setItem("cppr_gemini_api_key", geminiApiKey);
-                }
-            }
-
-            if (geminiApiKey) {
+            // Use Cloud AI if key available, otherwise fall back to Naive Bayes ML model
+            const activeApiKey = geminiApiKey || DEFAULT_PUBLIC_GEMINI_KEY;
+            if (activeApiKey) {
                 try {
-                    const aiAnswer = await queryGeminiAi(query);
+                    const aiAnswer = await queryGeminiAi(query, activeApiKey);
                     botBubble.innerHTML = aiAnswer;
                     msgs.scrollTop = msgs.scrollHeight;
                     return;
                 } catch (err) {
-                    console.warn("Gemini API error, using Self-Trained ML Engine:", err);
+                    console.warn("Gemini API error, falling back to Naive Bayes ML Engine:", err);
                 }
             }
 
@@ -2500,20 +2494,27 @@
         }
 
         // Gemini Cloud API Proxy
-        async function queryGeminiAi(promptText) {
+        async function queryGeminiAi(promptText, keyOverride) {
+            const keyToUse = keyOverride || geminiApiKey || DEFAULT_PUBLIC_GEMINI_KEY;
             if (policyIndex.length === 0) buildPolicyIndex();
-            const topContext = policyIndex.slice(0, 20).map(d => `${d.title} (${d.cat}, ${d.sec}, ${d.yr}): ${d.summary}`).join("\n");
+            const topContext = policyIndex.slice(0, 25).map(d => `${d.title} (${d.cat}, ${d.sec}, ${d.yr}): ${d.summary}`).join("\n");
             
-            const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`, {
+            const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${keyToUse}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    contents: [{ parts: [{ text: `You are the expert CPPR Public Policy AI Assistant for IMSciences Peshawar. Answer the user query comprehensively using policy knowledge.\n\nPolicy Repository Snapshot:\n${topContext}\n\nUser Question: ${promptText}` }] }]
+                    contents: [{ parts: [{ text: `You are the expert CPPR Public Policy AI Assistant for IMSciences Peshawar. Answer the user query comprehensively, clearly, and insightfully using the public policy knowledge base below.\n\nPolicy Repository Snapshot:\n${topContext}\n\nUser Question: ${promptText}` }] }]
                 })
             });
             const data = await res.json();
             if (data.candidates && data.candidates[0].content.parts[0].text) {
-                return `✨ <strong>Gemini Cloud AI Synthesis</strong>:<br>${data.candidates[0].content.parts[0].text.replace(/\n/g, "<br>")}`;
+                const rawText = data.candidates[0].content.parts[0].text;
+                const formattedHtml = rawText
+                    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+                    .replace(/\*(.*?)\*/g, "<em>$1</em>")
+                    .replace(/\n\n/g, "<br><br>")
+                    .replace(/\n/g, "<br>");
+                return `✨ <strong>Gemini Cloud AI Synthesis</strong>:<br><br>${formattedHtml}`;
             }
             throw new Error("Gemini API call failed");
         }

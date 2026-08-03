@@ -1939,7 +1939,6 @@
     </div>
 
     <script>
-        // Tab Switcher
         function switchTab(tabId) {
             document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
             document.querySelectorAll(".tab-btn").forEach(el => el.classList.remove("active"));
@@ -2101,6 +2100,9 @@
         function nextPage() {
             currentPage++;
             applyFilters();
+            scrollToTableTop();
+        }
+
         function scrollToTableTop() {
             const tableContainer = document.querySelector(".table-container");
             if (tableContainer) tableContainer.scrollTop = 0;
@@ -2511,8 +2513,10 @@
         document.addEventListener("DOMContentLoaded", () => {
             applyFilters();
             buildPolicyIndex();
+    
         });
-    </script>
+</script>
+</script>
 
     <!-- Floating Policy AI Assistant Bubble -->
     <div id="chatBubble" class="chatbot-bubble" onclick="toggleChat()">

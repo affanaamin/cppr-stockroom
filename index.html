@@ -46,9 +46,9 @@
         .brand-logo h2 { font-size: 1.25rem; font-weight: 700; color: var(--text-color); }
         .theme-toggle { background: var(--card-bg); border: 1px solid var(--border-color); padding: 0.6rem 1.2rem; border-radius: 8px; font-weight: 600; cursor: pointer; color: var(--text-color); display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
 
-        .header { background: var(--header-gradient); color: var(--header-text); padding: 2rem 2.5rem; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 10px 25px -5px rgba(31,78,120,0.3); }
-        .header h1 { font-size: 2rem; font-weight: 700; margin-bottom: 0.4rem; }
-        .header p { opacity: 0.9; font-size: 1rem; }
+        .header { background: var(--header-gradient); color: var(--header-text); padding: 2.5rem 2.5rem; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 10px 25px -5px rgba(31,78,120,0.3); }
+        .header h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 0.5rem; }
+        .header p { opacity: 0.95; font-size: 1.05rem; max-width: 800px; line-height: 1.6; }
 
         /* Top Navigation Tabs */
         .nav-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem; flex-wrap: wrap; }
@@ -57,6 +57,17 @@
         
         .tab-content { display: none; }
         .tab-content.active { display: block; }
+
+        /* Home Page Styles */
+        .hero-banner { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+        .hero-search-box { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .hero-search-box input { flex: 1; padding: 1rem 1.2rem; font-size: 1rem; border-radius: 8px; border: 1px solid var(--border-color); outline: none; background: var(--input-bg); color: var(--text-color); }
+        .hero-search-box button { padding: 1rem 2rem; font-size: 1rem; font-weight: 700; border-radius: 8px; background: #1F4E78; color: white; border: none; cursor: pointer; }
+
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem; }
+        .feature-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; padding: 1.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .feature-card h3 { font-size: 1.15rem; color: #1F4E78; margin: 0.6rem 0; font-weight: 700; }
+        .feature-card p { font-size: 0.9rem; color: var(--muted-color); line-height: 1.5; }
 
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
         .stat-card { background: var(--card-bg); padding: 1.5rem; border-radius: 10px; border: 1px solid var(--border-color); text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
@@ -169,20 +180,73 @@
 
     <!-- Top Navigation Tabs -->
     <div class="nav-tabs">
-        <button class="tab-btn active" onclick="switchTab('tabInventory')">📂 Policy Inventory Repository</button>
+        <button class="tab-btn active" onclick="switchTab('tabHome')">🏠 Home & Executive Overview</button>
+        <button class="tab-btn" onclick="switchTab('tabInventory')">📂 Policy Inventory Repository</button>
         <button class="tab-btn" onclick="switchTab('tabTimeline')">⚖️ Legislative Timeline (2008–2022)</button>
         <button class="tab-btn" onclick="switchTab('tabDept')">🏛️ Departmental Directory</button>
     </div>
 
-    <!-- TAB 1: INVENTORY REPOSITORY -->
-    <div id="tabInventory" class="tab-content active">
+    <!-- TAB 1: HOME PAGE -->
+    <div id="tabHome" class="tab-content active">
+        <div class="hero-banner">
+            <h2 style="color: #1F4E78; font-size: 1.6rem; margin-bottom: 0.5rem;">Welcome to the Public Policy Stockroom Archive</h2>
+            <p style="color: var(--muted-color); font-size: 1rem; line-height: 1.6;">
+                A centralized, standardized policy intelligence platform classifying 91 statutory enactments, executive rules, model by-laws, and operational manuals across Khyber Pakhtunkhwa.
+            </p>
+            <div class="hero-search-box">
+                <input type="text" id="homeSearchInput" placeholder="Quick search any law, keyword, or department (e.g. Local Government, Healthcare, KPPRA)...">
+                <button onclick="executeHomeSearch()">Search Repository</button>
+            </div>
+        </div>
+
+        <h3 style="color: #1F4E78; margin-bottom: 1rem;">Core Repository Metrics</h3>
         <div class="stats-grid">
-            <div class="stat-card"><div class="num" id="statTotal">91</div><div class="label">Total Instruments</div></div>
-            <div class="stat-card"><div class="num">76</div><div class="label">Primary Acts</div></div>
-            <div class="stat-card"><div class="num">15</div><div class="label">Rules & SOPs</div></div>
+            <div class="stat-card"><div class="num">91</div><div class="label">Total Policy Instruments</div></div>
+            <div class="stat-card"><div class="num">76</div><div class="label">Primary Acts & Laws</div></div>
+            <div class="stat-card"><div class="num">15</div><div class="label">Rules, By-Laws & SOPs</div></div>
             <div class="stat-card"><div class="num">10</div><div class="label">Policy Sectors</div></div>
         </div>
 
+        <h3 style="color: #1F4E78; margin-bottom: 1rem;">Featured Key Legislation</h3>
+        <div class="feature-grid">
+
+        <div class="feature-card">
+            <span class="badge badge-act">Act</span>
+            <h3>The North-West Frontier Province Civil Courts (amendment) Act, 2009</h3>
+            <p>Enacts statutory provisions for judicial administration, legal proceedings, court jurisdiction, and public ombudsman oversight.</p>
+            <div style="margin-top: 1rem; display: flex; gap: 0.5rem;">
+                <button class="btn-sm btn-preview" onclick="openPreview('The North-West Frontier Province Civil Courts (amendment) Act, 2009', 'completed/Civil-Courts-Amendment-Act-2009-Act.pdf', 'https://drive.google.com/file/d/1QPjaPn12LZPOZGJK782ZDXF8sDBWs4B-/view?usp=sharing')">Preview Document</button>
+            </div>
+        </div>
+        <div class="feature-card">
+            <span class="badge badge-act">Act</span>
+            <h3>The Code of Criminal Procedure (north-West Frontier Province) (amendment) Act, 2008</h3>
+            <p>Enacts statutory provisions for judicial administration, legal proceedings, court jurisdiction, and public ombudsman oversight.</p>
+            <div style="margin-top: 1rem; display: flex; gap: 0.5rem;">
+                <button class="btn-sm btn-preview" onclick="openPreview('The Code of Criminal Procedure (north-West Frontier Province) (amendment) Act, 2008', 'completed/Code of Criminal Procedure.pdf', 'https://drive.google.com/file/d/1cPf8j9w2PRsupgkAWcNICRiTwIP2fO9T/view?usp=sharing')">Preview Document</button>
+            </div>
+        </div>
+        <div class="feature-card">
+            <span class="badge badge-act">Act</span>
+            <h3>The North-West Frontier Province Establishment of District Development Advisory Committees (amendment) Act, 2010</h3>
+            <p>Official act establishing regulatory standards and administrative compliance for provincial public policy.</p>
+            <div style="margin-top: 1rem; display: flex; gap: 0.5rem;">
+                <button class="btn-sm btn-preview" onclick="openPreview('The North-West Frontier Province Establishment of District Development Advisory Committees (amendment) Act, 2010', 'completed/Establishment-Of-District-Development-Advisory-Committees-Amendment-Act-2010-Act.pdf', 'https://drive.google.com/file/d/1JchhXBusmbP292FvttKM2OPgzWD4RtFl/view?usp=sharing')">Preview Document</button>
+            </div>
+        </div>
+        <div class="feature-card">
+            <span class="badge badge-act">Act</span>
+            <h3>The North-West Frontier Province Establishment of a Commission on the Status of Women Act, 2009</h3>
+            <p>Enforces legal protection of fundamental rights, social welfare administration, human rights safeguards, and community support.</p>
+            <div style="margin-top: 1rem; display: flex; gap: 0.5rem;">
+                <button class="btn-sm btn-preview" onclick="openPreview('The North-West Frontier Province Establishment of a Commission on the Status of Women Act, 2009', 'completed/Establishment-of-A-Commission-On-The-Status-Of-Women-Act.pdf', 'https://drive.google.com/file/d/1rbOgPVLZ59mRZhyBaojFaqG8dlJ5MtEw/view?usp=sharing')">Preview Document</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- TAB 2: INVENTORY REPOSITORY -->
+    <div id="tabInventory" class="tab-content">
         <div class="controls-card">
             <div class="search-row">
                 <input type="text" id="searchInput" class="search-input" placeholder="Search" onkeyup="applyFilters()">
@@ -882,14 +946,14 @@
                 </tr>
                 <tr data-category="Act" data-sector="Social Welfare & Human Rights" data-year="2012" data-ocr="extraordinary government e khat unk published by authority registered no p 11 gazette peshawar thursday 20th september 2012 provincial assembly secretariat kiiyber pakh tunkhw a nqltifica110n dated peshawar the 20th september 2012 no pa khyber pakhtunkhwa bills 2012 6089 the khyoer pakhtunkiwa disabled persons employment and rehabilitation amendment bi 2012 having been passed by the provincial assembly of khyber pakhtunkhwa on 10th september 2012 and assented to by the governor of the khyber pakhtunkhwa on 17th september 2012 is hereby published as an act of the provincial legislature of the khyber pakhtunkhwa the khyber pakhtunhwa disabled persons employment and rehabilitation a endme it act 2012 khyber pakhtu khwa ac f no xvi of 2012 first published after having received the assent of the govemor o f the khyber pakhtunkhwa in the gazette of the l hyber pakhtunkhwa extraordinary dated the 20th september 2012 an act to">
                     <td><span class="badge badge-act">Act</span></td>
-                    <td class="col-title" data-raw="The Khyber Pakhtunkhwa Disabled Persons (employment and Rehabilitation) (amendment) Act, 2012"><strong>The Khyber Pakhtunkhwa Disabled Persons (employment and Rehabilitation) (amendment) Act, 2012</strong></td>
+                    <td class="col-title" data-raw="The Disabled Persons (employment and Rehabilitation) Ordinance, 1981"><strong>The Disabled Persons (employment and Rehabilitation) Ordinance, 1981</strong></td>
                     <td><span class="badge sec-wel">Social Welfare & Human Rights</span></td>
                     <td class="col-auth" data-raw="Provincial Assembly of Khyber Pakhtunkhwa">Provincial Assembly of Khyber Pakhtunkhwa</td>
                     <td>20th September, 2012</td>
                     <td class="no-print">
                         <div class="action-btns">
-                            <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Disabled Persons (employment and Rehabilitation) (amendment) Act, 2012', 'completed/The-Khyber-Pakhtunkhwa-Disabled-Persons-Employement-And-Rehabilitation-Amendment-Act-2012-Act-No.-XVI-2012.pdf', 'https://drive.google.com/file/d/1TihoTUS7ohOPwxGCsiMO0kff120V009n/view?usp=sharing')">Preview</button>
-                            <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Disabled Persons (employment and Rehabilitation) (amendment) Act, 2012', 'Act', 'Social Welfare & Human Rights', 'Provincial Assembly of Khyber Pakhtunkhwa', '20th September, 2012', 'Enforces legal protection of fundamental rights, social welfare administration, human rights safeguards, and community support.')">Brief</button>
+                            <button class="btn-sm btn-preview" onclick="openPreview('The Disabled Persons (employment and Rehabilitation) Ordinance, 1981', 'completed/The-Khyber-Pakhtunkhwa-Disabled-Persons-Employement-And-Rehabilitation-Amendment-Act-2012-Act-No.-XVI-2012.pdf', 'https://drive.google.com/file/d/1TihoTUS7ohOPwxGCsiMO0kff120V009n/view?usp=sharing')">Preview</button>
+                            <button class="btn-sm btn-brief" onclick="openBrief('The Disabled Persons (employment and Rehabilitation) Ordinance, 1981', 'Act', 'Social Welfare & Human Rights', 'Provincial Assembly of Khyber Pakhtunkhwa', '20th September, 2012', 'Enforces legal protection of fundamental rights, social welfare administration, human rights safeguards, and community support.')">Brief</button>
                             <a href="https://drive.google.com/file/d/1TihoTUS7ohOPwxGCsiMO0kff120V009n/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1529,7 +1593,7 @@
         </div>
     </div>
 
-    <!-- TAB 2: LEGISLATIVE TIMELINE -->
+    <!-- TAB 3: LEGISLATIVE TIMELINE -->
     <div id="tabTimeline" class="tab-content">
         <h2 style="color: #1F4E78; margin-bottom: 1rem;">Provincial Legislative Evolution Timeline (2008 – 2022)</h2>
         <div class="timeline-container">
@@ -1566,7 +1630,7 @@
             <div class="timeline-year">2012</div>
             <div class="timeline-content">
                 <h4>Legislative Enactments (15 Documents)</h4>
-                <ul><li><strong>Act</strong>: The Khyber Pakhtunkhwa Apprenticeship (amendment) Act, 2012</li><li><strong>Act</strong>: The Khyber Pakhtunkhwa Borstal Institutions Act, 2012</li><li><strong>Act</strong>: The Khyber Pakhtunkhwa Cessation of Payment of Arrears on Advance Increments on Higher Educational Qualification Act, 2012</li><li><strong>Act</strong>: The Khyber Pakhtunkhwa Disabled Persons (employment and Rehabilitation) (amendment) Act, 2012</li><li><em>...and 11 more instruments</em></li></ul>
+                <ul><li><strong>Act</strong>: The Khyber Pakhtunkhwa Apprenticeship (amendment) Act, 2012</li><li><strong>Act</strong>: The Khyber Pakhtunkhwa Borstal Institutions Act, 2012</li><li><strong>Act</strong>: The Khyber Pakhtunkhwa Cessation of Payment of Arrears on Advance Increments on Higher Educational Qualification Act, 2012</li><li><strong>Act</strong>: The Disabled Persons (employment and Rehabilitation) Ordinance, 1981</li><li><em>...and 11 more instruments</em></li></ul>
             </div>
         </div>
         <div class="timeline-card" data-year="2013">
@@ -1621,7 +1685,7 @@
         </div>
     </div>
 
-    <!-- TAB 3: DEPARTMENT DIRECTORY -->
+    <!-- TAB 4: DEPARTMENT DIRECTORY -->
     <div id="tabDept" class="tab-content">
         <h2 style="color: #1F4E78; margin-bottom: 1rem;">Provincial Enforcing Departmental Directory</h2>
         <div class="dept-grid">
@@ -1703,7 +1767,22 @@
             document.querySelectorAll(".tab-btn").forEach(el => el.classList.remove("active"));
             
             document.getElementById(tabId).classList.add("active");
-            event.currentTarget.classList.add("active");
+            
+            // Find tab button by onclick target
+            const btns = document.querySelectorAll(".tab-btn");
+            btns.forEach(btn => {
+                if (btn.getAttribute("onclick") && btn.getAttribute("onclick").includes(tabId)) {
+                    btn.classList.add("active");
+                }
+            });
+        }
+
+        // Execute search from Home tab
+        function executeHomeSearch() {
+            const val = document.getElementById("homeSearchInput").value;
+            switchTab('tabInventory');
+            document.getElementById("searchInput").value = val;
+            applyFilters();
         }
 
         // Dark Mode Toggle

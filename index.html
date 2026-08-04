@@ -133,6 +133,7 @@
         .btn-sm { text-decoration: none; color: white; padding: 0.5rem 0.8rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.3rem; border: none; cursor: pointer; min-height: 38px; }
         .btn-preview { background: #3B82F6; }
         .btn-brief { background: #8B5CF6; }
+        .btn-tree { background: #059669; }
         .btn-drive { background: #10B981; }
         .btn-pdf { background: #64748B; }
 
@@ -168,6 +169,18 @@
         .brief-field { margin-bottom: 0.5rem; }
         .brief-field strong { color: #475569; display: block; font-size: 0.8rem; text-transform: uppercase; }
 
+        /* Hierarchy Tree Flowchart Modal Styles */
+        .tree-container { background: white; color: #1E293B; padding: 2rem; max-width: 900px; margin: 1rem auto; border-radius: 10px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+        .parent-act-node { background: #1F4E78; color: white; padding: 1.5rem; border-radius: 10px; margin-bottom: 2rem; position: relative; text-align: center; box-shadow: 0 4px 12px rgba(31,78,120,0.25); }
+        .parent-act-node h2 { font-size: 1.35rem; font-weight: 800; margin-bottom: 0.3rem; }
+        .parent-act-node p { opacity: 0.9; font-size: 0.95rem; }
+
+        .sub-tree-list { display: flex; flex-direction: column; gap: 1rem; position: relative; padding-left: 2rem; border-left: 4px solid #10B981; }
+        .sub-node-card { background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; padding: 1.2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; transition: transform 0.15s, box-shadow 0.15s; }
+        .sub-node-card:hover { transform: translateX(4px); box-shadow: 0 4px 10px rgba(0,0,0,0.06); border-color: #10B981; }
+        .sub-node-info h4 { font-size: 1.05rem; color: #0F172A; margin-bottom: 0.3rem; }
+        .sub-node-info p { font-size: 0.88rem; color: #64748B; line-height: 1.5; }
+
         /* MOBILE RESPONSIVE MEDIA QUERIES */
         @media (max-width: 768px) {
             body { padding: 1rem; }
@@ -186,8 +199,9 @@
 
             .modal-content { width: 100%; height: 95%; }
             .modal-header h3 { max-width: 50%; font-size: 0.9rem; }
-            .brief-paper { padding: 1.2rem; }
+            .brief-paper, .tree-container { padding: 1.2rem; }
             .campus-banner-img { height: 180px; }
+            .sub-tree-list { padding-left: 1rem; }
         }
 
         @media (max-width: 480px) {
@@ -354,32 +368,36 @@
             <span class="badge badge-act">Act</span>
             <h3>The North-West Frontier Province Civil Courts (amendment) Act, 2009</h3>
             <p>Enacts statutory provisions for judicial administration, legal proceedings, court jurisdiction, and public ombudsman oversight.</p>
-            <div style="margin-top: 1rem; display: flex; gap: 0.5rem;">
+            <div style="margin-top: 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
                 <button class="btn-sm btn-preview" onclick="openPreview('The North-West Frontier Province Civil Courts (amendment) Act, 2009', 'completed/Civil-Courts-Amendment-Act-2009-Act.pdf', 'https://drive.google.com/file/d/1QPjaPn12LZPOZGJK782ZDXF8sDBWs4B-/view?usp=sharing')">Preview Document</button>
+                
             </div>
         </div>
         <div class="feature-card">
             <span class="badge badge-act">Act</span>
             <h3>The Code of Criminal Procedure (north-West Frontier Province) (amendment) Act, 2008</h3>
             <p>Enacts statutory provisions for judicial administration, legal proceedings, court jurisdiction, and public ombudsman oversight.</p>
-            <div style="margin-top: 1rem; display: flex; gap: 0.5rem;">
+            <div style="margin-top: 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
                 <button class="btn-sm btn-preview" onclick="openPreview('The Code of Criminal Procedure (north-West Frontier Province) (amendment) Act, 2008', 'completed/Code of Criminal Procedure.pdf', 'https://drive.google.com/file/d/1cPf8j9w2PRsupgkAWcNICRiTwIP2fO9T/view?usp=sharing')">Preview Document</button>
+                
             </div>
         </div>
         <div class="feature-card">
             <span class="badge badge-act">Act</span>
             <h3>The North-West Frontier Province Establishment of District Development Advisory Committees (amendment) Act, 2010</h3>
             <p>Official act establishing regulatory standards and administrative compliance for provincial public policy.</p>
-            <div style="margin-top: 1rem; display: flex; gap: 0.5rem;">
+            <div style="margin-top: 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
                 <button class="btn-sm btn-preview" onclick="openPreview('The North-West Frontier Province Establishment of District Development Advisory Committees (amendment) Act, 2010', 'completed/Establishment-Of-District-Development-Advisory-Committees-Amendment-Act-2010-Act.pdf', 'https://drive.google.com/file/d/1JchhXBusmbP292FvttKM2OPgzWD4RtFl/view?usp=sharing')">Preview Document</button>
+                
             </div>
         </div>
         <div class="feature-card">
             <span class="badge badge-act">Act</span>
             <h3>The North-West Frontier Province Establishment of a Commission on the Status of Women Act, 2009</h3>
             <p>Enforces legal protection of fundamental rights, social welfare administration, human rights safeguards, and community support.</p>
-            <div style="margin-top: 1rem; display: flex; gap: 0.5rem;">
+            <div style="margin-top: 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
                 <button class="btn-sm btn-preview" onclick="openPreview('The North-West Frontier Province Establishment of a Commission on the Status of Women Act, 2009', 'completed/Establishment-of-A-Commission-On-The-Status-Of-Women-Act.pdf', 'https://drive.google.com/file/d/1rbOgPVLZ59mRZhyBaojFaqG8dlJ5MtEw/view?usp=sharing')">Preview Document</button>
+                
             </div>
         </div>
         </div>
@@ -464,6 +482,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('Checklist Notification for Local Government &amp; Rural Development Department', 'completed/Checklist-Notification.pdf', 'https://drive.google.com/file/d/11-q5Ty9XGl5-NajhHF2LioSLVfU4VLJb/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('Checklist Notification for Local Government &amp; Rural Development Department', 'Notification', 'Governance', 'Local Government, Elections and Rural Development Department, Government of Khyber Pakhtunkhwa', '12th December, 2017', 'Establishes statutory framework, administrative procedures, and governance rules for local councils and local government authorities in Khyber Pakhtunkhwa.')">Brief</button>
+                            <button class="btn-sm btn-tree" onclick="openHierarchyModal('The North-West Frontier Province Local Government (Amendment) Act, 2008')">🔗 Parent Act</button>
                             <a href="https://drive.google.com/file/d/11-q5Ty9XGl5-NajhHF2LioSLVfU4VLJb/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -478,6 +497,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('Citizen Engagement in Development Planning Manual for Village and Neighbourhood Councils', 'completed/Citizen-Engagement-in-Development-Planning-Manual-VCNC-English-Version.pdf', 'https://drive.google.com/file/d/1WipNcOH9xvDnzcpgJDw9cABIdITWP7q7/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('Citizen Engagement in Development Planning Manual for Village and Neighbourhood Councils', 'Manual / Guide', 'Governance', 'Local Government, Elections and Rural Development Department, Government of Khyber Pakhtunkhwa', '1st May, 2017', 'Establishes statutory framework, administrative procedures, and governance rules for local councils and local government authorities in Khyber Pakhtunkhwa.')">Brief</button>
+                            <button class="btn-sm btn-tree" onclick="openHierarchyModal('The North-West Frontier Province Local Government (Amendment) Act, 2008')">🔗 Parent Act</button>
                             <a href="https://drive.google.com/file/d/1WipNcOH9xvDnzcpgJDw9cABIdITWP7q7/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -492,6 +512,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The North-West Frontier Province Civil Courts (amendment) Act, 2009', 'completed/Civil-Courts-Amendment-Act-2009-Act.pdf', 'https://drive.google.com/file/d/1QPjaPn12LZPOZGJK782ZDXF8sDBWs4B-/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The North-West Frontier Province Civil Courts (amendment) Act, 2009', 'Act', 'Law & Justice', 'Provincial Assembly of North-West Frontier Province', '4th February, 2009', 'Enacts statutory provisions for judicial administration, legal proceedings, court jurisdiction, and public ombudsman oversight.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/1QPjaPn12LZPOZGJK782ZDXF8sDBWs4B-/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -506,6 +527,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Code of Criminal Procedure (north-West Frontier Province) (amendment) Act, 2008', 'completed/Code of Criminal Procedure.pdf', 'https://drive.google.com/file/d/1cPf8j9w2PRsupgkAWcNICRiTwIP2fO9T/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Code of Criminal Procedure (north-West Frontier Province) (amendment) Act, 2008', 'Act', 'Law & Justice', 'Provincial Assembly of North-West Frontier Province', '24th September, 2008', 'Enacts statutory provisions for judicial administration, legal proceedings, court jurisdiction, and public ombudsman oversight.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/1cPf8j9w2PRsupgkAWcNICRiTwIP2fO9T/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -520,6 +542,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('Representation and Composition Matrix for District, Tehsil, Village and Neighbourhood Councils (annex-C)', 'completed/District-Councils-Tehsil-Councils-Village-and-Neighbourhood-Councils-Annex-C.pdf', 'https://drive.google.com/file/d/1jrM0FRkU4gCp78YA9zq6xzlURJZnrWAw/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('Representation and Composition Matrix for District, Tehsil, Village and Neighbourhood Councils (annex-C)', 'Policy Schedule', 'Governance', 'Provincial Assembly of Khyber Pakhtunkhwa', '1st January, 2015', 'Establishes statutory framework, administrative procedures, and governance rules for local councils and local government authorities in Khyber Pakhtunkhwa.')">Brief</button>
+                            <button class="btn-sm btn-tree" onclick="openHierarchyModal('The North-West Frontier Province Local Government (Amendment) Act, 2008')">🔗 Parent Act</button>
                             <a href="https://drive.google.com/file/d/1jrM0FRkU4gCp78YA9zq6xzlURJZnrWAw/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -534,6 +557,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The North-West Frontier Province Establishment of District Development Advisory Committees (amendment) Act, 2010', 'completed/Establishment-Of-District-Development-Advisory-Committees-Amendment-Act-2010-Act.pdf', 'https://drive.google.com/file/d/1JchhXBusmbP292FvttKM2OPgzWD4RtFl/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The North-West Frontier Province Establishment of District Development Advisory Committees (amendment) Act, 2010', 'Act', 'Governance', 'Local Government, Elections and Rural Development Department, Government of Khyber Pakhtunkhwa', '17th September, 2010', 'Official act establishing regulatory standards and administrative compliance for provincial public policy.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/1JchhXBusmbP292FvttKM2OPgzWD4RtFl/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -548,6 +572,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The North-West Frontier Province Establishment of a Commission on the Status of Women Act, 2009', 'completed/Establishment-of-A-Commission-On-The-Status-Of-Women-Act.pdf', 'https://drive.google.com/file/d/1rbOgPVLZ59mRZhyBaojFaqG8dlJ5MtEw/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The North-West Frontier Province Establishment of a Commission on the Status of Women Act, 2009', 'Act', 'Social Welfare & Human Rights', 'Provincial Assembly of North-West Frontier Province', '28th October. 2009', 'Enforces legal protection of fundamental rights, social welfare administration, human rights safeguards, and community support.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/1rbOgPVLZ59mRZhyBaojFaqG8dlJ5MtEw/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -562,6 +587,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The North-West Frontier Province Finance Act, 2008', 'completed/Finance Act.pdf', 'https://drive.google.com/file/d/1dizgkp95qSvFkK-oXSg091v4XGWLMv87/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The North-West Frontier Province Finance Act, 2008', 'Act', 'Finance & Taxation', 'Provincial Assembly of North-West Frontier Province', '3rd July, 2008', 'Establishes provincial fiscal policy, taxation mechanisms, revenue collection framework, and banking governance.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/1dizgkp95qSvFkK-oXSg091v4XGWLMv87/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -576,6 +602,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('General Powers and Standard Procedures for Guidance of Local Governments Notification', 'completed/General-Powers-and-Standard-Procedures-for-Guidance-of-LGs.pdf', 'https://drive.google.com/file/d/1EyHjzNbvhRjF9M10iOlAJTEy9-c3lRTr/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('General Powers and Standard Procedures for Guidance of Local Governments Notification', 'Notification / Guidelines', 'Governance', 'Local Government, Elections and Rural Development Department, Government of Khyber Pakhtunkhwa', '20th August, 2015', 'Establishes statutory framework, administrative procedures, and governance rules for local councils and local government authorities in Khyber Pakhtunkhwa.')">Brief</button>
+                            <button class="btn-sm btn-tree" onclick="openHierarchyModal('The North-West Frontier Province Local Government (Amendment) Act, 2008')">🔗 Parent Act</button>
                             <a href="https://drive.google.com/file/d/1EyHjzNbvhRjF9M10iOlAJTEy9-c3lRTr/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -590,6 +617,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('Guidelines for Transition and Succession of Local Governments Under Khyber Pakhtunkhwa Local Government Act, 2013', 'completed/Guidelines-for-transition-and-succession-of-LGs-under-KP-LGA-2013.pdf', 'https://drive.google.com/file/d/1ZJeBzlzllKUwW3w6llLIKSiUnLkNha-T/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('Guidelines for Transition and Succession of Local Governments Under Khyber Pakhtunkhwa Local Government Act, 2013', 'Guidelines', 'Governance', 'Local Government, Elections and Rural Development Department, Government of Khyber Pakhtunkhwa', '12th June, 2015', 'Establishes statutory framework, administrative procedures, and governance rules for local councils and local government authorities in Khyber Pakhtunkhwa.')">Brief</button>
+                            <button class="btn-sm btn-tree" onclick="openHierarchyModal('The North-West Frontier Province Local Government (Amendment) Act, 2008')">🔗 Parent Act</button>
                             <a href="https://drive.google.com/file/d/1ZJeBzlzllKUwW3w6llLIKSiUnLkNha-T/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -604,6 +632,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Medical University (amendment) Act, 2008', 'completed/KMU ACT.pdf', 'https://drive.google.com/file/d/1qVIbRRvLVzwPj5gDanfuEpgm9YV9gtLz/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Medical University (amendment) Act, 2008', 'Act', 'Higher Education', 'Provincial Assembly of North-West Frontier Province', '26th September, 2008', 'Provides legal authority for academic governance, institutional administration, faculty regulation, and educational standards.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/1qVIbRRvLVzwPj5gDanfuEpgm9YV9gtLz/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -618,6 +647,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa City and Tehsil Local Government Rules of Business, 2022', 'completed/Khyber_Pakhtunkhwa_CityTehsil_Local_Government_Rules_of_Business_2022.pdf', 'https://drive.google.com/file/d/1ro5nW1N3erL4TTZbna08TsoQynzMo7is/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa City and Tehsil Local Government Rules of Business, 2022', 'Rules of Business', 'Governance', 'Local Government, Elections and Rural Development Department, Government of Khyber Pakhtunkhwa', '23rd June, 2022', 'Establishes statutory framework, administrative procedures, and governance rules for local councils and local government authorities in Khyber Pakhtunkhwa.')">Brief</button>
+                            <button class="btn-sm btn-tree" onclick="openHierarchyModal('The North-West Frontier Province Local Government (Amendment) Act, 2008')">🔗 Parent Act</button>
                             <a href="https://drive.google.com/file/d/1ro5nW1N3erL4TTZbna08TsoQynzMo7is/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -632,6 +662,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The North-West Frontier Province Local Government (amendment) Act, 2008', 'completed/LOcal Gov Act.pdf', 'https://drive.google.com/file/d/1m18d-UeaLNHFlsNZIio0BshMtQWoNRp6/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The North-West Frontier Province Local Government (amendment) Act, 2008', 'Act', 'Governance', 'Local Government, Elections and Rural Development Department, Government of Khyber Pakhtunkhwa', '24th September, 2008', 'Establishes statutory framework, administrative procedures, and governance rules for local councils and local government authorities in Khyber Pakhtunkhwa.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/1m18d-UeaLNHFlsNZIio0BshMtQWoNRp6/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -646,6 +677,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Local Government Commission (conduct of Business) Rules, 2015', 'completed/Local_Government_Commission_Conduct_of_Business_Rules,_2015 (for act 2015).pdf', 'https://drive.google.com/file/d/1RefNO9kO1Vva3qzLFhvvY4oovIspSKQf/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Local Government Commission (conduct of Business) Rules, 2015', 'Rules', 'Governance', 'Local Government, Elections and Rural Development Department, Government of Khyber Pakhtunkhwa', '27th May, 2015', 'Establishes statutory framework, administrative procedures, and governance rules for local councils and local government authorities in Khyber Pakhtunkhwa.')">Brief</button>
+                            <button class="btn-sm btn-tree" onclick="openHierarchyModal('The North-West Frontier Province Local Government (Amendment) Act, 2008')">🔗 Parent Act</button>
                             <a href="https://drive.google.com/file/d/1RefNO9kO1Vva3qzLFhvvY4oovIspSKQf/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -660,6 +692,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The North-West Frontier Province Medical and Health Institutions and Regulation of Health-Care Services (amendment) Act, 2010', 'completed/Medical-And-Health-Institutions-And-Regulation-Of-Health-Care-Services-Amendment-Act-2010-Act-No.-VII-2010.pdf', 'https://drive.google.com/file/d/1dPWgZubRFdDLVJYTE7YixrjCbCbRLgQI/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The North-West Frontier Province Medical and Health Institutions and Regulation of Health-Care Services (amendment) Act, 2010', 'Act', 'Health', 'Provincial Assembly of North-West Frontier Province', '20th March, 2010', 'Regulates healthcare service delivery, medical institution governance, and clinical regulatory standards across the province.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/1dPWgZubRFdDLVJYTE7YixrjCbCbRLgQI/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -674,6 +707,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The North-West Frontier Province Ministers (salaries, Allowances and Privileges) (second Amendment) Act, 2009', 'completed/Ministers (Salaries , Allowances And Privileges) (Second Amendment) Act, 2009.pdf', 'https://drive.google.com/file/d/1jxvAIGuGPb4X2GzZ-IvnSDZIUakPp51o/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The North-West Frontier Province Ministers (salaries, Allowances and Privileges) (second Amendment) Act, 2009', 'Act', 'Governance', 'Provincial Assembly of North-West Frontier Province', '30th January. 2009', 'Official act establishing regulatory standards and administrative compliance for provincial public policy.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/1jxvAIGuGPb4X2GzZ-IvnSDZIUakPp51o/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -688,6 +722,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('Model By-Laws for Fruit and Vegetable Markets (local Council Board)', 'completed/Model-By-Laws-with-Covering-letter-for-FV-Market.pdf', 'https://drive.google.com/file/d/1cXgpexnwN1pCOO3T5P8tfnVdo3BY7gJw/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('Model By-Laws for Fruit and Vegetable Markets (local Council Board)', 'By-Laws', 'Law & Justice', 'Local Government, Elections and Rural Development Department, Government of Khyber Pakhtunkhwa', '15th March, 2016', 'Establishes statutory framework, administrative procedures, and governance rules for local councils and local government authorities in Khyber Pakhtunkhwa.')">Brief</button>
+                            <button class="btn-sm btn-tree" onclick="openHierarchyModal('The North-West Frontier Province Local Government (Amendment) Act, 2008')">🔗 Parent Act</button>
                             <a href="https://drive.google.com/file/d/1cXgpexnwN1pCOO3T5P8tfnVdo3BY7gJw/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -702,6 +737,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The North-West Frontier Province Maintenance of Public Order (amendment) Act, 2008', 'completed/North West Frontier Province Maintenance of Public Order Amendment.pdf', 'https://drive.google.com/file/d/154xdEhQSn9VgonxOzjSip8AWicj1TJa1/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The North-West Frontier Province Maintenance of Public Order (amendment) Act, 2008', 'Act', 'Public Safety & Security', 'Provincial Assembly of North-West Frontier Province', '24th September, 2008', 'Official act establishing regulatory standards and administrative compliance for provincial public policy.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/154xdEhQSn9VgonxOzjSip8AWicj1TJa1/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -716,6 +752,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The North-West Frontier Province Civil Servants (amendment) Act, 2009', 'completed/Province-Civil-Servants-Amendment-Act-2009-Act.pdf', 'https://drive.google.com/file/d/1_3pNI0Wz2izdeAIwWbvFZkgf_2NAOZD4/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The North-West Frontier Province Civil Servants (amendment) Act, 2009', 'Act', 'Industries & Commerce', 'Provincial Assembly of North-West Frontier Province', '28th March, 2009', 'Official act establishing regulatory standards and administrative compliance for provincial public policy.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/1_3pNI0Wz2izdeAIwWbvFZkgf_2NAOZD4/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -730,6 +767,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The North-West Frontier Province Land Laws (second Amendment) Act, 2009', 'completed/Province-Land-Laws-Second-Amendment-Act-2009-Act.pdf', 'https://drive.google.com/file/d/1_jaEbUnYqJbjSQfv41wUPtLtqRZJmn_4/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The North-West Frontier Province Land Laws (second Amendment) Act, 2009', 'Act', 'Law & Justice', 'Provincial Assembly of North-West Frontier Province', '4th February, 2009', 'Official act establishing regulatory standards and administrative compliance for provincial public policy.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/1_jaEbUnYqJbjSQfv41wUPtLtqRZJmn_4/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -744,6 +782,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The North-West Frontier Province Local Government (second Amendment) Act, 2009', 'completed/Province-Local-Government-Second-Amendment.pdf', 'https://drive.google.com/file/d/1l1FclYSzPdYI9wlJuZr0Nxm8gmNefgMc/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The North-West Frontier Province Local Government (second Amendment) Act, 2009', 'Act', 'Governance', 'Local Government, Elections and Rural Development Department, Government of Khyber Pakhtunkhwa', '24th October, 2009', 'Establishes statutory framework, administrative procedures, and governance rules for local councils and local government authorities in Khyber Pakhtunkhwa.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/1l1FclYSzPdYI9wlJuZr0Nxm8gmNefgMc/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -758,6 +797,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The North-West Frontier Province Salaries, Allowances and Privileges Laws (amendment) Act, 2009', 'completed/Salaries , Allowances And Privileges Laws (Amendment) Act, 2009.pdf', 'https://drive.google.com/file/d/1ku22D1l9vOLdxQYCrYsC7bbLyK3aw0e4/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The North-West Frontier Province Salaries, Allowances and Privileges Laws (amendment) Act, 2009', 'Act', 'Law & Justice', 'Provincial Assembly of North-West Frontier Province', '4th February, 2009', 'Official act establishing regulatory standards and administrative compliance for provincial public policy.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/1ku22D1l9vOLdxQYCrYsC7bbLyK3aw0e4/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -772,6 +812,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The North-West Frontier Province Sales Tax (amendment) Act, 2009', 'completed/Sales-Tax-Amendment-Act-2009-Act.pdf', 'https://drive.google.com/file/d/1hj6Ea-2VtuQjKsv8_BNNSKwsBt0OHXle/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The North-West Frontier Province Sales Tax (amendment) Act, 2009', 'Act', 'Finance & Taxation', 'Provincial Assembly of North-West Frontier Province', '19th March 2009', 'Establishes provincial fiscal policy, taxation mechanisms, revenue collection framework, and banking governance.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/1hj6Ea-2VtuQjKsv8_BNNSKwsBt0OHXle/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -786,6 +827,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Sarhad Development Authority Mineral Wing (taking-Over) Act, 2009', 'completed/Sarhad Development Authority Mineral Wing (Taking-Over) Act, 2009.pdf', 'https://drive.google.com/file/d/1BTgeXjrGoOw_B1DXi3egUtwxwUve-gjQ/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Sarhad Development Authority Mineral Wing (taking-Over) Act, 2009', 'Act', 'Industries & Commerce', 'Provincial Assembly of North-West Frontier Province', '31st January, 2009', 'Official act establishing regulatory standards and administrative compliance for provincial public policy.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/1BTgeXjrGoOw_B1DXi3egUtwxwUve-gjQ/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -800,6 +842,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('Service Rules of Directorate General Local Government and Rural Development Department', 'completed/Service-Rules-of-Directorate-General-LGRDD-updated.pdf', 'https://drive.google.com/file/d/1fA-qjUnUxfFUdtaLX3kvk_l929ARSEie/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('Service Rules of Directorate General Local Government and Rural Development Department', 'Rules', 'Finance & Taxation', 'Local Government, Elections and Rural Development Department, Government of Khyber Pakhtunkhwa', '12th June, 2019', 'Establishes statutory framework, administrative procedures, and governance rules for local councils and local government authorities in Khyber Pakhtunkhwa.')">Brief</button>
+                            <button class="btn-sm btn-tree" onclick="openHierarchyModal('The North-West Frontier Province Local Government (Amendment) Act, 2008')">🔗 Parent Act</button>
                             <a href="https://drive.google.com/file/d/1fA-qjUnUxfFUdtaLX3kvk_l929ARSEie/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -814,6 +857,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Tehsil Local Government Rules of Business, 2021', 'completed/Tehsil-Local-Government-RoBs-2021-with-covering-letter.pdf', 'https://drive.google.com/file/d/1r5wjC-eR0C9Q-ZL4sHLlWjnic4dNwMIi/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Tehsil Local Government Rules of Business, 2021', 'Rules of Business', 'Law & Justice', 'Law, Parliamentary Affairs and Human Rights Department, Government of Khyber Pakhtunkhwa', '10th December, 2021', 'Establishes statutory framework, administrative procedures, and governance rules for local councils and local government authorities in Khyber Pakhtunkhwa.')">Brief</button>
+                            <button class="btn-sm btn-tree" onclick="openHierarchyModal('The North-West Frontier Province Local Government (Amendment) Act, 2008')">🔗 Parent Act</button>
                             <a href="https://drive.google.com/file/d/1r5wjC-eR0C9Q-ZL4sHLlWjnic4dNwMIi/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -828,6 +872,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Islamia College Peshawar Act, 2009', 'completed/The Islamia College Peshawar Act, 2009.pdf', 'https://drive.google.com/file/d/1ARrYZyUWB7hM9HR7t9oZmGcNaAR8aXYL/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Islamia College Peshawar Act, 2009', 'Act', 'Higher Education', 'Senate of Pakistan', '18th February, 2009', 'Provides legal authority for academic governance, institutional administration, faculty regulation, and educational standards.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/1ARrYZyUWB7hM9HR7t9oZmGcNaAR8aXYL/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -842,6 +887,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Paraplegic Centre (taking Over and Re-Establishment) Act, 2009', 'completed/The Paraplegic Centre Taking.pdf', 'https://drive.google.com/file/d/1C2kz78sRv7JlT5aqU53EBX4uXKVQdddt/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Paraplegic Centre (taking Over and Re-Establishment) Act, 2009', 'Act', 'Health', 'Provincial Assembly of North-West Frontier Province', '28th October, 2009', 'Regulates healthcare service delivery, medical institution governance, and clinical regulatory standards across the province.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/1C2kz78sRv7JlT5aqU53EBX4uXKVQdddt/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -856,6 +902,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Abasyn University Act, 2009', 'completed/The-Abasyn-University-Act-2009-Act.pdf', 'https://drive.google.com/file/d/1Ycv2H2LBieLDbXKK1Bldo6CxU1eM3CRP/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Abasyn University Act, 2009', 'Act', 'Higher Education', 'Senate of Pakistan', '24th October. 2009', 'Provides legal authority for academic governance, institutional administration, faculty regulation, and educational standards.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/1Ycv2H2LBieLDbXKK1Bldo6CxU1eM3CRP/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -870,6 +917,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Abdul Wali Khan University Mardan Act, 2009', 'completed/The-Abdul-Wali-Khan-University-Mardan-Act-2009-Act.pdf', 'https://drive.google.com/file/d/1LEoDFYAYqP5xhqTau7U3CMYoZqvfLZ4Z/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Abdul Wali Khan University Mardan Act, 2009', 'Act', 'Higher Education', 'Senate of Pakistan', '24th October, 2009', 'Provides legal authority for academic governance, institutional administration, faculty regulation, and educational standards.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/1LEoDFYAYqP5xhqTau7U3CMYoZqvfLZ4Z/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -884,6 +932,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Bank of Khyber (amendment) Act, 2009', 'completed/The-Bank-of-Khyber-Act-2009-Act-No.-XIV-2009-1.pdf', 'https://drive.google.com/file/d/1ld3662tuTJaemjTMGX-EvLCN6xJT4xGy/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Bank of Khyber (amendment) Act, 2009', 'Act', 'Finance & Taxation', 'Provincial Assembly of North-West Frontier Province', '24th October, 2009', 'Establishes provincial fiscal policy, taxation mechanisms, revenue collection framework, and banking governance.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/1ld3662tuTJaemjTMGX-EvLCN6xJT4xGy/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -898,6 +947,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Defence Housing Authority Peshawar Act, 2009', 'completed/The-Defence-Housing-Authority-Peshawar-Act-2009-Act.pdf', 'https://drive.google.com/file/d/1n8zX-Wbp8OZAjMilLk4rhfVVCSBwR8pW/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Defence Housing Authority Peshawar Act, 2009', 'Act', 'Housing & Land Revenue', 'Provincial Assembly of North-West Frontier Province', '24th April, 2009', 'Official act establishing regulatory standards and administrative compliance for provincial public policy.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/1n8zX-Wbp8OZAjMilLk4rhfVVCSBwR8pW/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -912,6 +962,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Defence Housing Authority Peshawar (amendment) Act, 2010', 'completed/The-Defence-Housing-Authority-Peshawar-Amendment-Act-2010-Act-No.-II-2010.pdf', 'https://drive.google.com/file/d/1ZjXpw0VZDy_r-sQgDS5tbJM65QO1z1yM/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Defence Housing Authority Peshawar (amendment) Act, 2010', 'Act', 'Housing & Land Revenue', 'Provincial Assembly of North-West Frontier Province', '23rd January, 2010', 'Official act establishing regulatory standards and administrative compliance for provincial public policy.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/1ZjXpw0VZDy_r-sQgDS5tbJM65QO1z1yM/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -926,6 +977,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The District Council (procedure and Conduct of Business and Meetings) Model By-Laws, 2015', 'completed/The-District-Council-Model-Bye-laws-2015-Procedures-and-Conduct-of-Business-and-Meetings.pdf', 'https://drive.google.com/file/d/1sJipdag62L111n30woaWqcxbtzOt8B6H/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The District Council (procedure and Conduct of Business and Meetings) Model By-Laws, 2015', 'By-Laws', 'Law & Justice', 'Local Government, Elections and Rural Development Department, Government of Khyber Pakhtunkhwa', '15th August, 2015', 'Establishes statutory framework, administrative procedures, and governance rules for local councils and local government authorities in Khyber Pakhtunkhwa.')">Brief</button>
+                            <button class="btn-sm btn-tree" onclick="openHierarchyModal('The North-West Frontier Province Local Government (Amendment) Act, 2008')">🔗 Parent Act</button>
                             <a href="https://drive.google.com/file/d/1sJipdag62L111n30woaWqcxbtzOt8B6H/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -940,6 +992,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Gomal University (amendment) Act, 2011', 'completed/The-Gomal-University-Amendment-Act-2011-Act-No.-II-2011.pdf', 'https://drive.google.com/file/d/1cVoTBCW6tV1TZPLiMIT_ytn00uIDijPr/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Gomal University (amendment) Act, 2011', 'Act', 'Higher Education', 'Provincial Assembly of Khyber Pakhtunkhwa', '19th January, 2011', 'Provides legal authority for academic governance, institutional administration, faculty regulation, and educational standards.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/1cVoTBCW6tV1TZPLiMIT_ytn00uIDijPr/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -954,6 +1007,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Iqra National University Act, 2011', 'completed/The-Iqra-National-University-Act-2011-Act-No.-V-2011.pdf', 'https://drive.google.com/file/d/1TwPa4fjC-WC8dW5Kmr7lE5sB5HG3pFSt/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Iqra National University Act, 2011', 'Act', 'Higher Education', 'Senate of Pakistan', '23rd April, 2011', 'Provides legal authority for academic governance, institutional administration, faculty regulation, and educational standards.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/1TwPa4fjC-WC8dW5Kmr7lE5sB5HG3pFSt/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -968,6 +1022,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Model Building By-Laws, 2017', 'completed/The-KP-Model-Building-Bye-laws-2017.pdf', 'https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Model Building By-Laws, 2017', 'By-Laws', 'Law & Justice', 'Local Government, Elections and Rural Development Department, Government of Khyber Pakhtunkhwa', '1st September, 2017', 'Official by-laws establishing regulatory standards and administrative compliance for provincial public policy.')">Brief</button>
+                            <button class="btn-sm btn-tree" onclick="openHierarchyModal('The North-West Frontier Province Local Government (Amendment) Act, 2008')">🔗 Parent Act</button>
                             <a href="https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -982,6 +1037,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Appointment, Deputation, Posting and Transfer of Teachers, Lecturers, Instructors and Doctors Regulatory Act, 2011', 'completed/The-Khyber-Pakhtunkhwa-Appointment-Deputation-Posting-And-Transfer-Of-Teachers-Lecturers-Instructors-And-Doctors-Regulatory-Act-2011-Act-No.-XII-2011.pdf', 'https://drive.google.com/file/d/1b-al3Ci1e7Km7FllB72cpkTz7kCLh3a4/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Appointment, Deputation, Posting and Transfer of Teachers, Lecturers, Instructors and Doctors Regulatory Act, 2011', 'Act', 'Higher Education', 'Provincial Assembly of Khyber Pakhtunkhwa', '12th May, 2011', 'Provides legal authority for academic governance, institutional administration, faculty regulation, and educational standards.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/1b-al3Ci1e7Km7FllB72cpkTz7kCLh3a4/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -996,6 +1052,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Appointment of Certain Lecturers Act, 2011', 'completed/The-Khyber-Pakhtunkhwa-Appointment-Of-Certain-Lectures-Act-2011-Act-No.-XV-2011 (1).pdf', 'https://drive.google.com/file/d/18Qz4QbJ9bZZ_WXLfaUAr3Y2720p3GM49/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Appointment of Certain Lecturers Act, 2011', 'Act', 'Higher Education', 'Provincial Assembly of Khyber Pakhtunkhwa', '27th September, 2011', 'Provides legal authority for academic governance, institutional administration, faculty regulation, and educational standards.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/18Qz4QbJ9bZZ_WXLfaUAr3Y2720p3GM49/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1010,6 +1067,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Appointment of Certain Lecturers Act, 2011', 'completed/The-Khyber-Pakhtunkhwa-Appointment-Of-Certain-Lectures-Act-2011-Act-No.-XV-2011.pdf', 'https://drive.google.com/file/d/1VbZupUm-u2ENgujpMYR8VzfKWKmIlYlM/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Appointment of Certain Lecturers Act, 2011', 'Act', 'Higher Education', 'Provincial Assembly of Khyber Pakhtunkhwa', '27th September, 2011', 'Provides legal authority for academic governance, institutional administration, faculty regulation, and educational standards.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/1VbZupUm-u2ENgujpMYR8VzfKWKmIlYlM/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1024,6 +1082,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Apprenticeship (amendment) Act, 2012', 'completed/The-Khyber-Pakhtunkhwa-Apprenticeship-Amendment-Act-2012-Act-No.-XII-2012.pdf', 'https://drive.google.com/file/d/1HjHsF4tTYv4-M-8NOt2wcLbfefYV8-ih/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Apprenticeship (amendment) Act, 2012', 'Act', 'Industries & Commerce', 'Provincial Assembly of Khyber Pakhtunkhwa', '20th September, 2012', 'Official act establishing regulatory standards and administrative compliance for provincial public policy.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/1HjHsF4tTYv4-M-8NOt2wcLbfefYV8-ih/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1038,6 +1097,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Borstal Institutions Act, 2012', 'completed/The-Khyber-Pakhtunkhwa-Borstal-Institutions-Act-2012-Act-no.-XIV-2012.pdf', 'https://drive.google.com/file/d/1DzfR0ipXsSCuQtW9OKkdGonqUJQNp0eS/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Borstal Institutions Act, 2012', 'Act', 'Public Safety & Security', 'Provincial Assembly of Khyber Pakhtunkhwa', '20th September, 2012', 'Official act establishing regulatory standards and administrative compliance for provincial public policy.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/1DzfR0ipXsSCuQtW9OKkdGonqUJQNp0eS/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1052,6 +1112,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Cessation of Payment of Arrears on Advance Increments on Higher Educational Qualification Act, 2012', 'completed/The-Khyber-Pakhtunkhwa-Cessation-Of-Payment-Of-Arrears-On-Advance-Increments-On-Higher-Educational-Qualificatiom-Act-2012-Act-No.-IX-2012.pdf', 'https://drive.google.com/file/d/1KxJiQEAP-8oYmSTQ9LgXOyhIXizG3OhE/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Cessation of Payment of Arrears on Advance Increments on Higher Educational Qualification Act, 2012', 'Act', 'Higher Education', 'Provincial Assembly of Khyber Pakhtunkhwa', '15th May, 2012', 'Provides legal authority for academic governance, institutional administration, faculty regulation, and educational standards.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/1KxJiQEAP-8oYmSTQ9LgXOyhIXizG3OhE/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1066,6 +1127,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Chashma Right Bank Canal (lift-Cum-Gravity) Project (control and Prevention of Speculation in Land) Act, 2010', 'completed/The-Khyber-Pakhtunkhwa-Chashma-Right-Bank-Canal-Lift-Cum-Gravity-Project-Control-And-Prevention-Of-Speculation-In-Land-Act-2010.pdf', 'https://drive.google.com/file/d/1-tEQlklg_O0RzWOMExxqRmpUfvrGI_1E/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Chashma Right Bank Canal (lift-Cum-Gravity) Project (control and Prevention of Speculation in Land) Act, 2010', 'Act', 'Finance & Taxation', 'Provincial Assembly of Khyber Pakhtunkhwa', '20th October, 2010', 'Establishes provincial fiscal policy, taxation mechanisms, revenue collection framework, and banking governance.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/1-tEQlklg_O0RzWOMExxqRmpUfvrGI_1E/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1080,6 +1142,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Child Protection and Welfare Act, 2010', 'completed/The-Khyber-Pakhtunkhwa-Child-Protection-And-Welfare-Act-2010-Act.pdf', 'https://drive.google.com/file/d/10mifWsmPhhGLDEEdcX0x4HyiDSO_Vkmn/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Child Protection and Welfare Act, 2010', 'Act', 'Social Welfare & Human Rights', 'Local Government, Elections and Rural Development Department, Government of Khyber Pakhtunkhwa', '4th October, 2010', 'Enforces legal protection of fundamental rights, social welfare administration, human rights safeguards, and community support.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/10mifWsmPhhGLDEEdcX0x4HyiDSO_Vkmn/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1094,6 +1157,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Disabled Persons (employment and Rehabilitation) (amendment) Act, 2012', 'completed/The-Khyber-Pakhtunkhwa-Disabled-Persons-Employement-And-Rehabilitation-Amendment-Act-2012-Act-No.-XVI-2012.pdf', 'https://drive.google.com/file/d/1TihoTUS7ohOPwxGCsiMO0kff120V009n/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Disabled Persons (employment and Rehabilitation) (amendment) Act, 2012', 'Act', 'Social Welfare & Human Rights', 'Provincial Assembly of Khyber Pakhtunkhwa', '20th September, 2012', 'Enforces legal protection of fundamental rights, social welfare administration, human rights safeguards, and community support.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/1TihoTUS7ohOPwxGCsiMO0kff120V009n/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1108,6 +1172,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Emergency Rescue Service Act, 2012 (rescue 1122)', 'completed/The-Khyber-Pakhtunkhwa-Emergency-Rescue-Service-Act-2012-Act-No.-XV-2012.pdf', 'https://drive.google.com/file/d/1qJy2F1TnfzB-WA40d3EGHPmt5Nkqk7y7/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Emergency Rescue Service Act, 2012 (rescue 1122)', 'Act', 'Public Safety & Security', 'Provincial Assembly of Khyber Pakhtunkhwa', '20th September, 2012', 'Formulates emergency response infrastructure, public safety protocols, correctional services, and hazardous material regulation.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/1qJy2F1TnfzB-WA40d3EGHPmt5Nkqk7y7/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1122,6 +1187,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Enforcement of Women Ownership Rights Act, 2012', 'completed/The-Khyber-Pakhtunkhwa-Enforcement-Of-Women-Ownership-Rights-Act-2012-Act-No.-III-2012.pdf', 'https://drive.google.com/file/d/1m1QSnfFn85ELEivsgZ4syfAKNEGZe_Pd/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Enforcement of Women Ownership Rights Act, 2012', 'Act', 'Social Welfare & Human Rights', 'Provincial Assembly of Khyber Pakhtunkhwa', '17th January, 2012', 'Enforces legal protection of fundamental rights, social welfare administration, human rights safeguards, and community support.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/1m1QSnfFn85ELEivsgZ4syfAKNEGZe_Pd/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1136,6 +1202,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Establishment of Information Technology Board Act, 2011', 'completed/The-Khyber-Pakhtunkhwa-Establishment-Of-Information-Technology-Board-Act-2011-Act-No.-XI-2011.pdf', 'https://drive.google.com/file/d/1KoSNf7trrWWqbXRi8-2yF79sEMcb0MjA/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Establishment of Information Technology Board Act, 2011', 'Act', 'Governance', 'Provincial Assembly of Khyber Pakhtunkhwa', '12th May, 2011', 'Official act establishing regulatory standards and administrative compliance for provincial public policy.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/1KoSNf7trrWWqbXRi8-2yF79sEMcb0MjA/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1150,6 +1217,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Explosives (amendment) Act, 2011', 'completed/The-Khyber-Pakhtunkhwa-Explosives-Amendment-Act-2011-Act-No.-VIII-2011.pdf', 'https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Explosives (amendment) Act, 2011', 'Act', 'Public Safety & Security', 'Provincial Assembly of Khyber Pakhtunkhwa', '9th May, 2011', 'Formulates emergency response infrastructure, public safety protocols, correctional services, and hazardous material regulation.')">Brief</button>
+                            
                             <a href="https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1164,6 +1232,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Extra Assistant Commissioners-Cum-Illaqa Qazis (regularization of Services) Act, 2012', 'completed/The-Khyber-Pakhtunkhwa-Extra-Assistant-Commissioners-Cum-Illaqa-Qazi-Regularization-Of-Services-Act-2012-Act-No.-VII-2012.pdf', 'https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Extra Assistant Commissioners-Cum-Illaqa Qazis (regularization of Services) Act, 2012', 'Act', 'Governance', 'Provincial Assembly of Khyber Pakhtunkhwa', '17th March, 2012', 'Official act establishing regulatory standards and administrative compliance for provincial public policy.')">Brief</button>
+                            
                             <a href="https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1178,6 +1247,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Finance Act, 2010', 'completed/The-Khyber-Pakhtunkhwa-Finance-Act-2010-Act-No.-VIII-2010.pdf', 'https://drive.google.com/file/d/1dizgkp95qSvFkK-oXSg091v4XGWLMv87/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Finance Act, 2010', 'Act', 'Finance & Taxation', 'Provincial Assembly of Khyber Pakhtunkhwa', '5th July, 2010', 'Establishes provincial fiscal policy, taxation mechanisms, revenue collection framework, and banking governance.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/1dizgkp95qSvFkK-oXSg091v4XGWLMv87/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1192,6 +1262,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Finance Act, 2011', 'completed/The-Khyber-Pakhtunkhwa-Finance-Act-2011-Act-No.-XIII-2011.pdf', 'https://drive.google.com/file/d/1dizgkp95qSvFkK-oXSg091v4XGWLMv87/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Finance Act, 2011', 'Act', 'Finance & Taxation', 'Local Government, Elections and Rural Development Department, Government of Khyber Pakhtunkhwa', '5th July, 2011', 'Establishes provincial fiscal policy, taxation mechanisms, revenue collection framework, and banking governance.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/1dizgkp95qSvFkK-oXSg091v4XGWLMv87/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1206,6 +1277,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Government Servants Benevolent Fund (amendment) Act, 2011', 'completed/The-Khyber-Pakhtunkhwa-Government-Servants-Benevolent-Fund-Amendment-Act-2011-Act-No-III-2011.pdf', 'https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Government Servants Benevolent Fund (amendment) Act, 2011', 'Act', 'Social Welfare & Human Rights', 'Provincial Assembly of Khyber Pakhtunkhwa', '25th January, 2011', 'Official act establishing regulatory standards and administrative compliance for provincial public policy.')">Brief</button>
+                            
                             <a href="https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1220,6 +1292,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Highways Authority (amendment) Act, 2011', 'completed/The-Khyber-Pakhtunkhwa-Highways-Authority-Amendment-Act-2011-Act-No-XVI-2011.pdf', 'https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Highways Authority (amendment) Act, 2011', 'Act', 'Transport & Infrastructure', 'Provincial Assembly of Khyber Pakhtunkhwa', '29th September, 2011', 'Official act establishing regulatory standards and administrative compliance for provincial public policy.')">Brief</button>
+                            
                             <a href="https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1234,6 +1307,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Industrial Relations Act, 2010', 'completed/The-Khyber-Pakhtunkhwa-Industrial-Relations-Act-2010-Act-No.pdf', 'https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Industrial Relations Act, 2010', 'Act', 'Law & Justice', 'Provincial Assembly of Khyber Pakhtunkhwa', '13th October, 2010', 'Official act establishing regulatory standards and administrative compliance for provincial public policy.')">Brief</button>
+                            
                             <a href="https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1248,6 +1322,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Industrial Relations Act, 2010', 'completed/The-Khyber-Pakhtunkhwa-Industrial-Relations-Act-2010-Act.pdf', 'https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Industrial Relations Act, 2010', 'Act', 'Law & Justice', 'Provincial Assembly of Khyber Pakhtunkhwa', '13th October, 2010', 'Official act establishing regulatory standards and administrative compliance for provincial public policy.')">Brief</button>
+                            
                             <a href="https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1262,6 +1337,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Judicial Academy Act, 2012', 'completed/The-Khyber-Pakhtunkhwa-Judicial-Academy-Act-2012-Act-No.-IV-2012.pdf', 'https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Judicial Academy Act, 2012', 'Act', 'Higher Education', 'Provincial Assembly of Khyber Pakhtunkhwa', '17th January, 2012', 'Enacts statutory provisions for judicial administration, legal proceedings, court jurisdiction, and public ombudsman oversight.')">Brief</button>
+                            
                             <a href="https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1276,6 +1352,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Laws (amendment) Act, 2011', 'completed/The-Khyber-Pakhtunkhwa-Laws-Amendment-Act-2011-Act-No.-IV-2011.pdf', 'https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Laws (amendment) Act, 2011', 'Act', 'Law & Justice', 'Provincial Assembly of Khyber Pakhtunkhwa', '2nd April, 2011', 'Official act establishing regulatory standards and administrative compliance for provincial public policy.')">Brief</button>
+                            
                             <a href="https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1290,6 +1367,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Local Government Act, 2012', 'completed/The-Khyber-Pakhtunkhwa-Local-Government-Act-2012-Act-No.-VIII-2012.pdf', 'https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Local Government Act, 2012', 'Act', 'Governance', 'Local Government, Elections and Rural Development Department, Government of Khyber Pakhtunkhwa', '15th May, 2012', 'Establishes statutory framework, administrative procedures, and governance rules for local councils and local government authorities in Khyber Pakhtunkhwa.')">Brief</button>
+                            
                             <a href="https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1304,6 +1382,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Local Government (amendment) Act, 2010', 'completed/The-Khyber-Pakhtunkhwa-Local-Government-Amendment-Act-2010-Act-No.pdf', 'https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Local Government (amendment) Act, 2010', 'Act', 'Governance', 'Local Government, Elections and Rural Development Department, Government of Khyber Pakhtunkhwa', '17th September, 2010', 'Establishes statutory framework, administrative procedures, and governance rules for local councils and local government authorities in Khyber Pakhtunkhwa.')">Brief</button>
+                            
                             <a href="https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1318,6 +1397,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Local Government (amendment) Act, 2011', 'completed/The-Khyber-Pakhtunkhwa-Local-Government-Amendment-Act-2011-Act-No.-IX-2011.pdf', 'https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Local Government (amendment) Act, 2011', 'Act', 'Governance', 'Local Government, Elections and Rural Development Department, Government of Khyber Pakhtunkhwa', '9th May, 2011', 'Establishes statutory framework, administrative procedures, and governance rules for local councils and local government authorities in Khyber Pakhtunkhwa.')">Brief</button>
+                            
                             <a href="https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1332,6 +1412,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Promotion of Regional Languages Authority Act, 2012', 'completed/The-Khyber-Pakhtunkhwa-Promotions-Of-Regional-Languages-Authority-Act-2012-Act-No.-II-2012.pdf', 'https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Promotion of Regional Languages Authority Act, 2012', 'Act', 'Higher Education', 'Provincial Assembly of Khyber Pakhtunkhwa', '17th January, 2012', 'Official act establishing regulatory standards and administrative compliance for provincial public policy.')">Brief</button>
+                            
                             <a href="https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1346,6 +1427,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Provincial Ombudsman Act, 2010', 'completed/The-Khyber-Pakhtunkhwa-Provincial-Ombudsman-Act-2010-Act.pdf', 'https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Provincial Ombudsman Act, 2010', 'Act', 'Law & Justice', 'Provincial Assembly of Khyber Pakhtunkhwa', '6th October, 2010', 'Enacts statutory provisions for judicial administration, legal proceedings, court jurisdiction, and public ombudsman oversight.')">Brief</button>
+                            
                             <a href="https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1360,6 +1442,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Public Procurement Regulatory Authority Act, 2012 (kppra)', 'completed/The-Khyber-Pakhtunkhwa-Public-Procurement-Regulatory-Authority-Act-2012-Act-No.-XI-2012.pdf', 'https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Public Procurement Regulatory Authority Act, 2012 (kppra)', 'Act', 'Law & Justice', 'Provincial Assembly of Khyber Pakhtunkhwa', '20th September, 2012', 'Official act establishing regulatory standards and administrative compliance for provincial public policy.')">Brief</button>
+                            
                             <a href="https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1374,6 +1457,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Public Service Commission (amendment) Act, 2011', 'completed/The-Khyber-Pakhtunkhwa-Public-Service-Commission-Amendment-Act-2011-Act-No.-VI-2011.pdf', 'https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Public Service Commission (amendment) Act, 2011', 'Act', 'Governance', 'Provincial Assembly of Khyber Pakhtunkhwa', '5th May, 2011', 'Official act establishing regulatory standards and administrative compliance for provincial public policy.')">Brief</button>
+                            
                             <a href="https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1388,6 +1472,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Publication of the Holy Quran (elimination of Printing and Recording Errors) Act, 2012', 'completed/The-Khyber-Pakhtunkhwa-Publication-Of-The-Holy-Quran-Elimination-Of-Printing-And-Recording-Errors-Act-2012-Act-No.-V-2012.pdf', 'https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Publication of the Holy Quran (elimination of Printing and Recording Errors) Act, 2012', 'Act', 'Social Welfare & Human Rights', 'Provincial Assembly of Khyber Pakhtunkhwa', '1st March, 2012', 'Official act establishing regulatory standards and administrative compliance for provincial public policy.')">Brief</button>
+                            
                             <a href="https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1402,6 +1487,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Removal From Service (special Powers) Repeal Act, 2011', 'completed/The-Khyber-Pakhtunkhwa-Removal-From-Service-Special-Powers-Repeal-Act-2011-Act-No.-XIV-2011.pdf', 'https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Removal From Service (special Powers) Repeal Act, 2011', 'Act', 'Governance', 'Provincial Assembly of Khyber Pakhtunkhwa', '16th September, 2011', 'Official act establishing regulatory standards and administrative compliance for provincial public policy.')">Brief</button>
+                            
                             <a href="https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1416,6 +1502,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Sacked Employees (appointment) Act, 2012', 'completed/The-Khyber-Pakhtunkhwa-Sacked-Employees-Appointment-Act-2012-Act-No.-XVII-2012.pdf', 'https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Sacked Employees (appointment) Act, 2012', 'Act', 'Industries & Commerce', 'Provincial Assembly of Khyber Pakhtunkhwa', '20th September, 2012', 'Official act establishing regulatory standards and administrative compliance for provincial public policy.')">Brief</button>
+                            
                             <a href="https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1430,6 +1517,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Supervision of Curricula, Textbooks and Maintenance of Standards of Education Act, 2011', 'completed/The-Khyber-Pakhtunkhwa-Supervision-Of-Curricula-Textbooks-And-Maintenance-Of-Standards-Of-Education-Act-2011-Act-No-VII-2011.pdf', 'https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Supervision of Curricula, Textbooks and Maintenance of Standards of Education Act, 2011', 'Act', 'Higher Education', 'Provincial Assembly of Khyber Pakhtunkhwa', '9th May, 2011', 'Provides legal authority for academic governance, institutional administration, faculty regulation, and educational standards.')">Brief</button>
+                            
                             <a href="https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1444,6 +1532,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Universities Act, 2012', 'completed/The-Khyber-Pakhtunkhwa-Universities-Act-2012-Act-No.-X-2012.pdf', 'https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Universities Act, 2012', 'Act', 'Governance', 'Senate of Pakistan', '18th May, 2012', 'Official act establishing regulatory standards and administrative compliance for provincial public policy.')">Brief</button>
+                            
                             <a href="https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1458,6 +1547,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Universities (amendment) Act, 2012', 'completed/The-Khyber-Pakhtunkhwa-Universities-Amendment-Act-2012-Act-No.-XIII-2012.pdf', 'https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Universities (amendment) Act, 2012', 'Act', 'Governance', 'Provincial Assembly of Khyber Pakhtunkhwa', '17th September, 2012', 'Official act establishing regulatory standards and administrative compliance for provincial public policy.')">Brief</button>
+                            
                             <a href="https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1472,6 +1562,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Zakat and Ushr Act, 2011', 'completed/The-Khyber-Pakhtunkhwa-Zakat-And-Ushr-Act-2011-Act-No-XVII-2011.pdf', 'https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Zakat and Ushr Act, 2011', 'Act', 'Social Welfare & Human Rights', 'Local Government, Elections and Rural Development Department, Government of Khyber Pakhtunkhwa', '6th October, 2011', 'Enforces legal protection of fundamental rights, social welfare administration, human rights safeguards, and community support.')">Brief</button>
+                            
                             <a href="https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1486,6 +1577,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The North-West Frontier Province Finance Act, 2009', 'completed/The-North-West-Frontier-Province-Finance-Act-2009-Act.pdf', 'https://drive.google.com/file/d/1dizgkp95qSvFkK-oXSg091v4XGWLMv87/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The North-West Frontier Province Finance Act, 2009', 'Act', 'Finance & Taxation', 'Provincial Assembly of North-West Frontier Province', '27th June, 2009', 'Establishes provincial fiscal policy, taxation mechanisms, revenue collection framework, and banking governance.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/1dizgkp95qSvFkK-oXSg091v4XGWLMv87/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1500,6 +1592,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The North-West Frontier Province Local Government (amendment) Act, 2010', 'completed/The-North-West-Frontier-Province-Local-Government-Amendment-Act-2010-Act-No.-III-2010.pdf', 'https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The North-West Frontier Province Local Government (amendment) Act, 2010', 'Act', 'Governance', 'Local Government, Elections and Rural Development Department, Government of Khyber Pakhtunkhwa', '30th January, 2010', 'Establishes statutory framework, administrative procedures, and governance rules for local councils and local government authorities in Khyber Pakhtunkhwa.')">Brief</button>
+                            
                             <a href="https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1514,6 +1607,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The North-West Frontier Province Provincial Assembly (powers, Immunities and Privileges) (amendment) Act, 2010', 'completed/The-North-West-Frontier-Province-Provincial-Assembly-Powers-Immunities-And-Privileges-Amendment-Act-2010-Act-No.-V-2010.pdf', 'https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The North-West Frontier Province Provincial Assembly (powers, Immunities and Privileges) (amendment) Act, 2010', 'Act', 'Governance', 'Provincial Assembly of North-West Frontier Province', '20th March, 2010', 'Official act establishing regulatory standards and administrative compliance for provincial public policy.')">Brief</button>
+                            
                             <a href="https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1528,6 +1622,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The North-West Frontier Province Public Service Commission (amendment) Act, 2010', 'completed/The-North-West-Frontier-Province-Public-Service-Commission-Amendment-Act-2010-Act-No.-I-2010.pdf', 'https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The North-West Frontier Province Public Service Commission (amendment) Act, 2010', 'Act', 'Governance', 'Provincial Assembly of North-West Frontier Province', '12th January, 2010', 'Official act establishing regulatory standards and administrative compliance for provincial public policy.')">Brief</button>
+                            
                             <a href="https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1542,6 +1637,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The North-West Frontier Province Service Tribunals (amendment) Act, 2010', 'completed/The-North-West-Frontier-Province-Service-tribunals-Amendment-Act-2010-Act-No.-IV-2010.pdf', 'https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The North-West Frontier Province Service Tribunals (amendment) Act, 2010', 'Act', 'Law & Justice', 'Provincial Assembly of North-West Frontier Province', '26th February, 2010', 'Official act establishing regulatory standards and administrative compliance for provincial public policy.')">Brief</button>
+                            
                             <a href="https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1556,6 +1652,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Prisons (khyber Pakhtunkhwa) (amendment) Act, 2010', 'completed/The-Prisons-Khyber-Pakhtunkhwa-Amendment-Act-2010-Act.pdf', 'https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Prisons (khyber Pakhtunkhwa) (amendment) Act, 2010', 'Act', 'Public Safety & Security', 'Provincial Assembly of Khyber Pakhtunkhwa', '13th October, 2010', 'Formulates emergency response infrastructure, public safety protocols, correctional services, and hazardous material regulation.')">Brief</button>
+                            
                             <a href="https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1570,6 +1667,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Provincial Motor Vehicles (khyber Pakhtunkhwa) (amendment) Act, 2010', 'completed/The-Provincial-Motor-Vehicles-Khyber-Pakhtunkhwa-Amendment-Act-2010-Act 2.pdf', 'https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Provincial Motor Vehicles (khyber Pakhtunkhwa) (amendment) Act, 2010', 'Act', 'Transport & Infrastructure', 'Provincial Assembly of Khyber Pakhtunkhwa', '1st October, 2010', 'Official act establishing regulatory standards and administrative compliance for provincial public policy.')">Brief</button>
+                            
                             <a href="https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1584,6 +1682,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Provincial Motor Vehicles (khyber Pakhtunkhwa) (amendment) Act, 2010', 'completed/The-Provincial-Motor-Vehicles-Khyber-Pakhtunkhwa-Amendment-Act-2010-Act.pdf', 'https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Provincial Motor Vehicles (khyber Pakhtunkhwa) (amendment) Act, 2010', 'Act', 'Transport & Infrastructure', 'Provincial Assembly of Khyber Pakhtunkhwa', '15th October, 2010', 'Official act establishing regulatory standards and administrative compliance for provincial public policy.')">Brief</button>
+                            
                             <a href="https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1598,6 +1697,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Provincial Motor Vehicles (khyber Pakhtunkhwa) (amendment) Act, 2011', 'completed/The-Provincial-Motor-Vehicles-Khyber-Pakhtunkhwa-Amendment-Act-2011-Act-No.-X-2011.pdf', 'https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Provincial Motor Vehicles (khyber Pakhtunkhwa) (amendment) Act, 2011', 'Act', 'Transport & Infrastructure', 'Provincial Assembly of Khyber Pakhtunkhwa', '9th May, 2011', 'Official act establishing regulatory standards and administrative compliance for provincial public policy.')">Brief</button>
+                            
                             <a href="https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1612,6 +1712,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Provincial Motor Vehicles (north-West Frontier Province) (amendment) Act, 2009', 'completed/The-Provincial-Motor-Vehicles-The-North-West-Frontier-Province-Amendment-Act-2009.pdf', 'https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Provincial Motor Vehicles (north-West Frontier Province) (amendment) Act, 2009', 'Act', 'Transport & Infrastructure', 'Provincial Assembly of North-West Frontier Province', '28th March, 2009', 'Official act establishing regulatory standards and administrative compliance for provincial public policy.')">Brief</button>
+                            
                             <a href="https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1626,6 +1727,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Provincial Motor Vehicles (north-West Frontier Province) (amendment) Act, 2010', 'completed/The-Provincial-Motor-Vehicles-The-North-West-Frontier-Province-Amendment-Act-2010-Act-No.-VI-2010.pdf', 'https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Provincial Motor Vehicles (north-West Frontier Province) (amendment) Act, 2010', 'Act', 'Transport & Infrastructure', 'Provincial Assembly of North-West Frontier Province', '20th March, 2010', 'Official act establishing regulatory standards and administrative compliance for provincial public policy.')">Brief</button>
+                            
                             <a href="https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1640,6 +1742,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Tehsil Council (procedure and Conduct of Business and Meetings) Model By-Laws, 2015', 'completed/The-Tehsil-Council-Model-Bye-laws-2015-Procedures-and-Conduct-of-Business-and-Meetings.pdf', 'https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Tehsil Council (procedure and Conduct of Business and Meetings) Model By-Laws, 2015', 'By-Laws', 'Law & Justice', 'Local Government, Elections and Rural Development Department, Government of Khyber Pakhtunkhwa', '15th August, 2015', 'Establishes statutory framework, administrative procedures, and governance rules for local councils and local government authorities in Khyber Pakhtunkhwa.')">Brief</button>
+                            <button class="btn-sm btn-tree" onclick="openHierarchyModal('The North-West Frontier Province Local Government (Amendment) Act, 2008')">🔗 Parent Act</button>
                             <a href="https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1654,6 +1757,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The University of Peshawar (amendment) Act, 2010', 'completed/The-University-Of-Peshawar-Amendment-Act-2010-Act-No.pdf', 'https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The University of Peshawar (amendment) Act, 2010', 'Act', 'Higher Education', 'Senate of Pakistan', '14th December, 2010', 'Provides legal authority for academic governance, institutional administration, faculty regulation, and educational standards.')">Brief</button>
+                            
                             <a href="https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1668,6 +1772,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Frontier Women University (amendment) Act, 2010', 'completed/The-frontier-Women-University-Amendment-Act-2010-Act.pdf', 'https://drive.google.com/file/d/1NhIzQupUBXcRwIvf-L-A5UGSAZJ86YjP/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Frontier Women University (amendment) Act, 2010', 'Act', 'Higher Education', 'Provincial Assembly of Khyber Pakhtunkhwa', '9th September, 2010', 'Provides legal authority for academic governance, institutional administration, faculty regulation, and educational standards.')">Brief</button>
+                            
                             <a href="https://drive.google.com/file/d/1NhIzQupUBXcRwIvf-L-A5UGSAZJ86YjP/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1682,6 +1787,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Provincial Assembly of Khyber Pakhtunkhwa Speaker and Deputy Speaker&#39;s (salaries, Allowances and Privileges) (amendment) Act, 2011', 'completed/The-provincial-Assembly-Of-Khyber-Pakhtunkhwa-Speaker-And-Deputy-Speakers-Salaries-Allowances-Privileges-Amendment-Act-2011-Act-No.-XVIII-2011.pdf', 'https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Provincial Assembly of Khyber Pakhtunkhwa Speaker and Deputy Speaker&#39;s (salaries, Allowances and Privileges) (amendment) Act, 2011', 'Act', 'Governance', 'Provincial Assembly of Khyber Pakhtunkhwa', '13th October, 2011', 'Official act establishing regulatory standards and administrative compliance for provincial public policy.')">Brief</button>
+                            
                             <a href="https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1696,6 +1802,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The North-West Frontier Province Urban Immovable Property Tax (amendment) Act, 2009', 'completed/Urban Immovable Property Tax Amendment Act 2009.pdf', 'https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The North-West Frontier Province Urban Immovable Property Tax (amendment) Act, 2009', 'Act', 'Finance & Taxation', 'Provincial Assembly of North-West Frontier Province', '24th October, 2009', 'Establishes provincial fiscal policy, taxation mechanisms, revenue collection framework, and banking governance.')">Brief</button>
+                            
                             <a href="https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1710,6 +1817,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('The Khyber Pakhtunkhwa Village and Neighbourhood Councils Rules of Business, 2021', 'completed/VCNC-RoBs-2021-with-covering-letter.pdf', 'https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('The Khyber Pakhtunkhwa Village and Neighbourhood Councils Rules of Business, 2021', 'Rules of Business', 'Law & Justice', 'Law, Parliamentary Affairs and Human Rights Department, Government of Khyber Pakhtunkhwa', '10th December, 2021', 'Establishes statutory framework, administrative procedures, and governance rules for local councils and local government authorities in Khyber Pakhtunkhwa.')">Brief</button>
+                            <button class="btn-sm btn-tree" onclick="openHierarchyModal('The North-West Frontier Province Local Government (Amendment) Act, 2008')">🔗 Parent Act</button>
                             <a href="https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1724,6 +1832,7 @@
                         <div class="action-btns">
                             <button class="btn-sm btn-preview" onclick="openPreview('Report of Standing Committee on Law, Justice and Human Rights on the Constitution (amendment) Bill, 2015 (article 140a - Local Government)', 'completed/constitution clause to 2008 of local governmnet.pdf', 'https://drive.google.com/file/d/1ml3sk0mOGV7E0dqUGhyPNAjnvjIyk5JL/view?usp=sharing')">Preview</button>
                             <button class="btn-sm btn-brief" onclick="openBrief('Report of Standing Committee on Law, Justice and Human Rights on the Constitution (amendment) Bill, 2015 (article 140a - Local Government)', 'Parliamentary Report', 'Law & Justice', 'Local Government, Elections and Rural Development Department, Government of Khyber Pakhtunkhwa', '12th May, 2015', 'Establishes statutory framework, administrative procedures, and governance rules for local councils and local government authorities in Khyber Pakhtunkhwa.')">Brief</button>
+                            <button class="btn-sm btn-tree" onclick="openHierarchyModal('The North-West Frontier Province Local Government (Amendment) Act, 2008')">🔗 Parent Act</button>
                             <a href="https://drive.google.com/file/d/1ml3sk0mOGV7E0dqUGhyPNAjnvjIyk5JL/view?usp=sharing" target="_blank" class="btn-sm btn-drive">Drive</a>
                         </div>
                     </td>
@@ -1900,7 +2009,36 @@
         </div>
     </div>
 
+    <!-- Legal Hierarchy Flowchart Modal Overlay -->
+    <div id="hierarchyModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="hierarchyModalTitle">Legal Hierarchy Tree</h3>
+                <div class="modal-actions">
+                    <button class="close-btn" onclick="closeHierarchyModal()">&times;</button>
+                </div>
+            </div>
+            <div class="modal-body" style="background: #F1F5F9;">
+                <div class="tree-container">
+                    <div class="parent-act-node">
+                        <small style="text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em; opacity: 0.85;">Primary Legislation (Parent Act)</small>
+                        <h2 id="treeParentTitle">Parent Act Title</h2>
+                        <p id="treeParentSubtitle">Root Statutory Framework</p>
+                    </div>
+
+                    <h4 style="color: #1F4E78; font-size: 1.1rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.03em;">🌿 Derived Subordinate Legal Instruments</h4>
+                    <div id="treeSubList" class="sub-tree-list">
+                        <!-- Sub-nodes dynamically inserted by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // Global Hierarchy Map Data
+        const hierarchyData = {"The North-West Frontier Province Local Government (Amendment) Act, 2008": [{"title": "Checklist Notification for Local Government & Rural Development Department", "doc_type": "Notification", "date_str": "12th December, 2017", "pdf_name": "Checklist-Notification.pdf", "drive_url": "https://drive.google.com/file/d/11-q5Ty9XGl5-NajhHF2LioSLVfU4VLJb/view?usp=sharing", "summary": "Establishes statutory framework, administrative procedures, and governance rules for local councils and local government authorities in Khyber Pakhtunkhwa."}, {"title": "Citizen Engagement in Development Planning Manual for Village and Neighbourhood Councils", "doc_type": "Manual / Guide", "date_str": "1st May, 2017", "pdf_name": "Citizen-Engagement-in-Development-Planning-Manual-VCNC-English-Version.pdf", "drive_url": "https://drive.google.com/file/d/1WipNcOH9xvDnzcpgJDw9cABIdITWP7q7/view?usp=sharing", "summary": "Establishes statutory framework, administrative procedures, and governance rules for local councils and local government authorities in Khyber Pakhtunkhwa."}, {"title": "Representation and Composition Matrix for District, Tehsil, Village and Neighbourhood Councils (annex-C)", "doc_type": "Policy Schedule", "date_str": "1st January, 2015", "pdf_name": "District-Councils-Tehsil-Councils-Village-and-Neighbourhood-Councils-Annex-C.pdf", "drive_url": "https://drive.google.com/file/d/1jrM0FRkU4gCp78YA9zq6xzlURJZnrWAw/view?usp=sharing", "summary": "Establishes statutory framework, administrative procedures, and governance rules for local councils and local government authorities in Khyber Pakhtunkhwa."}, {"title": "General Powers and Standard Procedures for Guidance of Local Governments Notification", "doc_type": "Notification / Guidelines", "date_str": "20th August, 2015", "pdf_name": "General-Powers-and-Standard-Procedures-for-Guidance-of-LGs.pdf", "drive_url": "https://drive.google.com/file/d/1EyHjzNbvhRjF9M10iOlAJTEy9-c3lRTr/view?usp=sharing", "summary": "Establishes statutory framework, administrative procedures, and governance rules for local councils and local government authorities in Khyber Pakhtunkhwa."}, {"title": "Guidelines for Transition and Succession of Local Governments Under Khyber Pakhtunkhwa Local Government Act, 2013", "doc_type": "Guidelines", "date_str": "12th June, 2015", "pdf_name": "Guidelines-for-transition-and-succession-of-LGs-under-KP-LGA-2013.pdf", "drive_url": "https://drive.google.com/file/d/1ZJeBzlzllKUwW3w6llLIKSiUnLkNha-T/view?usp=sharing", "summary": "Establishes statutory framework, administrative procedures, and governance rules for local councils and local government authorities in Khyber Pakhtunkhwa."}, {"title": "The Khyber Pakhtunkhwa City and Tehsil Local Government Rules of Business, 2022", "doc_type": "Rules of Business", "date_str": "23rd June, 2022", "pdf_name": "Khyber_Pakhtunkhwa_CityTehsil_Local_Government_Rules_of_Business_2022.pdf", "drive_url": "https://drive.google.com/file/d/1ro5nW1N3erL4TTZbna08TsoQynzMo7is/view?usp=sharing", "summary": "Establishes statutory framework, administrative procedures, and governance rules for local councils and local government authorities in Khyber Pakhtunkhwa."}, {"title": "The Khyber Pakhtunkhwa Local Government Commission (conduct of Business) Rules, 2015", "doc_type": "Rules", "date_str": "27th May, 2015", "pdf_name": "Local_Government_Commission_Conduct_of_Business_Rules,_2015 (for act 2015).pdf", "drive_url": "https://drive.google.com/file/d/1RefNO9kO1Vva3qzLFhvvY4oovIspSKQf/view?usp=sharing", "summary": "Establishes statutory framework, administrative procedures, and governance rules for local councils and local government authorities in Khyber Pakhtunkhwa."}, {"title": "Model By-Laws for Fruit and Vegetable Markets (local Council Board)", "doc_type": "By-Laws", "date_str": "15th March, 2016", "pdf_name": "Model-By-Laws-with-Covering-letter-for-FV-Market.pdf", "drive_url": "https://drive.google.com/file/d/1cXgpexnwN1pCOO3T5P8tfnVdo3BY7gJw/view?usp=sharing", "summary": "Establishes statutory framework, administrative procedures, and governance rules for local councils and local government authorities in Khyber Pakhtunkhwa."}, {"title": "Service Rules of Directorate General Local Government and Rural Development Department", "doc_type": "Rules", "date_str": "12th June, 2019", "pdf_name": "Service-Rules-of-Directorate-General-LGRDD-updated.pdf", "drive_url": "https://drive.google.com/file/d/1fA-qjUnUxfFUdtaLX3kvk_l929ARSEie/view?usp=sharing", "summary": "Establishes statutory framework, administrative procedures, and governance rules for local councils and local government authorities in Khyber Pakhtunkhwa."}, {"title": "The Khyber Pakhtunkhwa Tehsil Local Government Rules of Business, 2021", "doc_type": "Rules of Business", "date_str": "10th December, 2021", "pdf_name": "Tehsil-Local-Government-RoBs-2021-with-covering-letter.pdf", "drive_url": "https://drive.google.com/file/d/1r5wjC-eR0C9Q-ZL4sHLlWjnic4dNwMIi/view?usp=sharing", "summary": "Establishes statutory framework, administrative procedures, and governance rules for local councils and local government authorities in Khyber Pakhtunkhwa."}, {"title": "The District Council (procedure and Conduct of Business and Meetings) Model By-Laws, 2015", "doc_type": "By-Laws", "date_str": "15th August, 2015", "pdf_name": "The-District-Council-Model-Bye-laws-2015-Procedures-and-Conduct-of-Business-and-Meetings.pdf", "drive_url": "https://drive.google.com/file/d/1sJipdag62L111n30woaWqcxbtzOt8B6H/view?usp=sharing", "summary": "Establishes statutory framework, administrative procedures, and governance rules for local councils and local government authorities in Khyber Pakhtunkhwa."}, {"title": "The Khyber Pakhtunkhwa Model Building By-Laws, 2017", "doc_type": "By-Laws", "date_str": "1st September, 2017", "pdf_name": "The-KP-Model-Building-Bye-laws-2017.pdf", "drive_url": "https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno", "summary": "Official by-laws establishing regulatory standards and administrative compliance for provincial public policy."}, {"title": "The Tehsil Council (procedure and Conduct of Business and Meetings) Model By-Laws, 2015", "doc_type": "By-Laws", "date_str": "15th August, 2015", "pdf_name": "The-Tehsil-Council-Model-Bye-laws-2015-Procedures-and-Conduct-of-Business-and-Meetings.pdf", "drive_url": "https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno", "summary": "Establishes statutory framework, administrative procedures, and governance rules for local councils and local government authorities in Khyber Pakhtunkhwa."}, {"title": "The Khyber Pakhtunkhwa Village and Neighbourhood Councils Rules of Business, 2021", "doc_type": "Rules of Business", "date_str": "10th December, 2021", "pdf_name": "VCNC-RoBs-2021-with-covering-letter.pdf", "drive_url": "https://drive.google.com/drive/folders/1un90Y2k6xcGze_DxegMiwpqy12f3hgno", "summary": "Establishes statutory framework, administrative procedures, and governance rules for local councils and local government authorities in Khyber Pakhtunkhwa."}, {"title": "Report of Standing Committee on Law, Justice and Human Rights on the Constitution (amendment) Bill, 2015 (article 140a - Local Government)", "doc_type": "Parliamentary Report", "date_str": "12th May, 2015", "pdf_name": "constitution clause to 2008 of local governmnet.pdf", "drive_url": "https://drive.google.com/file/d/1ml3sk0mOGV7E0dqUGhyPNAjnvjIyk5JL/view?usp=sharing", "summary": "Establishes statutory framework, administrative procedures, and governance rules for local councils and local government authorities in Khyber Pakhtunkhwa."}]};
+
         // Tab Switcher
         function switchTab(tabId) {
             document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
@@ -2068,6 +2206,45 @@
 
         function closeBrief() {
             document.getElementById("briefModal").style.display = "none";
+        }
+
+        // Legal Hierarchy Modal Handler
+        function openHierarchyModal(parentTitle) {
+            document.getElementById("treeParentTitle").innerText = parentTitle;
+            const subList = hierarchyData[parentTitle] || [];
+            document.getElementById("treeParentSubtitle").innerText = subList.length + " Subordinate Rules & Legal Instruments Enacted";
+
+            const container = document.getElementById("treeSubList");
+            container.innerHTML = "";
+
+            if (subList.length === 0) {
+                container.innerHTML = "<p style='color: #64748B;'>No derived subordinate instruments indexed for this Act.</p>";
+            } else {
+                subList.forEach(item => {
+                    const node = document.createElement("div");
+                    node.className = "sub-node-card";
+                    const safeT = item.title.replace(/'/g, "&#39;");
+                    node.innerHTML = `
+                        <div class="sub-node-info">
+                            <span class="badge badge-sops">${item.doc_type}</span>
+                            <h4>${item.title}</h4>
+                            <p>${item.summary}</p>
+                            <small style="color: #94A3B8; font-weight: 600;">Enacted: ${item.date_str}</small>
+                        </div>
+                        <div class="action-btns">
+                            <button class="btn-sm btn-preview" onclick="openPreview('${safeT}', 'completed/${item.pdf_name}', '${item.drive_url}')">Preview</button>
+                            <a href="${item.drive_url}" target="_blank" class="btn-sm btn-drive">Drive</a>
+                        </div>
+                    `;
+                    container.appendChild(node);
+                });
+            }
+
+            document.getElementById("hierarchyModal").style.display = "flex";
+        }
+
+        function closeHierarchyModal() {
+            document.getElementById("hierarchyModal").style.display = "none";
         }
     </script>
 </body>

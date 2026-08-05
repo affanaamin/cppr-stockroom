@@ -242,29 +242,6 @@
             .table-container { border: none; box-shadow: none; }
             table { width: 100%; border: 1px solid #000; }
             th, td { border: 1px solid #000; padding: 0.5rem; font-size: 0.85rem; }
-        /* Admin Portal Controls */
-        .admin-bar { display: none; position: fixed; top: 0; left: 0; width: 100%; background: #0F172A; color: white; padding: 0.6rem 1.5rem; z-index: 10000; box-shadow: 0 4px 15px rgba(0,0,0,0.4); align-items: center; justify-content: space-between; font-size: 0.88rem; border-bottom: 2px solid #3B82F6; }
-        .admin-bar-active { display: flex !important; }
-        body.admin-mode-active { padding-top: 50px; }
-        [contenteditable="true"]:hover, [contenteditable="true"]:focus { outline: 2px dashed #3B82F6 !important; background: rgba(59,130,246,0.08) !important; border-radius: 4px; cursor: text; }
-        }
-    </style>
-</head>
-<body>
-
-    <div id="adminBar" class="admin-bar">
-        <div style="display: flex; align-items: center; gap: 0.8rem;">
-            <span style="font-weight: 700; color: #34D399;">🟢 CPPR Admin Edit Mode</span>
-            <small style="color: #94A3B8;">Click any text on the website to edit it live!</small>
-        </div>
-        <div style="display: flex; gap: 0.5rem; align-items: center;">
-            <button onclick="toggleLiveEditing()" id="adminEditToggleBtn" style="background: #3B82F6; color: white; border: none; padding: 0.4rem 0.8rem; border-radius: 6px; font-weight: 600; font-size: 0.8rem; cursor: pointer;">✏️ Edit Text: ON</button>
-            <button onclick="openAddPolicyModal()" style="background: #8B5CF6; color: white; border: none; padding: 0.4rem 0.8rem; border-radius: 6px; font-weight: 600; font-size: 0.8rem; cursor: pointer;">➕ Add Document</button>
-            <button onclick="saveAdminChanges()" style="background: #10B981; color: white; border: none; padding: 0.4rem 0.8rem; border-radius: 6px; font-weight: 600; font-size: 0.8rem; cursor: pointer;">💾 Save & Deploy</button>
-            <button onclick="logoutAdmin()" style="background: #EF4444; color: white; border: none; padding: 0.4rem 0.8rem; border-radius: 6px; font-weight: 600; font-size: 0.8rem; cursor: pointer;">🚪 Logout</button>
-        </div>
-    </div>
-
     <div class="top-bar">
         <div class="brand-logo" style="display: flex; align-items: center; gap: 0.8rem;">
             <img src="assets/cppr_logo.png" alt="CPPR Logo" style="height: 42px; width: auto; border-radius: 4px;" onerror="this.style.display='none'">
@@ -273,10 +250,7 @@
                 <small style="color: var(--muted-color); font-weight: 500;">IMSciences Peshawar — Premier Public Policy Think Tank</small>
             </div>
         </div>
-        <div style="display: flex; gap: 0.5rem; align-items: center;">
-            <button class="btn-sm" style="background: #1F4E78; color: white;" onclick="promptAdminLogin()">🔑 Admin Portal</button>
-            <button class="theme-toggle" onclick="toggleDarkMode()"><span id="themeLabel">Dark Mode</span></button>
-        </div>
+        <button class="theme-toggle" onclick="toggleDarkMode()"><span id="themeLabel">Dark Mode</span></button>
     </div>
 
     <div class="header">
@@ -2531,174 +2505,9 @@
             `;
         }
 
-        // ============================================================================
-        // SECTION: CPPR ADMIN PORTAL & AUTHENTICATION (AI-Optimized Module)
-        // ============================================================================
-
-        /**
-         * Global CPPR Admin State Controller
-         */
-        const AdminState = {
-            isLoggedIn: false,
-            isEditModeActive: false,
-            
-            /** Initialize Admin State on Page Load */
-            init() {
-                this.isLoggedIn = sessionStorage.getItem("cppr_admin_session") === "true";
-                if (this.isLoggedIn) {
-                    this.activateAdminUI();
-                } else {
-                    this.deactivateAdminUI();
-                }
-            },
-
-            /** Activate Admin UI Controls */
-            activateAdminUI() {
-                this.isLoggedIn = true;
-                sessionStorage.setItem("cppr_admin_session", "true");
-                const adminBar = document.getElementById("adminBar");
-                if (adminBar) adminBar.classList.add("admin-bar-active");
-                document.body.classList.add("admin-mode-active");
-                this.enableInlineEditing();
-            },
-
-            /** Deactivate Admin UI & Restore Visitor View */
-            deactivateAdminUI() {
-                this.isLoggedIn = false;
-                this.isEditModeActive = false;
-                sessionStorage.removeItem("cppr_admin_session");
-                const adminBar = document.getElementById("adminBar");
-                if (adminBar) adminBar.classList.remove("admin-bar-active");
-                document.body.classList.remove("admin-mode-active");
-                this.disableInlineEditing();
-            },
-
-            /** Enable inline text editing across page elements */
-            enableInlineEditing() {
-                this.isEditModeActive = true;
-                const selectors = ["h1", "h2", "h3", "h4", "p", ".obj-card", ".dept-card", ".stat-card .num", ".stat-card .label", "td.col-title", "td.col-auth"];
-                selectors.forEach(sel => {
-                    document.querySelectorAll(sel).forEach(el => {
-                        el.contentEditable = "true";
-                        el.setAttribute("spellcheck", "false");
-                    });
-                });
-                const btn = document.getElementById("adminEditToggleBtn");
-                if (btn) {
-                    btn.innerText = "✏️ Edit Text: ON";
-                    btn.style.background = "#3B82F6";
-                }
-            },
-
-            /** Disable inline text editing across page elements */
-            disableInlineEditing() {
-                this.isEditModeActive = false;
-                document.querySelectorAll('[contenteditable="true"], [contenteditable="false"]').forEach(el => {
-                    el.removeAttribute("contenteditable");
-                    el.removeAttribute("spellcheck");
-                });
-                const btn = document.getElementById("adminEditToggleBtn");
-                if (btn) {
-                    btn.innerText = "✏️ Edit Text: OFF";
-                    btn.style.background = "#64748B";
-                }
-            }
-        };
-
-        /** Prompt User for Admin Password */
-        function promptAdminLogin() {
-            if (AdminState.isLoggedIn) {
-                alert("🔑 You are already logged in to CPPR Admin Mode.");
-                return;
-            }
-            const pass = prompt("🔑 Enter CPPR Admin Master Password (Default: cppr2026):", "");
-            if (pass === "admin" || pass === "cppr2026" || pass === "cppr") {
-                AdminState.activateAdminUI();
-                alert("🟢 Admin Login Successful! Click any text on the website to edit it live.");
-            } else if (pass !== null) {
-                alert("❌ Incorrect Admin Password. Default master password is: cppr2026");
-            }
-        }
-
-        /** Toggle Live Text Editing ON/OFF */
-        function toggleLiveEditing() {
-            if (!AdminState.isLoggedIn) return;
-            if (AdminState.isEditModeActive) {
-                AdminState.disableInlineEditing();
-            } else {
-                AdminState.enableInlineEditing();
-            }
-        }
-
-        /** Save Admin Changes to Local Session */
-        function saveAdminChanges() {
-            if (!AdminState.isLoggedIn) return;
-            localStorage.setItem("cppr_custom_html_edits", document.body.innerHTML);
-            alert("💾 Admin changes saved successfully to your session!");
-        }
-
-        /** Log out of Admin Portal */
-        function logoutAdmin() {
-            AdminState.deactivateAdminUI();
-            alert("🚪 Logged out of CPPR Admin Mode. Website restored to visitor view.");
-        }
-
-        function openAddPolicyModal() {
-            document.getElementById("addPolicyModal").style.display = "flex";
-        }
-
-        function closeAddPolicyModal() {
-            document.getElementById("addPolicyModal").style.display = "none";
-        }
-
-        function submitNewPolicy(e) {
-            e.preventDefault();
-            const title = document.getElementById("newDocTitle").value.trim();
-            const cat = document.getElementById("newDocCat").value;
-            const sec = document.getElementById("newDocSec").value;
-            const yr = document.getElementById("newDocYr").value.trim();
-            const date = document.getElementById("newDocDate").value.trim() || `${yr}`;
-            const auth = document.getElementById("newDocAuth").value.trim() || "Government of Khyber Pakhtunkhwa";
-            const summary = document.getElementById("newDocSummary").value.trim();
-            const drive = document.getElementById("newDocDrive").value.trim() || "https://drive.google.com";
-
-            const tbody = document.querySelector("#policyTable tbody");
-            const newRow = document.createElement("tr");
-            newRow.setAttribute("data-category", cat);
-            newRow.setAttribute("data-sector", sec);
-            newRow.setAttribute("data-year", yr);
-            newRow.setAttribute("data-ocr", `${title} ${cat} ${sec} ${yr} ${auth} ${summary}`.toLowerCase());
-
-            let badgeClass = "badge-act";
-            if (cat === "Rules" || cat === "Rules of Business") badgeClass = "badge-rules";
-            if (cat === "Notification" || cat === "SOPs") badgeClass = "badge-sops";
-
-            newRow.innerHTML = `
-                <td><span class="badge ${badgeClass}">${cat}</span></td>
-                <td class="col-title" data-raw="${title}"><strong>${title}</strong></td>
-                <td><span class="badge sec-gen">${sec}</span></td>
-                <td class="col-auth" data-raw="${auth}">${auth}</td>
-                <td>${date}</td>
-                <td class="no-print">
-                    <div class="action-btns">
-                        <button class="btn-sm btn-preview" onclick="openPreview('${title.replace(/'/g, "\\'")}', '', '${drive}')">Preview</button>
-                        <button class="btn-sm btn-brief" onclick="openBrief('${title.replace(/'/g, "\\'")}', '${cat}', '${sec}', '${auth.replace(/'/g, "\\'")}', '${date}', '${summary.replace(/'/g, "\\'")}')">Brief</button>
-                        <a href="${drive}" target="_blank" class="btn-sm btn-drive">Drive</a>
-                    </div>
-                </td>
-            `;
-
-            tbody.insertBefore(newRow, tbody.firstChild);
-            closeAddPolicyModal();
-            buildPolicyIndex();
-            applyFilters();
-            alert(`✅ Document "${title}" added successfully to CPPR Stockroom!`);
-        }
-
         document.addEventListener("DOMContentLoaded", () => {
             applyFilters();
             buildPolicyIndex();
-            AdminState.init();
         });
 </script>
 
@@ -2773,74 +2582,6 @@
                 </div>
             </div>
         </div>
-    <!-- Add Policy Admin Modal Overlay -->
-    <div id="addPolicyModal" class="modal">
-        <div class="modal-content" style="max-width: 650px; height: auto; max-height: 90vh;">
-            <div class="modal-header">
-                <h3>➕ Add New Policy Document (CPPR Admin)</h3>
-                <button class="close-btn" onclick="closeAddPolicyModal()">&times;</button>
-            </div>
-            <div class="modal-body" style="background: var(--card-bg); padding: 1.5rem; overflow-y: auto;">
-                <form onsubmit="submitNewPolicy(event)" style="display: flex; flex-direction: column; gap: 0.9rem;">
-                    <div>
-                        <label style="font-weight: 600; font-size: 0.85rem; display: block; margin-bottom: 0.3rem;">Document Title *</label>
-                        <input type="text" id="newDocTitle" placeholder="e.g. The KP Public Procurement Rules, 2024" required style="width: 100%; padding: 0.6rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color);">
-                    </div>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem;">
-                        <div>
-                            <label style="font-weight: 600; font-size: 0.85rem; display: block; margin-bottom: 0.3rem;">Category *</label>
-                            <select id="newDocCat" required style="width: 100%; padding: 0.6rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color);">
-                                <option value="Act">Act / Law</option>
-                                <option value="Rules">Rules</option>
-                                <option value="By-Laws">By-Laws</option>
-                                <option value="Rules of Business">Rules of Business</option>
-                                <option value="Notification">Notification</option>
-                                <option value="SOPs">Manual / SOPs</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label style="font-weight: 600; font-size: 0.85rem; display: block; margin-bottom: 0.3rem;">Sector *</label>
-                            <select id="newDocSec" required style="width: 100%; padding: 0.6rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color);">
-                                <option value="Governance">Governance</option>
-                                <option value="Health">Health</option>
-                                <option value="Law & Justice">Law & Justice</option>
-                                <option value="Finance & Taxation">Finance & Taxation</option>
-                                <option value="Higher Education">Higher Education</option>
-                                <option value="Public Safety & Security">Public Safety & Security</option>
-                                <option value="Industries & Commerce">Industries & Commerce</option>
-                                <option value="Social Welfare & Human Rights">Social Welfare & Human Rights</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem;">
-                        <div>
-                            <label style="font-weight: 600; font-size: 0.85rem; display: block; margin-bottom: 0.3rem;">Enactment Year *</label>
-                            <input type="number" id="newDocYr" placeholder="e.g. 2024" required style="width: 100%; padding: 0.6rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color);">
-                        </div>
-                        <div>
-                            <label style="font-weight: 600; font-size: 0.85rem; display: block; margin-bottom: 0.3rem;">Enactment Date</label>
-                            <input type="text" id="newDocDate" placeholder="e.g. 15th March, 2024" style="width: 100%; padding: 0.6rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color);">
-                        </div>
-                    </div>
-                    <div>
-                        <label style="font-weight: 600; font-size: 0.85rem; display: block; margin-bottom: 0.3rem;">Issuing Authority</label>
-                        <input type="text" id="newDocAuth" placeholder="e.g. Provincial Assembly of Khyber Pakhtunkhwa" style="width: 100%; padding: 0.6rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color);">
-                    </div>
-                    <div>
-                        <label style="font-weight: 600; font-size: 0.85rem; display: block; margin-bottom: 0.3rem;">Executive Objective & Summary *</label>
-                        <textarea id="newDocSummary" rows="3" required placeholder="Executive summary of the policy instrument..." style="width: 100%; padding: 0.6rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color);"></textarea>
-                    </div>
-                    <div>
-                        <label style="font-weight: 600; font-size: 0.85rem; display: block; margin-bottom: 0.3rem;">Google Drive Link (Optional)</label>
-                        <input type="url" id="newDocDrive" placeholder="https://drive.google.com/..." style="width: 100%; padding: 0.6rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color);">
-                    </div>
-                    <button type="submit" style="background: #10B981; color: white; border: none; padding: 0.7rem 1.2rem; border-radius: 6px; font-weight: 700; cursor: pointer; margin-top: 0.5rem;">
-                        ➕ Add Document to Repository
-                    </button>
-                </form>
-            </div>
-        </div>
     </div>
-
 </body>
 </html>

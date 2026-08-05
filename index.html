@@ -243,6 +243,11 @@
             table { width: 100%; border: 1px solid #000; }
             th, td { border: 1px solid #000; padding: 0.5rem; font-size: 0.85rem; }
             th { background: #f0f0f0 !important; color: black; }
+        }
+    </style>
+</head>
+<body>
+
     <div class="top-bar">
         <div class="brand-logo" style="display: flex; align-items: center; gap: 0.8rem;">
             <img src="assets/cppr_logo.png" alt="CPPR Logo" style="height: 42px; width: auto; border-radius: 4px;" onerror="this.style.display='none'">
@@ -2389,13 +2394,12 @@
             toggleChat();
         }
 
-        // Gemini Cloud API Proxy (Multi-Turn Conversational Engine with Automatic Fallback)
+        // Hybrid Gemini Cloud + Local AI (Ollama / LM Studio) Proxy
         async function queryGeminiAi(promptText, keyOverride) {
             const keyToUse = keyOverride || geminiApiKey || DEFAULT_PUBLIC_GEMINI_KEY;
-            if (!keyToUse) throw new Error("No API Key configured");
             if (policyIndex.length === 0) buildPolicyIndex();
             
-            // Speed Optimization: Select top 5 relevant policy matches
+            // Select top 5 relevant policy matches for speed
             const qTokens = promptText.toLowerCase().split(/[^a-z0-9]+/);
             const top5Matches = policyIndex.map(doc => {
                 let score = 0;
@@ -2406,13 +2410,37 @@
             }).sort((a, b) => b.score - a.score).slice(0, 5).map(item => item.doc);
 
             const topContext = top5Matches.map(d => `• ${d.title} (${d.cat}, ${d.sec}, ${d.yr}): ${d.summary}`).join("\n");
-            
-            // Conversational System Instructions & Context Grounding
-            const systemText = `You are the friendly, expert, and conversational CPPR Public Policy AI Assistant for IMSciences Peshawar. Respond warmly to greetings, engage naturally in multi-turn dialogue, remember previous messages in this conversation, and reference the policy repository context below when answering policy questions.\n\nPolicy Repository Snapshot:\n${topContext}`;
+            const systemText = `You are the friendly, expert CPPR Public Policy AI Assistant for IMSciences Peshawar. Respond warmly and concisely using the policy context below.\n\nPolicy Context:\n${topContext}`;
 
+            // --- 1. Try Local AI Engine First (Ollama @ http://localhost:11434 or LM Studio @ http://localhost:1234) ---
+            try {
+                const localController = new AbortController();
+                const localTimeout = setTimeout(() => localController.abort(), 1200);
+                const localRes = await fetch("http://127.0.0.1:11434/api/generate", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    signal: localController.signal,
+                    body: JSON.stringify({
+                        model: "llama3",
+                        prompt: `${systemText}\n\nUser Question: ${promptText}`,
+                        stream: false
+                    })
+                });
+                clearTimeout(localTimeout);
+                const localData = await localRes.json();
+                if (localData && localData.response) {
+                    const rawText = localData.response;
+                    const formattedHtml = rawText.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>").replace(/\n/g, "<br>");
+                    return `🖥️ <strong>CPPR Local AI Synthesis</strong>:<br><br>${formattedHtml}`;
+                }
+            } catch (localErr) {
+                // Local AI not active or timed out, seamlessly proceed to Gemini Cloud AI
+            }
+
+            // --- 2. Gemini Cloud AI Engine ---
             const contentsPayload = [
                 { role: "user", parts: [{ text: systemText }] },
-                { role: "model", parts: [{ text: "Understood! I am ready to assist with friendly, conversational public policy research for CPPR IMSciences Peshawar." }] },
+                { role: "model", parts: [{ text: "Understood! I am ready to assist with friendly public policy research for CPPR IMSciences Peshawar." }] },
                 ...geminiConversationHistory.slice(-10),
                 { role: "user", parts: [{ text: promptText }] }
             ];
@@ -2420,8 +2448,7 @@
             const controller = new AbortController();
             const timeoutId = setTimeout(() => controller.abort(), 6000);
 
-            // Model Fallback Endpoints
-            const modelsToTry = ["gemini-flash-latest", "gemini-2.5-flash", "gemini-3.5-flash"];
+            const modelsToTry = ["gemini-flash-latest", "gemini-3.5-flash", "gemini-2.5-flash"];
             let lastError = null;
 
             for (const modelName of modelsToTry) {
@@ -2437,7 +2464,6 @@
                         clearTimeout(timeoutId);
                         const rawText = data.candidates[0].content.parts[0].text;
                         
-                        // Save turn to Conversational History
                         geminiConversationHistory.push({ role: "user", parts: [{ text: promptText }] });
                         geminiConversationHistory.push({ role: "model", parts: [{ text: rawText }] });
                         if (geminiConversationHistory.length > 20) geminiConversationHistory = geminiConversationHistory.slice(-20);

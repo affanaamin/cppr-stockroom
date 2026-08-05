@@ -2531,67 +2531,116 @@
             `;
         }
 
-        // --- CPPR Admin Control Portal ---
-        let isAdminLoggedIn = false;
-        let isLiveEditingActive = true;
+        // ============================================================================
+        // SECTION: CPPR ADMIN PORTAL & AUTHENTICATION (AI-Optimized Module)
+        // ============================================================================
 
+        /**
+         * Global CPPR Admin State Controller
+         */
+        const AdminState = {
+            isLoggedIn: false,
+            isEditModeActive: false,
+            
+            /** Initialize Admin State on Page Load */
+            init() {
+                this.isLoggedIn = sessionStorage.getItem("cppr_admin_session") === "true";
+                if (this.isLoggedIn) {
+                    this.activateAdminUI();
+                } else {
+                    this.deactivateAdminUI();
+                }
+            },
+
+            /** Activate Admin UI Controls */
+            activateAdminUI() {
+                this.isLoggedIn = true;
+                sessionStorage.setItem("cppr_admin_session", "true");
+                const adminBar = document.getElementById("adminBar");
+                if (adminBar) adminBar.classList.add("admin-bar-active");
+                document.body.classList.add("admin-mode-active");
+                this.enableInlineEditing();
+            },
+
+            /** Deactivate Admin UI & Restore Visitor View */
+            deactivateAdminUI() {
+                this.isLoggedIn = false;
+                this.isEditModeActive = false;
+                sessionStorage.removeItem("cppr_admin_session");
+                const adminBar = document.getElementById("adminBar");
+                if (adminBar) adminBar.classList.remove("admin-bar-active");
+                document.body.classList.remove("admin-mode-active");
+                this.disableInlineEditing();
+            },
+
+            /** Enable inline text editing across page elements */
+            enableInlineEditing() {
+                this.isEditModeActive = true;
+                const selectors = ["h1", "h2", "h3", "h4", "p", ".obj-card", ".dept-card", ".stat-card .num", ".stat-card .label", "td.col-title", "td.col-auth"];
+                selectors.forEach(sel => {
+                    document.querySelectorAll(sel).forEach(el => {
+                        el.contentEditable = "true";
+                        el.setAttribute("spellcheck", "false");
+                    });
+                });
+                const btn = document.getElementById("adminEditToggleBtn");
+                if (btn) {
+                    btn.innerText = "✏️ Edit Text: ON";
+                    btn.style.background = "#3B82F6";
+                }
+            },
+
+            /** Disable inline text editing across page elements */
+            disableInlineEditing() {
+                this.isEditModeActive = false;
+                document.querySelectorAll('[contenteditable="true"], [contenteditable="false"]').forEach(el => {
+                    el.removeAttribute("contenteditable");
+                    el.removeAttribute("spellcheck");
+                });
+                const btn = document.getElementById("adminEditToggleBtn");
+                if (btn) {
+                    btn.innerText = "✏️ Edit Text: OFF";
+                    btn.style.background = "#64748B";
+                }
+            }
+        };
+
+        /** Prompt User for Admin Password */
         function promptAdminLogin() {
-            if (isAdminLoggedIn) {
-                alert("🔑 CPPR Admin Edit Mode is already active!");
+            if (AdminState.isLoggedIn) {
+                alert("🔑 You are already logged in to CPPR Admin Mode.");
                 return;
             }
-            const pass = prompt("🔑 Enter CPPR Admin Master Password:", "");
+            const pass = prompt("🔑 Enter CPPR Admin Master Password (Default: cppr2026):", "");
             if (pass === "admin" || pass === "cppr2026" || pass === "cppr") {
-                isAdminLoggedIn = true;
-                document.getElementById("adminBar").classList.add("admin-bar-active");
-                document.body.classList.add("admin-mode-active");
-                enableLiveTextEditing();
+                AdminState.activateAdminUI();
                 alert("🟢 Admin Login Successful! Click any text on the website to edit it live.");
             } else if (pass !== null) {
                 alert("❌ Incorrect Admin Password. Default master password is: cppr2026");
             }
         }
 
-        function enableLiveTextEditing() {
-            const selectors = ["h1", "h2", "h3", "h4", "p", ".obj-card", ".dept-card", ".stat-card .num", ".stat-card .label", "td.col-title", "td.col-auth"];
-            selectors.forEach(sel => {
-                document.querySelectorAll(sel).forEach(el => {
-                    el.contentEditable = "true";
-                });
-            });
-        }
-
-        function disableLiveTextEditing() {
-            document.querySelectorAll('[contenteditable="true"]').forEach(el => {
-                el.contentEditable = "false";
-            });
-        }
-
+        /** Toggle Live Text Editing ON/OFF */
         function toggleLiveEditing() {
-            isLiveEditingActive = !isLiveEditingActive;
-            const btn = document.getElementById("adminEditToggleBtn");
-            if (isLiveEditingActive) {
-                enableLiveTextEditing();
-                btn.innerText = "✏️ Edit Text: ON";
-                btn.style.background = "#3B82F6";
+            if (!AdminState.isLoggedIn) return;
+            if (AdminState.isEditModeActive) {
+                AdminState.disableInlineEditing();
             } else {
-                disableLiveTextEditing();
-                btn.innerText = "✏️ Edit Text: OFF";
-                btn.style.background = "#64748B";
+                AdminState.enableInlineEditing();
             }
         }
 
+        /** Save Admin Changes to Local Session */
         function saveAdminChanges() {
+            if (!AdminState.isLoggedIn) return;
             localStorage.setItem("cppr_custom_html_edits", document.body.innerHTML);
-            alert("💾 Admin changes saved to browser session! Preparing auto-commit...");
+            alert("💾 Admin changes saved successfully to your session!");
         }
 
+        /** Log out of Admin Portal */
         function logoutAdmin() {
-            isAdminLoggedIn = false;
-            disableLiveTextEditing();
-            document.getElementById("adminBar").classList.remove("admin-bar-active");
-            document.body.classList.remove("admin-mode-active");
-            alert("🚪 Logged out of CPPR Admin Mode.");
+            AdminState.deactivateAdminUI();
+            alert("🚪 Logged out of CPPR Admin Mode. Website restored to visitor view.");
         }
 
         function openAddPolicyModal() {
@@ -2649,6 +2698,7 @@
         document.addEventListener("DOMContentLoaded", () => {
             applyFilters();
             buildPolicyIndex();
+            AdminState.init();
         });
 </script>
 

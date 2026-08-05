@@ -2485,6 +2485,32 @@
             throw new Error(lastError || "Gemini API call failed");
         }
 
+        // Inquiry Form Handler
+        function submitInquiry(e) {
+            e.preventDefault();
+            const name = document.getElementById("inqName").value;
+            const email = document.getElementById("inqEmail").value;
+            const msg = document.getElementById("inqMsg").value;
+            const refCode = "CPPR-INQ-" + Math.floor(1000 + Math.random() * 9000);
+
+            const logs = JSON.parse(localStorage.getItem("cppr_inquiries") || "[]");
+            logs.push({ refCode, name, email, msg, timestamp: new Date().toISOString() });
+            localStorage.setItem("cppr_inquiries", JSON.stringify(logs));
+
+            const container = document.getElementById("inquiryFormContainer");
+            container.innerHTML = `
+                <div style="background: rgba(16,185,129,0.1); border: 1px solid #10B981; color: var(--text-color); padding: 1.2rem; border-radius: 8px; font-size: 0.9rem;">
+                    <h4 style="margin: 0 0 0.5rem 0; color: #10B981;">✅ Inquiry Logged Successfully!</h4>
+                    <p style="margin: 0 0 0.5rem 0;"><strong>Tracking Reference:</strong> <code style="background: var(--hover-bg); padding: 0.2rem 0.4rem; border-radius: 4px;">${refCode}</code></p>
+                    <p style="margin: 0 0 0.8rem 0;">Thank you, <strong>${name}</strong>. Your research note has been registered with CPPR IMSciences Peshawar.</p>
+                    <a href="mailto:cppr@imsciences.edu.pk?subject=Policy%20Inquiry%20${refCode}&body=Name:%20${encodeURIComponent(name)}%0AEmail:%20${encodeURIComponent(email)}%0AInquiry:%20${encodeURIComponent(msg)}" 
+                       style="display: inline-block; background: #1F4E78; color: white; padding: 0.5rem 1rem; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.85rem;">
+                       ✉️ Email Copy to CPPR Secretariat
+                    </a>
+                </div>
+            `;
+        }
+
         document.addEventListener("DOMContentLoaded", () => {
             applyFilters();
             buildPolicyIndex();
@@ -2552,12 +2578,14 @@
                 <p style="margin-bottom: 1rem; color: var(--muted-color); font-size: 0.95rem;">
                     Have questions regarding public policy research, baseline surveys, third-party evaluations, or policy stockroom access? Send a note directly to CPPR:
                 </p>
-                <form onsubmit="event.preventDefault(); alert('Thank you for contacting CPPR. Your inquiry has been logged.');" style="display: flex; flex-direction: column; gap: 0.75rem;">
-                    <input type="text" placeholder="Your Name" required style="padding: 0.65rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color);">
-                    <input type="email" placeholder="Your Email / Organization" required style="padding: 0.65rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color);">
-                    <textarea placeholder="Your Policy Stockroom or Research Inquiry..." rows="3" required style="padding: 0.65rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color);"></textarea>
-                    <button type="submit" style="background: #1F4E78; color: white; padding: 0.65rem 1.2rem; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; align-self: flex-start;">Send Inquiry to CPPR</button>
-                </form>
+                <div id="inquiryFormContainer">
+                    <form onsubmit="submitInquiry(event)" style="display: flex; flex-direction: column; gap: 0.75rem;">
+                        <input type="text" id="inqName" placeholder="Your Name" required style="padding: 0.65rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color);">
+                        <input type="email" id="inqEmail" placeholder="Your Email / Organization" required style="padding: 0.65rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color);">
+                        <textarea id="inqMsg" placeholder="Your Policy Stockroom or Research Inquiry..." rows="3" required style="padding: 0.65rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color);"></textarea>
+                        <button type="submit" style="background: #1F4E78; color: white; padding: 0.65rem 1.2rem; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; align-self: flex-start;">Send Inquiry to CPPR</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

@@ -2820,12 +2820,12 @@
           </p>
           <div id="inquiryFormContainer">
             <form
-              onsubmit="submitInquiry(event)"
+              action="https://formsubmit.co/affanaminbat@gmail.com" method="POST"
               style="display: flex; flex-direction: column; gap: 0.75rem"
             >
               <input
                 type="text"
-                id="inqName"
+                name="Sender Name" id="inqName"
                 placeholder="Your Name"
                 required
                 style="
@@ -2838,7 +2838,7 @@
               />
               <input
                 type="email"
-                name="Email" id="inqEmail"
+                name="Email" name="Sender Email" id="inqEmail"
                 placeholder="Your Email / Organization"
                 required
                 style="
@@ -2850,7 +2850,7 @@
                 "
               />
               <textarea
-                name="Message" id="inqMsg"
+                name="Message" name="Inquiry Message" id="inqMsg"
                 placeholder="Your Policy Stockroom or Research Inquiry..."
                 rows="3"
                 required

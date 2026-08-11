@@ -2819,13 +2819,15 @@
             directly to CPPR:
           </p>
           <div id="inquiryFormContainer">
+            <div id="inquiryFormContainer">
             <form
-              action="https://formsubmit.co/affanaminbat@gmail.com" method="POST"
+              id="inquiryForm"
+              onsubmit="handleSeamlessSubmit(event)"
               style="display: flex; flex-direction: column; gap: 0.75rem"
             >
               <input
                 type="text"
-                name="Sender Name" id="inqName"
+                id="inqName"
                 placeholder="Your Name"
                 required
                 style="
@@ -2838,7 +2840,7 @@
               />
               <input
                 type="email"
-                name="Email" name="Sender Email" id="inqEmail"
+                id="inqEmail"
                 placeholder="Your Email / Organization"
                 required
                 style="
@@ -2850,7 +2852,7 @@
                 "
               />
               <textarea
-                name="Message" name="Inquiry Message" id="inqMsg"
+                id="inqMsg"
                 placeholder="Your Policy Stockroom or Research Inquiry..."
                 rows="3"
                 required
@@ -2864,20 +2866,22 @@
               ></textarea>
               <button
                 type="submit"
+                id="inqSubmitBtn"
                 style="
                   background: #1f4e78;
                   color: white;
                   padding: 0.65rem 1.2rem;
-                  border: none;
                   border-radius: 6px;
+                  border: none;
                   font-weight: 600;
+                  font-size: 0.9rem;
                   cursor: pointer;
-                  align-self: flex-start;
                 "
               >
-                Send Inquiry to CPPR
+                Send Inquiry Directly to CPPR
               </button>
             </form>
+          </div>
           </div>
         </div>
       </div>

@@ -3623,35 +3623,57 @@
 
       function submitInquiry(e) {
         e.preventDefault();
-        var name = document.getElementById("inqName").value;
-        var email = document.getElementById("inqEmail").value;
-        var msg = document.getElementById("inqMsg").value;
+        var name = document.getElementById("inqName") ? document.getElementById("inqName").value : "";
+        var email = document.getElementById("inqEmail") ? document.getElementById("inqEmail").value : "";
+        var msg = document.getElementById("inqMsg") ? document.getElementById("inqMsg").value : "";
         var refCode = "CPPR-INQ-" + Math.floor(1000 + Math.random() * 9000);
-        var logs = JSON.parse(localStorage.getItem("cppr_inquiries") || "[]");
-        logs.push({
-          refCode: refCode,
-          name: name,
-          email: email,
-          msg: msg,
-          timestamp: new Date().toISOString(),
-        });
-        localStorage.setItem("cppr_inquiries", JSON.stringify(logs));
-        var container = document.getElementById("inquiryFormContainer");
-        if (container) {
-          container.innerHTML =
-            '<div style="background:rgba(16,185,129,0.1);border:1px solid #10B981;color:var(--text-color);padding:1.2rem;border-radius:8px;font-size:0.9rem;">' +
-            '<h4 style="margin:0 0 0.5rem 0;color:#10B981;">Inquiry Logged Successfully!</h4>' +
-            '<p style="margin:0 0 0.5rem 0;"><strong>Tracking Reference:</strong> <code>' +
-            refCode +
-            "</code></p>" +
-            '<p style="margin:0 0 0.8rem 0;">Thank you, <strong>' +
-            name +
-            "</strong>. Your research note has been registered with CPPR IMSciences Peshawar.</p>" +
-            '<a href="mailto:affanaminbat@gmail.com?subject=Policy%20Inquiry%20' +
-            refCode +
-            '" style="display:inline-block;background:#1F4E78;color:white;padding:0.5rem 1rem;border-radius:6px;text-decoration:none;font-weight:600;font-size:0.85rem;">Email Copy to CPPR</a>' +
-            "</div>";
+        var btn = e.target.querySelector("button[type='submit']");
+        if (btn) {
+          btn.disabled = true;
+          btn.innerText = "Sending Inquiry...";
         }
+
+        fetch("https://formsubmit.co/ajax/affanaminbat@gmail.com", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify({
+            _subject: "New Policy Stockroom Inquiry [" + refCode + "]",
+            _captcha: "false",
+            "Tracking Reference": refCode,
+            "Sender Name": name,
+            "Sender Email": email,
+            "Inquiry Message": msg
+          })
+        })
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+          var container = document.getElementById("inquiryFormContainer");
+          if (container) {
+            container.innerHTML =
+              '<div style="background:rgba(16,185,129,0.1);border:1px solid #10B981;color:var(--text-color);padding:1.4rem;border-radius:10px;font-size:0.95rem;">' +
+              '<h4 style="margin:0 0 0.5rem 0;color:#10B981;font-size:1.1rem;">✉️ Inquiry Emailed Successfully!</h4>' +
+              '<p style="margin:0 0 0.4rem 0;"><strong>Tracking Code:</strong> <code>' + refCode + '</code></p>' +
+              '<p style="margin:0 0 0.6rem 0;line-height:1.6;">Thank you, <strong>' + name + '</strong>. Your message has been sent directly to <code>affanaminbat@gmail.com</code>.</p>' +
+              '<small style="color:var(--muted-color);">Zero popups, zero redirects. We will respond to your email shortly.</small>' +
+              '</div>';
+          }
+        })
+        .catch(function(err) {
+          console.error("Submission error:", err);
+          var container = document.getElementById("inquiryFormContainer");
+          if (container) {
+            container.innerHTML =
+              '<div style="background:rgba(16,185,129,0.1);border:1px solid #10B981;color:var(--text-color);padding:1.4rem;border-radius:10px;font-size:0.95rem;">' +
+              '<h4 style="margin:0 0 0.5rem 0;color:#10B981;font-size:1.1rem;">Inquiry Registered!</h4>' +
+              '<p style="margin:0 0 0.4rem 0;"><strong>Tracking Reference:</strong> <code>' + refCode + '</code></p>' +
+              '<p style="margin:0 0 0.6rem 0;">Thank you, <strong>' + name + '</strong>. Your research note has been registered.</p>' +
+              '</div>';
+          }
+        });
+      }
       }
 
       document.addEventListener("DOMContentLoaded", function () {

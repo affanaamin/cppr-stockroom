@@ -1822,15 +1822,16 @@
               Public Policy Stockroom Platform
             </h3>
             <p
+              id="heroSubtitle"
               style="
                 color: var(--muted-color);
                 font-size: 0.95rem;
                 margin-top: 0.3rem;
               "
             >
-              A centralized digital repository housing 91+ verified primary
-              laws, rules of business, SOPs, and governance policies across 10
-              policy sectors with PDF previewers and executive summaries.
+              A centralized digital repository housing 2,095+ verified primary
+              laws, rules of business, SOPs, and governance policies across 28
+              official KP departments with PDF previewers and executive summaries.
             </p>
           </div>
           <button
@@ -1853,30 +1854,30 @@
           "
         >
           <div class="stat-card" style="padding: 0.8rem">
-            <div class="num" style="font-size: 1.4rem" data-editable="true">
-              91
+            <div class="num" id="statPrimaryCount" style="font-size: 1.4rem" data-editable="true">
+              2,095
             </div>
             <div class="label" data-editable="true">
               Primary Policy Instruments
             </div>
           </div>
           <div class="stat-card" style="padding: 0.8rem">
-            <div class="num" style="font-size: 1.4rem" data-editable="true">
-              76
+            <div class="num" id="statActsCount" style="font-size: 1.4rem" data-editable="true">
+              1,424
             </div>
             <div class="label" data-editable="true">Acts & Laws</div>
           </div>
           <div class="stat-card" style="padding: 0.8rem">
-            <div class="num" style="font-size: 1.4rem" data-editable="true">
-              15
+            <div class="num" id="statRulesCount" style="font-size: 1.4rem" data-editable="true">
+              671
             </div>
             <div class="label" data-editable="true">Rules & SOPs</div>
           </div>
           <div class="stat-card" style="padding: 0.8rem">
-            <div class="num" style="font-size: 1.4rem" data-editable="true">
-              10
+            <div class="num" id="statSectorsCount" style="font-size: 1.4rem" data-editable="true">
+              28
             </div>
-            <div class="label" data-editable="true">Policy Sectors</div>
+            <div class="label" data-editable="true">Official KP Departments</div>
           </div>
         </div>
       </div>
@@ -2212,7 +2213,7 @@
         </h2>
         <p style="color: var(--muted-color); font-size: 0.95rem">
           Centralized Digital Repository of Primary Laws, Acts, Rules of
-          Business, and Official SOPs (91 Documents & Research Studies)
+          Business, and Official SOPs (2,095 Documents & Research Studies)
         </p>
       </div>
       <div class="controls-card">
@@ -2303,7 +2304,7 @@
       </div>
 
       <div class="counter-bar">
-        <span id="counterText">Showing 100 of 91 Documents</span>
+        <span id="counterText">Showing 2,095 Documents</span>
         <div class="pagination-container">
           <label
             style="
@@ -3165,6 +3166,41 @@
         "Research Study": "badge-act",
       };
 
+      function updateDynamicHeaderStats() {
+        const docs = window.CPPR_DOCUMENTS || [];
+        if (!docs.length) return;
+
+        const total = docs.length;
+        let actsCount = 0;
+        let rulesCount = 0;
+        const deptsSet = new Set();
+
+        docs.forEach((d) => {
+          const cat = (d.category || "").toLowerCase();
+          if (cat.includes("act") || cat.includes("law") || cat.includes("ordinance")) {
+            actsCount++;
+          } else {
+            rulesCount++;
+          }
+          if (d.sector) deptsSet.add(d.sector);
+        });
+
+        const pEl = document.getElementById("statPrimaryCount");
+        const aEl = document.getElementById("statActsCount");
+        const rEl = document.getElementById("statRulesCount");
+        const sEl = document.getElementById("statSectorsCount");
+
+        if (pEl) pEl.innerText = total.toLocaleString();
+        if (aEl) aEl.innerText = actsCount.toLocaleString();
+        if (rEl) rEl.innerText = rulesCount.toLocaleString();
+        if (sEl) sEl.innerText = (deptsSet.size || 28).toLocaleString();
+
+        const stockroomCountSub = document.getElementById("stockroomCountSub");
+        if (stockroomCountSub) {
+          stockroomCountSub.innerText = "(" + total.toLocaleString() + " Documents & Research Studies)";
+        }
+      }
+
       function initTableCache() {
         const rawData = window.CPPR_DOCUMENTS || [];
         allDocCache = rawData.map((doc) => {
@@ -3184,6 +3220,7 @@
             dateLower: (doc.date || "").toLowerCase()
           };
         });
+        updateDynamicHeaderStats();
       }
 
       function createRowHTML(doc) {

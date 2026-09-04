@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Public Policy Stockroom Portal</title>
+    <title>Public Policy Stockroom | Centre for Public Policy Research (CPPR) - IMSciences</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -1495,7 +1495,6 @@
         border: 1px solid var(--border-color);
       }
 
-
       /* ── Mobile Responsive ─── */
       @media (max-width: 768px) {
         body { padding: 0.75rem; }
@@ -1556,9 +1555,239 @@
         .stats-grid { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
         th, td { padding: 0.5rem 0.35rem; font-size: 0.78rem; }
       }
+    
+      /* Floating Batch Action Bar */
+      .batch-action-bar {
+        position: fixed;
+        bottom: 25px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #1f4e78;
+        color: white;
+        padding: 0.85rem 1.6rem;
+        border-radius: 50px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        z-index: 1000;
+        animation: slideUp 0.3s ease;
+      }
+      body.dark-mode .batch-action-bar {
+        background: #1e293b;
+        border: 1px solid #3b82f6;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      }
+      @keyframes slideUp {
+        from { transform: translate(-50%, 50px); opacity: 0; }
+        to { transform: translate(-50%, 0); opacity: 1; }
+      }
+      .batch-action-bar span {
+        font-weight: 600;
+        font-size: 0.95rem;
+      }
+      .batch-btns {
+        display: flex;
+        gap: 0.5rem;
+      }
+      .batch-btn {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 0.45rem 0.9rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      .batch-btn:hover {
+        background: white;
+        color: #1f4e78;
+      }
+      body.dark-mode .batch-btn:hover {
+        background: #3b82f6;
+        color: white;
+      }
+      .batch-btn.clear {
+        background: rgba(239, 68, 68, 0.3);
+        border-color: rgba(239, 68, 68, 0.5);
+      }
+      .batch-btn.clear:hover {
+        background: #ef4444;
+        color: white;
+      }
+
+      /* Citation Box in Modal */
+
+      body.dark-mode 
+      
+      body.dark-mode 
+      
+      body.dark-mode 
+
+      /* Analytics Dashboard Styles */
+      .analytics-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.2rem;
+        margin-bottom: 1.8rem;
+      }
+      .analytics-kpi {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 1.4rem;
+        box-shadow: var(--shadow-sm);
+        border-top: 4px solid #1f4e78;
+      }
+      body.dark-mode .analytics-kpi {
+        border-top-color: #3b82f6;
+      }
+      .analytics-kpi .kpi-num {
+        font-size: 2rem;
+        font-weight: 800;
+        color: #1f4e78;
+        line-height: 1.1;
+      }
+      body.dark-mode .analytics-kpi .kpi-num {
+        color: #60a5fa;
+      }
+      .analytics-kpi .kpi-label {
+        font-size: 0.88rem;
+        color: var(--muted-color);
+        font-weight: 600;
+        margin-top: 0.3rem;
+      }
+      .charts-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+      }
+      .chart-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 16px;
+        padding: 1.5rem;
+        box-shadow: var(--shadow-sm);
+      }
+      .chart-card h3 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #1f4e78;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      body.dark-mode .chart-card h3 {
+        color: #60a5fa;
+      }
+      .chart-container {
+        position: relative;
+        height: 280px;
+        width: 100%;
+      }
+
+
+      /* FAQ & Glossary Styling */
+      .faq-accordion {
+        margin-bottom: 1rem;
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        box-shadow: var(--shadow-sm);
+        overflow: hidden;
+        transition: box-shadow 0.2s ease, transform 0.2s ease;
+      }
+      .faq-accordion:hover {
+        box-shadow: var(--shadow-md);
+      }
+      .faq-accordion summary {
+        padding: 1.25rem 1.5rem;
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: #1f4e78;
+        cursor: pointer;
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        user-select: none;
+      }
+      body.dark-mode .faq-accordion summary {
+        color: #60a5fa;
+      }
+      .faq-accordion summary::-webkit-details-marker {
+        display: none;
+      }
+      .faq-accordion summary::after {
+        content: '▼';
+        font-size: 0.8rem;
+        transition: transform 0.3s ease;
+      }
+      .faq-accordion[open] summary::after {
+        transform: rotate(180deg);
+      }
+      .faq-accordion .faq-content {
+        padding: 0 1.5rem 1.25rem 1.5rem;
+        font-size: 0.95rem;
+        color: var(--text-color);
+        line-height: 1.6;
+        border-top: 1px solid var(--border-color);
+        margin-top: 0.5rem;
+        padding-top: 1rem;
+      }
+      .glossary-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.2rem;
+      }
+      .glossary-card {
+        background: var(--card-bg);
+        border-left: 4px solid #1f4e78;
+        border-top: 1px solid var(--border-color);
+        border-right: 1px solid var(--border-color);
+        border-bottom: 1px solid var(--border-color);
+        border-radius: 10px;
+        padding: 1.2rem;
+        transition: transform 0.2s ease;
+      }
+      body.dark-mode .glossary-card {
+        border-left-color: #3b82f6;
+      }
+      .glossary-card:hover {
+        transform: translateX(3px);
+        box-shadow: var(--shadow-sm);
+      }
+      .glossary-card h4 {
+        color: #1f4e78;
+        font-size: 1.05rem;
+        margin-bottom: 0.5rem;
+        font-weight: 700;
+      }
+      body.dark-mode .glossary-card h4 {
+        color: #60a5fa;
+      }
+      .glossary-card p {
+        font-size: 0.9rem;
+        color: var(--text-color);
+        line-height: 1.5;
+      }
+      .glossary-section-title {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--text-color);
+        margin: 2.5rem 0 1.5rem 0;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid var(--border-color);
+      }
+
     </style>
-  <script src="documents_data.js"></script>
-</head>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="documents_data.js"></script>
+  </head>
   <body>
     <!-- Admin Password Overlay -->
     <div id="adminOverlay" class="admin-overlay hidden">
@@ -1730,11 +1959,81 @@
       <button class="tab-btn" onclick="switchTab('tabStockroom')">
         📦 Public Policy Stockroom
       </button>
+      <button class="tab-btn" onclick="switchTab('tabAnalytics')">
+        📊 Visual Analytics & Insights
+      </button>
+      <button class="tab-btn" onclick="switchTab('tabFAQsGlossary')">
+        📚 FAQs & Glossary
+      </button>
       <button class="tab-btn" onclick="switchTab('tabContact')">
         ✉️ Contact & About
       </button>
     </div>
 
+    <!-- TAB: VISUAL ANALYTICS & INSIGHTS -->
+    <div id="tabAnalytics" class="tab-content">
+      <div class="hero-banner">
+        <h2 style="color: #1f4e78; font-size: 1.5rem; margin-bottom: 0.4rem;">
+          📊 Public Policy Stockroom Analytics & Governance Insights
+        </h2>
+        <p style="color: var(--muted-color); font-size: 0.95rem; line-height: 1.6;">
+          Real-time empirical breakdown of Khyber Pakhtunkhwa's 1,374 substantive policy instruments across 15 legal hierarchy tiers, 28 administrative departments, and 4 constitutional eras.
+        </p>
+      </div>
+
+      <!-- Live KPI Metrics -->
+      <div class="analytics-grid">
+        <div class="analytics-kpi">
+          <div class="kpi-num" id="kpiTotalDocs">1,374</div>
+          <div class="kpi-label">Substantive Policy Instruments</div>
+        </div>
+        <div class="analytics-kpi" style="border-top-color: #0284c7;">
+          <div class="kpi-num" id="kpiActs" style="color: #0284c7;">814</div>
+          <div class="kpi-label">Primary Statutes & Acts</div>
+        </div>
+        <div class="analytics-kpi" style="border-top-color: #059669;">
+          <div class="kpi-num" id="kpiRules" style="color: #059669;">227</div>
+          <div class="kpi-label">Statutory Rules & Regulations</div>
+        </div>
+        <div class="analytics-kpi" style="border-top-color: #d97706;">
+          <div class="kpi-num" id="kpiPolicies" style="color: #d97706;">144</div>
+          <div class="kpi-label">Sectoral Policies & Strategies</div>
+        </div>
+        <div class="analytics-kpi" style="border-top-color: #8b5cf6;">
+          <div class="kpi-num" id="kpiSOPs" style="color: #8b5cf6;">103</div>
+          <div class="kpi-label">SOPs & Operational Manuals</div>
+        </div>
+      </div>
+
+      <!-- Charts Grid -->
+      <div class="charts-grid">
+        <div class="chart-card">
+          <h3>📈 Legislative Promulgation Timeline (1947–2026)</h3>
+          <div class="chart-container">
+            <canvas id="timelineChart"></canvas>
+          </div>
+        </div>
+        <div class="chart-card">
+          <h3>🏛️ Master Legal Hierarchy Distribution</h3>
+          <div class="chart-container">
+            <canvas id="hierarchyChart"></canvas>
+          </div>
+        </div>
+        <div class="chart-card">
+          <h3>🏢 Departmental Regulatory Depth (Top Sectors)</h3>
+          <div class="chart-container">
+            <canvas id="sectorChart"></canvas>
+          </div>
+        </div>
+        <div class="chart-card">
+          <h3>⏳ Constitutional Eras Breakdown</h3>
+          <div class="chart-container">
+            <canvas id="eraChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    
     <!-- TAB 1: CPPR HOME PAGE -->
     <div id="tabHome" class="tab-content active">
       <div class="hero-banner">
@@ -1829,9 +2128,9 @@
                 margin-top: 0.3rem;
               "
             >
-              A centralized digital repository housing 2,095+ verified primary
-              laws, rules of business, SOPs, and governance policies across 28
-              official KP departments with PDF previewers and executive summaries.
+              A centralized institutional repository of Pakistan & Khyber Pakhtunkhwa public policies,
+              primary Acts, statutory rules, Rules of Business, SOPs, and governance frameworks
+              organized sector-wise (KP Rules of Business 1985) and structured by legal hierarchy.
             </p>
           </div>
           <button
@@ -2213,9 +2512,21 @@
         </h2>
         <p style="color: var(--muted-color); font-size: 0.95rem">
           Centralized Digital Repository of Primary Laws, Acts, Rules of
-          Business, and Official SOPs (2,095 Documents & Research Studies)
+          Business, and Official SOPs (1,374 Verified Substantive Instruments)
         </p>
       </div>
+
+      <!-- In-Page AI Policy Assistant Launch Banner -->
+      <div style="background: linear-gradient(135deg, rgba(31,78,120,0.08), rgba(37,99,235,0.12)); border: 1px solid rgba(37,99,235,0.3); border-radius: 12px; padding: 1.1rem 1.4rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <h3 style="color: #1f4e78; font-size: 1.1rem; font-weight: 700; margin: 0;">🤖 Need Instant Grounded Policy Answers?</h3>
+          <p style="color: var(--muted-color); font-size: 0.88rem; margin: 3px 0 0 0;">Ask conceptual questions across all 1,374 Khyber Pakhtunkhwa statutes, subordinate rules, and policy frameworks.</p>
+        </div>
+        <button onclick="openAIAssistant()" style="background: #1f4e78; color: white; border: none; padding: 0.65rem 1.3rem; border-radius: 8px; font-weight: 700; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 10px rgba(31,78,120,0.25);">
+          <span>💬 Launch AI Policy Assistant</span>
+        </button>
+      </div>
+
       <div class="controls-card">
         <div class="search-row">
           <input
@@ -2272,13 +2583,27 @@
             class="select-input"
             onchange="applyFilters()"
           >
-            <option value="ALL">All Document Types</option>
-            <option value="Act">Acts / Laws</option>
-            <option value="Rules">Rules</option>
-            <option value="By-Laws">By-Laws</option>
-            <option value="Rules of Business">Rules of Business</option>
-            <option value="Notification">Notifications & Orders</option>
-            <option value="SOPs">SOPs / Manuals / Guidelines</option>
+            <option value="ALL">All Legal & Policy Categories</option>
+            <option value="Constitution & Amendments">Constitutional Framework & Amendments</option>
+            <option value="Act / Legislation">Primary Acts & Legislation</option>
+            <option value="Statutory Rules & Regulations">Statutory Rules & Regulations</option>
+            <option value="Rules of Business">Rules of Business (KP 1985)</option>
+            <option value="Policy / Strategy">Policies & Strategic Frameworks</option>
+            <option value="Plans & Action Plans">Plans & Action Plans</option>
+            <option value="Guidelines & SOPs">Guidelines, SOPs & Manuals</option>
+            <option value="International Commitments">International Treaties & Conventions</option>
+          </select>
+
+          <select
+            id="eraFilter"
+            class="select-input"
+            onchange="applyFilters()"
+          >
+            <option value="ALL">All Constitutional Eras</option>
+            <option value="Post-18th Amendment (2010 – Present)">Post-18th Amendment (2010 – Present) [Core Scope]</option>
+            <option value="Post-1973 Constitution Era (1973 – 2009)">Post-1973 Constitution Era (1973 – 2009)</option>
+            <option value="Post-Independence Era (1947 – 1972)">Post-Independence Era (1947 – 1972)</option>
+            <option value="Pre-Partition Era (Pre-1947)">Pre-Partition Era (Pre-1947)</option>
           </select>
 
           <select
@@ -2286,7 +2611,7 @@
             class="select-input"
             onchange="applyFilters()"
           >
-            <option value="ALL">All Years</option>
+            <option value="ALL">All Enactment Years</option>
             <option value="2008">2008</option>
             <option value="2009">2009</option>
             <option value="2010">2010</option>
@@ -2782,6 +3107,188 @@
     </div>
 
     <!-- TAB 3: LEGISLATIVE TIMELINE -->
+    
+    <!-- TAB: FAQs & Glossary -->
+    <div id="tabFAQsGlossary" class="tab-content">
+      <div style="margin-bottom: 2rem">
+        <h2 style="color: #1f4e78; font-size: 1.5rem; margin-bottom: 0.5rem">
+          📚 Frequently Asked Questions & Glossary
+        </h2>
+        <p style="color: var(--muted-color); font-size: 1rem; line-height: 1.6;">
+          Find answers to common questions about the CPPR Public Policy Stockroom, and explore key constitutional, policy, and legislative terminologies in Pakistan.
+        </p>
+      </div>
+
+      <!-- FAQ Section -->
+      <h3 class="glossary-section-title" style="margin-top:0;">Frequently Asked Questions (FAQs)</h3>
+
+      <details class="faq-accordion">
+        <summary>1. What is the Public Policy Stockroom?</summary>
+        <div class="faq-content">
+          The Public Policy Stockroom is a centralized reference and resource hub being established at the Centre for Public Policy Research (CPPR). It will bring together public policy, legal, regulatory, constitutional, strategic, and related government documents in one organized platform, making them easier to find, access, study, and use.
+        </div>
+      </details>
+
+      <details class="faq-accordion">
+        <summary>2. Why is CPPR establishing a Public Policy Stockroom?</summary>
+        <div class="faq-content">
+          Public policy and legal documents in Pakistan are often scattered across government departments, institutions, official websites, libraries, archives, and other sources. Finding relevant documents can therefore be time-consuming and difficult.<br><br>
+          The Stockroom is intended to address this challenge by creating a single, organized point of reference for public policy-related information and documentation.
+        </div>
+      </details>
+
+      <details class="faq-accordion">
+        <summary>3. What is the main purpose of the Stockroom?</summary>
+        <div class="faq-content">
+          The primary purpose is to establish a centralized, organized, and regularly updated repository of Pakistan's public policy and related legal documents.<br><br>
+          It will help users locate relevant information more efficiently and provide easier access to the primary documents needed for policy research, analysis, education, and practice.
+        </div>
+      </details>
+
+      <details class="faq-accordion">
+        <summary>4. What types of documents will the Stockroom contain?</summary>
+        <div class="faq-content">
+          The Stockroom is planned to include a broad range of public policy and legal resources, including:
+          <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
+            <li>Public policies</li>
+            <li>Laws and Acts</li>
+            <li>Constitutional provisions and amendments</li>
+            <li>Rules of Business</li>
+            <li>Standard Operating Procedures (SOPs)</li>
+            <li>Government strategies and plans</li>
+            <li>International treaties and conventions</li>
+            <li>Pakistan's international legal commitments</li>
+            <li>Historical policy documents</li>
+            <li>Other relevant policy and regulatory instruments</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="faq-accordion">
+        <summary>5. What period will the Stockroom initially cover?</summary>
+        <div class="faq-content">
+          The initial focus will be on the post-18th Constitutional Amendment period, beginning in 2010. This period is particularly significant because the 18th Amendment brought important changes to the distribution of legislative and administrative responsibilities.<br><br>
+          The Stockroom will subsequently expand to cover policy and legal instruments dating back to 1947, and, where feasible, relevant pre-partition documents.
+        </div>
+      </details>
+
+      <details class="faq-accordion">
+        <summary>6. How will the Stockroom be organized?</summary>
+        <div class="faq-content">
+          The primary organizing principle will be sector-wise categorization. This will allow users to navigate directly to the area of public policy relevant to their interests or work.<br><br>
+          Within each sector, resources may be further organized into categories such as laws and Acts, constitutional provisions, policies, strategies, international treaties, historical documents, and other regulatory instruments.
+        </div>
+      </details>
+
+      <details class="faq-accordion">
+        <summary>7. Who can use the Public Policy Stockroom?</summary>
+        <div class="faq-content">
+          The Stockroom is intended to serve a broad range of users, including students, researchers, faculty members, universities, academic institutions, public policy practitioners, government departments, policymakers, public officials, journalists, media professionals, UN agencies, NGOs, civil society organizations, and other individuals and institutions working on public policy and governance.
+        </div>
+      </details>
+
+      <details class="faq-accordion">
+        <summary>8. How will researchers and academics benefit?</summary>
+        <div class="faq-content">
+          Researchers and academics will have access to a more organized collection of primary policy and legal sources. This can reduce the time spent searching across multiple sources and support evidence-based research, policy analysis, comparative research, and academic work.
+        </div>
+      </details>
+
+      <details class="faq-accordion">
+        <summary>9. How will the Stockroom support evidence-based policymaking?</summary>
+        <div class="faq-content">
+          Evidence-based policymaking depends on access to reliable primary sources. By bringing original laws, Acts, policies, strategies, and international commitments together in an organized repository, the Stockroom will make it easier for users to consult primary documents rather than relying solely on secondary interpretations.
+        </div>
+      </details>
+
+      <details class="faq-accordion">
+        <summary>10. What is the long-term vision for the Stockroom?</summary>
+        <div class="faq-content">
+          The long-term vision is to establish a comprehensive, accessible, and regularly updated Public Policy Stockroom at CPPR that serves as a trusted reference and resource hub for public policy research and practice.<br><br>
+          Over time, it is intended to bring together Pakistan's contemporary and historical public policy, legal, regulatory, and international commitment landscape in one accessible location.
+        </div>
+      </details>
+
+      <!-- Glossary Section 1: Constitutional Wordlist -->
+      <h3 class="glossary-section-title">Constitutional Terminology</h3>
+      <div class="glossary-grid">
+        <div class="glossary-card">
+          <h4>Constitution</h4>
+          <p>The supreme legal framework of Pakistan. It establishes the structure of the State, defines powers and responsibilities of institutions, provides for fundamental rights, and sets out the relationship between the federation and provinces.</p>
+        </div>
+        <div class="glossary-card">
+          <h4>Amendment</h4>
+          <p>A formal change made to the Constitution through the special procedure prescribed by the Constitution.</p>
+        </div>
+        <div class="glossary-card">
+          <h4>Basic Structure</h4>
+          <p>A general constitutional concept referring to fundamental features of a constitution that are considered foundational.</p>
+        </div>
+        <div class="glossary-card">
+          <h4>Distribution of Powers</h4>
+          <p>The constitutional allocation of legislative, executive, and other governmental powers among the federation and provinces and among State institutions.</p>
+        </div>
+        <div class="glossary-card">
+          <h4>Fundamental Rights</h4>
+          <p>Rights guaranteed by the Constitution, including protections relating to life, liberty, equality, dignity, freedom, and other constitutional rights, subject to constitutional limitations.</p>
+        </div>
+        <div class="glossary-card">
+          <h4>Parliamentary Democracy</h4>
+          <p>A system of government in which the executive is politically responsible to the elected legislature within the constitutional framework.</p>
+        </div>
+      </div>
+
+      <!-- Glossary Section 2: Policy Wordlist -->
+      <h3 class="glossary-section-title">Public Policy Terminology</h3>
+      <div class="glossary-grid">
+        <div class="glossary-card">
+          <h4>Public Policy</h4>
+          <p>A course of action, framework, or set of decisions adopted or pursued by government to address public problems and achieve public objectives.</p>
+        </div>
+        <div class="glossary-card">
+          <h4>Evidence-Based Policy</h4>
+          <p>Policy development or decision-making informed by credible evidence, research, data, analysis, and documented experience.</p>
+        </div>
+        <div class="glossary-card">
+          <h4>Action Plan</h4>
+          <p>A practical document setting out specific activities, responsibilities, timelines, and sometimes indicators for implementing a policy or strategy.</p>
+        </div>
+        <div class="glossary-card">
+          <h4>Policy Cycle</h4>
+          <p>A conceptual framework describing stages through which public policy may progress, such as problem identification, agenda-setting, formulation, adoption, implementation, monitoring, and evaluation.</p>
+        </div>
+        <div class="glossary-card">
+          <h4>Regulation</h4>
+          <p>A binding rule or requirement issued by a competent authority under legal authority to govern particular activities, conduct, or sectors.</p>
+        </div>
+        <div class="glossary-card">
+          <h4>Stakeholder</h4>
+          <p>An individual, group, institution, or organization that is affected by, has an interest in, or can influence a policy, programme, or decision.</p>
+        </div>
+      </div>
+
+      <!-- Glossary Section 3: Legislative Process Wordlist -->
+      <h3 class="glossary-section-title">Legislative Process Terminology</h3>
+      <div class="glossary-grid">
+        <div class="glossary-card">
+          <h4>Bill vs. Act</h4>
+          <p>A <strong>Bill</strong> is a proposed law introduced in Parliament or a Provincial Assembly. An <strong>Act</strong> is a Bill that has completed the required legislative process and received the necessary assent, thereby becoming law.</p>
+        </div>
+        <div class="glossary-card">
+          <h4>Assent</h4>
+          <p>Formal constitutional approval of a Bill after it has been passed through the required legislative stages.</p>
+        </div>
+        <div class="glossary-card">
+          <h4>Ordinance</h4>
+          <p>A temporary law promulgated under constitutional authority when the relevant legislature is not in session and the prescribed constitutional conditions are met.</p>
+        </div>
+        <div class="glossary-card">
+          <h4>Committee Stage</h4>
+          <p>The stage at which a Bill is examined in detail by the relevant parliamentary committee, where applicable.</p>
+        </div>
+      </div>
+    </div>
+
     <!-- TAB 6: CONTACT & ABOUT CPPR -->
     <div id="tabContact" class="tab-content">
       <div style="margin-bottom: 1.5rem">
@@ -2949,18 +3456,25 @@
             <h2 id="briefTitle">Official Policy Document Brief</h2>
             <div class="brief-grid">
               <div class="brief-field">
-                <strong>Document Type</strong><span id="briefType"></span>
+                <strong>Legal Hierarchy Level</strong><span id="briefHierarchy" style="color:var(--btn-bg); font-weight:600;"></span>
               </div>
               <div class="brief-field">
-                <strong>Policy Sector</strong><span id="briefSector"></span>
+                <strong>Instrument Category</strong><span id="briefType"></span>
+              </div>
+              <div class="brief-field">
+                <strong>Department / Sector</strong><span id="briefSector"></span>
+              </div>
+              <div class="brief-field">
+                <strong>Constitutional Era</strong><span id="briefEra"></span>
               </div>
               <div class="brief-field">
                 <strong>Issuing Authority</strong><span id="briefAuth"></span>
               </div>
               <div class="brief-field">
-                <strong>Enactment Date</strong><span id="briefDate"></span>
+                <strong>Promulgation Date</strong><span id="briefDate"></span>
               </div>
             </div>
+            <div id="briefTagsContainer" style="margin-top: 0.8rem;"></div>
             <h3>Executive Objective & Summary</h3>
             <p
               id="briefSummary"
@@ -3092,7 +3606,7 @@
     </div>
 
     <script>
-      function debounce(func, wait) {
+function debounce(func, wait) {
         let timeout;
         return function(...args) {
           clearTimeout(timeout);
@@ -3100,6 +3614,9 @@
         };
       }
       function switchTab(tabId) {
+        if (tabId === 'tabAnalytics') {
+          setTimeout(initAnalyticsCharts, 100);
+        }
         document
           .querySelectorAll(".tab-content")
           .forEach((el) => el.classList.remove("active"));
@@ -3156,14 +3673,19 @@
       };
 
       var typeBadgeMap = {
-        Act: "badge-act",
-        Rules: "badge-rules",
+        "Constitution & Amendments": "badge-act",
+        "Act / Legislation": "badge-act",
+        "Act": "badge-act",
+        "Statutory Rules & Regulations": "badge-rules",
+        "Rules": "badge-rules",
         "Rules of Business": "badge-rules",
-        "By-Laws": "badge-rules",
-        Notification: "badge-sops",
-        SOPs: "badge-sops",
-        "Policy Schedule": "badge-sops",
-        "Research Study": "badge-act",
+        "Policy / Strategy": "badge-act",
+        "Plans & Action Plans": "badge-act",
+        "Guidelines & SOPs": "badge-sops",
+        "SOPs": "badge-sops",
+        "Official Policy Notification": "badge-sops",
+        "Notification": "badge-sops",
+        "International Commitments": "badge-act"
       };
 
       function updateDynamicHeaderStats() {
@@ -3204,16 +3726,25 @@
       function initTableCache() {
         const rawData = window.CPPR_DOCUMENTS || [];
         allDocCache = rawData.map((doc) => {
+          const tagsStr = doc.tags ? (Array.isArray(doc.tags) ? doc.tags.join(" ") : String(doc.tags)) : "";
           const searchableText = (
             (doc.title || "") + " " +
+            (doc.category || "") + " " +
+            (doc.legal_level || "") + " " +
+            (doc.sector || "") + " " +
+            (doc.era || "") + " " +
             (doc.authority || "") + " " +
+            (doc.summary || "") + " " +
+            tagsStr + " " +
             (doc.ocr || "")
           ).toLowerCase();
           return {
             doc: doc,
             category: doc.category || "",
+            legal_level: doc.legal_level || "",
             sector: doc.sector || "",
             year: doc.year || "",
+            era: doc.era || "",
             searchableText: searchableText,
             titleLower: (doc.title || "").toLowerCase(),
             authLower: (doc.authority || "").toLowerCase(),
@@ -3221,6 +3752,17 @@
           };
         });
         updateDynamicHeaderStats();
+
+        const yearSelect = document.getElementById("yearFilter");
+        if (yearSelect && yearSelect.options.length <= 1) {
+          const years = [...new Set(allDocCache.map(d => String(d.year)))].filter(Boolean).sort((a,b) => b.localeCompare(a));
+          years.forEach(year => {
+            const opt = document.createElement("option");
+            opt.value = year;
+            opt.innerText = year;
+            yearSelect.appendChild(opt);
+          });
+        }
       }
 
       function createRowHTML(doc) {
@@ -3234,19 +3776,27 @@
             '<button class="btn-sm btn-preview" onclick="openPreview(\'' + cleanTitle + '\', \'\', \'' + cleanDrive + '\')">Preview</button>' +
             '<a href="' + doc.driveUrl + '" target="_blank" class="btn-sm btn-drive">Drive</a>';
         }
-        var cleanSummary = (doc.summary || "").replace(/'/g, "\\'");
-        var cleanAuth = (doc.authority || "").replace(/'/g, "\\'");
         var cleanTitleAttr = (doc.title || "").replace(/"/g, "&quot;");
 
+        var tagsHtml = "";
+        if (doc.tags && Array.isArray(doc.tags) && doc.tags.length > 0) {
+          var tagPills = doc.tags.map(function(t) { 
+            return '<span style="display:inline-block; padding:1px 6px; margin:3px 3px 0 0; background:rgba(31,78,120,0.08); color:var(--btn-bg); border-radius:10px; font-size:0.7rem; font-weight:500;">#' + t + '</span>'; 
+          });
+          tagsHtml = '<div style="margin-top:3px;">' + tagPills.join('') + '</div>';
+        }
+
+        var isChecked = selectedDocIds.has(doc.id) ? 'checked' : '';
         return '<tr data-category="' + (doc.category || "") + '" data-sector="' + (doc.sector || "") + '" data-year="' + (doc.year || "") + '">' +
+          '<td class="no-print" style="text-align:center;"><input type="checkbox" class="doc-select-checkbox" data-id="' + doc.id + '" ' + isChecked + ' onchange="toggleDocSelection(this, ' + doc.id + ')"></td>' +
           '<td><span class="badge ' + typeClass + '">' + (doc.category || "Doc") + '</span></td>' +
-          '<td class="col-title" data-raw="' + cleanTitleAttr + '"><strong>' + (doc.title || "") + '</strong></td>' +
+          '<td class="col-title" data-raw="' + cleanTitleAttr + '"><strong>' + (doc.title || "") + '</strong>' + tagsHtml + '</td>' +
           '<td><span class="badge ' + secClass + '">' + (doc.sector || "") + '</span></td>' +
           '<td class="col-auth">' + (doc.authority || "") + '</td>' +
           '<td>' + (doc.date || "") + '</td>' +
           '<td class="no-print"><div class="action-btns">' +
           driveHtml +
-          '<button class="btn-sm btn-brief" onclick="openBrief(\'' + (doc.title || "").replace(/'/g, "\\'") + '\', \'' + (doc.category || "") + '\', \'' + (doc.sector || "") + '\', \'' + cleanAuth + '\', \'' + (doc.date || "") + '\', \'' + cleanSummary + '\')">Brief</button>' +
+          '<button class="btn-sm btn-brief" onclick="openBriefById(' + doc.id + ')">Brief</button>' +
           '</div><span class="admin-row-actions"><button class="admin-row-btn del" onclick="deleteTableRow(this)" title="Delete row">✕</button></span></td>' +
           '</tr>';
       }
@@ -3262,14 +3812,18 @@
         const type = document.getElementById("typeFilter").value;
         const year = document.getElementById("yearFilter").value;
         
+        const eraEl = document.getElementById("eraFilter");
+        const era = eraEl ? eraEl.value : "ALL";
+        
         filteredDocs = [];
         allDocCache.forEach((item) => {
           const matchesSearch = !query || item.searchableText.includes(query);
           const matchesSector = sector === "ALL" || item.sector === sector;
           const matchesType = type === "ALL" || item.category === type;
-          const matchesYear = year === "ALL" || item.year === year;
+          const matchesYear = year === "ALL" || String(item.year) === String(year);
+          const matchesEra = era === "ALL" || item.era === era;
           
-          if (matchesSearch && matchesSector && matchesType && matchesYear) {
+          if (matchesSearch && matchesSector && matchesType && matchesYear && matchesEra) {
             filteredDocs.push(item);
           }
         });
@@ -3342,6 +3896,7 @@
         document.getElementById("searchInput").value = "";
         document.getElementById("sectorFilter").value = "ALL";
         document.getElementById("typeFilter").value = "ALL";
+        if (document.getElementById("eraFilter")) document.getElementById("eraFilter").value = "ALL";
         document.getElementById("yearFilter").value = "ALL";
         currentPage = 1;
         runFilters();
@@ -3397,6 +3952,39 @@
       function closePreview() {
         document.getElementById("pdfModal").style.display = "none";
         document.getElementById("pdfFrame").src = "";
+      }
+
+      function openBriefById(id) {
+        var item = allDocCache.find(function(d) { return d.doc && d.doc.id === id; });
+        if (!item || !item.doc) return;
+        var doc = item.doc;
+        document.getElementById("briefTitle").innerText = doc.title || "Policy Document Brief";
+        if (document.getElementById("briefHierarchy")) {
+          document.getElementById("briefHierarchy").innerText = doc.legal_level || doc.category || "Statutory Instrument";
+        }
+        document.getElementById("briefType").innerText = doc.category || "General";
+        document.getElementById("briefSector").innerText = doc.sector || "Government of Khyber Pakhtunkhwa";
+        if (document.getElementById("briefEra")) {
+          document.getElementById("briefEra").innerText = doc.era || (doc.year ? "Enacted " + doc.year : "Historical Instrument");
+        }
+        document.getElementById("briefAuth").innerText = doc.authority || "Official Authority";
+        document.getElementById("briefDate").innerText = doc.date || (doc.year ? "Year " + doc.year : "Official Record");
+        document.getElementById("briefSummary").innerText = doc.summary || "No summary available.";
+        
+        var tagsContainer = document.getElementById("briefTagsContainer");
+        if (tagsContainer) {
+          if (doc.tags && Array.isArray(doc.tags) && doc.tags.length > 0) {
+            var pills = doc.tags.map(function(t) {
+              return '<span style="display:inline-block; padding:3px 10px; margin:4px 4px 0 0; background:rgba(31,78,120,0.1); color:#1f4e78; border-radius:12px; font-size:0.78rem; font-weight:600;">#' + t + '</span>';
+            });
+            tagsContainer.innerHTML = '<div style="font-size:0.8rem; font-weight:bold; color:var(--muted-color); margin-bottom:4px;">KEYWORD TAGS:</div>' + pills.join('');
+          } else {
+            tagsContainer.innerHTML = '';
+          }
+        }
+        currentBriefDoc = doc;
+        if (typeof switchCitationStyle === 'function') switchCitationStyle(activeCiteStyle || 'apa');
+        document.getElementById("briefModal").style.display = "flex";
       }
 
       function openBrief(title, type, sector, auth, date, summary) {
@@ -3811,14 +4399,19 @@
       };
 
       var typeBadgeMap = {
-        Act: "badge-act",
-        Rules: "badge-rules",
+        "Constitution & Amendments": "badge-act",
+        "Act / Legislation": "badge-act",
+        "Act": "badge-act",
+        "Statutory Rules & Regulations": "badge-rules",
+        "Rules": "badge-rules",
         "Rules of Business": "badge-rules",
-        "By-Laws": "badge-rules",
-        Notification: "badge-sops",
-        SOPs: "badge-sops",
-        "Policy Schedule": "badge-sops",
-        "Research Study": "badge-act",
+        "Policy / Strategy": "badge-act",
+        "Plans & Action Plans": "badge-act",
+        "Guidelines & SOPs": "badge-sops",
+        "SOPs": "badge-sops",
+        "Official Policy Notification": "badge-sops",
+        "Notification": "badge-sops",
+        "International Commitments": "badge-act"
       };
 
       function addNewDocument() {
@@ -4023,6 +4616,280 @@
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
       }
+
+      // ── Analytics Charts (Chart.js) ─────────────────────────
+      var chartsInitialized = false;
+
+      function initAnalyticsCharts() {
+        if (chartsInitialized) return;
+        var docs = window.CPPR_DOCUMENTS || [];
+        if (!docs.length || typeof Chart === 'undefined') return;
+
+        // 1. Timeline Chart Data
+        var yearMap = {};
+        docs.forEach(function(d) {
+          var y = parseInt(d.year, 10);
+          if (y >= 1947 && y <= 2026) {
+            yearMap[y] = (yearMap[y] || 0) + 1;
+          }
+        });
+        var sortedYears = Object.keys(yearMap).sort(function(a,b){ return a-b; });
+        var yearCounts = sortedYears.map(function(y){ return yearMap[y]; });
+
+        var ctxTimeline = document.getElementById('timelineChart');
+        if (ctxTimeline) {
+          new Chart(ctxTimeline, {
+            type: 'bar',
+            data: {
+              labels: sortedYears,
+              datasets: [{
+                label: 'Enacted Instruments',
+                data: yearCounts,
+                backgroundColor: '#1f4e78',
+                borderRadius: 4
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: { legend: { display: false } },
+              scales: { y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' } } }
+            }
+          });
+        }
+
+        // 2. Hierarchy Distribution Chart
+        var catMap = {};
+        docs.forEach(function(d) {
+          catMap[d.category] = (catMap[d.category] || 0) + 1;
+        });
+        var catLabels = Object.keys(catMap);
+        var catCounts = catLabels.map(function(c){ return catMap[c]; });
+
+        var ctxHierarchy = document.getElementById('hierarchyChart');
+        if (ctxHierarchy) {
+          new Chart(ctxHierarchy, {
+            type: 'doughnut',
+            data: {
+              labels: catLabels,
+              datasets: [{
+                data: catCounts,
+                backgroundColor: ['#1f4e78', '#0284c7', '#059669', '#d97706', '#8b5cf6', '#ef4444', '#64748b', '#10b981']
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: { legend: { position: 'right', labels: { boxWidth: 12, font: { size: 10 } } } }
+            }
+          });
+        }
+
+        // 3. Sector Distribution Chart (Top 8)
+        var secMap = {};
+        docs.forEach(function(d) {
+          secMap[d.sector] = (secMap[d.sector] || 0) + 1;
+        });
+        var sortedSecs = Object.keys(secMap).sort(function(a,b){ return secMap[b]-secMap[a]; }).slice(0, 8);
+        var secCounts = sortedSecs.map(function(s){ return secMap[s]; });
+
+        var ctxSector = document.getElementById('sectorChart');
+        if (ctxSector) {
+          new Chart(ctxSector, {
+            type: 'bar',
+            data: {
+              labels: sortedSecs,
+              datasets: [{
+                label: 'Instruments',
+                data: secCounts,
+                backgroundColor: '#0284c7',
+                borderRadius: 4
+              }]
+            },
+            options: {
+              indexAxis: 'y',
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: { legend: { display: false } }
+            }
+          });
+        }
+
+        // 4. Era Distribution Chart
+        var eraMap = {};
+        docs.forEach(function(d) {
+          eraMap[d.time_period] = (eraMap[d.time_period] || 0) + 1;
+        });
+        var eraLabels = Object.keys(eraMap);
+        var eraCounts = eraLabels.map(function(e){ return eraMap[e]; });
+
+        var ctxEra = document.getElementById('eraChart');
+        if (ctxEra) {
+          new Chart(ctxEra, {
+            type: 'pie',
+            data: {
+              labels: eraLabels,
+              datasets: [{
+                data: eraCounts,
+                backgroundColor: ['#1f4e78', '#059669', '#d97706', '#64748b']
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 10 } } } }
+            }
+          });
+        }
+
+        chartsInitialized = true;
+      }
+
+      // ── Batch Selection State ────────────────────────────────
+      var selectedDocIds = new Set();
+
+      function toggleSelectAll(masterCheckbox) {
+        var checkboxes = document.querySelectorAll('.doc-select-checkbox');
+        checkboxes.forEach(function(cb) {
+          cb.checked = masterCheckbox.checked;
+          var id = parseInt(cb.getAttribute('data-id'), 10);
+          if (masterCheckbox.checked) {
+            selectedDocIds.add(id);
+          } else {
+            selectedDocIds.delete(id);
+          }
+        });
+        updateBatchActionBar();
+      }
+
+      function toggleDocSelection(checkbox, id) {
+        if (checkbox.checked) {
+          selectedDocIds.add(id);
+        } else {
+          selectedDocIds.delete(id);
+        }
+        updateBatchActionBar();
+      }
+
+      function updateBatchActionBar() {
+        var bar = document.getElementById('batchActionBar');
+        var countText = document.getElementById('selectedCountText');
+        var selectAllCb = document.getElementById('selectAllCheckbox');
+        
+        var count = selectedDocIds.size;
+        if (bar && countText) {
+          if (count > 0) {
+            bar.style.display = 'flex';
+            countText.innerText = count + ' document' + (count > 1 ? 's' : '') + ' selected';
+          } else {
+            bar.style.display = 'none';
+            if (selectAllCb) selectAllCb.checked = false;
+          }
+        }
+      }
+
+      function clearSelection() {
+        selectedDocIds.clear();
+        var checkboxes = document.querySelectorAll('.doc-select-checkbox');
+        checkboxes.forEach(function(cb) { cb.checked = false; });
+        updateBatchActionBar();
+      }
+
+      function getSelectedDocsData() {
+        if (!allDocCache || !allDocCache.length) return [];
+        return allDocCache.filter(function(item) {
+          return item.doc && selectedDocIds.has(item.doc.id);
+        }).map(function(item) { return item.doc; });
+      }
+
+      function exportSelectedCSV() {
+        var docs = getSelectedDocsData();
+        if (!docs.length) return alert('No documents selected.');
+
+        var headers = ["ID", "Document Title", "Category", "Jurisdiction", "Geographical Scope", "Sector", "Institution", "Issuing Authority", "Enactment Date", "Year", "Constitutional Era", "Legal Status", "Legal Authority", "Parent Document", "Policy Link", "Implementation Link", "Related Documents", "Executive Policy Brief", "Keyword Tags", "Source / Drive URL"];
+        var csvRows = [headers.join(",")];
+
+        docs.forEach(function(d) {
+          var row = [
+            d.id,
+            '"' + (d.title || '').replace(/"/g, '""') + '"',
+            '"' + (d.category || '').replace(/"/g, '""') + '"',
+            '"' + (d.jurisdiction || '').replace(/"/g, '""') + '"',
+            '"' + (d.geographical_scope || '').replace(/"/g, '""') + '"',
+            '"' + (d.sector || '').replace(/"/g, '""') + '"',
+            '"' + (d.institution || '').replace(/"/g, '""') + '"',
+            '"' + (d.authority || '').replace(/"/g, '""') + '"',
+            '"' + (d.date || '').replace(/"/g, '""') + '"',
+            d.year || '',
+            '"' + (d.time_period || '').replace(/"/g, '""') + '"',
+            '"' + (d.status || '').replace(/"/g, '""') + '"',
+            '"' + (d.legal_authority || '').replace(/"/g, '""') + '"',
+            '"' + (d.parent_document || '').replace(/"/g, '""') + '"',
+            '"' + (d.policy_link || '').replace(/"/g, '""') + '"',
+            '"' + (d.implementation_link || '').replace(/"/g, '""') + '"',
+            '"' + (d.related_documents || '').replace(/"/g, '""') + '"',
+            '"' + (d.summary || '').replace(/"/g, '""') + '"',
+            '"' + (Array.isArray(d.tags) ? d.tags.join(', ') : (d.tags || '')).replace(/"/g, '""') + '"',
+            '"' + (d.driveUrl || '').replace(/"/g, '""') + '"'
+          ];
+          csvRows.push(row.join(","));
+        });
+
+        var blob = new Blob([csvRows.join("\n")], { type: "text/csv;charset=utf-8;" });
+        var link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "CPPR_Selected_Policy_Instruments.csv";
+        link.click();
+      }
+
+      function exportSelectedJSON() {
+        var docs = getSelectedDocsData();
+        if (!docs.length) return alert('No documents selected.');
+
+        var blob = new Blob([JSON.stringify(docs, null, 2)], { type: "application/json" });
+        var link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "CPPR_Selected_Policy_Instruments.json";
+        link.click();
+      }
+
+      function generateSelectedDossier() {
+        var docs = getSelectedDocsData();
+        if (!docs.length) return alert('No documents selected.');
+
+        var printWindow = window.open('', '_blank');
+        var html = '<html><head><title>CPPR Public Policy Research Dossier</title>';
+        html += '<style>body{font-family:Arial,sans-serif;padding:30px;color:#111;} h1{color:#1f4e78;} .doc-card{border-bottom:2px solid #ccc;padding-bottom:20px;margin-bottom:20px;} .field{margin:5px 0;} strong{color:#1f4e78;}</style></head><body>';
+        html += '<h1>Centre for Public Policy Research (CPPR) - Policy Dossier</h1>';
+        html += '<p>Generated on: ' + new Date().toLocaleDateString() + ' | Total Selected Instruments: ' + docs.length + '</p><hr>';
+        
+        docs.forEach(function(d) {
+          html += '<div class="doc-card">';
+          html += '<h2>[' + d.id + '] ' + d.title + '</h2>';
+          html += '<div class="field"><strong>Category:</strong> ' + d.category + ' | <strong>Sector:</strong> ' + d.sector + ' | <strong>Year:</strong> ' + d.year + ' (' + d.time_period + ')</div>';
+          html += '<div class="field"><strong>Issuing Authority:</strong> ' + d.authority + ' | <strong>Status:</strong> ' + d.status + '</div>';
+          html += '<div class="field"><strong>Legal Authority:</strong> ' + d.legal_authority + '</div>';
+          html += '<div class="field" style="margin-top:10px;"><strong>Executive Summary:</strong><p>' + d.summary + '</p></div>';
+          html += '</div>';
+        });
+        
+        html += '</body></html>';
+        printWindow.document.write(html);
+        printWindow.document.close();
+        printWindow.print();
+      }
+    
     </script>
+
+    <!-- Floating Batch Action Bar -->
+    <div id="batchActionBar" class="batch-action-bar" style="display:none;">
+      <span id="selectedCountText">0 documents selected</span>
+      <div class="batch-btns">
+        <button class="batch-btn" onclick="exportSelectedCSV()">📥 Export Selected (CSV)</button>
+        <button class="batch-btn" onclick="exportSelectedJSON()">📊 Export Selected (JSON)</button>
+        <button class="batch-btn" onclick="generateSelectedDossier()">📄 Print Policy Dossier</button>
+        <button class="batch-btn clear" onclick="clearSelection()">✕ Clear</button>
+      </div>
+    </div>
   </body>
 </html>

@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Interactive Legal Lineage - CPPR Public Policy Stockroom</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "inverse-surface": "#2d3133",
+            "inverse-on-surface": "#eff1f3",
+            "primary-container": "#1b365d",
+            "on-secondary-fixed-variant": "#5d4201",
+            "tertiary-fixed-dim": "#b9c7df",
+            "primary-fixed": "#d6e3ff",
+            "tertiary-fixed": "#d5e3fc",
+            "on-primary-container": "#87a0cd",
+            "outline-variant": "#c4c6cf",
+            "on-error": "#ffffff",
+            "on-primary": "#ffffff",
+            "surface-container": "#eceef0",
+            "on-surface": "#191c1e",
+            "on-secondary": "#ffffff",
+            "surface": "#f7f9fb",
+            "on-error-container": "#93000a",
+            "error-container": "#ffdad6",
+            "on-tertiary-container": "#92a0b7",
+            "surface-container-low": "#f2f4f6",
+            "on-tertiary-fixed": "#0d1c2e",
+            "on-background": "#191c1e",
+            "background": "#f7f9fb",
+            "error": "#ba1a1a",
+            "inverse-primary": "#aec7f7",
+            "secondary-container": "#fed488",
+            "primary-fixed-dim": "#aec7f7",
+            "secondary": "#775a19",
+            "surface-container-high": "#e6e8ea",
+            "surface-variant": "#e0e3e5",
+            "primary": "#002046",
+            "on-tertiary": "#ffffff",
+            "surface-tint": "#465f88",
+            "on-tertiary-fixed-variant": "#3a485b",
+            "surface-bright": "#f7f9fb",
+            "secondary-fixed": "#ffdea5",
+            "surface-dim": "#d8dadc",
+            "secondary-fixed-dim": "#e9c176",
+            "tertiary-container": "#29374a",
+            "on-secondary-fixed": "#261900",
+            "on-secondary-container": "#785a1a",
+            "on-primary-fixed-variant": "#2e476f",
+            "tertiary": "#132233",
+            "on-surface-variant": "#44474e",
+            "surface-container-lowest": "#ffffff",
+            "outline": "#74777f",
+            "on-primary-fixed": "#001b3d",
+            "surface-container-highest": "#e0e3e5"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "density-compact": "8px",
+            "container-max": "1440px",
+            "unit": "4px",
+            "density-comfortable": "16px",
+            "margin-desktop": "40px",
+            "gutter": "24px",
+            "margin-mobile": "16px"
+          },
+          "fontFamily": {
+            "display-lg": [
+              "Inter"
+            ],
+            "body-sm": [
+              "Inter"
+            ],
+            "label-sm": [
+              "JetBrains Mono"
+            ],
+            "headline-lg": [
+              "Inter"
+            ],
+            "body-md": [
+              "Inter"
+            ],
+            "label-md": [
+              "JetBrains Mono"
+            ],
+            "headline-md": [
+              "Inter"
+            ],
+            "headline-lg-mobile": [
+              "Inter"
+            ],
+            "body-lg": [
+              "Inter"
+            ]
+          },
+          "fontSize": {
+            "display-lg": [
+              "48px",
+              {
+                "lineHeight": "56px",
+                "letterSpacing": "-0.02em",
+                "fontWeight": "700"
+              }
+            ],
+            "body-sm": [
+              "14px",
+              {
+                "lineHeight": "20px",
+                "fontWeight": "400"
+              }
+            ],
+            "label-sm": [
+              "11px",
+              {
+                "lineHeight": "14px",
+                "letterSpacing": "0.05em",
+                "fontWeight": "500"
+              }
+            ],
+            "headline-lg": [
+              "32px",
+              {
+                "lineHeight": "40px",
+                "letterSpacing": "-0.01em",
+                "fontWeight": "600"
+              }
+            ],
+            "body-md": [
+              "16px",
+              {
+                "lineHeight": "24px",
+                "fontWeight": "400"
+              }
+            ],
+            "label-md": [
+              "13px",
+              {
+                "lineHeight": "16px",
+                "letterSpacing": "0.02em",
+                "fontWeight": "500"
+              }
+            ],
+            "headline-md": [
+              "24px",
+              {
+                "lineHeight": "32px",
+                "fontWeight": "600"
+              }
+            ],
+            "headline-lg-mobile": [
+              "24px",
+              {
+                "lineHeight": "32px",
+                "fontWeight": "600"
+              }
+            ],
+            "body-lg": [
+              "18px",
+              {
+                "lineHeight": "28px",
+                "fontWeight": "400"
+              }
+            ]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .tree-connector {
+      position: absolute;
+      background-color: theme('colors.outline-variant');
+      z-index: 0;
+    }
+    .node-card {
+      position: relative;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body-md h-screen flex flex-col overflow-hidden">
+<!-- Top Navigation (Shared Component Integration) -->
+<header class="bg-surface border-b border-outline-variant w-full sticky top-0 z-50">
+<div class="flex justify-between items-center px-margin-desktop py-density-compact max-w-container-max mx-auto">
+<!-- Brand & Search -->
+<div class="flex items-center gap-gutter">
+<div class="flex items-center gap-2">
+<span class="font-headline-md text-headline-md font-bold text-primary">LexLineage</span>
+</div>
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="bg-surface-container-high border-none rounded pl-10 pr-12 py-1.5 text-sm w-64 focus:ring-1 focus:ring-primary outline-none" placeholder="Search lineage..." type="text"/>
+<div class="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface rounded px-1 border border-outline-variant shadow-sm text-xs">⌘K</span>
+</div>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="hidden md:flex items-center gap-gutter h-full">
+<a class="text-on-surface-variant hover:text-primary transition-colors py-2" href="#">Dashboard</a>
+<a class="text-primary border-b-2 border-primary pb-1 py-2 font-medium" href="#">Lineage Tree</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors py-2" href="#">Global Trends</a>
+</nav>
+<!-- Trailing Actions & Profile -->
+<div class="flex items-center gap-4">
+<button aria-label="Notifications" class="text-on-surface-variant hover:text-primary transition-colors p-1">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button aria-label="Settings" class="text-on-surface-variant hover:text-primary transition-colors p-1">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img alt="Legal professional profile" class="w-full h-full object-cover" data-alt="A professional headshot of a legal professional, clear lighting, neutral background, high resolution, suitable for a corporate avatar." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_hw_QMypo7w9drhbUK6gcTa2Hkh5LhkfRyL69qT5DrHv2ks_R0o_vaMetVHcnjc2GBx1YbyiQr-nU50A9wxTDXC7-dcV6CJ7KjoZwGn6EflIDcRaENrrg7J98I4uLcuexzQX1FMeUp3i0J0EVCFpakY6nYdyuLA852bRY1i_eDo2RTSlmCCNb1cC6NoUJK5K9JzzBUk3bVVYZsQtJt5XPgy5YbETL-qw-FehrlcLRQsWoOKFGGS9ZDEgO16tzXAnUwVjcOSpY4PM"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Workspace Layout -->
+<main class="flex-1 flex overflow-hidden">
+<!-- Left Sidebar (Sector & Statute Selector) -->
+<aside class="w-1/4 min-w-[280px] max-w-[360px] bg-surface-container-low border-r border-outline-variant flex flex-col h-full z-20 shadow-[4px_0_12px_rgba(27,54,93,0.03)]">
+<div class="p-4 border-b border-outline-variant">
+<div class="flex items-center justify-between mb-4">
+<h2 class="font-headline-sm text-headline-sm font-semibold text-primary">Sector Hierarchy</h2>
+<button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined text-sm">filter_list</span></button>
+</div>
+<!-- Sector Dropdown -->
+<div class="relative w-full">
+<select class="w-full appearance-none bg-surface border border-outline-variant rounded p-2 pr-8 text-sm focus:ring-1 focus:ring-primary outline-none text-on-surface">
+<option>Local Government</option>
+<option>Health &amp; MTI</option>
+<option>Food Safety</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-sm">expand_more</span>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto p-4 space-y-2">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-2">Key Statutes</h3>
+<!-- List Items -->
+<div class="p-3 rounded bg-primary text-on-primary border-l-2 border-secondary shadow-sm cursor-pointer mb-2 relative overflow-hidden group">
+<div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="font-medium text-sm mb-1 leading-snug">Local Government System (Art 140A)</div>
+<div class="text-xs text-primary-fixed-dim flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">account_balance</span>
+<span>Active Framework</span>
+</div>
+</div>
+<div class="p-3 rounded bg-surface hover:bg-surface-container-high border border-outline-variant cursor-pointer mb-2 transition-colors">
+<div class="font-medium text-sm text-on-surface mb-1 leading-snug">Health &amp; MTIs (18th Amend)</div>
+<div class="text-xs text-on-surface-variant">Under Review</div>
+</div>
+<div class="p-3 rounded bg-surface hover:bg-surface-container-high border border-outline-variant cursor-pointer mb-2 transition-colors">
+<div class="font-medium text-sm text-on-surface mb-1 leading-snug">Food Safety Governance</div>
+<div class="text-xs text-on-surface-variant flex items-center gap-1">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+                Amended 2023
+            </div>
+</div>
+<div class="p-3 rounded bg-surface hover:bg-surface-container-high border border-outline-variant cursor-pointer transition-colors">
+<div class="font-medium text-sm text-on-surface mb-1 leading-snug">Right to Information</div>
+<div class="text-xs text-on-surface-variant">Statutory rules intact</div>
+</div>
+</div>
+</aside>
+<!-- Center Canvas (Interactive Tree Map) -->
+<div class="flex-1 bg-surface-container-lowest relative overflow-hidden flex items-center justify-center cursor-move" id="canvas-container">
+<!-- Dot Pattern Background -->
+<div class="absolute inset-0 opacity-[0.4]" style="background-image: radial-gradient(#c4c6cf 1px, transparent 1px); background-size: 20px 20px;"></div>
+<!-- Tree Structure Container -->
+<div class="relative w-full h-full flex flex-col items-center pt-12 transform scale-90" style="min-width: 800px;">
+<!-- Level 1: Root Node -->
+<div class="node-card flex flex-col items-center mb-16 relative">
+<div class="bg-primary-container border-2 border-secondary rounded-lg shadow-sm p-4 w-[340px] text-center flex flex-col items-center">
+<span class="material-symbols-outlined text-secondary mb-2 text-3xl">gavel</span>
+<h3 class="font-headline-md text-headline-md font-bold text-on-primary mb-1">Constitution of Pakistan, 1973</h3>
+<p class="font-body-sm text-body-sm text-on-primary-container">(Article 140A: Local Government)</p>
+</div>
+<!-- Connector Down -->
+<div class="w-px h-16 bg-outline-variant absolute top-full left-1/2 -translate-x-1/2"></div>
+</div>
+<!-- Level 2: Primary Act -->
+<div class="node-card flex flex-col items-center mb-16 relative">
+<div class="bg-primary text-on-primary border border-primary-container rounded-lg shadow-sm p-4 w-[400px] text-center relative">
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-secondary text-on-secondary-fixed font-label-sm text-label-sm px-2 py-0.5 rounded uppercase tracking-wider shadow-sm">Primary Statute</div>
+<h4 class="font-body-lg text-body-lg font-semibold mt-2 mb-1">The Khyber Pakhtunkhwa Local Government Act, 2013</h4>
+<p class="font-body-sm text-body-sm text-primary-fixed-dim">(Act No. XXVIII)</p>
+</div>
+<!-- Connector Down to Branches -->
+<div class="w-px h-8 bg-outline-variant absolute top-full left-1/2 -translate-x-1/2"></div>
+<!-- Horizontal Connector Line -->
+<div class="absolute top-[calc(100%+32px)] left-1/2 -translate-x-1/2 w-[600px] h-px bg-outline-variant"></div>
+</div>
+<!-- Level 3: Rules Nodes -->
+<div class="flex justify-center gap-8 w-full relative mb-16">
+<!-- Node 3.1 -->
+<div class="node-card flex flex-col items-center relative w-64">
+<div class="w-px h-8 bg-outline-variant absolute -top-8 left-1/2 -translate-x-1/2"></div>
+<div class="bg-surface-container-high border-t-2 border-primary rounded p-3 text-center shadow-sm w-full h-full">
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase mb-1">Rules</div>
+<p class="font-body-sm text-body-sm font-medium text-on-surface">KP Local Councils (Conduct of Elections) Rules, 2013</p>
+</div>
+</div>
+<!-- Node 3.2 -->
+<div class="node-card flex flex-col items-center relative w-64">
+<div class="w-px h-8 bg-outline-variant absolute -top-8 left-1/2 -translate-x-1/2"></div>
+<div class="bg-surface-container-high border-t-2 border-primary rounded p-3 text-center shadow-sm w-full h-full">
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase mb-1">By-Laws</div>
+<p class="font-body-sm text-body-sm font-medium text-on-surface">KP District Council Model By-Laws</p>
+</div>
+</div>
+<!-- Node 3.3 -->
+<div class="node-card flex flex-col items-center relative w-64">
+<div class="w-px h-8 bg-outline-variant absolute -top-8 left-1/2 -translate-x-1/2"></div>
+<div class="bg-surface-container-high border-t-2 border-primary rounded p-3 text-center shadow-sm w-full h-full relative">
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase mb-1">Rules of Business</div>
+<p class="font-body-sm text-body-sm font-medium text-on-surface">City Tehsil Rules of Business, 2022</p>
+</div>
+<!-- Connector Down from 3.3 to Leaf Nodes -->
+<div class="w-px h-16 bg-outline-variant absolute top-full left-1/2 -translate-x-1/2"></div>
+<div class="absolute top-[calc(100%+64px)] left-1/2 -translate-x-1/2 w-[240px] h-px bg-outline-variant"></div>
+</div>
+</div>
+<!-- Level 4: Leaf Nodes (Implementation) - Only branching from Node 3.3 for this demo -->
+<div class="flex justify-end pr-12 w-full relative pl-[500px]">
+<div class="flex justify-center gap-6 w-[600px] relative">
+<!-- Leaf Node 4.1 -->
+<div class="node-card flex flex-col items-center relative w-48">
+<div class="w-px h-8 bg-outline-variant absolute -top-8 left-1/2 -translate-x-1/2"></div>
+<div class="bg-surface border border-outline-variant rounded p-3 text-center shadow-sm w-full">
+<span class="inline-block px-1.5 py-0.5 rounded-sm bg-[#166534] text-white text-[10px] uppercase font-bold tracking-wider mb-2">Implementation</span>
+<p class="text-xs text-on-surface leading-tight">Citizen Engagement Development Planning Manual</p>
+</div>
+</div>
+<!-- Leaf Node 4.2 -->
+<div class="node-card flex flex-col items-center relative w-48">
+<div class="w-px h-8 bg-outline-variant absolute -top-8 left-1/2 -translate-x-1/2"></div>
+<div class="bg-surface border border-outline-variant rounded p-3 text-center shadow-sm w-full">
+<span class="inline-block px-1.5 py-0.5 rounded-sm bg-[#166534] text-white text-[10px] uppercase font-bold tracking-wider mb-2">Implementation</span>
+<p class="text-xs text-on-surface leading-tight">Village &amp; Neighbourhood Councils SOPs</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating Controls (Bottom) -->
+<div class="absolute bottom-6 left-1/2 -translate-x-1/2 bg-surface/90 backdrop-blur-md border border-outline-variant rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.1)] py-2 px-4 flex items-center gap-4 z-50">
+<!-- Zoom Controls -->
+<div class="flex items-center gap-2 border-r border-outline-variant pr-4">
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-container-high text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined text-sm">remove</span>
+</button>
+<span class="font-label-sm text-label-sm text-on-surface w-10 text-center">90%</span>
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-container-high text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined text-sm">add</span>
+</button>
+</div>
+<button class="flex items-center gap-1 text-sm text-on-surface-variant hover:text-primary transition-colors px-2">
+<span class="material-symbols-outlined text-sm">center_focus_strong</span>
+<span class="font-medium">Reset</span>
+</button>
+<div class="w-px h-4 bg-outline-variant mx-1"></div>
+<button class="flex items-center gap-1 text-sm text-on-surface-variant hover:text-primary transition-colors px-2">
+<span class="material-symbols-outlined text-sm">download</span>
+<span class="font-medium">Export</span>
+</button>
+<button class="ml-2 bg-primary text-on-primary font-medium text-sm px-4 py-1.5 rounded-full hover:bg-primary-container transition-colors flex items-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-sm">visibility</span>
+                Full Act Dossier
+            </button>
+</div>
+</div>
+</main>
+<script>
+    // Simple drag to pan interaction for the canvas
+    const canvasContainer = document.getElementById('canvas-container');
+    let isDragging = false;
+    let startX, startY, scrollLeft, scrollTop;
+
+    canvasContainer.addEventListener('mousedown', (e) => {
+        // Don't drag if clicking a node or control
+        if(e.target.closest('.node-card') || e.target.closest('.absolute.bottom-6')) return;
+        
+        isDragging = true;
+        canvasContainer.classList.add('cursor-grabbing');
+        canvasContainer.classList.remove('cursor-move');
+        startX = e.pageX - canvasContainer.offsetLeft;
+        startY = e.pageY - canvasContainer.offsetTop;
+        scrollLeft = canvasContainer.scrollLeft;
+        scrollTop = canvasContainer.scrollTop;
+    });
+
+    canvasContainer.addEventListener('mouseleave', () => {
+        isDragging = false;
+        canvasContainer.classList.remove('cursor-grabbing');
+        canvasContainer.classList.add('cursor-move');
+    });
+
+    canvasContainer.addEventListener('mouseup', () => {
+        isDragging = false;
+        canvasContainer.classList.remove('cursor-grabbing');
+        canvasContainer.classList.add('cursor-move');
+    });
+
+    canvasContainer.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        const x = e.pageX - canvasContainer.offsetLeft;
+        const y = e.pageY - canvasContainer.offsetTop;
+        const walkX = (x - startX) * 2;
+        const walkY = (y - startY) * 2;
+        canvasContainer.scrollLeft = scrollLeft - walkX;
+        canvasContainer.scrollTop = scrollTop - walkY;
+    });
+  </script>
+</body></html>

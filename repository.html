@@ -100,8 +100,8 @@
         .zebra-row:nth-child(odd) { background-color: #ffffff; }
 
         /* Smooth Tab Display */
-        .portal-tab { display: none; }
-        .portal-tab.active { display: flex; animation: fadeIn 0.25s ease; }
+        .portal-tab { display: none !important; }
+        .portal-tab.active { display: flex !important; animation: fadeIn 0.25s ease; }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(4px); }
             to { opacity: 1; transform: translateY(0); }
@@ -167,7 +167,7 @@
 <button id="nav-tabBrief" onclick="switchTab('tabBrief')" class="nav-btn px-3 py-4 text-on-primary-container/80 hover:bg-primary-fixed-dim/10 transition-colors font-label-md text-label-md">Executive Brief</button>
 <button id="nav-tabAnalytics" onclick="switchTab('tabAnalytics')" class="nav-btn px-3 py-4 text-on-primary-container/80 hover:bg-primary-fixed-dim/10 transition-colors font-label-md text-label-md">Analytics</button>
 <button id="nav-tabLineage" onclick="switchTab('tabLineage')" class="nav-btn px-3 py-4 text-on-primary-container/80 hover:bg-primary-fixed-dim/10 transition-colors font-label-md text-label-md">Legal Tree</button>
-<button id="nav-tabFaq" onclick="switchTab('tabFaq')" class="nav-btn px-3 py-4 text-on-primary-container/80 hover:bg-primary-fixed-dim/10 transition-colors font-label-md text-label-md">FAQs & Lexicon</button>
+<button id="nav-tabGlossary" onclick="switchTab('tabGlossary')" class="nav-btn px-3 py-4 text-on-primary-container/80 hover:bg-primary-fixed-dim/10 transition-colors font-label-md text-label-md">FAQs & Lexicon</button>
 </nav>
         </div>
 

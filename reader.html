@@ -132,10 +132,10 @@
 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-primary-container/60" data-icon="search">search</span>
 <input class="pl-10 pr-4 py-1.5 bg-primary-container/50 border border-on-primary-container/30 rounded-DEFAULT text-on-primary placeholder:text-on-primary-container/60 focus:outline-none focus:border-secondary-fixed focus:ring-1 focus:ring-secondary-fixed text-sm w-64" placeholder="Search repository..." type="text"/>
 </div>
-<button class="p-2 hover:bg-primary-fixed-dim/10 rounded-full transition-colors text-on-primary">
+<button onclick="openSettingsModal()" class="p-2 hover:bg-primary-fixed-dim/10 rounded-full transition-colors text-on-primary cursor-pointer" title="Reader Settings">
 <span class="material-symbols-outlined" data-icon="settings">settings</span>
 </button>
-<button class="p-2 hover:bg-primary-fixed-dim/10 rounded-full transition-colors text-on-primary">
+<button onclick="openAdminModal()" class="p-2 hover:bg-primary-fixed-dim/10 rounded-full transition-colors text-on-primary cursor-pointer" title="Admin Authentication">
 <span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
 </button>
 </div>
@@ -231,20 +231,20 @@
 </div>
 <!-- Actions -->
 <div class="flex flex-col gap-3 pt-4 border-t border-outline-variant">
-<button class="w-full flex items-center justify-center gap-2 bg-primary text-on-primary py-2.5 px-4 rounded-DEFAULT font-label-md text-label-md hover:bg-primary-container transition-colors shadow-sm">
+<button id="btnDownloadPDF" onclick="downloadDocPDF()" class="w-full flex items-center justify-center gap-2 bg-primary text-on-primary py-2.5 px-4 rounded-DEFAULT font-label-md text-label-md hover:bg-primary-container transition-colors shadow-sm cursor-pointer">
 <span class="material-symbols-outlined" data-icon="download">download</span>
                         Download PDF
                         <span class="text-on-primary/60 font-mono text-[10px] ml-auto tracking-normal border border-on-primary/20 px-1 rounded-sm">⌘D</span>
- id="btnDownloadPDF" onclick="downloadDocPDF()"></button>
+</button>
 <div class="grid grid-cols-2 gap-3">
-<button class="flex items-center justify-center gap-2 border border-primary text-primary py-2 px-3 rounded-DEFAULT font-label-sm text-label-sm hover:bg-surface-container-low transition-colors">
+<button onclick="openCiteModal()" class="flex items-center justify-center gap-2 border border-primary text-primary py-2 px-3 rounded-DEFAULT font-label-sm text-label-sm hover:bg-surface-container-low transition-colors cursor-pointer">
 <span class="material-symbols-outlined text-[16px]" data-icon="format_quote">format_quote</span>
                             Cite Repository
-                         onclick="openCiteModal()"></button>
-<button class="flex items-center justify-center gap-2 border border-outline text-on-surface-variant py-2 px-3 rounded-DEFAULT font-label-sm text-label-sm hover:bg-surface-container-low transition-colors">
+</button>
+<button onclick="exportDocMetadata()" class="flex items-center justify-center gap-2 border border-outline text-on-surface-variant py-2 px-3 rounded-DEFAULT font-label-sm text-label-sm hover:bg-surface-container-low transition-colors cursor-pointer">
 <span class="material-symbols-outlined text-[16px]" data-icon="export_notes">export_notes</span>
                             Export Metadata
-                         onclick="exportDocMetadata()"></button>
+</button>
 </div>
 </div>
 <!-- Legal Lineage -->
@@ -348,14 +348,67 @@
                 Close
             </button>
         </div>
+        <!-- Settings Modal -->
+    <div id="settingsModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-surface-container-lowest max-w-sm w-full rounded-lg border border-outline shadow-2xl p-6 space-y-4">
+            <div class="flex items-center justify-between border-b border-outline-variant pb-3">
+                <h3 class="font-headline font-bold text-primary flex items-center gap-2">
+                    <span class="material-symbols-outlined">settings</span> Reader Settings
+                </h3>
+                <button onclick="closeSettingsModal()" class="text-on-surface-variant hover:text-on-surface">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div class="space-y-3 font-body text-xs">
+                <div>
+                    <label class="font-bold text-on-surface block mb-1">Reader Font Size</label>
+                    <div class="flex gap-2">
+                        <button onclick="setFontSize('sm')" class="flex-1 py-1.5 border border-outline-variant rounded hover:bg-surface-container font-mono">Small</button>
+                        <button onclick="setFontSize('md')" class="flex-1 py-1.5 border border-primary bg-primary text-white rounded font-mono font-bold">Default</button>
+                        <button onclick="setFontSize('lg')" class="flex-1 py-1.5 border border-outline-variant rounded hover:bg-surface-container font-mono">Large</button>
+                    </div>
+                </div>
+                <div>
+                    <label class="font-bold text-on-surface block mb-1">Canvas Background</label>
+                    <div class="flex gap-2">
+                        <button onclick="setCanvasBg('slate')" class="flex-1 py-1.5 border border-outline-variant rounded hover:bg-surface-container font-mono">Slate</button>
+                        <button onclick="setCanvasBg('ivory')" class="flex-1 py-1.5 border border-outline-variant rounded hover:bg-surface-container font-mono">Ivory</button>
+                        <button onclick="setCanvasBg('pure')" class="flex-1 py-1.5 border border-outline-variant rounded hover:bg-surface-container font-mono">Pure</button>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-end pt-2">
+                <button onclick="closeSettingsModal()" class="px-4 py-2 bg-primary text-white rounded font-mono text-xs font-bold">Done</button>
+            </div>
+        </div>
     </div>
-</div>
 
-<!-- Toast notification -->
-<div id="readerToast" class="fixed bottom-6 right-6 bg-primary text-on-primary px-4 py-2.5 rounded-lg shadow-xl font-label-sm text-sm flex items-center gap-2 opacity-0 transition-opacity duration-300 pointer-events-none z-50">
-    <span class="material-symbols-outlined text-sm text-green-400">check_circle</span>
-    <span id="toastMessage">Action completed</span>
-</div>
+    <!-- Admin Authentication Modal -->
+    <div id="adminModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-surface-container-lowest max-w-sm w-full rounded-lg border border-outline shadow-2xl p-6 space-y-4">
+            <div class="flex items-center justify-between border-b border-outline-variant pb-3">
+                <h3 class="font-headline font-bold text-primary flex items-center gap-2">
+                    <span class="material-symbols-outlined">lock</span> Admin Authentication
+                </h3>
+                <button onclick="closeAdminModal()" class="text-on-surface-variant hover:text-on-surface">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <p class="font-body text-xs text-on-surface-variant">Enter master passcode to unlock administrative management.</p>
+            <input id="adminPassInput" type="password" placeholder="Passcode (cppr2024)" class="w-full p-2 bg-surface-container-low border border-outline-variant rounded font-mono text-xs"/>
+            <div id="adminErrorMsg" class="font-mono text-[11px] text-red-600 hidden">Invalid Passcode</div>
+            <div class="flex justify-end gap-2 pt-2">
+                <button onclick="authenticateAdmin()" class="px-4 py-2 bg-primary text-white rounded font-mono text-xs font-bold">Authenticate</button>
+                <button onclick="closeAdminModal()" class="px-3 py-2 border border-outline-variant text-on-surface-variant rounded font-mono text-xs">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast notification -->
+    <div id="readerToast" class="fixed bottom-6 right-6 bg-primary text-on-primary px-4 py-2.5 rounded-lg shadow-xl font-label-sm text-sm flex items-center gap-2 opacity-0 transition-opacity duration-300 pointer-events-none z-50">
+        <span class="material-symbols-outlined text-sm text-green-400">check_circle</span>
+        <span id="toastMessage">Action completed</span>
+    </div>
 
 <script>
     let currentZoom = 100;
@@ -368,14 +421,16 @@
     });
 
     function changeZoom(delta) {
-        currentZoom = Math.min(150, Math.max(70, currentZoom + delta));
+        if (delta === 0) currentZoom = 100;
+        else currentZoom = Math.min(160, Math.max(70, currentZoom + delta));
         const display = document.getElementById("zoomLevelDisplay");
         const article = document.getElementById("statutoryArticle");
         if (display) display.innerText = currentZoom + "%";
         if (article) {
-            article.style.transform = `scale(${currentZoom / 100})`;
-            article.style.transformOrigin = "top center";
+            article.style.fontSize = (currentZoom / 100) + "rem";
+            article.style.maxWidth = (850 * (currentZoom / 100)) + "px";
         }
+        showToast("Zoom level: " + currentZoom + "%");
     }
 
     function toggleContrast() {
@@ -384,7 +439,7 @@
         if (highContrastMode) {
             article.classList.remove("bg-surface-container-lowest", "text-on-surface");
             article.classList.add("bg-white", "text-black", "border-black", "shadow-2xl");
-            showToast("High contrast reading mode enabled");
+            showToast("High contrast mode enabled");
         } else {
             article.classList.add("bg-surface-container-lowest", "text-on-surface");
             article.classList.remove("bg-white", "text-black", "border-black", "shadow-2xl");
@@ -407,8 +462,8 @@
     }
 
     function downloadDocPDF() {
-        showToast("Preparing document for export / print...");
-        setTimeout(function() { window.print(); }, 400);
+        showToast("Opening print / PDF dialog...");
+        setTimeout(function() { window.print(); }, 300);
     }
 
     function openCiteModal() {
@@ -421,12 +476,33 @@
 
     function copyCitation() {
         const text = document.getElementById("citeTextAPA").innerText;
-        navigator.clipboard.writeText(text).then(function() {
+        const setCopied = function() {
             const btnText = document.getElementById("copyBtnText");
-            btnText.innerText = "Copied!";
+            if (btnText) btnText.innerText = "Copied!";
             showToast("Citation copied to clipboard");
-            setTimeout(function() { btnText.innerText = "Copy Citation"; }, 2000);
-        });
+            setTimeout(function() { if (btnText) btnText.innerText = "Copy Citation"; }, 2000);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(setCopied).catch(function() {
+                fallbackCopy(text);
+                setCopied();
+            });
+        } else {
+            fallbackCopy(text);
+            setCopied();
+        }
+    }
+
+    function fallbackCopy(text) {
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.position = "fixed";
+        textArea.style.opacity = "0";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try { document.execCommand('copy'); } catch(e) {}
+        document.body.removeChild(textArea);
     }
 
     function exportDocMetadata() {
@@ -452,6 +528,53 @@
         a.download = "KP_Local_Government_Act_2013_Metadata.json";
         a.click();
         showToast("Metadata JSON exported successfully");
+    }
+
+    function openSettingsModal() {
+        document.getElementById("settingsModal").classList.remove("hidden");
+    }
+
+    function closeSettingsModal() {
+        document.getElementById("settingsModal").classList.add("hidden");
+    }
+
+    function openAdminModal() {
+        document.getElementById("adminModal").classList.remove("hidden");
+    }
+
+    function closeAdminModal() {
+        document.getElementById("adminModal").classList.add("hidden");
+        const msg = document.getElementById("adminErrorMsg");
+        if (msg) msg.classList.add("hidden");
+    }
+
+    function authenticateAdmin() {
+        const input = document.getElementById("adminPassInput");
+        const msg = document.getElementById("adminErrorMsg");
+        if (input && input.value === "cppr2024") {
+            closeAdminModal();
+            showToast("Admin session authenticated");
+        } else {
+            if (msg) msg.classList.remove("hidden");
+        }
+    }
+
+    function setFontSize(sz) {
+        const article = document.getElementById("statutoryArticle");
+        if (!article) return;
+        if (sz === 'sm') article.style.fontSize = "0.875rem";
+        else if (sz === 'lg') article.style.fontSize = "1.125rem";
+        else article.style.fontSize = "1rem";
+        showToast("Font size set to " + sz);
+    }
+
+    function setCanvasBg(theme) {
+        const parent = document.getElementById("statutoryArticle")?.parentElement;
+        if (!parent) return;
+        if (theme === 'ivory') parent.style.backgroundColor = "#fefae0";
+        else if (theme === 'pure') parent.style.backgroundColor = "#ffffff";
+        else parent.style.backgroundColor = "#e2e8f0";
+        showToast("Canvas theme: " + theme);
     }
 
     function showToast(msg) {

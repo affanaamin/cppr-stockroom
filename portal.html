@@ -160,12 +160,12 @@
             </div>
 
             <!-- Main Navigation Links -->
-            <nav class="hidden xl:flex items-center gap-1 h-16 pl-4 border-l border-on-primary-container/20">
-                <button onclick="switchTab('tabRepo')" id="nav-tabRepo" class="nav-btn px-3 py-2 rounded font-mono text-xs font-semibold text-on-primary bg-primary-container border-b-2 border-secondary-fixed flex items-center gap-1.5 transition-colors">
+            <nav class="hidden md:flex items-center gap-1 h-16 pl-2 lg:pl-4 border-l border-on-primary-container/20 overflow-x-auto no-scrollbar">
+                <button onclick="switchTab('tabReader')" id="nav-tabReader" class="nav-btn px-3 py-2 rounded font-mono text-xs font-semibold text-on-primary bg-primary-container border-b-2 border-secondary-fixed flex items-center gap-1.5 transition-colors">
                     <span class="material-symbols-outlined text-sm">inventory_2</span>
                     Repository
                 </button>
-                <button onclick="switchTab('tabReader')" id="nav-tabReader" class="nav-btn px-3 py-2 rounded font-mono text-xs font-semibold text-on-primary-container/80 hover:text-on-primary hover:bg-primary-container/50 flex items-center gap-1.5 transition-colors">
+                <button onclick="switchTab('tabRepo')" id="nav-tabRepo" class="nav-btn px-3 py-2 rounded font-mono text-xs font-semibold text-on-primary-container/80 hover:text-on-primary hover:bg-primary-container/50 flex items-center gap-1.5 transition-colors">
                     <span class="material-symbols-outlined text-sm">menu_book</span>
                     Document Reader
                 </button>
@@ -201,8 +201,8 @@
             <!-- Mobile Menu Dropdown -->
             <div class="xl:hidden relative">
                 <select onchange="switchTab(this.value)" class="bg-primary-container text-on-primary font-mono text-xs py-1.5 px-3 rounded border border-on-primary-container/30 focus:outline-none">
+                    <option value="tabReader" selected>📖 Document Reader</option>
                     <option value="tabRepo">📦 Repository</option>
-                    <option value="tabReader">📖 Document Reader</option>
                     <option value="tabAnalytics">📊 Visual Analytics</option>
                     <option value="tabLineage">🌳 Legal Lineage</option>
                     <option value="tabRedline">⚖️ Redline Studio</option>
@@ -226,6 +226,10 @@
                 <span class="px-1.5 py-0.5 rounded bg-on-primary/10 text-[10px] ml-2">⌘K</span>
             </button>
 
+            <!-- Reader Settings Button -->
+            <button onclick="openSettingsModal()" class="p-2 hover:bg-primary-fixed-dim/10 rounded-full transition-colors text-on-primary cursor-pointer" title="Reader Settings">
+                <span class="material-symbols-outlined text-lg">settings</span>
+            </button>
             <!-- Admin Access Button -->
             <button onclick="openAdminModal()" class="px-2.5 py-1 rounded bg-secondary text-white font-mono text-xs font-semibold hover:bg-secondary/90 transition-colors flex items-center gap-1 shadow-sm" title="Admin Portal Management">
                 <span class="material-symbols-outlined text-sm">admin_panel_settings</span>
@@ -240,7 +244,7 @@
         <!-- ========================================================= -->
         <!-- TAB 1: MASTER REPOSITORY & SPLIT-PANE INSPECTOR           -->
         <!-- ========================================================= -->
-        <section id="tabRepo" class="portal-tab active flex-1 flex flex-col h-full overflow-hidden">
+        <section id="tabRepo" class="portal-tab flex-1 flex flex-col h-full overflow-hidden">
             <!-- Filter Bar & Toolbar -->
             <div class="bg-surface-container-lowest border-b border-outline-variant px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 shrink-0 shadow-sm z-20">
                 <!-- Search & Filter Controls -->
@@ -439,7 +443,7 @@
         <!-- ========================================================= -->
         <!-- TAB 2: FLAGSHIP STATUTORY DOCUMENT READER STUDIO          -->
         <!-- ========================================================= -->
-        <section id="tabReader" class="portal-tab flex-1 flex flex-col h-full overflow-hidden">
+        <section id="tabReader" class="portal-tab active flex-1 flex flex-col h-full overflow-hidden">
             <!-- Split Pane Reader Layout -->
             <div class="flex-1 flex flex-col md:flex-row h-full overflow-hidden">
                 <!-- Left 70%: Statutory Document Canvas -->
@@ -556,7 +560,7 @@
 
                         <!-- Citation & Export Suite -->
                         <div class="space-y-2 border-t border-outline-variant pt-4">
-                            <button onclick="window.print()" class="w-full flex items-center justify-center gap-2 bg-primary text-on-primary py-2.5 px-4 rounded font-mono text-xs font-bold hover:bg-primary-container transition-colors shadow-sm">
+                            <button onclick="downloadDocPDF()" class="w-full flex items-center justify-center gap-2 bg-primary text-on-primary py-2.5 px-4 rounded font-mono text-xs font-bold hover:bg-primary-container transition-colors shadow-sm cursor-pointer">
                                 <span class="material-symbols-outlined text-sm">print</span>
                                 Print / Download PDF
                                 <span class="text-on-primary/60 font-mono text-[10px] ml-auto border border-on-primary/20 px-1 rounded">⌘P</span>
@@ -959,7 +963,7 @@
                         <label class="font-mono text-xs font-semibold text-on-surface-variant block mb-1">Inquiry / Research Note *</label>
                         <textarea id="inqMessage" required rows="4" placeholder="Detail your specific statutory inquiry or research topic..." class="w-full p-2.5 bg-surface-container-low border border-outline-variant rounded font-body text-xs text-on-surface focus:border-primary focus:outline-none"></textarea>
                     </div>
-                    <button type="submit" id="inqSubmitBtn" class="w-full py-2.5 bg-primary text-white font-mono text-xs font-bold rounded hover:bg-primary-container transition-colors shadow-sm">
+                    <button type="submit" id="inqSubmitBtn" onclick="submitInquiryAjax(event)" class="w-full py-2.5 bg-primary text-white font-mono text-xs font-bold rounded hover:bg-primary-container transition-colors shadow-sm cursor-pointer">
                         Submit Research Inquiry to CPPR
                     </button>
                     <div id="inqResultBox" class="hidden p-3 rounded font-mono text-xs"></div>
@@ -1040,6 +1044,42 @@
         </div>
     </div>
 
+    
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-surface-container-lowest max-w-sm w-full rounded-lg border border-outline shadow-2xl p-6 space-y-4">
+            <div class="flex items-center justify-between border-b border-outline-variant pb-3">
+                <h3 class="font-headline font-bold text-primary flex items-center gap-2">
+                    <span class="material-symbols-outlined">settings</span> Reader Settings
+                </h3>
+                <button onclick="closeSettingsModal()" class="text-on-surface-variant hover:text-on-surface">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div class="space-y-3 font-body text-xs">
+                <div>
+                    <label class="font-bold text-on-surface block mb-1">Reader Font Size</label>
+                    <div class="flex gap-2">
+                        <button onclick="setFontSize('sm')" class="flex-1 py-1.5 border border-outline-variant rounded hover:bg-surface-container font-mono">Small</button>
+                        <button onclick="setFontSize('md')" class="flex-1 py-1.5 border border-primary bg-primary text-white rounded font-mono font-bold">Default</button>
+                        <button onclick="setFontSize('lg')" class="flex-1 py-1.5 border border-outline-variant rounded hover:bg-surface-container font-mono">Large</button>
+                    </div>
+                </div>
+                <div>
+                    <label class="font-bold text-on-surface block mb-1">Canvas Background</label>
+                    <div class="flex gap-2">
+                        <button onclick="setCanvasBg('slate')" class="flex-1 py-1.5 border border-outline-variant rounded hover:bg-surface-container font-mono">Slate</button>
+                        <button onclick="setCanvasBg('ivory')" class="flex-1 py-1.5 border border-outline-variant rounded hover:bg-surface-container font-mono">Ivory</button>
+                        <button onclick="setCanvasBg('pure')" class="flex-1 py-1.5 border border-outline-variant rounded hover:bg-surface-container font-mono">Pure White</button>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-end pt-2">
+                <button onclick="closeSettingsModal()" class="px-4 py-2 bg-primary text-white rounded font-mono text-xs font-bold">Done</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Toast Notification -->
     <div id="portalToast" class="fixed bottom-6 right-6 bg-primary text-white px-4 py-2.5 rounded-lg shadow-2xl font-mono text-xs flex items-center gap-2 opacity-0 transition-opacity duration-300 pointer-events-none z-50">
         <span class="material-symbols-outlined text-green-400 text-sm">check_circle</span>
@@ -1055,6 +1095,80 @@
 
     <!-- CORE PLATFORM SCRIPT -->
     <script>
+        
+        function openSettingsModal() {
+            document.getElementById("settingsModal").classList.remove("hidden");
+        }
+
+        function closeSettingsModal() {
+            document.getElementById("settingsModal").classList.add("hidden");
+        }
+
+        function setFontSize(sz) {
+            const article = document.getElementById("readerCanvasArticle");
+            if (!article) return;
+            if (sz === 'sm') article.style.fontSize = "0.875rem";
+            else if (sz === 'lg') article.style.fontSize = "1.125rem";
+            else article.style.fontSize = "1rem";
+            showToast("Font size: " + sz);
+        }
+
+        function setCanvasBg(theme) {
+            const container = document.getElementById("readerCanvasArticle")?.parentElement;
+            if (!container) return;
+            if (theme === 'ivory') container.style.backgroundColor = "#fefae0";
+            else if (theme === 'pure') container.style.backgroundColor = "#ffffff";
+            else container.style.backgroundColor = "#e2e8f0";
+            showToast("Canvas theme: " + theme);
+        }
+
+        function downloadDocPDF() {
+            showToast("Preparing document for export / print...");
+            setTimeout(function() { window.print(); }, 300);
+        }
+
+        function fallbackCopy(text) {
+            const ta = document.createElement("textarea");
+            ta.value = text;
+            ta.style.position = "fixed";
+            ta.style.opacity = "0";
+            document.body.appendChild(ta);
+            ta.focus();
+            ta.select();
+            try { document.execCommand('copy'); } catch(e) {}
+            document.body.removeChild(ta);
+        }
+
+        function populateReaderDropdown() {
+            const sel = document.getElementById("readerDocSelector");
+            if (!sel) return;
+            sel.innerHTML = '<option value="default">KP Local Government Act, 2013 (Full Text)</option>';
+            const sampleDocs = allDocuments.slice(0, 100);
+            sampleDocs.forEach(d => {
+                const opt = document.createElement("option");
+                opt.value = d.id;
+                opt.textContent = `${d.title} (${d.category || 'Law'})`;
+                sel.appendChild(opt);
+            });
+        }
+
+        function changeReaderChapter(delta) {
+            const indicator = document.getElementById("readerPageIndicator");
+            if (!indicator) return;
+            let current = parseInt(indicator.innerText.replace(/[^0-9]/g, '').substring(0, 2) || "1", 10);
+            current = Math.min(42, Math.max(1, current + delta));
+            indicator.innerText = `Page ${current} of 42`;
+            showToast(`Navigated to Chapter / Section ${current}`);
+        }
+
+        function filterByKeyword(kw) {
+            const input = document.getElementById("repoSearchInput");
+            if (input) input.value = kw;
+            switchTab("tabRepo");
+            runFilters();
+            showToast("Filtering by keyword: " + kw);
+        }
+
         // Core State
         let allDocuments = [];
         let filteredDocuments = [];
@@ -1090,6 +1204,11 @@
             renderGlossary();
             changeLineageRoot("KP-LGA-2013");
             setupKeyboardShortcuts();
+            populateReaderDropdown();
+            if (allDocuments.length > 0) {
+                currentActiveDoc = allDocuments[0];
+            }
+            loadReaderDocumentFromSelector("default");
         });
 
         // -------------------------------------------------------------
@@ -1424,9 +1543,16 @@
         }
 
         function readerZoom(delta) {
-            readerZoomLevel = Math.min(150, Math.max(70, readerZoomLevel + delta));
-            document.getElementById("readerZoomDisplay").innerText = readerZoomLevel + "%";
-            document.getElementById("readerCanvasArticle").style.transform = `scale(${readerZoomLevel / 100})`;
+            if (delta === 0) readerZoomLevel = 100;
+            else readerZoomLevel = Math.min(160, Math.max(70, readerZoomLevel + delta));
+            const disp = document.getElementById("readerZoomDisplay");
+            if (disp) disp.innerText = readerZoomLevel + "%";
+            const art = document.getElementById("readerCanvasArticle");
+            if (art) {
+                art.style.fontSize = (readerZoomLevel / 100) + "rem";
+                art.style.maxWidth = (850 * (readerZoomLevel / 100)) + "px";
+            }
+            showToast("Zoom: " + readerZoomLevel + "%");
         }
 
         function toggleHighContrast() {
@@ -1465,23 +1591,37 @@
         function closeCitationModal() { document.getElementById("citationModal").classList.add("hidden"); }
 
         function copyActiveCitation() {
-            const text = document.getElementById("citeTextApa").innerText;
-            navigator.clipboard.writeText(text).then(() => {
+            const textEl = document.getElementById("citeTextApa");
+            const text = textEl ? textEl.innerText : "";
+            const setCopied = () => {
                 const btn = document.getElementById("copyCiteBtnText");
-                btn.innerText = "Copied!";
+                if (btn) btn.innerText = "Copied!";
                 showToast("Citation copied to clipboard");
-                setTimeout(() => { btn.innerText = "Copy APA Citation"; }, 2000);
-            });
+                setTimeout(() => { if (btn) btn.innerText = "Copy APA Citation"; }, 2000);
+            };
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(setCopied).catch(() => {
+                    fallbackCopy(text);
+                    setCopied();
+                });
+            } else {
+                fallbackCopy(text);
+                setCopied();
+            }
         }
 
         function exportSingleDocJson() {
-            if (!currentActiveDoc) return;
-            const blob = new Blob([JSON.stringify(currentActiveDoc, null, 2)], { type: "application/json" });
+            const doc = currentActiveDoc || (allDocuments && allDocuments.length ? allDocuments[0] : null);
+            if (!doc) {
+                showToast("No active document selected");
+                return;
+            }
+            const blob = new Blob([JSON.stringify(doc, null, 2)], { type: "application/json" });
             const a = document.createElement("a");
             a.href = URL.createObjectURL(blob);
-            a.download = `CPPR_Instrument_${currentActiveDoc.id}.json`;
+            a.download = `CPPR_Instrument_${doc.id || 'KP-LGA-2013'}.json`;
             a.click();
-            showToast("Document JSON exported");
+            showToast("Document JSON metadata exported");
         }
 
         function exportReaderMetadataJson() { exportSingleDocJson(); }

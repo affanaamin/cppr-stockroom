@@ -1403,12 +1403,25 @@
         }
 
         function changeReaderChapter(delta) {
-            const indicator = document.getElementById("readerPageIndicator");
-            if (!indicator) return;
-            let current = parseInt(indicator.innerText.replace(/[^0-9]/g, '').substring(0, 2) || "1", 10);
-            current = Math.min(42, Math.max(1, current + delta));
-            indicator.innerText = `Page ${current} of 42`;
-            showToast(`Navigated to Chapter / Section ${current}`);
+            const canvas = document.getElementById("readerCanvasArticle");
+            if (!canvas) return;
+            const sections = canvas.querySelectorAll("section");
+            if (sections.length === 0) return;
+            
+            if (typeof window.currentChapterIndex === "undefined") window.currentChapterIndex = 0;
+            
+            window.currentChapterIndex += delta;
+            if (window.currentChapterIndex < 0) window.currentChapterIndex = 0;
+            if (window.currentChapterIndex >= sections.length) window.currentChapterIndex = sections.length - 1;
+            
+            // Scroll to the chapter section
+            sections[window.currentChapterIndex].scrollIntoView({ behavior: "smooth", block: "start" });
+            
+            const chapterIndicator = document.getElementById("readerChapterIndicator");
+            if (chapterIndicator) chapterIndicator.innerText = "Ch " + (window.currentChapterIndex + 1);
+            
+            showToast("Navigated to Chapter " + (window.currentChapterIndex + 1));
+        }`);
         }
 
         function filterByKeyword(kw) {

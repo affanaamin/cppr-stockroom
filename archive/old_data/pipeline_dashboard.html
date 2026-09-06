@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPPR Pipeline Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0a2351;
+            --secondary: #1d4085;
+            --accent: #00e676;
+            --bg: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --border: #e0e5eb;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: white;
+            width: 100%;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            padding: 40px 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .card-title {
+            font-size: 14px;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            background-color: rgba(0, 230, 118, 0.1);
+            color: #00b35c;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 16px;
+            width: fit-content;
+        }
+
+        .status-badge.error {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: #dc3545;
+        }
+
+        .status-badge.offline {
+            background-color: rgba(108, 117, 125, 0.1);
+            color: #6c757d;
+        }
+
+        .data-point {
+            margin-bottom: 20px;
+        }
+        
+        .data-point:last-child {
+            margin-bottom: 0;
+        }
+
+        .data-value {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-top: 5px;
+            word-break: break-word;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .stat-box {
+            background-color: var(--bg);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .pulse {
+            width: 10px;
+            height: 10px;
+            background-color: #00e676;
+            border-radius: 50%;
+            margin-right: 10px;
+            box-shadow: 0 0 0 0 rgba(0, 230, 118, 0.7);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 230, 118, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(0, 230, 118, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 230, 118, 0); }
+        }
+        
+        .timestamp {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 13px;
+            margin-top: -10px;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>CPPR Model Cascade Pipeline</h1>
+    </header>
+
+    <div class="container">
+        
+        <div class="card full-width">
+            <div class="card-title">Orchestrator Status</div>
+            <div id="status-container" class="status-badge offline">
+                <div id="pulse-dot" class="" style="display:none;"></div>
+                <span id="pipeline-status">Waiting for data...</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">Current Operation</div>
+            
+            <div class="data-point">
+                <div class="card-title" style="font-size: 12px; margin-bottom: 2px;">Phase</div>
+                <div class="data-value" id="current-phase">-</div>
+            </div>
+            
+            <div class="data-point">
+                <div class="card-title" style="font-size: 12px; margin-bottom: 2px;">Target / Action</div>
+                <div class="data-value" id="current-target">-</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">LM Studio VRAM Manager</div>
+            <div class="data-point" style="height: 100%; display: flex; flex-direction: column; justify-content: center;">
+                <div class="card-title" style="font-size: 12px; margin-bottom: 2px;">Active Hot-Swapped Model</div>
+                <div class="data-value" id="active-model" style="font-size: 24px; color: var(--accent); background: #111; padding: 15px; border-radius: 8px; font-family: monospace;">-</div>
+            </div>
+        </div>
+
+        <div class="card full-width">
+            <div class="card-title">Document Telemetry</div>
+            <div class="stat-grid">
+                <div class="stat-box">
+                    <div class="stat-number" id="docs-discovered">0</div>
+                    <div class="stat-label">Discovered</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" id="docs-processed">0</div>
+                    <div class="stat-label">Processed</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" id="docs-skipped">0</div>
+                    <div class="stat-label">Duplicates Skipped</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="timestamp">Last Ping: <span id="last-updated">-</span></div>
+
+    <script>
+        function fetchState() {
+            const script = document.createElement('script');
+            script.src = 'pipeline_state.js?t=' + new Date().getTime();
+            script.onload = () => {
+                const data = window.pipeline_state;
+                if (!data) return;
+                
+                const statusBadge = document.getElementById('status-container');
+                const pulseDot = document.getElementById('pulse-dot');
+                const statusText = document.getElementById('pipeline-status');
+                
+                statusText.innerText = data.status || 'Unknown';
+                
+                if (data.status === 'Running' || data.status === 'Initializing') {
+                    statusBadge.className = 'status-badge';
+                    pulseDot.style.display = 'block';
+                    pulseDot.className = 'pulse';
+                } else if (data.status.includes('Error') || data.status.includes('Crash')) {
+                    statusBadge.className = 'status-badge error';
+                    pulseDot.style.display = 'none';
+                } else {
+                    statusBadge.className = 'status-badge offline';
+                    pulseDot.style.display = 'none';
+                }
+
+                document.getElementById('current-phase').innerText = data.current_phase || '-';
+                document.getElementById('active-model').innerText = data.active_model || '-';
+                document.getElementById('current-target').innerText = data.target || '-';
+                
+                document.getElementById('docs-discovered').innerText = data.docs_discovered || '0';
+                document.getElementById('docs-processed').innerText = data.docs_processed || '0';
+                document.getElementById('docs-skipped').innerText = data.duplicates_skipped || '0';
+                
+                document.getElementById('last-updated').innerText = data.last_updated || '-';
+                
+                script.remove();
+            };
+            script.onerror = () => {
+                console.log("Waiting for pipeline_state.js...");
+                script.remove();
+            };
+            document.head.appendChild(script);
+        }
+
+        // Poll every 1 second
+        setInterval(fetchState, 1000);
+        fetchState();
+    </script>
+</body>
+</html>

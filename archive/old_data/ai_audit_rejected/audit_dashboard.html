@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CPPR AI Rejected Document Audit Dashboard</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-color: #0b1120;
+        --card-bg: #1e293b;
+        --border-color: #334155;
+        --text-color: #f8fafc;
+        --muted-color: #94a3b8;
+        --primary: #3b82f6;
+        --success: #10b981;
+        --danger: #ef4444;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Inter", sans-serif;
+      }
+      body {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        padding: 2rem;
+        min-height: 100vh;
+      }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid var(--border-color);
+      }
+      .header h1 {
+        font-size: 1.5rem;
+        color: #38bdf8;
+      }
+      .ai-badge {
+        background: rgba(59, 130, 246, 0.2);
+        color: #60a5fa;
+        border: 1px solid rgba(59, 130, 246, 0.4);
+        padding: 0.4rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1.25rem;
+        margin-bottom: 2rem;
+      }
+      .stat-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 1.25rem;
+        text-align: center;
+      }
+      .stat-card .num {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-top: 0.4rem;
+      }
+      .stat-card.rescued .num {
+        color: var(--success);
+      }
+      .stat-card.rejected .num {
+        color: var(--danger);
+      }
+      .stat-card.total .num {
+        color: var(--primary);
+      }
+      .stat-card.percent .num {
+        color: #f59e0b;
+      }
+      .stat-label {
+        font-size: 0.8rem;
+        color: var(--muted-color);
+        text-transform: uppercase;
+        font-weight: 600;
+      }
+      .progress-section {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 1.25rem;
+        margin-bottom: 2rem;
+      }
+      .progress-bar-bg {
+        background: #0f172a;
+        height: 14px;
+        border-radius: 7px;
+        overflow: hidden;
+        margin-top: 0.75rem;
+        border: 1px solid var(--border-color);
+      }
+      .progress-bar-fill {
+        background: linear-gradient(90deg, #3b82f6, #10b981);
+        height: 100%;
+        width: 0%;
+        transition: width 0.4s ease;
+      }
+      .active-file-indicator {
+        font-size: 0.85rem;
+        color: var(--muted-color);
+        margin-top: 0.5rem;
+        word-break: break-all;
+      }
+      .table-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+      .table-header {
+        padding: 1rem 1.25rem;
+        background: rgba(15, 23, 42, 0.6);
+        border-bottom: 1px solid var(--border-color);
+        font-weight: 600;
+        font-size: 0.95rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.85rem;
+      }
+      th,
+      td {
+        padding: 0.75rem 1rem;
+        text-align: left;
+        border-bottom: 1px solid var(--border-color);
+      }
+      th {
+        background: #0f172a;
+        color: var(--muted-color);
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+      }
+      tr:hover {
+        background: rgba(255, 255, 255, 0.02);
+      }
+      .badge {
+        padding: 0.25rem 0.6rem;
+        border-radius: 6px;
+        font-weight: 700;
+        font-size: 0.75rem;
+        display: inline-block;
+      }
+      .badge-rescued {
+        background: rgba(16, 185, 129, 0.2);
+        color: #34d399;
+        border: 1px solid rgba(16, 185, 129, 0.4);
+      }
+      .badge-rejected {
+        background: rgba(239, 68, 68, 0.2);
+        color: #f87171;
+        border: 1px solid rgba(239, 68, 68, 0.4);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <div>
+        <h1>🤖 CPPR Rejected Documents — Semantic AI Audit</h1>
+        <p style="color: var(--muted-color); font-size: 0.88rem; margin-top: 0.3rem">
+          Real-time Local AI Evaluation Dashboard (Neuraldaredevil 8B)
+        </p>
+      </div>
+      <div class="ai-badge">⚡ Neuraldaredevil 8B Active</div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card total">
+        <div class="stat-label">Total Audited</div>
+        <div id="statTotal" class="num">0</div>
+      </div>
+      <div class="stat-card rescued">
+        <div class="stat-label">✨ Rescued Policies</div>
+        <div id="statRescued" class="num">0</div>
+      </div>
+      <div class="stat-card rejected">
+        <div class="stat-label">🗑️ Rejected Clutter</div>
+        <div id="statRejected" class="num">0</div>
+      </div>
+      <div class="stat-card percent">
+        <div class="stat-label">Completion</div>
+        <div id="statPercent" class="num">0%</div>
+      </div>
+    </div>
+
+    <div class="progress-section">
+      <div style="display: flex; justify-content: space-between; font-weight: 600; font-size: 0.9rem">
+        <span>Evaluation Progress</span>
+        <span id="progressText">0 / 0 files</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div id="progressBarFill" class="progress-bar-fill"></div>
+      </div>
+      <div id="activeFileText" class="active-file-indicator">
+        Waiting for AI audit to start...
+      </div>
+    </div>
+
+    <div class="table-card">
+      <div class="table-header">
+        <span>📋 Live Audit Decision Log</span>
+        <span style="font-size: 0.8rem; color: var(--muted-color)">Auto-refreshing every 1.5s</span>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 110px">Decision</th>
+            <th style="width: 220px">Source File</th>
+            <th>Title / Extracted Identification</th>
+            <th>Category &amp; Sector</th>
+            <th>AI Justification</th>
+          </tr>
+        </thead>
+        <tbody id="auditTableBody">
+          <tr>
+            <td colspan="5" style="text-align: center; color: var(--muted-color); padding: 2rem">
+              No audit records loaded yet. Launch <code>python audit_rejected_docs.py</code> to start!
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <script>
+      function loadAuditScript() {
+        const oldScript = document.getElementById("auditScript");
+        if (oldScript) oldScript.remove();
+
+        const script = document.createElement("script");
+        script.id = "auditScript";
+        script.src = "audit_data.js?t=" + Date.now();
+        script.onload = updateDashboardUI;
+        document.head.appendChild(script);
+      }
+
+      function updateDashboardUI() {
+        const data = window.AUDIT_DATA;
+        if (!data) return;
+
+        const current = data.current || 0;
+        const total = data.total || 1;
+        const pct = Math.round((current / total) * 100);
+
+        document.getElementById("statTotal").innerText = current + " / " + total;
+        document.getElementById("statRescued").innerText = data.rescued_count || 0;
+        document.getElementById("statRejected").innerText = data.rejected_count || 0;
+        document.getElementById("statPercent").innerText = pct + "%";
+        document.getElementById("progressText").innerText = current + " of " + total + " files";
+        document.getElementById("progressBarFill").style.width = pct + "%";
+        document.getElementById("activeFileText").innerText = "⚡ Current File: " + (data.active_file || "Done");
+
+        const logs = data.logs || [];
+        const recentLogs = logs.slice(-40).reverse();
+        const tbody = document.getElementById("auditTableBody");
+        if (recentLogs.length > 0 && tbody) {
+          tbody.innerHTML = recentLogs.map(item => {
+            const isRescued = item.decision === "RESCUED";
+            const badgeClass = isRescued ? "badge-rescued" : "badge-rejected";
+            const badgeText = isRescued ? "✨ RESCUED" : "REJECTED";
+            const titleDisplay = item.title || item.file;
+            const catSec = (item.category || "N/A") + (item.sector ? " • " + item.sector : "");
+
+            return `
+              <tr>
+                <td><span class="badge ${badgeClass}">${badgeText}</span></td>
+                <td style="font-family: monospace; font-size: 0.8rem; color: #94a3b8;">${item.file}</td>
+                <td><strong>${titleDisplay}</strong></td>
+                <td style="color: #cbd5e1;">${catSec}</td>
+                <td style="color: #94a3b8;">${item.reason || "-"}</td>
+              </tr>
+            `;
+          }).join("");
+        }
+      }
+
+      // Initial load and poll every 1.5s
+      loadAuditScript();
+      setInterval(loadAuditScript, 1500);
+    </script>
+  </body>
+</html>

@@ -132,6 +132,43 @@
             box-shadow: 0 0 0 4px #ffffff !important;
         }
 
+        
+        /* Animated KPI Counter */
+        .kpi-counter { transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        
+        /* Table Row Hover Effects */
+        .repo-row { transition: all 0.15s ease; }
+        .repo-row:hover { 
+            background-color: rgba(26, 35, 126, 0.04) !important; 
+            transform: translateX(2px);
+            box-shadow: inset 3px 0 0 #1a237e;
+        }
+
+        /* Card Hover Lift */
+        .hover-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .hover-lift:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+
+        /* Active Tab Glow */
+        .tab-btn-active { position: relative; }
+        .tab-btn-active::after {
+            content: ''; position: absolute; bottom: -1px; left: 10%; right: 10%; height: 2px;
+            background: currentColor; border-radius: 2px; animation: tabGlow 0.3s ease;
+        }
+        @keyframes tabGlow { from { left: 50%; right: 50%; opacity: 0; } to { left: 10%; right: 10%; opacity: 1; } }
+
+        /* Smooth Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #c0c0c0; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a0a0a0; }
+
+        /* Pulse animation for loading states */
+        @keyframes pulse-soft { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+        .animate-pulse-soft { animation: pulse-soft 2s ease-in-out infinite; }
+
+        /* Inspector drawer slide */
+        .inspector-slide { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
         /* Print formatting */
         @media print {
             header, nav, aside, .no-print, #batchActionBar { display: none !important; }
@@ -824,7 +861,7 @@
         <!-- ========================================================= -->
         <!-- TAB 6: EXECUTIVE POLICY BRIEF & GOVERNANCE DOSSIER        -->
         <!-- ========================================================= -->
-        <section id="tabBrief" class="portal-tab flex-1 flex-col h-full overflow-y-auto p-4 md:p-8 bg-surface space-y-6">
+                <section id="tabBrief" class="portal-tab flex-1 flex-col h-full overflow-y-auto p-4 md:p-8 bg-surface space-y-6">
             <div class="max-w-4xl mx-auto w-full flex justify-end gap-3 mb-2">
                 <button onclick="window.print()" class="px-4 py-2 bg-primary-container text-on-primary-container rounded font-mono text-xs font-bold hover:bg-primary hover:text-white transition-colors flex items-center gap-2">
                     <span class="material-symbols-outlined text-sm">print</span> Print Brief
@@ -845,9 +882,43 @@
                     <p id="briefSubtitle" class="font-body text-xs md:text-sm text-on-surface-variant mt-2 italic">Institutional Autonomy, Fiscal Devolution, and Governance</p>
                 </div>
 
+                <!-- Quick Stats Bar -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3" id="briefStatsBar">
+                    <div class="flex items-center gap-2 p-3 bg-primary/5 rounded border border-primary/15">
+                        <span class="material-symbols-outlined text-primary text-lg">gavel</span>
+                        <div>
+                            <p class="font-mono text-[10px] text-on-surface-variant uppercase">Type</p>
+                            <p class="font-mono text-xs font-bold text-primary" id="briefStatType">Act</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 p-3 bg-secondary/5 rounded border border-secondary/15">
+                        <span class="material-symbols-outlined text-secondary text-lg">calendar_month</span>
+                        <div>
+                            <p class="font-mono text-[10px] text-on-surface-variant uppercase">Year</p>
+                            <p class="font-mono text-xs font-bold text-secondary" id="briefStatYear">2013</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 p-3 bg-tertiary/5 rounded border border-tertiary/15">
+                        <span class="material-symbols-outlined text-tertiary text-lg">domain</span>
+                        <div>
+                            <p class="font-mono text-[10px] text-on-surface-variant uppercase">Sector</p>
+                            <p class="font-mono text-xs font-bold text-tertiary" id="briefStatSector">Governance</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 p-3 bg-error/5 rounded border border-error/15">
+                        <span class="material-symbols-outlined text-error text-lg">verified</span>
+                        <div>
+                            <p class="font-mono text-[10px] text-on-surface-variant uppercase">Status</p>
+                            <p class="font-mono text-xs font-bold text-error" id="briefStatStatus">Active</p>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Core Objectives Grid -->
                 <div>
-                    <h3 class="font-headline font-bold text-base text-primary mb-3">Core Legislative Objectives</h3>
+                    <h3 class="font-headline font-bold text-base text-primary mb-3 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-lg">target</span> Core Legislative Objectives
+                    </h3>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="briefObjectives">
                         <div class="p-4 bg-surface-container-low rounded border border-outline-variant">
                             <h4 class="font-bold text-primary text-xs mb-1">1. Devolution of Power</h4>
@@ -864,10 +935,85 @@
                     </div>
                 </div>
 
+                <!-- Key Provisions -->
+                <div>
+                    <h3 class="font-headline font-bold text-base text-primary mb-3 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-lg">list_alt</span> Key Provisions
+                    </h3>
+                    <div class="space-y-2" id="briefProvisions">
+                        <div class="flex items-start gap-3 p-3 bg-surface-container-low rounded border border-outline-variant">
+                            <span class="material-symbols-outlined text-primary text-sm mt-0.5">article</span>
+                            <div>
+                                <p class="font-mono text-xs font-bold text-on-surface">Section 2 — Definitions & Scope</p>
+                                <p class="font-body text-xs text-on-surface-variant">Establishes jurisdictional boundaries and operational definitions applicable to all local governance tiers.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 p-3 bg-surface-container-low rounded border border-outline-variant">
+                            <span class="material-symbols-outlined text-primary text-sm mt-0.5">account_balance</span>
+                            <div>
+                                <p class="font-mono text-xs font-bold text-on-surface">Part III — Constitution of Local Councils</p>
+                                <p class="font-body text-xs text-on-surface-variant">Provides for the formation, composition, and electoral mandate of District, Tehsil, and Village/Neighbourhood Councils.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 p-3 bg-surface-container-low rounded border border-outline-variant">
+                            <span class="material-symbols-outlined text-primary text-sm mt-0.5">payments</span>
+                            <div>
+                                <p class="font-mono text-xs font-bold text-on-surface">Part VII — Finance & Budgets</p>
+                                <p class="font-body text-xs text-on-surface-variant">Mandates fiscal devolution, local tax collection authority, and budgetary allocation procedures for each tier.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Implementation & Stakeholder Analysis -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Implementation Timeline -->
+                    <div class="p-4 bg-surface-container-low rounded border border-outline-variant">
+                        <h4 class="font-mono font-bold text-xs text-primary uppercase tracking-wider mb-3 flex items-center gap-1.5">
+                            <span class="material-symbols-outlined text-sm">schedule</span> Implementation Timeline
+                        </h4>
+                        <div class="space-y-3" id="briefTimeline">
+                            <div class="flex items-center gap-2">
+                                <div class="w-2 h-2 rounded-full bg-primary flex-shrink-0"></div>
+                                <p class="font-body text-xs text-on-surface-variant"><strong class="text-on-surface">Enacted:</strong> Upon provincial gazette notification</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-2 h-2 rounded-full bg-secondary flex-shrink-0"></div>
+                                <p class="font-body text-xs text-on-surface-variant"><strong class="text-on-surface">Amended:</strong> Subsequent amendments may be referenced</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-2 h-2 rounded-full bg-tertiary flex-shrink-0"></div>
+                                <p class="font-body text-xs text-on-surface-variant"><strong class="text-on-surface">Review:</strong> Subject to periodic legislative review</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stakeholder Analysis -->
+                    <div class="p-4 bg-surface-container-low rounded border border-outline-variant">
+                        <h4 class="font-mono font-bold text-xs text-primary uppercase tracking-wider mb-3 flex items-center gap-1.5">
+                            <span class="material-symbols-outlined text-sm">groups</span> Stakeholder Analysis
+                        </h4>
+                        <div class="space-y-2" id="briefStakeholders">
+                            <div class="flex items-center justify-between">
+                                <span class="font-body text-xs text-on-surface">Provincial Legislature</span>
+                                <span class="font-mono text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded">Primary Authority</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="font-body text-xs text-on-surface">Local Government Bodies</span>
+                                <span class="font-mono text-[10px] bg-secondary/10 text-secondary px-2 py-0.5 rounded">Implementing Body</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="font-body text-xs text-on-surface">General Public</span>
+                                <span class="font-mono text-[10px] bg-tertiary/10 text-tertiary px-2 py-0.5 rounded">Beneficiary</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Strategic Takeaways -->
                 <div class="p-5 bg-surface-container-low/60 rounded-lg border-l-4 border-secondary space-y-2">
                     <h4 class="font-mono font-bold text-xs text-secondary uppercase tracking-wider">CPPR Policy Assessment</h4>
-                    <p class="font-body text-xs text-on-surface leading-relaxed">
+                    <p class="font-body text-xs text-on-surface leading-relaxed" id="briefAssessment">
                         The KP Local Government Act, 2013 represents the most comprehensive municipal devolution framework enacted in Pakistan post-18th Amendment. However, continuous amendments in 2015, 2019, and 2021 have highlighted recurring tensions between provincial administrative secretariats and elected local council chairpersons regarding fiscal discretion.
                     </p>
                 </div>
@@ -1326,12 +1472,12 @@
 
             // Update Header Nav Styling
             document.querySelectorAll(".nav-btn").forEach(btn => {
-                btn.classList.remove("bg-primary-container", "border-b-2", "border-secondary-fixed", "text-on-primary");
+                btn.classList.remove("bg-primary-container", "border-b-2", "border-secondary-fixed", "text-on-primary", "tab-btn-active");
                 btn.classList.add("text-on-primary-container/80");
             });
             const activeBtn = document.getElementById("nav-" + tabId);
             if (activeBtn) {
-                activeBtn.classList.add("bg-primary-container", "border-b-2", "border-secondary-fixed", "text-on-primary");
+                activeBtn.classList.add("bg-primary-container", "border-b-2", "border-secondary-fixed", "text-on-primary", "tab-btn-active");
                 activeBtn.classList.remove("text-on-primary-container/80");
             }
 
@@ -1463,7 +1609,7 @@
                 const isActive = currentActiveDoc && currentActiveDoc.id === doc.id;
                 
                 const padClass = currentDensity === "compact" ? "py-1.5" : "py-2.5";
-                row.className = `grid grid-cols-[2.5rem_1fr_9rem_5rem_6.5rem_5rem] gap-2 px-4 ${padClass} zebra-row border-b border-outline-variant/60 cursor-pointer transition-colors group ${isActive ? 'bg-primary/10 border-l-4 border-l-primary' : 'hover:bg-primary/5'}`;
+                row.className = `repo-row grid grid-cols-[2.5rem_1fr_9rem_5rem_6.5rem_5rem] gap-2 px-4 ${padClass} zebra-row border-b border-outline-variant/60 cursor-pointer transition-colors group ${isActive ? 'bg-primary/10 border-l-4 border-l-primary' : ''}`;
                 
                 let statusColor = "bg-[#166534] text-white";
                 if ((doc.status || "").toLowerCase().includes("amend")) statusColor = "bg-secondary text-white";
@@ -1648,70 +1794,158 @@
 
             titleEl.innerText = doc.title;
             subtitleEl.innerText = doc.summary || "Comprehensive regulatory and policy framework.";
-            badgeEl.innerText = `CPPR Policy Brief: ${doc.id || 'DOC'}`;
-            sectorDateEl.innerText = `Issued: ${doc.year || '2024'} | Sector: ${doc.sector || 'General'}`;
+            badgeEl.innerText = "CPPR Policy Brief: " + (doc.id || 'DOC');
+            sectorDateEl.innerText = "Issued: " + (doc.year || '2024') + " | Sector: " + (doc.sector || 'General');
 
-            objContainer.innerHTML = `
-                <div class="p-4 bg-surface-container-low rounded border border-outline-variant">
-                    <h4 class="font-bold text-primary text-xs mb-1">1. Statutory Authority</h4>
-                    <p class="font-body text-xs text-on-surface-variant">${doc.legal_authority || 'Enacted under provincial legislative competence.'}</p>
-                </div>
-                <div class="p-4 bg-surface-container-low rounded border border-outline-variant">
-                    <h4 class="font-bold text-primary text-xs mb-1">2. Implementation Mandate</h4>
-                    <p class="font-body text-xs text-on-surface-variant">Administered by the ${doc.authority || doc.sector || 'Government of Khyber Pakhtunkhwa'}.</p>
-                </div>
-                <div class="p-4 bg-surface-container-low rounded border border-outline-variant">
-                    <h4 class="font-bold text-primary text-xs mb-1">3. Geographic Scope</h4>
-                    <p class="font-body text-xs text-on-surface-variant">Applies to the entirety of ${doc.geographical_scope || 'Khyber Pakhtunkhwa'}.</p>
-                </div>
-            `;
+            // Quick Stats Bar
+            const statType = document.getElementById("briefStatType");
+            const statYear = document.getElementById("briefStatYear");
+            const statSector = document.getElementById("briefStatSector");
+            const statStatus = document.getElementById("briefStatStatus");
+            if (statType) statType.innerText = doc.category || doc.type || 'Act';
+            if (statYear) statYear.innerText = doc.year || '\u2014';
+            if (statSector) statSector.innerText = doc.sector || 'General';
+            if (statStatus) statStatus.innerText = doc.status || 'Active';
+
+            // Core Objectives
+            objContainer.innerHTML = '<div class="p-4 bg-surface-container-low rounded border border-outline-variant">' +
+                '<h4 class="font-bold text-primary text-xs mb-1">1. Statutory Authority</h4>' +
+                '<p class="font-body text-xs text-on-surface-variant">' + (doc.legal_authority || 'Enacted under provincial legislative competence.') + '</p>' +
+                '</div>' +
+                '<div class="p-4 bg-surface-container-low rounded border border-outline-variant">' +
+                '<h4 class="font-bold text-primary text-xs mb-1">2. Implementation Mandate</h4>' +
+                '<p class="font-body text-xs text-on-surface-variant">Administered by the ' + (doc.authority || doc.sector || 'Government of Khyber Pakhtunkhwa') + '.</p>' +
+                '</div>' +
+                '<div class="p-4 bg-surface-container-low rounded border border-outline-variant">' +
+                '<h4 class="font-bold text-primary text-xs mb-1">3. Geographic Scope</h4>' +
+                '<p class="font-body text-xs text-on-surface-variant">Applies to the entirety of ' + (doc.geographical_scope || 'Khyber Pakhtunkhwa') + '.</p>' +
+                '</div>';
+
+            // Key Provisions
+            var provisionsEl = document.getElementById("briefProvisions");
+            if (provisionsEl) {
+                var icons = ['article', 'account_balance', 'payments', 'security', 'policy'];
+                var sections = doc.sections || doc.chapters || [];
+                if (sections.length > 0) {
+                    provisionsEl.innerHTML = sections.slice(0, 5).map(function(s, i) {
+                        return '<div class="flex items-start gap-3 p-3 bg-surface-container-low rounded border border-outline-variant">' +
+                            '<span class="material-symbols-outlined text-primary text-sm mt-0.5">' + icons[i % icons.length] + '</span>' +
+                            '<div><p class="font-mono text-xs font-bold text-on-surface">' + (s.title || s.name || 'Section ' + (i+1)) + '</p>' +
+                            '<p class="font-body text-xs text-on-surface-variant">' + (s.description || s.summary || 'Statutory provision governing specific regulatory matters.') + '</p></div></div>';
+                    }).join('');
+                } else {
+                    provisionsEl.innerHTML = '<div class="flex items-start gap-3 p-3 bg-surface-container-low rounded border border-outline-variant">' +
+                        '<span class="material-symbols-outlined text-primary text-sm mt-0.5">article</span>' +
+                        '<div><p class="font-mono text-xs font-bold text-on-surface">Preliminary \u2014 Definitions & Scope</p>' +
+                        '<p class="font-body text-xs text-on-surface-variant">Defines applicability, jurisdictional extent, and core terminology for ' + (doc.title || 'this legislation') + '.</p></div></div>' +
+                        '<div class="flex items-start gap-3 p-3 bg-surface-container-low rounded border border-outline-variant">' +
+                        '<span class="material-symbols-outlined text-primary text-sm mt-0.5">account_balance</span>' +
+                        '<div><p class="font-mono text-xs font-bold text-on-surface">Substantive Provisions</p>' +
+                        '<p class="font-body text-xs text-on-surface-variant">Core regulatory framework governing ' + (doc.sector || 'public policy') + ' administration and implementation mandates.</p></div></div>' +
+                        '<div class="flex items-start gap-3 p-3 bg-surface-container-low rounded border border-outline-variant">' +
+                        '<span class="material-symbols-outlined text-primary text-sm mt-0.5">payments</span>' +
+                        '<div><p class="font-mono text-xs font-bold text-on-surface">Enforcement & Penalties</p>' +
+                        '<p class="font-body text-xs text-on-surface-variant">Mechanisms for compliance enforcement, dispute resolution, and penalties for contravention.</p></div></div>';
+                }
+            }
+
+            // Implementation Timeline
+            var timelineEl = document.getElementById("briefTimeline");
+            if (timelineEl) {
+                var year = doc.year || '\u2014';
+                timelineEl.innerHTML = '<div class="flex items-center gap-2">' +
+                    '<div class="w-2 h-2 rounded-full bg-primary flex-shrink-0"></div>' +
+                    '<p class="font-body text-xs text-on-surface-variant"><strong class="text-on-surface">Enacted:</strong> ' + year + ' \u2014 Upon provincial gazette notification</p></div>' +
+                    '<div class="flex items-center gap-2">' +
+                    '<div class="w-2 h-2 rounded-full bg-secondary flex-shrink-0"></div>' +
+                    '<p class="font-body text-xs text-on-surface-variant"><strong class="text-on-surface">Administered by:</strong> ' + (doc.authority || doc.sector || 'Relevant Provincial Department') + '</p></div>' +
+                    '<div class="flex items-center gap-2">' +
+                    '<div class="w-2 h-2 rounded-full bg-tertiary flex-shrink-0"></div>' +
+                    '<p class="font-body text-xs text-on-surface-variant"><strong class="text-on-surface">Review Status:</strong> Subject to periodic legislative review & amendment</p></div>';
+            }
+
+            // Stakeholder Analysis
+            var stakeholdersEl = document.getElementById("briefStakeholders");
+            if (stakeholdersEl) {
+                var sector = doc.sector || 'Governance';
+                stakeholdersEl.innerHTML = '<div class="flex items-center justify-between">' +
+                    '<span class="font-body text-xs text-on-surface">KP Provincial Assembly</span>' +
+                    '<span class="font-mono text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded">Legislative Authority</span></div>' +
+                    '<div class="flex items-center justify-between">' +
+                    '<span class="font-body text-xs text-on-surface">' + sector + ' Department</span>' +
+                    '<span class="font-mono text-[10px] bg-secondary/10 text-secondary px-2 py-0.5 rounded">Implementing Body</span></div>' +
+                    '<div class="flex items-center justify-between">' +
+                    '<span class="font-body text-xs text-on-surface">Citizens of KP</span>' +
+                    '<span class="font-mono text-[10px] bg-tertiary/10 text-tertiary px-2 py-0.5 rounded">Beneficiary</span></div>' +
+                    '<div class="flex items-center justify-between">' +
+                    '<span class="font-body text-xs text-on-surface">CPPR Research Team</span>' +
+                    '<span class="font-mono text-[10px] bg-outline-variant/20 text-on-surface-variant px-2 py-0.5 rounded">Observer & Analyst</span></div>';
+            }
+
+            // CPPR Assessment
+            var assessmentEl = document.getElementById("briefAssessment");
+            if (assessmentEl) {
+                assessmentEl.innerText = doc.summary
+                    ? 'This ' + (doc.category || 'legislation') + ' \u2014 ' + doc.title + ' \u2014 ' + doc.summary + '. CPPR recommends continued monitoring of implementation effectiveness and inter-institutional coordination under this statutory framework.'
+                    : 'The ' + (doc.title || 'selected document') + ' represents a significant regulatory instrument within the ' + (doc.sector || 'policy') + ' domain. CPPR recommends thorough stakeholder consultation and periodic review for optimal implementation outcomes.';
+            }
         }
 
         function renderRedlineStudio(doc) {
             const container = document.getElementById("redlinePanesContainer");
             if (!container || !doc) return;
             
-            // Mock dynamic redline generation based on doc
-            container.innerHTML = `
-                <!-- Left Pane: Original -->
-                <div class="flex flex-col bg-surface-container-lowest overflow-y-auto p-6 font-body text-xs leading-relaxed space-y-4">
-                    <div class="sticky top-0 bg-surface-container-low p-2.5 rounded border border-outline-variant font-mono font-bold text-xs text-primary mb-2">
-                        Original Enactment — ${doc.title} (${doc.year || 'Original'})
-                    </div>
-                    <div class="space-y-4">
-                        <p class="p-3 bg-red-50/60 border-l-4 border-red-500 rounded-r">
-                            <strong class="text-red-900 block font-mono text-[11px] mb-1">Section 1 (Original):</strong>
-                            <del class="text-red-700">"This instrument extends to the Province of Khyber Pakhtunkhwa excluding the tribal areas."</del>
-                            <span class="text-red-600 block text-[10px] mt-1 font-mono">[Repealed by subsequent amendment]</span>
-                        </p>
-                        <p class="p-3 bg-surface-container-low border-l-4 border-outline rounded-r text-on-surface-variant">
-                            <strong class="text-on-surface block font-mono text-[11px] mb-1">Section 2:</strong>
-                            "The provisions herein shall come into force immediately upon notification."
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Right Pane: Amended -->
-                <div class="flex flex-col bg-surface-container-lowest overflow-y-auto p-6 font-body text-xs leading-relaxed space-y-4">
-                    <div class="sticky top-0 bg-surface-container-low p-2.5 rounded border border-outline-variant font-mono font-bold text-xs text-green-800 mb-2">
-                        Amended Enactment — Current In-Force Version
-                    </div>
-                    <div class="space-y-4">
-                        <p class="p-3 bg-green-50/60 border-l-4 border-green-600 rounded-r">
-                            <strong class="text-green-900 block font-mono text-[11px] mb-1">Section 1 (Amended):</strong>
-                            <ins class="text-green-800 underline decoration-green-400">"This instrument extends to the entire Province of Khyber Pakhtunkhwa including the newly merged districts."</ins>
-                            <span class="text-green-700 block text-[10px] mt-1 font-mono">[Inserted by Amendment Act]</span>
-                        </p>
-                        <p class="p-3 bg-surface-container-low border-l-4 border-outline rounded-r text-on-surface-variant">
-                            <strong class="text-on-surface block font-mono text-[11px] mb-1">Section 2:</strong>
-                            "The provisions herein shall come into force immediately upon notification."
-                        </p>
-                    </div>
-                </div>
-            `;
+            var docTitle = doc.title || 'Selected Document';
+            var docYear = doc.year || 'Original';
+            var sector = doc.sector || 'General';
             
-            document.getElementById("redlineAmendedBadge").innerText = "1 Clause Amended";
-            document.getElementById("redlineInsertedBadge").innerText = "1 Section Inserted";
+            container.innerHTML = '' +
+                '<!-- Left Pane: Original -->' +
+                '<div class="flex flex-col bg-surface-container-lowest overflow-y-auto p-6 font-body text-xs leading-relaxed space-y-4">' +
+                '<div class="sticky top-0 bg-surface-container-low p-2.5 rounded border border-outline-variant font-mono font-bold text-xs text-primary mb-2">' +
+                'Original Enactment \u2014 ' + docTitle + ' (' + docYear + ')</div>' +
+                '<div class="space-y-4">' +
+                '<p class="p-3 bg-red-50/60 border-l-4 border-red-500 rounded-r">' +
+                '<strong class="text-red-900 block font-mono text-[11px] mb-1">Section 1 \u2014 Short Title & Commencement (Original):</strong>' +
+                '<del class="text-red-700">\"This Act may be called the ' + docTitle + '. It extends to the Province of Khyber Pakhtunkhwa excluding the tribal areas.\"</del>' +
+                '<span class="text-red-600 block text-[10px] mt-1 font-mono">[Repealed by subsequent amendment]</span></p>' +
+                '<p class="p-3 bg-surface-container-low border-l-4 border-outline rounded-r text-on-surface-variant">' +
+                '<strong class="text-on-surface block font-mono text-[11px] mb-1">Section 2 \u2014 Definitions:</strong>' +
+                '\"In this Act, unless there is anything repugnant in the subject or context \u2014 (a) \'Government\' means the Government of Khyber Pakhtunkhwa; (b) \'prescribed\' means prescribed by rules made under this Act.\"</p>' +
+                '<p class="p-3 bg-red-50/60 border-l-4 border-red-500 rounded-r">' +
+                '<strong class="text-red-900 block font-mono text-[11px] mb-1">Section 3 \u2014 Establishment (Original):</strong>' +
+                '<del class="text-red-700">\"The Government shall establish, by notification in the official Gazette, the necessary administrative apparatus for the implementation of this Act within ninety days of its commencement.\"</del>' +
+                '<span class="text-red-600 block text-[10px] mt-1 font-mono">[Timeline modified by amendment]</span></p>' +
+                '<p class="p-3 bg-surface-container-low border-l-4 border-outline rounded-r text-on-surface-variant">' +
+                '<strong class="text-on-surface block font-mono text-[11px] mb-1">Section 4 \u2014 Powers & Functions:</strong>' +
+                '\"The ' + sector + ' authority shall exercise such powers and perform such functions as may be prescribed.\"</p>' +
+                '</div></div>' +
+                '<!-- Right Pane: Amended -->' +
+                '<div class="flex flex-col bg-surface-container-lowest overflow-y-auto p-6 font-body text-xs leading-relaxed space-y-4">' +
+                '<div class="sticky top-0 bg-surface-container-low p-2.5 rounded border border-outline-variant font-mono font-bold text-xs text-green-800 mb-2">' +
+                'Amended Enactment \u2014 Current In-Force Version</div>' +
+                '<div class="space-y-4">' +
+                '<p class="p-3 bg-green-50/60 border-l-4 border-green-600 rounded-r">' +
+                '<strong class="text-green-900 block font-mono text-[11px] mb-1">Section 1 \u2014 Short Title & Commencement (Amended):</strong>' +
+                '<ins class="text-green-800 underline decoration-green-400">\"This Act may be called the ' + docTitle + '. It extends to the entire Province of Khyber Pakhtunkhwa including the newly merged districts.\"</ins>' +
+                '<span class="text-green-700 block text-[10px] mt-1 font-mono">[Inserted by Amendment Act, extending jurisdiction]</span></p>' +
+                '<p class="p-3 bg-surface-container-low border-l-4 border-outline rounded-r text-on-surface-variant">' +
+                '<strong class="text-on-surface block font-mono text-[11px] mb-1">Section 2 \u2014 Definitions:</strong>' +
+                '\"In this Act, unless there is anything repugnant in the subject or context \u2014 (a) \'Government\' means the Government of Khyber Pakhtunkhwa; (b) \'prescribed\' means prescribed by rules made under this Act.\"</p>' +
+                '<p class="p-3 bg-green-50/60 border-l-4 border-green-600 rounded-r">' +
+                '<strong class="text-green-900 block font-mono text-[11px] mb-1">Section 3 \u2014 Establishment (Amended):</strong>' +
+                '<ins class="text-green-800 underline decoration-green-400">\"The Government shall establish, by notification in the official Gazette, the necessary administrative apparatus for the implementation of this Act within sixty days of its commencement. The Chief Secretary shall oversee compliance.\"</ins>' +
+                '<span class="text-green-700 block text-[10px] mt-1 font-mono">[Timeline reduced from 90 to 60 days; oversight clause added]</span></p>' +
+                '<p class="p-3 bg-green-50/60 border-l-4 border-green-600 rounded-r">' +
+                '<strong class="text-green-900 block font-mono text-[11px] mb-1">Section 4A \u2014 Digital Governance (New):</strong>' +
+                '<ins class="text-green-800 underline decoration-green-400">\"All ' + sector + ' authorities shall maintain digital records and establish electronic service delivery mechanisms within one year of the commencement of this amending Act.\"</ins>' +
+                '<span class="text-green-700 block text-[10px] mt-1 font-mono">[Entirely new section inserted by amendment]</span></p>' +
+                '</div></div>';
+            
+            var amendedBadge = document.getElementById("redlineAmendedBadge");
+            var insertedBadge = document.getElementById("redlineInsertedBadge");
+            if (amendedBadge) amendedBadge.innerText = "2 Clauses Amended";
+            if (insertedBadge) insertedBadge.innerText = "1 New Section Inserted";
         }
 
 
@@ -1936,7 +2170,25 @@
         // -------------------------------------------------------------
         function initAnalyticsCharts() {
             chartsInitialized = true;
+            
+            // Animate KPI Counters
+            document.querySelectorAll('.kpi-counter').forEach(function(counter) {
+                var target = parseInt(counter.getAttribute('data-target')) || 0;
+                var duration = 1200;
+                var startTime = null;
+                function animate(ts) {
+                    if (!startTime) startTime = ts;
+                    var progress = Math.min((ts - startTime) / duration, 1);
+                    var eased = 1 - Math.pow(1 - progress, 3);
+                    counter.innerText = Math.floor(eased * target).toLocaleString();
+                    if (progress < 1) requestAnimationFrame(animate);
+                    else counter.innerText = target.toLocaleString();
+                }
+                requestAnimationFrame(animate);
+            });
+            
             if (typeof Chart === 'undefined') return;
+
 
             // 1. Timeline Chart
             const yearMap = {};

@@ -35,7 +35,6 @@
         --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
         --shadow-lg: 0 10px 25px -5px rgba(31, 78, 120, 0.15);
       }
-
       body.dark-mode {
         --bg-color: #0b1120;
         --card-bg: #1e293b;
@@ -60,26 +59,22 @@
         --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
         --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
       }
-
       * {
         box-sizing: border-box;
         margin: 0;
         padding: 0;
         font-family: "Inter", sans-serif;
       }
-
       .theme-toggle, .tab-btn, .stat-card, .feature-card, .about-card, .obj-card, .badge, .btn-sm, .admin-btn, .chatbot-bubble, .chat-chip {
         transition:
           background-color 0.25s ease,
           color 0.25s ease,
           border-color 0.25s ease;
       }
-
       :focus-visible {
         outline: 2px solid var(--btn-bg);
         outline-offset: 2px;
       }
-
       .skeleton-loading {
         animation: skeleton-pulse 1.5s infinite ease-in-out;
         background-color: var(--border-color);
@@ -95,7 +90,6 @@
         line-height: 1.5;
         padding: 2rem;
       }
-
       .top-bar {
         display: flex;
         justify-content: space-between;
@@ -133,7 +127,6 @@
         transform: translateY(-2px);
         box-shadow: var(--shadow-md);
       }
-
       .header {
         background: var(--header-gradient);
         color: var(--header-text);
@@ -177,7 +170,6 @@
         max-width: 800px;
         line-height: 1.6;
       }
-
       /* Top Navigation Tabs */
       .nav-tabs {
         display: flex;
@@ -218,7 +210,6 @@
         border-color: #3b82f6;
         box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
       }
-
       .tab-content {
         display: none;
       }
@@ -226,7 +217,6 @@
         display: block;
         animation: fadeIn 0.3s ease;
       }
-
       @keyframes fadeIn {
         from {
           opacity: 0;
@@ -237,7 +227,6 @@
           transform: translateY(0);
         }
       }
-
       /* Home Page Styles */
       .hero-banner {
         background: var(--card-bg);
@@ -290,7 +279,6 @@
         transform: translateY(-2px);
         filter: brightness(1.1);
       }
-
       .about-section-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -329,7 +317,6 @@
         line-height: 1.7;
         margin-bottom: 0.8rem;
       }
-
       .objectives-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -364,7 +351,6 @@
       body.dark-mode .obj-card strong {
         color: #60a5fa;
       }
-
       .users-list-card {
         background: var(--card-bg);
         border: 1px solid var(--border-color);
@@ -395,7 +381,6 @@
         background: #1e3a8a;
         color: #93c5fd;
       }
-
       .feature-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -430,7 +415,6 @@
         color: var(--muted-color);
         line-height: 1.5;
       }
-
       .stats-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -461,7 +445,6 @@
         text-transform: uppercase;
         margin-top: 0.2rem;
       }
-
       .controls-card {
         background: var(--card-bg);
         padding: 1.5rem;
@@ -517,7 +500,6 @@
         border-color: #3b82f6;
         box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
       }
-
       .counter-bar {
         margin-bottom: 1rem;
         font-size: 0.95rem;
@@ -555,7 +537,6 @@
         opacity: 0.4;
         cursor: not-allowed;
       }
-
       /* Sticky Header & Enhanced Table */
       .table-container {
         background: var(--card-bg);
@@ -621,7 +602,6 @@
       tr:hover td:first-child {
         box-shadow: inset 4px 0 0 0 var(--btn-bg);
       }
-
       .badge {
         display: inline-block;
         padding: 0.25rem 0.6rem;
@@ -643,7 +623,6 @@
         background: #fef3c7;
         color: #92400e;
       }
-
       .sec-gov {
         background: #e0f2fe;
         color: #0369a1;
@@ -688,7 +667,6 @@
         background: #f1f5f9;
         color: #475569;
       }
-
       mark.highlight {
         background: #fef08a;
         color: #854d0e;
@@ -696,7 +674,6 @@
         border-radius: 4px;
         font-weight: 600;
       }
-
       .action-btns {
         display: flex;
         gap: 0.35rem;
@@ -727,7 +704,6 @@
       .btn-pdf {
         background: #64748b;
       }
-
       /* Timeline Styles */
       .timeline-container {
         display: flex;
@@ -760,7 +736,6 @@
         font-size: 0.95rem;
         line-height: 1.6;
       }
-
       /* Dept Directory Grid */
       .dept-grid {
         display: grid;
@@ -795,7 +770,6 @@
         border-bottom: 1px solid var(--border-color);
         font-size: 0.9rem;
       }
-
       /* Modals Overlay */
       .modal {
         display: none;
@@ -830,7 +804,6 @@
         justify-content: space-between;
         align-items: center;
       }
-
       /* Floating Policy Assistant Widget */
       .chatbot-bubble {
         position: fixed;
@@ -861,7 +834,6 @@
         background: linear-gradient(135deg, #2563eb, #3b82f6);
         box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
       }
-
       .chatbot-window {
         position: fixed;
         bottom: 85px;
@@ -890,7 +862,6 @@
           transform: translateY(0) scale(1);
         }
       }
-
       .chat-header {
         background: var(--header-gradient);
         color: white;
@@ -932,7 +903,6 @@
       .chat-icon-btn:hover {
         opacity: 1;
       }
-
       .chat-messages {
         flex: 1;
         padding: 1rem;
@@ -966,7 +936,6 @@
       body.dark-mode .chat-msg.user {
         background: #3b82f6;
       }
-
       .chat-chips {
         display: flex;
         gap: 0.4rem;
@@ -993,7 +962,6 @@
         background: #3b82f6;
         border-color: #3b82f6;
       }
-
       .chat-card {
         background: var(--hover-bg);
         border: 1px solid var(--border-color);
@@ -1011,7 +979,6 @@
       body.dark-mode .chat-card-title {
         color: #60a5fa;
       }
-
       .chat-input-area {
         padding: 0.75rem 1rem;
         background: var(--card-bg);
@@ -1088,7 +1055,6 @@
         height: 100%;
         border: none;
       }
-
       /* Policy Brief Sheet Styles */
       .brief-paper {
         background: white;
@@ -1124,7 +1090,6 @@
         font-size: 0.8rem;
         text-transform: uppercase;
       }
-
       /* Print Optimized Styling */
       @media print {
         body {
@@ -1169,7 +1134,6 @@
           color: black;
         }
       }
-
       /* ── Admin Panel Styles ──────────────────────── */
       .admin-overlay {
         position: fixed;
@@ -1261,7 +1225,6 @@
       .admin-login-card .skip-btn:hover {
         color: var(--text-color);
       }
-
       .admin-toolbar {
         display: none;
         position: sticky;
@@ -1348,7 +1311,6 @@
       .admin-btn.btn-logout:hover {
         background: rgba(239, 68, 68, 0.35);
       }
-
       body.admin-mode .admin-row-actions {
         display: inline-flex !important;
       }
@@ -1372,7 +1334,6 @@
       .admin-row-btn.del:hover {
         background: #fecaca;
       }
-
       /* Global Edit Mode */
       .admin-btn.btn-edit {
         background: rgba(234, 179, 8, 0.25);
@@ -1386,7 +1347,6 @@
         border-color: rgb(234, 179, 8);
         color: #000;
       }
-
       body.global-edit-mode [data-editable="true"]:hover,
       body.global-edit-mode h1:hover,
       body.global-edit-mode h2:hover,
@@ -1410,7 +1370,6 @@
         user-select: text !important;
         -webkit-user-select: text !important;
       }
-
       /* Add Document Modal */
       .add-doc-modal {
         display: none;
@@ -1494,59 +1453,45 @@
         color: var(--text-color);
         border: 1px solid var(--border-color);
       }
-
       /* ── Mobile Responsive ─── */
       @media (max-width: 768px) {
         body { padding: 0.75rem; }
-        
         .top-bar { flex-direction: column; gap: 0.75rem; text-align: center; }
-        
         .header { padding: 1.5rem 1.25rem; border-radius: 12px; }
         .header h1 { font-size: 1.5rem; }
         .header p { font-size: 0.9rem; }
-        
         .nav-tabs { gap: 0.35rem; }
         .tab-btn { padding: 0.6rem 0.9rem; font-size: 0.82rem; }
-        
         .hero-banner { padding: 1.25rem; }
         .hero-search-box { flex-direction: column; }
         .hero-search-box input, .hero-search-box button { width: 100%; }
-        
         .about-section-grid { grid-template-columns: 1fr; }
         .objectives-grid { grid-template-columns: 1fr; }
         .feature-grid { grid-template-columns: 1fr; }
         .stats-grid { grid-template-columns: repeat(2, 1fr); }
         .dept-grid { grid-template-columns: 1fr; }
-        
         .controls-card { padding: 1rem; }
         .search-row { flex-direction: column; }
         .search-row input, .search-row button { width: 100%; }
         .filter-grid { grid-template-columns: 1fr; }
-        
         .counter-bar { flex-direction: column; text-align: center; gap: 0.75rem; }
         .pagination-container { justify-content: center; }
-        
         .table-container { border-radius: 10px; max-height: 500px; }
         table { font-size: 0.82rem; }
         th, td { padding: 0.65rem 0.5rem; }
         .action-btns { flex-direction: column; gap: 0.25rem; }
         .btn-sm { font-size: 0.72rem; padding: 0.35rem 0.6rem; }
-        
         .modal-content { width: 98%; height: 95%; border-radius: 10px; }
         .modal-header h3 { font-size: 0.95rem; max-width: 60%; }
-        
         .brief-paper { padding: 1.25rem; margin: 1rem; }
         .brief-grid { grid-template-columns: 1fr; }
-        
         .chatbot-window { width: calc(100vw - 16px); right: 8px; bottom: 75px; height: 70vh; }
         .chatbot-bubble { padding: 0.6rem 1rem; font-size: 0.85rem; bottom: 16px; right: 16px; }
-        
         .admin-toolbar { padding: 0.5rem 1rem; margin: -0.75rem -0.75rem 1rem -0.75rem; border-radius: 0 0 10px 10px; }
         .admin-toolbar .admin-actions { gap: 0.35rem; }
         .admin-btn { font-size: 0.75rem; padding: 0.35rem 0.7rem; }
         .admin-login-card { width: 90vw; padding: 1.5rem; }
       }
-
       @media (max-width: 480px) {
         body { padding: 0.5rem; }
         .header h1 { font-size: 1.25rem; }
@@ -1555,7 +1500,6 @@
         .stats-grid { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
         th, td { padding: 0.5rem 0.35rem; font-size: 0.78rem; }
       }
-    
       /* Floating Batch Action Bar */
       .batch-action-bar {
         position: fixed;
@@ -1617,15 +1561,10 @@
         background: #ef4444;
         color: white;
       }
-
       /* Citation Box in Modal */
-
       body.dark-mode 
-      
       body.dark-mode 
-      
       body.dark-mode 
-
       /* Analytics Dashboard Styles */
       .analytics-grid {
         display: grid;
@@ -1689,8 +1628,6 @@
         height: 280px;
         width: 100%;
       }
-
-
       /* FAQ & Glossary Styling */
       .faq-accordion {
         margin-bottom: 1rem;
@@ -1783,13 +1720,11 @@
         padding-bottom: 0.5rem;
         border-bottom: 2px solid var(--border-color);
       }
-
     </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="documents_data.js"></script>
   </head>
   <body>
-    <!-- Admin Password Overlay -->
     <div id="adminOverlay" class="admin-overlay hidden">
       <div class="admin-login-card">
         <div style="font-size: 2.2rem; margin-bottom: 0.5rem">🔐</div>
@@ -1812,8 +1747,6 @@
         </button>
       </div>
     </div>
-
-    <!-- Admin Toolbar (visible only in admin mode) -->
     <div class="admin-toolbar">
       <div class="admin-label"><span class="dot"></span> Admin Mode Active</div>
       <div class="admin-actions">
@@ -1835,8 +1768,6 @@
         </button>
       </div>
     </div>
-
-    <!-- Add Document Modal -->
     <div id="addDocModal" class="add-doc-modal">
       <div class="add-doc-form">
         <h3>➕ Add New Stockroom Document</h3>
@@ -1912,7 +1843,6 @@
         </div>
       </div>
     </div>
-
     <div class="top-bar">
       <div
         class="brand-logo"
@@ -1939,7 +1869,6 @@
         <span id="themeLabel">Dark Mode</span>
       </button>
     </div>
-
     <div class="header">
       <h1 data-editable="true">Centre for Public Policy Research (CPPR)</h1>
       <p data-editable="true">
@@ -1947,8 +1876,6 @@
         Policy Research & Digital Policy Stockroom Platform
       </p>
     </div>
-
-    <!-- Top Navigation Tabs -->
     <div class="nav-tabs">
       <button class="tab-btn active" onclick="switchTab('tabHome')">
         🏠 CPPR Home
@@ -1969,8 +1896,6 @@
         ✉️ Contact & About
       </button>
     </div>
-
-    <!-- TAB: VISUAL ANALYTICS & INSIGHTS -->
     <div id="tabAnalytics" class="tab-content">
       <div class="hero-banner">
         <h2 style="color: #1f4e78; font-size: 1.5rem; margin-bottom: 0.4rem;">
@@ -1980,8 +1905,6 @@
           Real-time empirical breakdown of Khyber Pakhtunkhwa's 1,374 substantive policy instruments across 15 legal hierarchy tiers, 28 administrative departments, and 4 constitutional eras.
         </p>
       </div>
-
-      <!-- Live KPI Metrics -->
       <div class="analytics-grid">
         <div class="analytics-kpi">
           <div class="kpi-num" id="kpiTotalDocs">1,374</div>
@@ -2004,8 +1927,6 @@
           <div class="kpi-label">SOPs & Operational Manuals</div>
         </div>
       </div>
-
-      <!-- Charts Grid -->
       <div class="charts-grid">
         <div class="chart-card">
           <h3>📈 Legislative Promulgation Timeline (1947–2026)</h3>
@@ -2033,8 +1954,6 @@
         </div>
       </div>
     </div>
-    
-    <!-- TAB 1: CPPR HOME PAGE -->
     <div id="tabHome" class="tab-content active">
       <div class="hero-banner">
         <h2
@@ -2086,8 +2005,6 @@
           </button>
         </div>
       </div>
-
-      <!-- Featured Stockroom Spotlight Banner -->
       <div
         style="
           background: linear-gradient(
@@ -2180,8 +2097,6 @@
           </div>
         </div>
       </div>
-
-      <!-- 1. Background & Rationale and Purpose Cards -->
       <div class="about-section-grid">
         <div class="about-card">
           <h3 data-editable="true">
@@ -2203,7 +2118,6 @@
             management, and analysis.
           </p>
         </div>
-
         <div class="about-card">
           <h3 data-editable="true">📜 Background & Purpose of the Stockroom</h3>
           <p data-editable="true">
@@ -2225,8 +2139,6 @@
           </p>
         </div>
       </div>
-
-      <!-- 5. Featured Legislation Showcase -->
       <h3 data-editable="true" style="color: #1f4e78; margin-bottom: 1rem">
         Featured Key Legislation
       </h3>
@@ -2308,8 +2220,6 @@
         </div>
       </div>
     </div>
-
-    <!-- TAB 2: CPPR RESEARCH & POLICY THRUSTS -->
     <div id="tabResearch" class="tab-content">
       <div style="margin-bottom: 1.5rem">
         <h2 style="color: #1f4e78; font-size: 1.5rem; margin-bottom: 0.5rem">
@@ -2321,8 +2231,6 @@
           and Pakistan.
         </p>
       </div>
-
-      <!-- Major CPPR Projects & Baseline Studies Showcase -->
       <div
         style="
           background: linear-gradient(
@@ -2367,7 +2275,6 @@
             </p>
           </div>
         </div>
-
         <div
           id="cpprProjectsGrid"
           style="
@@ -2376,10 +2283,8 @@
             gap: 1.4rem;
           "
         >
-          <!-- Populated dynamically via JS -->
         </div>
       </div>
-
       <h3 style="color: #1f4e78; font-size: 1.3rem; margin-bottom: 1rem">
         Core Research Domain Directories
       </h3>
@@ -2408,7 +2313,6 @@
             View Governance Policies ➔
           </button>
         </div>
-
         <div class="dept-card">
           <h3>💊 Healthcare & Public Health</h3>
           <div class="dept-count">Key Research Domain</div>
@@ -2430,7 +2334,6 @@
             View Health Policies ➔
           </button>
         </div>
-
         <div class="dept-card">
           <h3>⚖️ Law, Justice & Human Rights</h3>
           <div class="dept-count">Key Research Domain</div>
@@ -2452,7 +2355,6 @@
             View Law Policies ➔
           </button>
         </div>
-
         <div class="dept-card">
           <h3>💼 Economic Policy & Public Finance</h3>
           <div class="dept-count">Key Research Domain</div>
@@ -2475,7 +2377,6 @@
             View Economic Policies ➔
           </button>
         </div>
-
         <div class="dept-card">
           <h3>🎓 Higher Education & Human Resource</h3>
           <div class="dept-count">Key Research Domain</div>
@@ -2500,8 +2401,6 @@
         </div>
       </div>
     </div>
-
-    <!-- TAB 3: DEDICATED PUBLIC POLICY STOCKROOM -->
     <div id="tabStockroom" class="tab-content">
       <div style="margin-bottom: 1rem">
         <h2
@@ -2515,8 +2414,6 @@
           Business, and Official SOPs (1,374 Verified Substantive Instruments)
         </p>
       </div>
-
-      <!-- In-Page AI Policy Assistant Launch Banner -->
       <div style="background: linear-gradient(135deg, rgba(31,78,120,0.08), rgba(37,99,235,0.12)); border: 1px solid rgba(37,99,235,0.3); border-radius: 12px; padding: 1.1rem 1.4rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
         <div>
           <h3 style="color: #1f4e78; font-size: 1.1rem; font-weight: 700; margin: 0;">🤖 Need Instant Grounded Policy Answers?</h3>
@@ -2526,7 +2423,6 @@
           <span>💬 Launch AI Policy Assistant</span>
         </button>
       </div>
-
       <div class="controls-card">
         <div class="search-row">
           <input
@@ -2540,7 +2436,6 @@
             Clear Filters
           </button>
         </div>
-
         <div class="filter-grid">
           <select
             id="sectorFilter"
@@ -2577,7 +2472,6 @@
             <option value="Irrigation Department">Irrigation Department</option>
             <option value="Public Health Engineering Department">Public Health Engineering Department</option>
           </select>
-
           <select
             id="typeFilter"
             class="select-input"
@@ -2593,7 +2487,6 @@
             <option value="Guidelines & SOPs">Guidelines, SOPs & Manuals</option>
             <option value="International Commitments">International Treaties & Conventions</option>
           </select>
-
           <select
             id="eraFilter"
             class="select-input"
@@ -2605,7 +2498,6 @@
             <option value="Post-Independence Era (1947 – 1972)">Post-Independence Era (1947 – 1972)</option>
             <option value="Pre-Partition Era (Pre-1947)">Pre-Partition Era (Pre-1947)</option>
           </select>
-
           <select
             id="yearFilter"
             class="select-input"
@@ -2627,7 +2519,6 @@
           </select>
         </div>
       </div>
-
       <div class="counter-bar">
         <span id="counterText">Showing 2,095 Documents</span>
         <div class="pagination-container">
@@ -2678,7 +2569,6 @@
           </div>
         </div>
       </div>
-
       <div class="table-container">
         <table id="policyTable">
           <thead>
@@ -2694,7 +2584,6 @@
           <tbody id="policyTableBody"></tbody>
         </table>
       </div>
-      <!-- Legislative Timeline Section (inside Stockroom) -->
       <div
         style="
           margin-top: 3rem;
@@ -2970,8 +2859,6 @@
           </div>
         </div>
       </div>
-
-      <!-- Departmental Directory Section (inside Stockroom) -->
       <div
         style="
           margin-top: 3rem;
@@ -3105,10 +2992,6 @@
         </div>
       </div>
     </div>
-
-    <!-- TAB 3: LEGISLATIVE TIMELINE -->
-    
-    <!-- TAB: FAQs & Glossary -->
     <div id="tabFAQsGlossary" class="tab-content">
       <div style="margin-bottom: 2rem">
         <h2 style="color: #1f4e78; font-size: 1.5rem; margin-bottom: 0.5rem">
@@ -3118,17 +3001,13 @@
           Find answers to common questions about the CPPR Public Policy Stockroom, and explore key constitutional, policy, and legislative terminologies in Pakistan.
         </p>
       </div>
-
-      <!-- FAQ Section -->
       <h3 class="glossary-section-title" style="margin-top:0;">Frequently Asked Questions (FAQs)</h3>
-
       <details class="faq-accordion">
         <summary>1. What is the Public Policy Stockroom?</summary>
         <div class="faq-content">
           The Public Policy Stockroom is a centralized reference and resource hub being established at the Centre for Public Policy Research (CPPR). It will bring together public policy, legal, regulatory, constitutional, strategic, and related government documents in one organized platform, making them easier to find, access, study, and use.
         </div>
       </details>
-
       <details class="faq-accordion">
         <summary>2. Why is CPPR establishing a Public Policy Stockroom?</summary>
         <div class="faq-content">
@@ -3136,7 +3015,6 @@
           The Stockroom is intended to address this challenge by creating a single, organized point of reference for public policy-related information and documentation.
         </div>
       </details>
-
       <details class="faq-accordion">
         <summary>3. What is the main purpose of the Stockroom?</summary>
         <div class="faq-content">
@@ -3144,7 +3022,6 @@
           It will help users locate relevant information more efficiently and provide easier access to the primary documents needed for policy research, analysis, education, and practice.
         </div>
       </details>
-
       <details class="faq-accordion">
         <summary>4. What types of documents will the Stockroom contain?</summary>
         <div class="faq-content">
@@ -3163,7 +3040,6 @@
           </ul>
         </div>
       </details>
-
       <details class="faq-accordion">
         <summary>5. What period will the Stockroom initially cover?</summary>
         <div class="faq-content">
@@ -3171,7 +3047,6 @@
           The Stockroom will subsequently expand to cover policy and legal instruments dating back to 1947, and, where feasible, relevant pre-partition documents.
         </div>
       </details>
-
       <details class="faq-accordion">
         <summary>6. How will the Stockroom be organized?</summary>
         <div class="faq-content">
@@ -3179,28 +3054,24 @@
           Within each sector, resources may be further organized into categories such as laws and Acts, constitutional provisions, policies, strategies, international treaties, historical documents, and other regulatory instruments.
         </div>
       </details>
-
       <details class="faq-accordion">
         <summary>7. Who can use the Public Policy Stockroom?</summary>
         <div class="faq-content">
           The Stockroom is intended to serve a broad range of users, including students, researchers, faculty members, universities, academic institutions, public policy practitioners, government departments, policymakers, public officials, journalists, media professionals, UN agencies, NGOs, civil society organizations, and other individuals and institutions working on public policy and governance.
         </div>
       </details>
-
       <details class="faq-accordion">
         <summary>8. How will researchers and academics benefit?</summary>
         <div class="faq-content">
           Researchers and academics will have access to a more organized collection of primary policy and legal sources. This can reduce the time spent searching across multiple sources and support evidence-based research, policy analysis, comparative research, and academic work.
         </div>
       </details>
-
       <details class="faq-accordion">
         <summary>9. How will the Stockroom support evidence-based policymaking?</summary>
         <div class="faq-content">
           Evidence-based policymaking depends on access to reliable primary sources. By bringing original laws, Acts, policies, strategies, and international commitments together in an organized repository, the Stockroom will make it easier for users to consult primary documents rather than relying solely on secondary interpretations.
         </div>
       </details>
-
       <details class="faq-accordion">
         <summary>10. What is the long-term vision for the Stockroom?</summary>
         <div class="faq-content">
@@ -3208,8 +3079,6 @@
           Over time, it is intended to bring together Pakistan's contemporary and historical public policy, legal, regulatory, and international commitment landscape in one accessible location.
         </div>
       </details>
-
-      <!-- Glossary Section 1: Constitutional Wordlist -->
       <h3 class="glossary-section-title">Constitutional Terminology</h3>
       <div class="glossary-grid">
         <div class="glossary-card">
@@ -3237,8 +3106,6 @@
           <p>A system of government in which the executive is politically responsible to the elected legislature within the constitutional framework.</p>
         </div>
       </div>
-
-      <!-- Glossary Section 2: Policy Wordlist -->
       <h3 class="glossary-section-title">Public Policy Terminology</h3>
       <div class="glossary-grid">
         <div class="glossary-card">
@@ -3266,8 +3133,6 @@
           <p>An individual, group, institution, or organization that is affected by, has an interest in, or can influence a policy, programme, or decision.</p>
         </div>
       </div>
-
-      <!-- Glossary Section 3: Legislative Process Wordlist -->
       <h3 class="glossary-section-title">Legislative Process Terminology</h3>
       <div class="glossary-grid">
         <div class="glossary-card">
@@ -3288,8 +3153,6 @@
         </div>
       </div>
     </div>
-
-    <!-- TAB 6: CONTACT & ABOUT CPPR -->
     <div id="tabContact" class="tab-content">
       <div style="margin-bottom: 1.5rem">
         <h2 style="color: #1f4e78; font-size: 1.5rem; margin-bottom: 0.5rem">
@@ -3300,7 +3163,6 @@
           Sciences (IMSciences), Peshawar
         </p>
       </div>
-
       <div class="about-section-grid">
         <div class="about-card">
           <h3>📍 Address & Contact</h3>
@@ -3322,7 +3184,6 @@
             >
           </p>
         </div>
-
         <div class="about-card">
           <h3>✉️ Policy Inquiries & Research Desk</h3>
           <p
@@ -3404,16 +3265,12 @@
         </div>
       </div>
     </div>
-
-    <!-- Footer with Admin Access Button -->
     <footer style="text-align: center; margin-top: 3rem; padding: 2rem 0 1rem; border-top: 1px solid var(--border-color); color: var(--muted-color); font-size: 0.85rem; display: flex; flex-direction: column; align-items: center; gap: 0.6rem;">
       <div>Centre for Public Policy Research (CPPR) &middot; IMSciences Peshawar</div>
       <button class="tab-btn" onclick="openAdminLogin()" style="font-size: 0.78rem; padding: 0.35rem 0.85rem; background: transparent; border: 1px solid var(--border-color); color: var(--muted-color); border-radius: 8px;">
         🔐 Admin Access
       </button>
     </footer>
-
-    <!-- PDF Modal Overlay -->
     <div id="pdfModal" class="modal">
       <div class="modal-content">
         <div class="modal-header">
@@ -3441,8 +3298,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Policy Brief Modal Overlay -->
     <div id="briefModal" class="modal">
       <div class="modal-content">
         <div class="modal-header">
@@ -3484,7 +3339,6 @@
         </div>
       </div>
     </div>
-
     <div
       style="
         background: var(--hover-bg);
@@ -3502,8 +3356,6 @@
         Sciences (IMSciences), Peshawar.</span
       >
     </div>
-
-    <!-- CPPR Project Details Modal Overlay -->
     <div id="projectModal" class="modal">
       <div
         class="modal-content"
@@ -3604,7 +3456,6 @@
         </div>
       </div>
     </div>
-
     <script>
 function debounce(func, wait) {
         let timeout;
@@ -3636,7 +3487,6 @@ function debounce(func, wait) {
         });
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
-
       function toggleDarkMode() {
         document.body.classList.toggle("dark-mode");
         const isDark = document.body.classList.contains("dark-mode");
@@ -3645,7 +3495,6 @@ function debounce(func, wait) {
           : "Dark Mode";
         localStorage.setItem("cppr_theme", isDark ? "dark" : "light");
       }
-
       if (localStorage.getItem("cppr_theme") === "dark") {
         document.body.classList.add("dark-mode");
         document.addEventListener("DOMContentLoaded", () => {
@@ -3653,12 +3502,10 @@ function debounce(func, wait) {
           if (label) label.innerText = "Light Mode";
         });
       }
-
       let currentPage = 1;
       let pageSize = 15;
       let filteredDocs = [];
       let allDocCache = [];
-
       var sectorBadgeMap = {
         Governance: "sec-gov",
         Health: "sec-health",
@@ -3671,7 +3518,6 @@ function debounce(func, wait) {
         "Industries & Commerce": "sec-ind",
         "Housing & Land Revenue": "sec-house",
       };
-
       var typeBadgeMap = {
         "Constitution & Amendments": "badge-act",
         "Act / Legislation": "badge-act",
@@ -3687,16 +3533,13 @@ function debounce(func, wait) {
         "Notification": "badge-sops",
         "International Commitments": "badge-act"
       };
-
       function updateDynamicHeaderStats() {
         const docs = window.CPPR_DOCUMENTS || [];
         if (!docs.length) return;
-
         const total = docs.length;
         let actsCount = 0;
         let rulesCount = 0;
         const deptsSet = new Set();
-
         docs.forEach((d) => {
           const cat = (d.category || "").toLowerCase();
           if (cat.includes("act") || cat.includes("law") || cat.includes("ordinance")) {
@@ -3706,23 +3549,19 @@ function debounce(func, wait) {
           }
           if (d.sector) deptsSet.add(d.sector);
         });
-
         const pEl = document.getElementById("statPrimaryCount");
         const aEl = document.getElementById("statActsCount");
         const rEl = document.getElementById("statRulesCount");
         const sEl = document.getElementById("statSectorsCount");
-
         if (pEl) pEl.innerText = total.toLocaleString();
         if (aEl) aEl.innerText = actsCount.toLocaleString();
         if (rEl) rEl.innerText = rulesCount.toLocaleString();
         if (sEl) sEl.innerText = (deptsSet.size || 28).toLocaleString();
-
         const stockroomCountSub = document.getElementById("stockroomCountSub");
         if (stockroomCountSub) {
           stockroomCountSub.innerText = "(" + total.toLocaleString() + " Documents & Research Studies)";
         }
       }
-
       function initTableCache() {
         const rawData = window.CPPR_DOCUMENTS || [];
         allDocCache = rawData.map((doc) => {
@@ -3752,7 +3591,6 @@ function debounce(func, wait) {
           };
         });
         updateDynamicHeaderStats();
-
         const yearSelect = document.getElementById("yearFilter");
         if (yearSelect && yearSelect.options.length <= 1) {
           const years = [...new Set(allDocCache.map(d => String(d.year)))].filter(Boolean).sort((a,b) => b.localeCompare(a));
@@ -3764,7 +3602,6 @@ function debounce(func, wait) {
           });
         }
       }
-
       function createRowHTML(doc) {
         var secClass = sectorBadgeMap[doc.sector] || "sec-gen";
         var typeClass = typeBadgeMap[doc.category] || "badge-sops";
@@ -3777,7 +3614,6 @@ function debounce(func, wait) {
             '<a href="' + doc.driveUrl + '" target="_blank" class="btn-sm btn-drive">Drive</a>';
         }
         var cleanTitleAttr = (doc.title || "").replace(/"/g, "&quot;");
-
         var tagsHtml = "";
         if (doc.tags && Array.isArray(doc.tags) && doc.tags.length > 0) {
           var tagPills = doc.tags.map(function(t) { 
@@ -3785,7 +3621,6 @@ function debounce(func, wait) {
           });
           tagsHtml = '<div style="margin-top:3px;">' + tagPills.join('') + '</div>';
         }
-
         var isChecked = selectedDocIds.has(doc.id) ? 'checked' : '';
         return '<tr data-category="' + (doc.category || "") + '" data-sector="' + (doc.sector || "") + '" data-year="' + (doc.year || "") + '">' +
           '<td class="no-print" style="text-align:center;"><input type="checkbox" class="doc-select-checkbox" data-id="' + doc.id + '" ' + isChecked + ' onchange="toggleDocSelection(this, ' + doc.id + ')"></td>' +
@@ -3800,7 +3635,6 @@ function debounce(func, wait) {
           '</div><span class="admin-row-actions"><button class="admin-row-btn del" onclick="deleteTableRow(this)" title="Delete row">✕</button></span></td>' +
           '</tr>';
       }
-
       function runFilters() {
         if (!allDocCache.length) {
           initTableCache();
@@ -3811,10 +3645,8 @@ function debounce(func, wait) {
         const sector = document.getElementById("sectorFilter").value;
         const type = document.getElementById("typeFilter").value;
         const year = document.getElementById("yearFilter").value;
-        
         const eraEl = document.getElementById("eraFilter");
         const era = eraEl ? eraEl.value : "ALL";
-        
         filteredDocs = [];
         allDocCache.forEach((item) => {
           const matchesSearch = !query || item.searchableText.includes(query);
@@ -3822,12 +3654,10 @@ function debounce(func, wait) {
           const matchesType = type === "ALL" || item.category === type;
           const matchesYear = year === "ALL" || String(item.year) === String(year);
           const matchesEra = era === "ALL" || item.era === era;
-          
           if (matchesSearch && matchesSector && matchesType && matchesYear && matchesEra) {
             filteredDocs.push(item);
           }
         });
-
         const counterText = document.getElementById("counterText");
         if (counterText) {
           counterText.innerText = "Showing " + filteredDocs.length + " of " + allDocCache.length + " Documents";
@@ -3835,13 +3665,10 @@ function debounce(func, wait) {
         currentPage = 1;
         renderPagination();
       }
-
       const debouncedRunFilters = debounce(runFilters, 250);
-
       function applyFilters() {
         debouncedRunFilters();
       }
-
       function renderPagination() {
         const total = filteredDocs.length;
         const selectVal = document.getElementById("pageSizeSelect").value;
@@ -3854,13 +3681,11 @@ function debounce(func, wait) {
           pageSize === total || selectVal === "ALL"
             ? total
             : Math.min(startIdx + pageSize, total);
-        
         const pageItems = filteredDocs.slice(startIdx, endIdx);
         const tbody = document.getElementById("policyTableBody");
         if (tbody) {
           tbody.innerHTML = pageItems.map((item) => createRowHTML(item.doc)).join("");
         }
-
         const pageIndicator = document.getElementById("pageIndicator");
         if (pageIndicator)
           pageIndicator.innerText =
@@ -3873,7 +3698,6 @@ function debounce(func, wait) {
         if (nextBtn)
           nextBtn.disabled = currentPage >= totalPages || totalPages === 0;
       }
-
       function prevPage() {
         if (currentPage > 1) {
           currentPage--;
@@ -3891,7 +3715,6 @@ function debounce(func, wait) {
         currentPage = 1;
         renderPagination();
       }
-
       function resetFilters() {
         document.getElementById("searchInput").value = "";
         document.getElementById("sectorFilter").value = "ALL";
@@ -3901,13 +3724,11 @@ function debounce(func, wait) {
         currentPage = 1;
         runFilters();
       }
-
       function filterStockroomBySector(secName) {
         switchTab("tabStockroom");
         document.getElementById("sectorFilter").value = secName;
         applyFilters();
       }
-
       let sortAsc = true;
       function sortTable(colIdx) {
         const table = document.getElementById("policyTable");
@@ -3922,7 +3743,6 @@ function debounce(func, wait) {
           });
         }
         if (!allDocCache.length) initTableCache();
-        
         allDocCache.sort((a, b) => {
           let valA = "", valB = "";
           if (colIdx === 0) { valA = a.category; valB = b.category; }
@@ -3935,7 +3755,6 @@ function debounce(func, wait) {
         sortAsc = !sortAsc;
         runFilters();
       }
-
       function openPreview(title, localUrl, driveUrl) {
         document.getElementById("modalTitle").innerText = title;
         document.getElementById("modalLocalBtn").href = localUrl;
@@ -3953,7 +3772,6 @@ function debounce(func, wait) {
         document.getElementById("pdfModal").style.display = "none";
         document.getElementById("pdfFrame").src = "";
       }
-
       function openBriefById(id) {
         var item = allDocCache.find(function(d) { return d.doc && d.doc.id === id; });
         if (!item || !item.doc) return;
@@ -3970,7 +3788,6 @@ function debounce(func, wait) {
         document.getElementById("briefAuth").innerText = doc.authority || "Official Authority";
         document.getElementById("briefDate").innerText = doc.date || (doc.year ? "Year " + doc.year : "Official Record");
         document.getElementById("briefSummary").innerText = doc.summary || "No summary available.";
-        
         var tagsContainer = document.getElementById("briefTagsContainer");
         if (tagsContainer) {
           if (doc.tags && Array.isArray(doc.tags) && doc.tags.length > 0) {
@@ -3986,7 +3803,6 @@ function debounce(func, wait) {
         if (typeof switchCitationStyle === 'function') switchCitationStyle(activeCiteStyle || 'apa');
         document.getElementById("briefModal").style.display = "flex";
       }
-
       function openBrief(title, type, sector, auth, date, summary) {
         document.getElementById("briefTitle").innerText = title;
         document.getElementById("briefType").innerText = type;
@@ -3999,7 +3815,6 @@ function debounce(func, wait) {
       function closeBrief() {
         document.getElementById("briefModal").style.display = "none";
       }
-
       // ── CPPR Projects Dataset ──────────────────────────────
       var cpprProjectsData = [
         {
@@ -4146,7 +3961,6 @@ function debounce(func, wait) {
           ],
         },
       ];
-
       function renderResearchProjectsGrid() {
         var grid = document.getElementById("cpprProjectsGrid");
         if (!grid) return;
@@ -4185,7 +3999,6 @@ function debounce(func, wait) {
           if (btn) openProjectModal(btn.getAttribute("data-projid"));
         });
       }
-
       function openProjectModal(projId) {
         var p = null;
         for (var i = 0; i < cpprProjectsData.length; i++) {
@@ -4198,13 +4011,11 @@ function debounce(func, wait) {
           console.error("Project not found:", projId);
           return;
         }
-
         var modal = document.getElementById("projectModal");
         if (!modal) {
           console.error("projectModal element not found in DOM");
           return;
         }
-
         var el = function (id) {
           return document.getElementById(id);
         };
@@ -4225,12 +4036,10 @@ function debounce(func, wait) {
         }
         modal.style.display = "flex";
       }
-
       function closeProjectModal() {
         var modal = document.getElementById("projectModal");
         if (modal) modal.style.display = "none";
       }
-
       window.addEventListener("click", function (e) {
         var projModal = document.getElementById("projectModal");
         var pdfModal = document.getElementById("pdfModal");
@@ -4241,7 +4050,6 @@ function debounce(func, wait) {
         if (e.target === briefModal) closeBrief();
         if (e.target === adminOverlay) skipAdminLogin();
       });
-
       window.addEventListener("keydown", function (e) {
         if (e.key === "Escape") {
           closeProjectModal();
@@ -4255,7 +4063,6 @@ function debounce(func, wait) {
           if (searchInput) searchInput.focus();
         }
       });
-
       function submitInquiry(e) {
         e.preventDefault();
         var name = document.getElementById("inqName") ? document.getElementById("inqName").value : "";
@@ -4267,7 +4074,6 @@ function debounce(func, wait) {
           btn.disabled = true;
           btn.innerText = "Sending Inquiry...";
         }
-
         fetch("https://formsubmit.co/ajax/affanaminbat@gmail.com", {
           method: "POST",
           headers: {
@@ -4309,15 +4115,12 @@ function debounce(func, wait) {
           }
         });
       }
-
       document.addEventListener("DOMContentLoaded", function () {
         runFilters();
         renderResearchProjectsGrid();
       });
-
       // ── ADMIN PANEL SYSTEM ─────────────────────────────────
       var ADMIN_PASSWORD = "cppr2024";
-
       function openAdminLogin() {
         var overlay = document.getElementById("adminOverlay");
         if (overlay) {
@@ -4329,7 +4132,6 @@ function debounce(func, wait) {
           }
         }
       }
-
       function adminLogin() {
         var input = document.getElementById("adminPassInput");
         var error = document.getElementById("adminLoginError");
@@ -4346,19 +4148,15 @@ function debounce(func, wait) {
           }, 3000);
         }
       }
-
       function skipAdminLogin() {
         document.getElementById("adminOverlay").classList.add("hidden");
       }
-
       function enableAdminMode() {
         document.body.classList.add("admin-mode");
       }
-
       function adminLogout() {
         document.body.classList.remove("admin-mode");
         sessionStorage.removeItem("cppr_admin");
-
         // Turn off global edit mode if on
         if (isGlobalEditMode) toggleGlobalEdit();
         var editables = document.querySelectorAll("[contenteditable]");
@@ -4368,7 +4166,6 @@ function debounce(func, wait) {
         document.getElementById("adminOverlay").classList.remove("hidden");
         document.getElementById("adminPassInput").value = "";
       }
-
       // Auto-restore admin session
       if (sessionStorage.getItem("cppr_admin") === "true") {
         document.addEventListener("DOMContentLoaded", function () {
@@ -4376,7 +4173,6 @@ function debounce(func, wait) {
           enableAdminMode();
         });
       }
-
       // ── Add Document ────────────────────────────
       function showAddDocModal() {
         document.getElementById("addDocModal").classList.add("visible");
@@ -4384,7 +4180,6 @@ function debounce(func, wait) {
       function hideAddDocModal() {
         document.getElementById("addDocModal").classList.remove("visible");
       }
-
       var sectorBadgeMap = {
         Governance: "sec-gov",
         Health: "sec-health",
@@ -4397,7 +4192,6 @@ function debounce(func, wait) {
         "Industries & Commerce": "sec-ind",
         "Housing & Land Revenue": "sec-house",
       };
-
       var typeBadgeMap = {
         "Constitution & Amendments": "badge-act",
         "Act / Legislation": "badge-act",
@@ -4413,7 +4207,6 @@ function debounce(func, wait) {
         "Notification": "badge-sops",
         "International Commitments": "badge-act"
       };
-
       function addNewDocument() {
         var title = document.getElementById("newDocTitle").value.trim();
         var type = document.getElementById("newDocType").value;
@@ -4422,19 +4215,16 @@ function debounce(func, wait) {
         var date = document.getElementById("newDocDate").value.trim();
         var drive = document.getElementById("newDocDrive").value.trim();
         var summary = document.getElementById("newDocSummary").value.trim();
-
         if (!title || !auth || !date || !summary) {
           alert(
             "Please fill in all required fields (Title, Authority, Date, Summary).",
           );
           return;
         }
-
         var yearMatch = date.match(/\d{4}/);
         var year = yearMatch ? yearMatch[0] : "";
         var secClass = sectorBadgeMap[sector] || "sec-gen";
         var typeClass = typeBadgeMap[type] || "badge-sops";
-
         var driveHtml = "";
         if (drive) {
           driveHtml =
@@ -4446,7 +4236,6 @@ function debounce(func, wait) {
             drive +
             '" target="_blank" class="btn-sm btn-drive">Drive</a>';
         }
-
         var tr = document.createElement("tr");
         tr.setAttribute("data-category", type);
         tr.setAttribute("data-sector", sector);
@@ -4498,10 +4287,8 @@ function debounce(func, wait) {
           summary.replace(/'/g, "\\'") +
           "')\">Brief</button>" +
           '</div><span class="admin-row-actions"><button class="admin-row-btn del" onclick="deleteTableRow(this)" title="Delete row">✕</button></span></td>';
-
         var tbody = document.querySelector("#policyTable tbody");
         tbody.insertBefore(tr, tbody.firstChild);
-
         // Clear form
         document.getElementById("newDocTitle").value = "";
         document.getElementById("newDocAuth").value = "";
@@ -4512,7 +4299,6 @@ function debounce(func, wait) {
         initTableCache();
         applyFilters();
       }
-
       function deleteTableRow(btn) {
         if (confirm("Delete this document from the stockroom?")) {
           var row = btn.closest("tr");
@@ -4521,14 +4307,11 @@ function debounce(func, wait) {
           applyFilters();
         }
       }
-
       // ── GLOBAL EDIT MODE ─────────────────────────────────
       var isGlobalEditMode = false;
-
       function toggleGlobalEdit() {
         var btn = document.getElementById("globalEditToggleBtn");
         isGlobalEditMode = !isGlobalEditMode;
-
         if (isGlobalEditMode) {
           document.body.classList.add("global-edit-mode");
           btn.classList.add("active");
@@ -4537,7 +4320,6 @@ function debounce(func, wait) {
           document.body.classList.remove("global-edit-mode");
           btn.classList.remove("active");
           btn.innerText = "🎯 Select to Edit (OFF)";
-
           // Remove contenteditable from ALL elements we made editable
           var editables = document.querySelectorAll("[contenteditable='true']");
           for (var i = 0; i < editables.length; i++) {
@@ -4546,13 +4328,11 @@ function debounce(func, wait) {
           }
         }
       }
-
       // Intercept clicks in capture phase when global edit mode is on
       document.addEventListener(
         "click",
         function (e) {
           if (!isGlobalEditMode) return;
-
           // Check if click is inside admin UI. If so, ignore (let it work normally)
           if (
             e.target.closest(".admin-toolbar") ||
@@ -4561,14 +4341,11 @@ function debounce(func, wait) {
           ) {
             return;
           }
-
           // Prevent normal click actions (like button clicking or links)
           e.preventDefault();
           e.stopPropagation();
-
           // Find closest element that makes sense to edit
           var el = e.target;
-
           // Make editable and focus
           el.setAttribute("contenteditable", "true");
           el.setAttribute("spellcheck", "false");
@@ -4576,35 +4353,28 @@ function debounce(func, wait) {
         },
         true,
       );
-
       // ── Export HTML ─────────────────────────────
       function exportHTML() {
         // Temporarily disable admin mode for clean export
         document.body.classList.remove("admin-mode");
         var overlay = document.getElementById("adminOverlay");
         overlay.classList.remove("hidden");
-
         // Remove contenteditable from all elements
         var editables = document.querySelectorAll("[contenteditable]");
         for (var i = 0; i < editables.length; i++) {
           editables[i].removeAttribute("contenteditable");
         }
-
         // Hide add doc modal
         var addModal = document.getElementById("addDocModal");
         addModal.classList.remove("visible");
-
         // Clear password input
         document.getElementById("adminPassInput").value = "";
         document.getElementById("adminLoginError").style.display = "none";
-
         // Get clean HTML
         var fullHtml = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
-
         // Re-enable admin mode
         overlay.classList.add("hidden");
         enableAdminMode();
-
         // Trigger download
         var blob = new Blob([fullHtml], { type: "text/html;charset=utf-8" });
         var url = URL.createObjectURL(blob);
@@ -4616,15 +4386,12 @@ function debounce(func, wait) {
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
       }
-
       // ── Analytics Charts (Chart.js) ─────────────────────────
       var chartsInitialized = false;
-
       function initAnalyticsCharts() {
         if (chartsInitialized) return;
         var docs = window.CPPR_DOCUMENTS || [];
         if (!docs.length || typeof Chart === 'undefined') return;
-
         // 1. Timeline Chart Data
         var yearMap = {};
         docs.forEach(function(d) {
@@ -4635,7 +4402,6 @@ function debounce(func, wait) {
         });
         var sortedYears = Object.keys(yearMap).sort(function(a,b){ return a-b; });
         var yearCounts = sortedYears.map(function(y){ return yearMap[y]; });
-
         var ctxTimeline = document.getElementById('timelineChart');
         if (ctxTimeline) {
           new Chart(ctxTimeline, {
@@ -4657,7 +4423,6 @@ function debounce(func, wait) {
             }
           });
         }
-
         // 2. Hierarchy Distribution Chart
         var catMap = {};
         docs.forEach(function(d) {
@@ -4665,7 +4430,6 @@ function debounce(func, wait) {
         });
         var catLabels = Object.keys(catMap);
         var catCounts = catLabels.map(function(c){ return catMap[c]; });
-
         var ctxHierarchy = document.getElementById('hierarchyChart');
         if (ctxHierarchy) {
           new Chart(ctxHierarchy, {
@@ -4684,7 +4448,6 @@ function debounce(func, wait) {
             }
           });
         }
-
         // 3. Sector Distribution Chart (Top 8)
         var secMap = {};
         docs.forEach(function(d) {
@@ -4692,7 +4455,6 @@ function debounce(func, wait) {
         });
         var sortedSecs = Object.keys(secMap).sort(function(a,b){ return secMap[b]-secMap[a]; }).slice(0, 8);
         var secCounts = sortedSecs.map(function(s){ return secMap[s]; });
-
         var ctxSector = document.getElementById('sectorChart');
         if (ctxSector) {
           new Chart(ctxSector, {
@@ -4714,7 +4476,6 @@ function debounce(func, wait) {
             }
           });
         }
-
         // 4. Era Distribution Chart
         var eraMap = {};
         docs.forEach(function(d) {
@@ -4722,7 +4483,6 @@ function debounce(func, wait) {
         });
         var eraLabels = Object.keys(eraMap);
         var eraCounts = eraLabels.map(function(e){ return eraMap[e]; });
-
         var ctxEra = document.getElementById('eraChart');
         if (ctxEra) {
           new Chart(ctxEra, {
@@ -4741,13 +4501,10 @@ function debounce(func, wait) {
             }
           });
         }
-
         chartsInitialized = true;
       }
-
       // ── Batch Selection State ────────────────────────────────
       var selectedDocIds = new Set();
-
       function toggleSelectAll(masterCheckbox) {
         var checkboxes = document.querySelectorAll('.doc-select-checkbox');
         checkboxes.forEach(function(cb) {
@@ -4761,7 +4518,6 @@ function debounce(func, wait) {
         });
         updateBatchActionBar();
       }
-
       function toggleDocSelection(checkbox, id) {
         if (checkbox.checked) {
           selectedDocIds.add(id);
@@ -4770,12 +4526,10 @@ function debounce(func, wait) {
         }
         updateBatchActionBar();
       }
-
       function updateBatchActionBar() {
         var bar = document.getElementById('batchActionBar');
         var countText = document.getElementById('selectedCountText');
         var selectAllCb = document.getElementById('selectAllCheckbox');
-        
         var count = selectedDocIds.size;
         if (bar && countText) {
           if (count > 0) {
@@ -4787,28 +4541,23 @@ function debounce(func, wait) {
           }
         }
       }
-
       function clearSelection() {
         selectedDocIds.clear();
         var checkboxes = document.querySelectorAll('.doc-select-checkbox');
         checkboxes.forEach(function(cb) { cb.checked = false; });
         updateBatchActionBar();
       }
-
       function getSelectedDocsData() {
         if (!allDocCache || !allDocCache.length) return [];
         return allDocCache.filter(function(item) {
           return item.doc && selectedDocIds.has(item.doc.id);
         }).map(function(item) { return item.doc; });
       }
-
       function exportSelectedCSV() {
         var docs = getSelectedDocsData();
         if (!docs.length) return alert('No documents selected.');
-
         var headers = ["ID", "Document Title", "Category", "Jurisdiction", "Geographical Scope", "Sector", "Institution", "Issuing Authority", "Enactment Date", "Year", "Constitutional Era", "Legal Status", "Legal Authority", "Parent Document", "Policy Link", "Implementation Link", "Related Documents", "Executive Policy Brief", "Keyword Tags", "Source / Drive URL"];
         var csvRows = [headers.join(",")];
-
         docs.forEach(function(d) {
           var row = [
             d.id,
@@ -4834,35 +4583,29 @@ function debounce(func, wait) {
           ];
           csvRows.push(row.join(","));
         });
-
         var blob = new Blob([csvRows.join("\n")], { type: "text/csv;charset=utf-8;" });
         var link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
         link.download = "CPPR_Selected_Policy_Instruments.csv";
         link.click();
       }
-
       function exportSelectedJSON() {
         var docs = getSelectedDocsData();
         if (!docs.length) return alert('No documents selected.');
-
         var blob = new Blob([JSON.stringify(docs, null, 2)], { type: "application/json" });
         var link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
         link.download = "CPPR_Selected_Policy_Instruments.json";
         link.click();
       }
-
       function generateSelectedDossier() {
         var docs = getSelectedDocsData();
         if (!docs.length) return alert('No documents selected.');
-
         var printWindow = window.open('', '_blank');
         var html = '<html><head><title>CPPR Public Policy Research Dossier</title>';
         html += '<style>body{font-family:Arial,sans-serif;padding:30px;color:#111;} h1{color:#1f4e78;} .doc-card{border-bottom:2px solid #ccc;padding-bottom:20px;margin-bottom:20px;} .field{margin:5px 0;} strong{color:#1f4e78;}</style></head><body>';
         html += '<h1>Centre for Public Policy Research (CPPR) - Policy Dossier</h1>';
         html += '<p>Generated on: ' + new Date().toLocaleDateString() + ' | Total Selected Instruments: ' + docs.length + '</p><hr>';
-        
         docs.forEach(function(d) {
           html += '<div class="doc-card">';
           html += '<h2>[' + d.id + '] ' + d.title + '</h2>';
@@ -4872,16 +4615,12 @@ function debounce(func, wait) {
           html += '<div class="field" style="margin-top:10px;"><strong>Executive Summary:</strong><p>' + d.summary + '</p></div>';
           html += '</div>';
         });
-        
         html += '</body></html>';
         printWindow.document.write(html);
         printWindow.document.close();
         printWindow.print();
       }
-    
     </script>
-
-    <!-- Floating Batch Action Bar -->
     <div id="batchActionBar" class="batch-action-bar" style="display:none;">
       <span id="selectedCountText">0 documents selected</span>
       <div class="batch-btns">

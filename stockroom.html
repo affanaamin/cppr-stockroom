@@ -825,28 +825,37 @@
         <!-- TAB 6: EXECUTIVE POLICY BRIEF & GOVERNANCE DOSSIER        -->
         <!-- ========================================================= -->
         <section id="tabBrief" class="portal-tab flex-1 flex-col h-full overflow-y-auto p-4 md:p-8 bg-surface space-y-6">
-            <div class="max-w-4xl mx-auto w-full bg-surface-container-lowest border border-outline-variant p-8 rounded-lg shadow-sm space-y-6">
+            <div class="max-w-4xl mx-auto w-full flex justify-end gap-3 mb-2">
+                <button onclick="window.print()" class="px-4 py-2 bg-primary-container text-on-primary-container rounded font-mono text-xs font-bold hover:bg-primary hover:text-white transition-colors flex items-center gap-2">
+                    <span class="material-symbols-outlined text-sm">print</span> Print Brief
+                </button>
+                <button onclick="downloadDocPDF()" class="px-4 py-2 bg-secondary text-white rounded font-mono text-xs font-bold hover:bg-secondary/90 transition-colors flex items-center gap-2">
+                    <span class="material-symbols-outlined text-sm">download</span> Download PDF
+                </button>
+            </div>
+            
+            <div id="briefPrintArea" class="max-w-4xl mx-auto w-full bg-surface-container-lowest border border-outline-variant p-8 rounded-lg shadow-sm space-y-6">
                 <!-- Brief Header -->
                 <div class="border-b-2 border-primary pb-6">
                     <div class="flex items-center justify-between mb-2">
-                        <span class="font-mono text-xs bg-primary text-white px-2.5 py-0.5 rounded font-bold uppercase">CPPR Policy Brief #42</span>
-                        <span class="font-mono text-xs text-on-surface-variant">Issued: CPPR Policy Research Lab</span>
+                        <span class="font-mono text-xs bg-primary text-white px-2.5 py-0.5 rounded font-bold uppercase" id="briefBadge">CPPR Policy Brief</span>
+                        <span class="font-mono text-xs text-on-surface-variant" id="briefSectorDate">Issued: CPPR Policy Research Lab</span>
                     </div>
-                    <h2 class="font-headline font-bold text-2xl md:text-3xl text-primary">Strategic Analysis of the KP Local Government Act, 2013</h2>
-                    <p class="font-body text-xs md:text-sm text-on-surface-variant mt-2 italic">Institutional Autonomy, Fiscal Devolution, and Grassroots Participatory Governance in Khyber Pakhtunkhwa</p>
+                    <h2 id="briefTitle" class="font-headline font-bold text-2xl md:text-3xl text-primary">Select a document to generate Executive Brief</h2>
+                    <p id="briefSubtitle" class="font-body text-xs md:text-sm text-on-surface-variant mt-2 italic">Institutional Autonomy, Fiscal Devolution, and Governance</p>
                 </div>
 
                 <!-- Core Objectives Grid -->
                 <div>
                     <h3 class="font-headline font-bold text-base text-primary mb-3">Core Legislative Objectives</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="briefObjectives">
                         <div class="p-4 bg-surface-container-low rounded border border-outline-variant">
                             <h4 class="font-bold text-primary text-xs mb-1">1. Devolution of Power</h4>
-                            <p class="font-body text-xs text-on-surface-variant">Conferring legal authority to 3,564 Village & Neighbourhood Councils directly elected by citizens.</p>
+                            <p class="font-body text-xs text-on-surface-variant">Conferring legal authority to grassroots councils.</p>
                         </div>
                         <div class="p-4 bg-surface-container-low rounded border border-outline-variant">
-                            <h4 class="font-bold text-primary text-xs mb-1">2. 30% Budget Mandate</h4>
-                            <p class="font-body text-xs text-on-surface-variant">Statutory obligation reserving 30% of provincial annual development plan funds to local tiers.</p>
+                            <h4 class="font-bold text-primary text-xs mb-1">2. Financial Allocation</h4>
+                            <p class="font-body text-xs text-on-surface-variant">Statutory obligation reserving funds for local tiers.</p>
                         </div>
                         <div class="p-4 bg-surface-container-low rounded border border-outline-variant">
                             <h4 class="font-bold text-primary text-xs mb-1">3. Administrative Clarity</h4>
@@ -1080,6 +1089,47 @@
         </div>
     </div>
 
+    <!-- Floating AI Assistant Widget -->
+    <div id="aiAssistantWidget" class="fixed bottom-6 right-6 z-40 flex flex-col items-end pointer-events-none">
+        <!-- Chat Box -->
+        <div id="aiChatBox" class="bg-surface border border-outline-variant rounded-2xl shadow-2xl w-80 mb-4 overflow-hidden pointer-events-auto transform scale-95 opacity-0 origin-bottom-right transition-all duration-300 ease-out hidden">
+            <!-- Header -->
+            <div class="bg-primary px-4 py-3 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-white text-lg">smart_toy</span>
+                    <h3 class="font-headline font-bold text-sm text-white">Stockroom AI Copilot</h3>
+                </div>
+                <button onclick="toggleAiAssistant()" class="text-white hover:bg-white/20 p-1 rounded transition-colors">
+                    <span class="material-symbols-outlined text-sm">close</span>
+                </button>
+            </div>
+            <!-- Chat Log -->
+            <div id="aiChatLog" class="h-64 p-4 overflow-y-auto font-body text-xs flex flex-col gap-3 bg-surface-container-lowest">
+                <div class="flex gap-2">
+                    <div class="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
+                        <span class="material-symbols-outlined text-primary text-[14px]">smart_toy</span>
+                    </div>
+                    <div class="bg-surface-container-low p-2.5 rounded-lg rounded-tl-none text-on-surface">
+                        Hello! I am the CPPR Stockroom AI Copilot. How can I help you analyze the Khyber Pakhtunkhwa legislative framework today?
+                    </div>
+                </div>
+            </div>
+            <!-- Input -->
+            <div class="p-3 border-t border-outline-variant bg-surface flex gap-2">
+                <input type="text" id="aiChatInput" placeholder="Ask about a policy..." class="flex-1 bg-surface-container-low border border-outline-variant rounded px-3 py-1.5 font-mono text-[11px] focus:outline-none focus:border-primary text-on-surface" onkeypress="if(event.key === 'Enter') submitAiQuery()">
+                <button onclick="submitAiQuery()" class="bg-primary text-white p-1.5 rounded hover:bg-primary-container hover:text-on-primary-container transition-colors">
+                    <span class="material-symbols-outlined text-[16px]">send</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Toggle Button -->
+        <button onclick="toggleAiAssistant()" class="bg-primary text-white p-3 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all pointer-events-auto flex items-center justify-center group relative">
+            <span class="absolute inset-0 rounded-full bg-primary animate-ping opacity-20"></span>
+            <span class="material-symbols-outlined text-2xl group-hover:rotate-12 transition-transform">auto_awesome</span>
+        </button>
+    </div>
+
     <!-- Toast Notification -->
     <div id="portalToast" class="fixed bottom-6 right-6 bg-primary text-white px-4 py-2.5 rounded-lg shadow-2xl font-mono text-xs flex items-center gap-2 opacity-0 transition-opacity duration-300 pointer-events-none z-50">
         <span class="material-symbols-outlined text-green-400 text-sm">check_circle</span>
@@ -1102,6 +1152,60 @@
 
         function closeSettingsModal() {
             document.getElementById("settingsModal").classList.add("hidden");
+        }
+
+        function toggleAiAssistant() {
+            const box = document.getElementById("aiChatBox");
+            if (box.classList.contains("hidden")) {
+                box.classList.remove("hidden");
+                setTimeout(() => {
+                    box.classList.remove("opacity-0", "scale-95");
+                    box.classList.add("opacity-100", "scale-100");
+                }, 10);
+            } else {
+                box.classList.remove("opacity-100", "scale-100");
+                box.classList.add("opacity-0", "scale-95");
+                setTimeout(() => {
+                    box.classList.add("hidden");
+                }, 300);
+            }
+        }
+
+        function submitAiQuery() {
+            const input = document.getElementById("aiChatInput");
+            const log = document.getElementById("aiChatLog");
+            const q = input.value.trim();
+            if(!q) return;
+
+            // User Message
+            log.innerHTML += `
+                <div class="flex gap-2 flex-row-reverse mt-2">
+                    <div class="w-6 h-6 rounded-full bg-secondary text-white flex items-center justify-center shrink-0">
+                        <span class="material-symbols-outlined text-[14px]">person</span>
+                    </div>
+                    <div class="bg-primary text-white p-2.5 rounded-lg rounded-tr-none">
+                        ${q}
+                    </div>
+                </div>
+            `;
+            input.value = "";
+            log.scrollTop = log.scrollHeight;
+
+            // Mock AI Response
+            setTimeout(() => {
+                const docName = currentActiveDoc ? currentActiveDoc.title : "the repository";
+                log.innerHTML += `
+                    <div class="flex gap-2 mt-2">
+                        <div class="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
+                            <span class="material-symbols-outlined text-primary text-[14px]">smart_toy</span>
+                        </div>
+                        <div class="bg-surface-container-low p-2.5 rounded-lg rounded-tl-none text-on-surface">
+                            Based on my analysis of <strong>${docName}</strong>, this query falls under provincial jurisdiction. Would you like me to extract the specific clauses or generate a summarized report?
+                        </div>
+                    </div>
+                `;
+                log.scrollTop = log.scrollHeight;
+            }, 800);
         }
 
         function setFontSize(sz) {
@@ -1446,6 +1550,10 @@
                 span.innerText = t;
                 tagsCont.appendChild(span);
             });
+
+            // Update other tabs dynamically
+            renderExecutiveBrief(doc);
+            renderRedlineStudio(doc);
         }
 
         // -------------------------------------------------------------
@@ -1524,7 +1632,88 @@
 
             switchTab("tabReader");
             showToast(`Loaded "${doc.title.substring(0, 32)}..." into Reader`);
+            
+            renderExecutiveBrief(doc);
+            renderRedlineStudio(doc);
         }
+
+        function renderExecutiveBrief(doc) {
+            const titleEl = document.getElementById("briefTitle");
+            const subtitleEl = document.getElementById("briefSubtitle");
+            const badgeEl = document.getElementById("briefBadge");
+            const sectorDateEl = document.getElementById("briefSectorDate");
+            const objContainer = document.getElementById("briefObjectives");
+
+            if (!titleEl || !doc) return;
+
+            titleEl.innerText = doc.title;
+            subtitleEl.innerText = doc.summary || "Comprehensive regulatory and policy framework.";
+            badgeEl.innerText = `CPPR Policy Brief: ${doc.id || 'DOC'}`;
+            sectorDateEl.innerText = `Issued: ${doc.year || '2024'} | Sector: ${doc.sector || 'General'}`;
+
+            objContainer.innerHTML = `
+                <div class="p-4 bg-surface-container-low rounded border border-outline-variant">
+                    <h4 class="font-bold text-primary text-xs mb-1">1. Statutory Authority</h4>
+                    <p class="font-body text-xs text-on-surface-variant">${doc.legal_authority || 'Enacted under provincial legislative competence.'}</p>
+                </div>
+                <div class="p-4 bg-surface-container-low rounded border border-outline-variant">
+                    <h4 class="font-bold text-primary text-xs mb-1">2. Implementation Mandate</h4>
+                    <p class="font-body text-xs text-on-surface-variant">Administered by the ${doc.authority || doc.sector || 'Government of Khyber Pakhtunkhwa'}.</p>
+                </div>
+                <div class="p-4 bg-surface-container-low rounded border border-outline-variant">
+                    <h4 class="font-bold text-primary text-xs mb-1">3. Geographic Scope</h4>
+                    <p class="font-body text-xs text-on-surface-variant">Applies to the entirety of ${doc.geographical_scope || 'Khyber Pakhtunkhwa'}.</p>
+                </div>
+            `;
+        }
+
+        function renderRedlineStudio(doc) {
+            const container = document.getElementById("redlinePanesContainer");
+            if (!container || !doc) return;
+            
+            // Mock dynamic redline generation based on doc
+            container.innerHTML = `
+                <!-- Left Pane: Original -->
+                <div class="flex flex-col bg-surface-container-lowest overflow-y-auto p-6 font-body text-xs leading-relaxed space-y-4">
+                    <div class="sticky top-0 bg-surface-container-low p-2.5 rounded border border-outline-variant font-mono font-bold text-xs text-primary mb-2">
+                        Original Enactment — ${doc.title} (${doc.year || 'Original'})
+                    </div>
+                    <div class="space-y-4">
+                        <p class="p-3 bg-red-50/60 border-l-4 border-red-500 rounded-r">
+                            <strong class="text-red-900 block font-mono text-[11px] mb-1">Section 1 (Original):</strong>
+                            <del class="text-red-700">"This instrument extends to the Province of Khyber Pakhtunkhwa excluding the tribal areas."</del>
+                            <span class="text-red-600 block text-[10px] mt-1 font-mono">[Repealed by subsequent amendment]</span>
+                        </p>
+                        <p class="p-3 bg-surface-container-low border-l-4 border-outline rounded-r text-on-surface-variant">
+                            <strong class="text-on-surface block font-mono text-[11px] mb-1">Section 2:</strong>
+                            "The provisions herein shall come into force immediately upon notification."
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Right Pane: Amended -->
+                <div class="flex flex-col bg-surface-container-lowest overflow-y-auto p-6 font-body text-xs leading-relaxed space-y-4">
+                    <div class="sticky top-0 bg-surface-container-low p-2.5 rounded border border-outline-variant font-mono font-bold text-xs text-green-800 mb-2">
+                        Amended Enactment — Current In-Force Version
+                    </div>
+                    <div class="space-y-4">
+                        <p class="p-3 bg-green-50/60 border-l-4 border-green-600 rounded-r">
+                            <strong class="text-green-900 block font-mono text-[11px] mb-1">Section 1 (Amended):</strong>
+                            <ins class="text-green-800 underline decoration-green-400">"This instrument extends to the entire Province of Khyber Pakhtunkhwa including the newly merged districts."</ins>
+                            <span class="text-green-700 block text-[10px] mt-1 font-mono">[Inserted by Amendment Act]</span>
+                        </p>
+                        <p class="p-3 bg-surface-container-low border-l-4 border-outline rounded-r text-on-surface-variant">
+                            <strong class="text-on-surface block font-mono text-[11px] mb-1">Section 2:</strong>
+                            "The provisions herein shall come into force immediately upon notification."
+                        </p>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById("redlineAmendedBadge").innerText = "1 Clause Amended";
+            document.getElementById("redlineInsertedBadge").innerText = "1 Section Inserted";
+        }
+
 
         function loadReaderDocumentFromSelector(val) {
             if (val === "default") {

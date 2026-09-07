@@ -81,16 +81,11 @@
             vertical-align: middle;
             line-height: 1;
         }
-        /* Custom scrollbars */
-        ::-webkit-scrollbar { width: 7px; height: 7px; }
-        ::-webkit-scrollbar-track { background: #f1f5f9; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
         .zebra-row:nth-child(even) { background-color: #fafbfc; }
         .zebra-row:nth-child(odd) { background-color: #ffffff; }
         /* Smooth Tab Display */
         .portal-tab { display: none !important; }
-        .portal-tab.active { display: flex !important; animation: fadeIn 0.25s ease; }
+        .portal-tab.active { display: flex !important; animation: fadeIn 0.25s ease; flex: 1; min-height: 0; }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(4px); }
             to { opacity: 1; transform: translateY(0); }
@@ -206,9 +201,9 @@
         </div>
         <div class="flex items-center gap-3">
             <div class="xl:hidden relative">
-                <select onchange="switchTab(this.value)" class="bg-primary-container text-on-primary font-mono text-xs py-1.5 px-3 rounded border border-on-primary-container/30 focus:outline-none">
-                    <option value="tabReader" selected>📖 Document Reader</option>
-                    <option value="tabRepo">📦 Repository</option>
+                <select id="mobileNavSelect" onchange="switchTab(this.value)" class="bg-primary-container text-on-primary font-mono text-xs py-1.5 px-3 rounded border border-on-primary-container/30 focus:outline-none">
+                    <option value="tabRepo" selected>📦 Repository</option>
+                    <option value="tabReader">📖 Document Reader</option>
                     <option value="tabAnalytics">📊 Visual Analytics</option>
                     <option value="tabLineage">🌳 Legal Lineage</option>
                     <option value="tabRedline">⚖️ Redline Studio</option>
@@ -558,7 +553,7 @@
                 </aside>
             </div>
         </section>
-        <section id="tabAnalytics" class="portal-tab flex-1 flex-col h-full overflow-y-auto p-4 md:p-8 bg-surface space-y-8">
+        <section id="tabAnalytics" class="portal-tab flex-1 flex flex-col overflow-y-auto p-4 md:p-8 bg-surface space-y-8">
             <div class="max-w-container-max mx-auto w-full">
                 <div class="bg-surface-container-lowest border border-outline-variant p-6 rounded-lg shadow-sm">
                     <div class="flex flex-wrap justify-between items-start gap-4">
@@ -646,7 +641,7 @@
                 </div>
             </div>
         </section>
-        <section id="tabLineage" class="portal-tab flex-1 flex-col h-full overflow-y-auto p-4 md:p-8 bg-surface space-y-6">
+        <section id="tabLineage" class="portal-tab flex-1 flex flex-col overflow-y-auto p-4 md:p-8 bg-surface space-y-6">
             <div class="max-w-container-max mx-auto w-full space-y-6">
                 <div class="bg-surface-container-lowest border border-outline-variant p-6 rounded-lg shadow-sm">
                     <div class="flex flex-wrap justify-between items-center gap-4">
@@ -671,7 +666,7 @@
                 </div>
             </div>
         </section>
-        <section id="tabRedline" class="portal-tab flex-1 flex-col h-full overflow-hidden bg-surface">
+        <section id="tabRedline" class="portal-tab flex-1 flex flex-col overflow-hidden bg-surface">
             <div class="bg-surface-container-lowest border-b border-outline-variant px-6 py-3 flex flex-wrap items-center justify-between gap-4 shrink-0 shadow-sm">
                 <div>
                     <h2 class="font-headline font-bold text-lg text-primary">Legislative Redline & Comparative Amendment Studio</h2>
@@ -687,7 +682,7 @@
                     <button onclick="window.print()" class="px-3 py-1.5 bg-primary text-white font-mono text-xs rounded font-semibold hover:bg-primary-container">Export Diff PDF</button>
                 </div>
             </div>
-            <div id="redlinePanesContainer" class="flex-1 grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-outline-variant overflow-hidden">
+            <div id="redlinePanesContainer" class="flex-1 grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-outline-variant overflow-hidden min-h-0">
                 <div class="flex flex-col bg-surface-container-lowest overflow-y-auto p-6 font-body text-xs leading-relaxed space-y-4">
                     <div class="sticky top-0 bg-surface-container-low p-2.5 rounded border border-outline-variant font-mono font-bold text-xs text-primary mb-2">
                         Original Enactment — Act XXVIII of 2013 (As Gazetted 31 Oct 2013)
@@ -722,7 +717,7 @@
                 </div>
             </div>
         </section>
-                <section id="tabBrief" class="portal-tab flex-1 flex-col h-full overflow-y-auto p-4 md:p-8 bg-surface space-y-6">
+                <section id="tabBrief" class="portal-tab flex-1 flex flex-col overflow-y-auto p-4 md:p-8 bg-surface space-y-6">
             <div class="max-w-4xl mx-auto w-full flex justify-end gap-3 mb-2">
                 <button onclick="window.print()" class="px-4 py-2 bg-primary-container text-on-primary-container rounded font-mono text-xs font-bold hover:bg-primary hover:text-white transition-colors flex items-center gap-2">
                     <span class="material-symbols-outlined text-sm">print</span> Print Brief
@@ -873,7 +868,7 @@
                 </div>
             </div>
         </section>
-        <section id="tabGlossary" class="portal-tab flex-1 flex-col h-full overflow-y-auto p-4 md:p-8 bg-surface space-y-6">
+        <section id="tabGlossary" class="portal-tab flex-1 flex flex-col overflow-y-auto p-4 md:p-8 bg-surface space-y-6">
             <div class="max-w-container-max mx-auto w-full space-y-6">
                 <div class="bg-surface-container-lowest border border-outline-variant p-6 rounded-lg shadow-sm">
                     <span class="font-mono text-xs text-secondary font-bold uppercase tracking-wider">CPPR Knowledge Hub & Institutional Reference</span>
@@ -924,7 +919,7 @@
                 </div>
             </div>
         </section>
-        <section id="tabInquiry" class="portal-tab flex-1 flex-col h-full overflow-y-auto p-4 md:p-8 bg-surface space-y-6">
+        <section id="tabInquiry" class="portal-tab flex-1 flex flex-col overflow-y-auto p-4 md:p-8 bg-surface space-y-6">
             <div class="max-w-2xl mx-auto w-full bg-surface-container-lowest border border-outline-variant p-8 rounded-lg shadow-sm space-y-6">
                 <div class="border-b border-outline-variant pb-4">
                     <span class="font-mono text-xs text-secondary font-bold uppercase tracking-wider">Direct Institutional Channel</span>
@@ -1271,6 +1266,11 @@
             if (tabId === "tabAnalytics" && !chartsInitialized) {
                 initAnalyticsCharts();
             }
+            // Sync mobile dropdown with active tab
+            const mobileSelect = document.getElementById("mobileNavSelect");
+            if (mobileSelect) mobileSelect.value = tabId;
+            // Scroll tab to top on switch
+            if (target) target.scrollTop = 0;
         }
         // -------------------------------------------------------------
         // SECTOR DROPDOWN

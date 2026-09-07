@@ -217,19 +217,8 @@
                 <span id="headerTotalBadge">1,374</span>
                 <span class="text-on-primary-container/80">Instruments</span>
             </div>
-            <button onclick="focusGlobalSearch()" class="hidden md:flex items-center gap-2 bg-primary-container/60 hover:bg-primary-container px-3 py-1.5 rounded border border-on-primary-container/30 text-on-primary font-mono text-xs transition-colors">
-                <span class="material-symbols-outlined text-sm">search</span>
-                <span class="text-on-primary-container/70">Search...</span>
-                <span class="px-1.5 py-0.5 rounded bg-on-primary/10 text-[10px] ml-2">⌘K</span>
-            </button>
-            <button onclick="openSettingsModal()" class="p-2 hover:bg-primary-fixed-dim/10 rounded-full transition-colors text-on-primary cursor-pointer" title="Reader Settings">
-                <span class="material-symbols-outlined text-lg">settings</span>
-            </button>
-            <button onclick="openAdminModal()" class="px-2.5 py-1 rounded bg-secondary text-white font-mono text-xs font-semibold hover:bg-secondary/90 transition-colors flex items-center gap-1 shadow-sm" title="Admin Portal Management">
-                <span class="material-symbols-outlined text-sm">admin_panel_settings</span>
-                <span class="hidden md:inline">Admin</span>
-            </button>
-        </div>
+
+</div>
     </header>
     <div class="flex-1 mt-16 overflow-y-auto flex flex-col relative">
         <section id="tabRepo" class="portal-tab active flex-1 flex flex-col overflow-hidden">
@@ -262,10 +251,10 @@
                 <div class="flex items-center gap-3 shrink-0">
                     <span id="filteredCountLabel" class="font-mono text-xs text-on-surface-variant font-medium">1,374 of 1,374 shown</span>
                     <div class="flex items-center bg-surface-container rounded border border-outline-variant p-0.5">
-                        <button onclick="setDensity('comfortable')" id="densityComfortableBtn" class="p-1 rounded bg-white shadow-sm text-primary" title="Comfortable View">
+                        <button  id="densityComfortableBtn" class="p-1 rounded bg-white shadow-sm text-primary" title="Comfortable View">
                             <span class="material-symbols-outlined text-[16px]">view_list</span>
                         </button>
-                        <button onclick="setDensity('compact')" id="densityCompactBtn" class="p-1 rounded text-outline hover:text-primary transition-colors" title="Compact View">
+                        <button  id="densityCompactBtn" class="p-1 rounded text-outline hover:text-primary transition-colors" title="Compact View">
                             <span class="material-symbols-outlined text-[16px]">density_small</span>
                         </button>
                     </div>
@@ -422,7 +411,7 @@
                                 <span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-outline text-sm">search</span>
                                 <input id="readerSearchInput" oninput="searchWithinReader(this.value)" type="text" placeholder="Search within document..." class="pl-7 pr-3 py-1 bg-surface border border-outline-variant rounded font-body text-xs text-on-surface focus:outline-none focus:border-primary w-44"/>
                             </div>
-                            <button onclick="toggleHighContrast()" id="contrastBtn" class="flex items-center gap-1.5 px-2.5 py-1 bg-surface border border-outline-variant rounded hover:bg-surface-container font-mono text-xs text-on-surface transition-colors">
+                            <button  id="contrastBtn" class="flex items-center gap-1.5 px-2.5 py-1 bg-surface border border-outline-variant rounded hover:bg-surface-container font-mono text-xs text-on-surface transition-colors">
                                 <span class="material-symbols-outlined text-sm">contrast</span>
                                 <span class="hidden sm:inline">High Contrast</span>
                             </button>
@@ -996,87 +985,8 @@
             </div>
         </div>
     </div>
-    <div id="adminModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-surface-container-lowest max-w-sm w-full rounded-lg border border-outline shadow-2xl p-6 space-y-4">
-            <h3 class="font-headline font-bold text-primary text-base flex items-center gap-2">
-                <span class="material-symbols-outlined">lock</span> Admin Authentication
-            </h3>
-            <p class="font-body text-xs text-on-surface-variant">Enter master passcode to unlock administrative management.</p>
-            <input id="adminPassInput" type="password" placeholder="Passcode (cppr2024)" class="w-full p-2 bg-surface-container-low border border-outline-variant rounded font-mono text-xs"/>
-            <div id="adminErrorMsg" class="font-mono text-[11px] text-red-600 hidden">Invalid Passcode</div>
-            <div class="flex justify-end gap-2 pt-2">
-                <button onclick="authenticateAdmin()" class="px-4 py-2 bg-primary text-white rounded font-mono text-xs font-bold">Authenticate</button>
-                <button onclick="closeAdminModal()" class="px-3 py-2 border border-outline-variant text-on-surface-variant rounded font-mono text-xs">Cancel</button>
-            </div>
-        </div>
-    </div>
-    <div id="settingsModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-surface-container-lowest max-w-sm w-full rounded-lg border border-outline shadow-2xl p-6 space-y-4">
-            <div class="flex items-center justify-between border-b border-outline-variant pb-3">
-                <h3 class="font-headline font-bold text-primary flex items-center gap-2">
-                    <span class="material-symbols-outlined">settings</span> Reader Settings
-                </h3>
-                <button onclick="closeSettingsModal()" class="text-on-surface-variant hover:text-on-surface">
-                    <span class="material-symbols-outlined">close</span>
-                </button>
-            </div>
-            <div class="space-y-3 font-body text-xs">
-                <div>
-                    <label class="font-bold text-on-surface block mb-1">Reader Font Size</label>
-                    <div class="flex gap-2">
-                        <button onclick="setFontSize('sm')" class="flex-1 py-1.5 border border-outline-variant rounded hover:bg-surface-container font-mono">Small</button>
-                        <button onclick="setFontSize('md')" class="flex-1 py-1.5 border border-primary bg-primary text-white rounded font-mono font-bold">Default</button>
-                        <button onclick="setFontSize('lg')" class="flex-1 py-1.5 border border-outline-variant rounded hover:bg-surface-container font-mono">Large</button>
-                    </div>
-                </div>
-                <div>
-                    <label class="font-bold text-on-surface block mb-1">Canvas Background</label>
-                    <div class="flex gap-2">
-                        <button onclick="setCanvasBg('slate')" class="flex-1 py-1.5 border border-outline-variant rounded hover:bg-surface-container font-mono">Slate</button>
-                        <button onclick="setCanvasBg('ivory')" class="flex-1 py-1.5 border border-outline-variant rounded hover:bg-surface-container font-mono">Ivory</button>
-                        <button onclick="setCanvasBg('pure')" class="flex-1 py-1.5 border border-outline-variant rounded hover:bg-surface-container font-mono">Pure White</button>
-                    </div>
-                </div>
-            </div>
-            <div class="flex justify-end pt-2">
-                <button onclick="closeSettingsModal()" class="px-4 py-2 bg-primary text-white rounded font-mono text-xs font-bold">Done</button>
-            </div>
-        </div>
-    </div>
-    <div id="aiAssistantWidget" class="fixed bottom-6 right-6 z-40 flex flex-col items-end pointer-events-none">
-        <div id="aiChatBox" class="bg-surface border border-outline-variant rounded-2xl shadow-2xl w-80 mb-4 overflow-hidden pointer-events-auto transform scale-95 opacity-0 origin-bottom-right transition-all duration-300 ease-out hidden">
-            <div class="bg-primary px-4 py-3 flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-white text-lg">smart_toy</span>
-                    <h3 class="font-headline font-bold text-sm text-white">Stockroom AI Copilot</h3>
-                </div>
-                <button onclick="toggleAiAssistant()" class="text-white hover:bg-white/20 p-1 rounded transition-colors">
-                    <span class="material-symbols-outlined text-sm">close</span>
-                </button>
-            </div>
-            <div id="aiChatLog" class="h-64 p-4 overflow-y-auto font-body text-xs flex flex-col gap-3 bg-surface-container-lowest">
-                <div class="flex gap-2">
-                    <div class="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
-                        <span class="material-symbols-outlined text-primary text-[14px]">smart_toy</span>
-                    </div>
-                    <div class="bg-surface-container-low p-2.5 rounded-lg rounded-tl-none text-on-surface">
-                        Hello! I am the CPPR Stockroom AI Copilot. How can I help you analyze the Khyber Pakhtunkhwa legislative framework today?
-                    </div>
-                </div>
-            </div>
-            <div class="p-3 border-t border-outline-variant bg-surface flex gap-2">
-                <input type="text" id="aiChatInput" placeholder="Ask about a policy..." class="flex-1 bg-surface-container-low border border-outline-variant rounded px-3 py-1.5 font-mono text-[11px] focus:outline-none focus:border-primary text-on-surface" onkeypress="if(event.key === 'Enter') submitAiQuery()">
-                <button onclick="submitAiQuery()" class="bg-primary text-white p-1.5 rounded hover:bg-primary-container hover:text-on-primary-container transition-colors">
-                    <span class="material-symbols-outlined text-[16px]">send</span>
-                </button>
-            </div>
-        </div>
-        <button onclick="toggleAiAssistant()" class="bg-primary text-white p-3 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all pointer-events-auto flex items-center justify-center group relative">
-            <span class="absolute inset-0 rounded-full bg-primary animate-ping opacity-20"></span>
-            <span class="material-symbols-outlined text-2xl group-hover:rotate-12 transition-transform">auto_awesome</span>
-        </button>
-    </div>
-    <div id="portalToast" class="fixed bottom-6 right-6 bg-primary text-white px-4 py-2.5 rounded-lg shadow-2xl font-mono text-xs flex items-center gap-2 opacity-0 transition-opacity duration-300 pointer-events-none z-50">
+
+<div id="portalToast" class="fixed bottom-6 right-6 bg-primary text-white px-4 py-2.5 rounded-lg shadow-2xl font-mono text-xs flex items-center gap-2 opacity-0 transition-opacity duration-300 pointer-events-none z-50">
         <span class="material-symbols-outlined text-green-400 text-sm">check_circle</span>
         <span id="toastText">Action completed</span>
     </div>
@@ -1085,79 +995,8 @@
         window.EMBEDDED_GLOSSARY = [{"term": "Constitution", "cat": "Constitutional", "def": "The supreme legal framework of Pakistan. It establishes the structure of the State, defines powers and responsibilities of institutions, provides for fundamental rights, and sets out the relationship between the federation and provinces."}, {"term": "Amendment", "cat": "Constitutional", "def": "A formal modification made to the Constitution through the special procedure prescribed by Article 238 and 239 requiring a two-thirds majority in Parliament."}, {"term": "Article", "cat": "Constitutional", "def": "A numbered provision of the Constitution containing a specific rule, principle, right, institutional arrangement, or constitutional requirement."}, {"term": "Basic Structure", "cat": "Constitutional", "def": "Foundational constitutional doctrine recognizing core democratic, judicial, and federal features that are inviolable."}, {"term": "Distribution of Powers", "cat": "Constitutional", "def": "The constitutional demarcation of legislative, fiscal, and administrative competence between the Federation and the Provinces."}, {"term": "Fundamental Rights", "cat": "Constitutional", "def": "Inviolable protections enshrined in Chapter 1 of the Constitution, including life, liberty, equality, dignity, speech, assembly, and fair trial."}, {"term": "Parliamentary Democracy", "cat": "Constitutional", "def": "A system of government in which the executive branch derives its democratic legitimacy from and is politically responsible to the legislature."}, {"term": "Directive Principles of State Policy", "cat": "Constitutional", "def": "Constitutional principles (Articles 29–40) guiding state organs in socio-economic policy, social justice, and citizen welfare."}, {"term": "Article 140A (Local Government)", "cat": "Constitutional", "def": "Mandatory constitutional provision compelling each province to establish local governments and devolve political, administrative, and financial authority."}, {"term": "Federal Legislative List", "cat": "Constitutional", "def": "Fourth Schedule to the Constitution defining exclusive subjects within the legislative competence of federal Parliament post-18th Amendment."}, {"term": "Judicial Review", "cat": "Constitutional", "def": "The constitutional power of superior courts under Articles 184(3) and 199 to examine the legality or constitutional validity of statutes and executive acts."}, {"term": "Bill vs. Act", "cat": "Legislative", "def": "A Bill is a proposed law introduced in Parliament or a Provincial Assembly. An Act is a Bill that has completed all readings, received gubernatorial or presidential assent, and been published in the official Gazette."}, {"term": "Assent", "cat": "Legislative", "def": "Formal constitutional approval required from the Governor or President for a passed Bill to acquire the force of law."}, {"term": "Ordinance", "cat": "Legislative", "def": "Temporary emergency legislation promulgated by the Governor or President under constitutional authority when the legislature is not in session."}, {"term": "Statutory Rules", "cat": "Legislative", "def": "Subordinate regulatory frameworks framed by executive departments under delegated authority specifically conferred by an enabling parent Act."}, {"term": "Clause-by-Clause Consideration", "cat": "Legislative", "def": "The rigorous second-reading parliamentary stage where each clause, sub-clause, and proposed amendment of a Bill is debated and voted upon individually."}, {"term": "Committee Stage", "cat": "Legislative", "def": "Detailed scrutiny of a draft Bill by a specialized Standing Committee of the Assembly prior to plenary debate."}, {"term": "Rules of Business", "cat": "Legislative", "def": "Canonical rules framed under constitutional authority governing the allocation of ministerial portfolios, transaction of cabinet business, and departmental procedures."}, {"term": "Standard Operating Procedures (SOPs)", "cat": "Legislative", "def": "Operational guidelines issued by departmental heads to ensure uniform day-to-day administrative implementation of statutory rules."}, {"term": "Public Policy", "cat": "Policy", "def": "A purposive course of action, strategic framework, or set of decisions adopted by government to address societal challenges and achieve public welfare objectives."}, {"term": "Evidence-Based Policy", "cat": "Policy", "def": "Policy formulation informed by rigorous empirical data, independent evaluation, statutory analysis, and quantifiable baseline indicators."}, {"term": "Action Plan", "cat": "Policy", "def": "A practical operational document setting out specific activities, institutional responsibilities, timelines, and measurable indicators for implementing a policy or strategy."}, {"term": "Policy Cycle", "cat": "Policy", "def": "The iterative governance process encompassing problem identification, agenda setting, formulation, adoption, implementation, and evaluation."}, {"term": "Policy Instrument", "cat": "Policy", "def": "The specific governance tool selected to achieve a policy objective, categorized into legal mandates, financial allocations, or organizational frameworks."}, {"term": "Regulation", "cat": "Policy", "def": "A binding rule or requirement issued by a competent authority under legal authority to govern particular activities, conduct, or sectors."}, {"term": "Regulatory Impact Assessment (RIA)", "cat": "Policy", "def": "A systematic methodology for assessing the positive and negative socio-economic effects of proposed or existing legislation."}, {"term": "Devolution", "cat": "Policy", "def": "The constitutional transfer of decision-making, executive powers, and financial resources from central/provincial authorities to elected local tiers."}, {"term": "Stakeholder Consultation", "cat": "Policy", "def": "Participatory engagement with citizens, professional associations, academic institutions, and affected groups during policy formulation."}];
     </script>
     <script>
-        function openSettingsModal() {
-            document.getElementById("settingsModal").classList.remove("hidden");
-        }
-        function closeSettingsModal() {
-            document.getElementById("settingsModal").classList.add("hidden");
-        }
-        function toggleAiAssistant() {
-            const box = document.getElementById("aiChatBox");
-            if (box.classList.contains("hidden")) {
-                box.classList.remove("hidden");
-                setTimeout(() => {
-                    box.classList.remove("opacity-0", "scale-95");
-                    box.classList.add("opacity-100", "scale-100");
-                }, 10);
-            } else {
-                box.classList.remove("opacity-100", "scale-100");
-                box.classList.add("opacity-0", "scale-95");
-                setTimeout(() => {
-                    box.classList.add("hidden");
-                }, 300);
-            }
-        }
-        function submitAiQuery() {
-            const input = document.getElementById("aiChatInput");
-            const log = document.getElementById("aiChatLog");
-            const q = input.value.trim();
-            if(!q) return;
-            // User Message
-            log.innerHTML += `
-                <div class="flex gap-2 flex-row-reverse mt-2">
-                    <div class="w-6 h-6 rounded-full bg-secondary text-white flex items-center justify-center shrink-0">
-                        <span class="material-symbols-outlined text-[14px]">person</span>
-                    </div>
-                    <div class="bg-primary text-white p-2.5 rounded-lg rounded-tr-none">
-                        ${q}
-                    </div>
-                </div>
-            `;
-            input.value = "";
-            log.scrollTop = log.scrollHeight;
-            // Mock AI Response
-            setTimeout(() => {
-                const docName = currentActiveDoc ? currentActiveDoc.title : "the repository";
-                log.innerHTML += `
-                    <div class="flex gap-2 mt-2">
-                        <div class="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
-                            <span class="material-symbols-outlined text-primary text-[14px]">smart_toy</span>
-                        </div>
-                        <div class="bg-surface-container-low p-2.5 rounded-lg rounded-tl-none text-on-surface">
-                            Based on my analysis of <strong>${docName}</strong>, this query falls under provincial jurisdiction. Would you like me to extract the specific clauses or generate a summarized report?
-                        </div>
-                    </div>
-                `;
-                log.scrollTop = log.scrollHeight;
-            }, 800);
-        }
-        function setFontSize(sz) {
-            const article = document.getElementById("readerCanvasArticle");
-            if (!article) return;
-            if (sz === 'sm') article.style.fontSize = "0.875rem";
-            else if (sz === 'lg') article.style.fontSize = "1.125rem";
-            else article.style.fontSize = "1rem";
-            showToast("Font size: " + sz);
-        }
-        function setCanvasBg(theme) {
-            const container = document.getElementById("readerCanvasArticle")?.parentElement;
-            if (!container) return;
-            if (theme === 'ivory') container.style.backgroundColor = "#fefae0";
-            else if (theme === 'pure') container.style.backgroundColor = "#ffffff";
-            else container.style.backgroundColor = "#e2e8f0";
-            showToast("Canvas theme: " + theme);
-        }
-        function downloadDocPDF() {
+
+function downloadDocPDF() {
             showToast("Preparing document for export / print...");
             setTimeout(function() { window.print(); }, 300);
         }
@@ -1237,8 +1076,7 @@
             renderFAQs();
             renderGlossary();
             changeLineageRoot("KP-LGA-2013");
-            setupKeyboardShortcuts();
-            populateReaderDropdown();
+populateReaderDropdown();
             if (allDocuments.length > 0) {
                 currentActiveDoc = allDocuments[0];
             }
@@ -1408,12 +1246,7 @@
                 selectDocument(pageDocs[0]);
             }
         }
-        function setDensity(mode) {
-            currentDensity = mode;
-            document.getElementById("densityComfortableBtn").className = mode === "comfortable" ? "p-1 rounded bg-white shadow-sm text-primary" : "p-1 rounded text-outline hover:text-primary transition-colors";
-            document.getElementById("densityCompactBtn").className = mode === "compact" ? "p-1 rounded bg-white shadow-sm text-primary" : "p-1 rounded text-outline hover:text-primary transition-colors";
-            renderRepoTable();
-        }
+        
         // -------------------------------------------------------------
         // INSPECTOR DRAWER
         // -------------------------------------------------------------
@@ -1709,11 +1542,7 @@
             }
             showToast("Zoom: " + readerZoomLevel + "%");
         }
-        function toggleHighContrast() {
-            isHighContrast = !isHighContrast;
-            document.body.classList.toggle("high-contrast-mode", isHighContrast);
-            showToast(isHighContrast ? "High Contrast Mode Active" : "Standard Contrast Restored");
-        }
+        
         function searchWithinReader(term) {
             const body = document.getElementById("readerStatutoryBody");
             if (!body) return;
@@ -2191,39 +2020,12 @@
         // -------------------------------------------------------------
         // ADMIN AUTHENTICATION
         // -------------------------------------------------------------
-        function openAdminModal() { document.getElementById("adminModal").classList.remove("hidden"); }
-        function closeAdminModal() { document.getElementById("adminModal").classList.add("hidden"); }
-        function authenticateAdmin() {
-            const val = document.getElementById("adminPassInput").value;
-            if (val === "cppr2024") {
-                closeAdminModal();
-                showToast("Admin Mode Unlocked");
-                document.body.classList.add("admin-mode");
-                alert("Admin access confirmed! Master administrative access granted.");
-            } else {
-                document.getElementById("adminErrorMsg").classList.remove("hidden");
-            }
-        }
-        // -------------------------------------------------------------
+
+// -------------------------------------------------------------
         // KEYBOARD SHORTCUTS & TOAST
         // -------------------------------------------------------------
-        function setupKeyboardShortcuts() {
-            document.addEventListener("keydown", function(e) {
-                if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
-                    e.preventDefault();
-                    focusGlobalSearch();
-                }
-            });
-        }
-        function focusGlobalSearch() {
-            switchTab("tabRepo");
-            const input = document.getElementById("repoSearchInput");
-            if (input) {
-                input.focus();
-                input.select();
-            }
-        }
-        function showToast(msg) {
+
+function showToast(msg) {
             const toast = document.getElementById("portalToast");
             const text = document.getElementById("toastText");
             if (!toast || !text) return;

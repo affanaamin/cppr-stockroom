@@ -152,10 +152,12 @@
             header, nav, aside, .no-print, #batchActionBar { display: none !important; }
             main, .canvas-paper { margin: 0 !important; padding: 0 !important; box-shadow: none !important; width: 100% !important; max-width: 100% !important; }
         }
-    </style>
+      html, body { scroll-behavior: smooth; }
+  .portal-tab { scroll-behavior: smooth; }
+</style>
     <script src="documents_data.js"></script>
 </head>
-<body class="bg-background text-on-background min-h-screen flex flex-col font-body antialiased overflow-hidden select-text">
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body antialiased overflow-y-auto select-text">
     <header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-4 md:px-8 h-16 bg-primary text-on-primary border-b border-outline-variant shadow-md">
         <div class="flex items-center gap-4 lg:gap-6">
             <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('tabRepo')">
@@ -234,8 +236,8 @@
             </button>
         </div>
     </header>
-    <div class="flex-1 mt-16 h-[calc(100vh-64px)] overflow-hidden flex flex-col relative">
-        <section id="tabRepo" class="portal-tab active flex-1 flex flex-col h-full overflow-hidden">
+    <div class="flex-1 mt-16 overflow-y-auto flex flex-col relative">
+        <section id="tabRepo" class="portal-tab active flex-1 flex flex-col overflow-hidden">
             <div class="bg-surface-container-lowest border-b border-outline-variant px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 shrink-0 shadow-sm z-20">
                 <div class="flex flex-wrap items-center gap-2.5 flex-1 min-w-[280px]">
                     <div class="relative flex-1 max-w-md">
@@ -397,8 +399,8 @@
                 </aside>
             </div>
         </section>
-        <section id="tabReader" class="portal-tab flex-1 flex flex-col h-full overflow-hidden">
-            <div class="flex-1 flex flex-col md:flex-row h-full overflow-hidden">
+        <section id="tabReader" class="portal-tab flex-1 flex flex-col overflow-y-auto">
+            <div class="flex-1 flex flex-col md:flex-row overflow-hidden">
                 <div class="flex-1 bg-surface-container-low flex flex-col relative border-r border-outline-variant overflow-hidden">
                     <div class="h-12 border-b border-outline-variant bg-surface-container flex items-center justify-between px-4 shrink-0 shadow-sm z-10">
                         <div class="flex items-center gap-3">
@@ -932,15 +934,19 @@
                 <form id="inquiryForm" onsubmit="submitInquiryAjax(event)" class="space-y-4">
                     <div>
                         <label class="font-mono text-xs font-semibold text-on-surface-variant block mb-1">Your Full Name *</label>
-                        <input id="inqName" required type="text" placeholder="e.g., Dr. Asim Khan" class="w-full p-2.5 bg-surface-container-low border border-outline-variant rounded font-body text-xs text-on-surface focus:border-primary focus:outline-none"/>
+                        <input id="inquiryName" required type="text" placeholder="e.g., Dr. Asim Khan" class="w-full p-2.5 bg-surface-container-low border border-outline-variant rounded font-body text-xs text-on-surface focus:border-primary focus:outline-none"/>
+                    </div>
+                    <div>
+                        <label class="font-mono text-xs font-semibold text-on-surface-variant block mb-1">Inquiry Subject *</label>
+                        <input id="inquirySubject" required type="text" placeholder="e.g., RTI Act 2013 - Section 12 Clarification" class="w-full p-2.5 bg-surface-container-low border border-outline-variant rounded font-body text-xs text-on-surface focus:border-primary focus:outline-none"/>
                     </div>
                     <div>
                         <label class="font-mono text-xs font-semibold text-on-surface-variant block mb-1">Email / Institutional Affiliation *</label>
-                        <input id="inqEmail" required type="email" placeholder="e.g., asim.khan@imsciences.edu.pk" class="w-full p-2.5 bg-surface-container-low border border-outline-variant rounded font-body text-xs text-on-surface focus:border-primary focus:outline-none"/>
+                        <input id="inquiryEmail" required type="email" placeholder="e.g., asim.khan@imsciences.edu.pk" class="w-full p-2.5 bg-surface-container-low border border-outline-variant rounded font-body text-xs text-on-surface focus:border-primary focus:outline-none"/>
                     </div>
                     <div>
                         <label class="font-mono text-xs font-semibold text-on-surface-variant block mb-1">Inquiry / Research Note *</label>
-                        <textarea id="inqMessage" required rows="4" placeholder="Detail your specific statutory inquiry or research topic..." class="w-full p-2.5 bg-surface-container-low border border-outline-variant rounded font-body text-xs text-on-surface focus:border-primary focus:outline-none"></textarea>
+                        <textarea id="inquiryBody" required rows="4" placeholder="Detail your specific statutory inquiry or research topic..." class="w-full p-2.5 bg-surface-container-low border border-outline-variant rounded font-body text-xs text-on-surface focus:border-primary focus:outline-none"></textarea>
                     </div>
                     <button type="submit" id="inqSubmitBtn" onclick="submitInquiryAjax(event)" class="w-full py-2.5 bg-primary text-white font-mono text-xs font-bold rounded hover:bg-primary-container transition-colors shadow-sm cursor-pointer">
                         Submit Research Inquiry to CPPR
@@ -2146,9 +2152,9 @@
         // -------------------------------------------------------------
         function submitInquiryAjax(e) {
             e.preventDefault();
-            const name = document.getElementById("inqName").value.trim();
-            const email = document.getElementById("inqEmail").value.trim();
-            const message = document.getElementById("inqMessage").value.trim();
+            const name = document.getElementById("inquiryName").value.trim();
+            const email = document.getElementById("inquiryEmail").value.trim();
+            const message = document.getElementById("inquiryBody").value.trim();
             const btn = document.getElementById("inqSubmitBtn");
             const box = document.getElementById("inqResultBox");
             btn.disabled = true;

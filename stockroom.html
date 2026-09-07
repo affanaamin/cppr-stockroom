@@ -251,10 +251,10 @@
                 <div class="flex items-center gap-3 shrink-0">
                     <span id="filteredCountLabel" class="font-mono text-xs text-on-surface-variant font-medium">1,374 of 1,374 shown</span>
                     <div class="flex items-center bg-surface-container rounded border border-outline-variant p-0.5">
-                        <button  id="densityComfortableBtn" class="p-1 rounded bg-white shadow-sm text-primary" title="Comfortable View">
+                        <button onclick="setDensity('comfortable')" id="densityComfortableBtn" class="p-1 rounded bg-white shadow-sm text-primary" title="Comfortable View">
                             <span class="material-symbols-outlined text-[16px]">view_list</span>
                         </button>
-                        <button  id="densityCompactBtn" class="p-1 rounded text-outline hover:text-primary transition-colors" title="Compact View">
+                        <button onclick="setDensity('compact')" id="densityCompactBtn" class="p-1 rounded text-outline hover:text-primary transition-colors" title="Compact View">
                             <span class="material-symbols-outlined text-[16px]">density_small</span>
                         </button>
                     </div>
@@ -395,7 +395,15 @@
                                 <option value="5">The Khyber Pakhtunkhwa Police Act, 2017</option>
                                 <option value="134">The Khyber Pakhtunkhwa Civil Servants Act, 1973</option>
                             </select>
-                            <span class="font-mono text-xs text-on-surface-variant hidden sm:inline" id="readerPageIndicator">Page 1 of 42</span>
+                            <div class="flex items-center gap-1 bg-surface-container-highest rounded px-1.5 py-0.5 border border-outline-variant">
+                                <button onclick="changeReaderChapter(-1)" class="p-0.5 hover:bg-surface rounded text-on-surface-variant" title="Previous Page / Chapter">
+                                    <span class="material-symbols-outlined text-xs">chevron_left</span>
+                                </button>
+                                <span class="font-mono text-xs text-on-surface font-semibold px-1" id="readerPageIndicator">Page 1 of 6</span>
+                                <button onclick="changeReaderChapter(1)" class="p-0.5 hover:bg-surface rounded text-on-surface-variant" title="Next Page / Chapter">
+                                    <span class="material-symbols-outlined text-xs">chevron_right</span>
+                                </button>
+                            </div>
                             <div class="flex items-center bg-surface-container-highest rounded p-0.5 border border-outline-variant">
                                 <button onclick="readerZoom(-10)" class="p-1 hover:bg-surface rounded text-on-surface-variant" title="Zoom Out">
                                     <span class="material-symbols-outlined text-sm">remove</span>
@@ -411,7 +419,7 @@
                                 <span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-outline text-sm">search</span>
                                 <input id="readerSearchInput" oninput="searchWithinReader(this.value)" type="text" placeholder="Search within document..." class="pl-7 pr-3 py-1 bg-surface border border-outline-variant rounded font-body text-xs text-on-surface focus:outline-none focus:border-primary w-44"/>
                             </div>
-                            <button  id="contrastBtn" class="flex items-center gap-1.5 px-2.5 py-1 bg-surface border border-outline-variant rounded hover:bg-surface-container font-mono text-xs text-on-surface transition-colors">
+                            <button onclick="toggleHighContrast()" id="contrastBtn" class="flex items-center gap-1.5 px-2.5 py-1 bg-surface border border-outline-variant rounded hover:bg-surface-container font-mono text-xs text-on-surface transition-colors">
                                 <span class="material-symbols-outlined text-sm">contrast</span>
                                 <span class="hidden sm:inline">High Contrast</span>
                             </button>
@@ -457,12 +465,51 @@
                                         </div>
                                     </div>
                                 </section>
-                                <section class="mt-8 pt-4 border-t border-outline-variant/40">
-                                    <h3 class="font-headline font-bold text-lg text-primary mb-3">CHAPTER II — LOCAL GOVERNMENTS</h3>
+                                <section class="mt-8 pt-4 border-t border-outline-variant/40" id="chapter-2">
+                                    <h3 class="font-headline font-bold text-lg text-primary mb-3">CHAPTER II — LOCAL GOVERNMENTS & CONSTITUTION OF COUNCILS</h3>
                                     <div class="pl-4 border-l-2 border-outline-variant space-y-4">
                                         <div>
-                                            <h4 class="font-bold text-on-surface mb-1">23. Powers and Functions of Village and Neighbourhood Councils.—</h4>
-                                            <p class="text-on-surface-variant">Every Village Council and Neighbourhood Council shall perform such functions as may be assigned to it by Government, including local development planning, community welfare, and maintenance of public order.</p>
+                                            <h4 class="font-bold text-on-surface mb-1">3. Composition of Local Governments.—</h4>
+                                            <p class="text-on-surface-variant">The local governments established under this Act shall comprise: (a) City District Government in Peshawar; (b) Tehsil Municipal Administrations; and (c) Village and Neighbourhood Councils across districts of Khyber Pakhtunkhwa.</p>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-on-surface mb-1">4. Delimitation of Councils.—</h4>
+                                            <p class="text-on-surface-variant">The Election Commission of Pakistan shall delimit Village and Neighbourhood Councils according to geographical contiguity, administrative boundaries, and population guidelines.</p>
+                                        </div>
+                                    </div>
+                                </section>
+                                <section class="mt-8 pt-4 border-t border-outline-variant/40" id="chapter-3">
+                                    <h3 class="font-headline font-bold text-lg text-primary mb-3">CHAPTER III — POWERS & FUNCTIONS OF LOCAL COUNCILS</h3>
+                                    <div class="pl-4 border-l-2 border-outline-variant space-y-4">
+                                        <div>
+                                            <h4 class="font-bold text-on-surface mb-1">23. Functions of Village and Neighbourhood Councils.—</h4>
+                                            <p class="text-on-surface-variant">Every Village Council and Neighbourhood Council shall perform civic duties, supervise primary health and education facilities, maintain municipal hygiene, and register births, deaths, and marriages within its jurisdiction.</p>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-on-surface mb-1">24. Community Mobilization & Dispute Resolution.—</h4>
+                                            <p class="text-on-surface-variant">Councils may facilitate Musalihat Jarga (conciliation committees) for amicable dispute settlement in petty civil and family disputes in accordance with rules framed under this Act.</p>
+                                        </div>
+                                    </div>
+                                </section>
+                                <section class="mt-8 pt-4 border-t border-outline-variant/40" id="chapter-4">
+                                    <h3 class="font-headline font-bold text-lg text-primary mb-3">CHAPTER IV — FISCAL TRANSFERS & LOCAL FINANCE</h3>
+                                    <div class="pl-4 border-l-2 border-outline-variant space-y-4">
+                                        <div>
+                                            <h4 class="font-bold text-on-surface mb-1">53. Provincial Finance Commission (PFC).—</h4>
+                                            <p class="text-on-surface-variant">The Government shall establish a Provincial Finance Commission to make recommendations on the equitable distribution of resources between the Provincial Consolidated Fund and local councils.</p>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-on-surface mb-1">54. Local Fund & Accounts Audit.—</h4>
+                                            <p class="text-on-surface-variant">Each Council shall maintain a dedicated Local Fund subject to annual scrutiny by the Auditor-General of Pakistan.</p>
+                                        </div>
+                                    </div>
+                                </section>
+                                <section class="mt-8 pt-4 border-t border-outline-variant/40" id="chapter-5">
+                                    <h3 class="font-headline font-bold text-lg text-primary mb-3">CHAPTER V — DISTRICT ADMINISTRATION & OVERSIGHT</h3>
+                                    <div class="pl-4 border-l-2 border-outline-variant space-y-4">
+                                        <div>
+                                            <h4 class="font-bold text-on-surface mb-1">78. Relationship of Government with Local Councils.—</h4>
+                                            <p class="text-on-surface-variant">Government shall supervise and inspect local councils to ensure strict adherence to this Act, relevant statutory rules, and Provincial development priorities.</p>
                                         </div>
                                     </div>
                                 </section>
@@ -986,7 +1033,47 @@
         </div>
     </div>
 
-<div id="portalToast" class="fixed bottom-6 right-6 bg-primary text-white px-4 py-2.5 rounded-lg shadow-2xl font-mono text-xs flex items-center gap-2 opacity-0 transition-opacity duration-300 pointer-events-none z-50">
+    <!-- Reader Settings Modal -->
+    <div id="settingsModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-surface-container-lowest max-w-sm w-full rounded-lg border border-outline shadow-2xl p-6 space-y-4">
+            <div class="flex items-center justify-between border-b border-outline-variant pb-3">
+                <h3 class="font-headline font-bold text-primary flex items-center gap-2">
+                    <span class="material-symbols-outlined">settings</span> Reader Settings
+                </h3>
+                <button onclick="closeSettingsModal()" class="text-on-surface-variant hover:text-on-surface">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div class="space-y-4 font-body text-xs">
+                <div>
+                    <label class="font-bold text-on-surface block mb-1">Reader Font Size</label>
+                    <div class="flex gap-2">
+                        <button onclick="setFontSize('sm')" class="flex-1 py-1.5 border border-outline-variant rounded hover:bg-surface-container font-mono">Small</button>
+                        <button onclick="setFontSize('md')" class="flex-1 py-1.5 border border-primary bg-primary text-white rounded font-mono font-bold">Default</button>
+                        <button onclick="setFontSize('lg')" class="flex-1 py-1.5 border border-outline-variant rounded hover:bg-surface-container font-mono">Large</button>
+                    </div>
+                </div>
+                <div>
+                    <label class="font-bold text-on-surface block mb-1">Canvas Background Theme</label>
+                    <div class="flex gap-2">
+                        <button onclick="setCanvasBg('slate')" class="flex-1 py-1.5 border border-outline-variant rounded hover:bg-surface-container font-mono">Slate</button>
+                        <button onclick="setCanvasBg('ivory')" class="flex-1 py-1.5 border border-outline-variant rounded hover:bg-surface-container font-mono">Ivory</button>
+                        <button onclick="setCanvasBg('pure')" class="flex-1 py-1.5 border border-outline-variant rounded hover:bg-surface-container font-mono">Pure White</button>
+                    </div>
+                </div>
+                <div>
+                    <label class="font-bold text-on-surface block mb-1">Display Mode</label>
+                    <button onclick="toggleHighContrast()" class="w-full py-1.5 border border-outline-variant rounded hover:bg-surface-container font-mono flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined text-sm">contrast</span> Toggle High Contrast Mode
+                    </button>
+                </div>
+            </div>
+            <div class="flex justify-end pt-2 border-t border-outline-variant">
+                <button onclick="closeSettingsModal()" class="px-4 py-2 bg-primary text-white rounded font-mono text-xs font-bold hover:bg-primary-container transition-colors">Done</button>
+            </div>
+        </div>
+    </div>
+    <div id="portalToast" class="fixed bottom-6 right-6 bg-primary text-white px-4 py-2.5 rounded-lg shadow-2xl font-mono text-xs flex items-center gap-2 opacity-0 transition-opacity duration-300 pointer-events-none z-50">
         <span class="material-symbols-outlined text-green-400 text-sm">check_circle</span>
         <span id="toastText">Action completed</span>
     </div>
@@ -1023,6 +1110,70 @@ function downloadDocPDF() {
                 sel.appendChild(opt);
             });
         }
+        
+        // -------------------------------------------------------------
+        // SETTINGS & DISPLAY CONTROLS
+        // -------------------------------------------------------------
+        function openSettingsModal() {
+            const modal = document.getElementById("settingsModal");
+            if (modal) modal.classList.remove("hidden");
+        }
+        function closeSettingsModal() {
+            const modal = document.getElementById("settingsModal");
+            if (modal) modal.classList.add("hidden");
+        }
+        function setFontSize(sz) {
+            const article = document.getElementById("readerCanvasArticle");
+            if (!article) return;
+            if (sz === 'sm') article.style.fontSize = "0.875rem";
+            else if (sz === 'lg') article.style.fontSize = "1.125rem";
+            else article.style.fontSize = "1rem";
+            showToast("Font size set to: " + sz.toUpperCase());
+        }
+        function setCanvasBg(theme) {
+            const container = document.getElementById("readerCanvasArticle")?.parentElement;
+            if (!container) return;
+            if (theme === 'ivory') container.style.backgroundColor = "#fefae0";
+            else if (theme === 'pure') container.style.backgroundColor = "#ffffff";
+            else container.style.backgroundColor = "#e2e8f0";
+            showToast("Canvas theme: " + theme);
+        }
+        function setDensity(mode) {
+            currentDensity = mode;
+            const comBtn = document.getElementById("densityComfortableBtn");
+            const comPacBtn = document.getElementById("densityCompactBtn");
+            if (comBtn) comBtn.className = mode === "comfortable" ? "p-1 rounded bg-white shadow-sm text-primary" : "p-1 rounded text-outline hover:text-primary transition-colors";
+            if (comPacBtn) comPacBtn.className = mode === "compact" ? "p-1 rounded bg-white shadow-sm text-primary" : "p-1 rounded text-outline hover:text-primary transition-colors";
+            renderRepoTable();
+            showToast("Density set to: " + mode);
+        }
+        function toggleHighContrast() {
+            isHighContrast = !isHighContrast;
+            document.body.classList.toggle("high-contrast-mode", isHighContrast);
+            const btn = document.getElementById("contrastBtn");
+            if (btn) {
+                if (isHighContrast) {
+                    btn.classList.add("bg-primary", "text-white");
+                    btn.classList.remove("bg-surface", "text-on-surface");
+                } else {
+                    btn.classList.remove("bg-primary", "text-white");
+                    btn.classList.add("bg-surface", "text-on-surface");
+                }
+            }
+            showToast(isHighContrast ? "High Contrast Mode Active" : "Standard Contrast Restored");
+        }
+
+        function updateReaderPageIndicator() {
+            const canvas = document.getElementById("readerCanvasArticle");
+            if (!canvas) return;
+            const sections = canvas.querySelectorAll("section");
+            const total = sections.length || 1;
+            const current = (window.currentChapterIndex || 0) + 1;
+            const indicator = document.getElementById("readerPageIndicator");
+            if (indicator) {
+                indicator.innerText = "Page " + current + " of " + total;
+            }
+        }
         function changeReaderChapter(delta) {
             const canvas = document.getElementById("readerCanvasArticle");
             if (!canvas) return;
@@ -1032,11 +1183,10 @@ function downloadDocPDF() {
             window.currentChapterIndex += delta;
             if (window.currentChapterIndex < 0) window.currentChapterIndex = 0;
             if (window.currentChapterIndex >= sections.length) window.currentChapterIndex = sections.length - 1;
-            // Scroll to the chapter section
+            // Scroll smoothly to the target chapter section
             sections[window.currentChapterIndex].scrollIntoView({ behavior: "smooth", block: "start" });
-            const chapterIndicator = document.getElementById("readerChapterIndicator");
-            if (chapterIndicator) chapterIndicator.innerText = "Ch " + (window.currentChapterIndex + 1);
-            showToast("Navigated to Chapter " + (window.currentChapterIndex + 1));
+            updateReaderPageIndicator();
+            showToast("Page " + (window.currentChapterIndex + 1) + " of " + sections.length);
         }
         function filterByKeyword(kw) {
             const input = document.getElementById("repoSearchInput");
@@ -1081,6 +1231,7 @@ populateReaderDropdown();
                 currentActiveDoc = allDocuments[0];
             }
             loadReaderDocumentFromSelector("default");
+            updateReaderPageIndicator();
             switchTab("tabRepo");
         });
         // -------------------------------------------------------------
@@ -1330,13 +1481,13 @@ populateReaderDropdown();
                 selector.appendChild(newOpt);
                 selector.value = doc.id;
             }
-            // Populate reader statutory body
+            // Populate reader statutory body with multiple distinct chapters
             const body = document.getElementById("readerStatutoryBody");
             body.innerHTML = `
-                <p><span class="font-bold">Preamble.—</span>WHEREAS it is expedient to provide a statutory regulatory framework for <strong>${doc.title}</strong> across the Province of Khyber Pakhtunkhwa;</p>
-                <p>AND WHEREAS this instrument is enacted under constitutional and statutory authority: <em>${doc.legal_authority || 'Constitution of Pakistan (Article 140A / Provincial Competence)'}</em>;</p>
-                <section class="mt-8 pt-4 border-t border-outline-variant/40">
-                    <h3 class="font-headline font-bold text-lg text-primary mb-3">CHAPTER I — STATUTORY PROVISIONS</h3>
+                <p><span class="font-bold">Preamble.—</span>WHEREAS it is expedient to provide an authoritative statutory framework for <strong>${doc.title}</strong> across the Province of Khyber Pakhtunkhwa;</p>
+                <p>AND WHEREAS this instrument is enacted and administered under constitutional authority: <em>${doc.legal_authority || 'Constitution of Pakistan (Article 140A / Provincial Competence)'}</em>;</p>
+                <section class="mt-8 pt-4 border-t border-outline-variant/40" id="ch-1">
+                    <h3 class="font-headline font-bold text-lg text-primary mb-3">CHAPTER I — PRELIMINARY & JURISDICTION</h3>
                     <div class="pl-4 border-l-2 border-outline-variant space-y-4">
                         <div>
                             <h4 class="font-bold text-on-surface mb-1">1. Short title, extent and commencement.—</h4>
@@ -1347,16 +1498,49 @@ populateReaderDropdown();
                             </ol>
                         </div>
                         <div>
-                            <h4 class="font-bold text-on-surface mb-1">2. Substantive Mandate & Core Policy Provisions.—</h4>
+                            <h4 class="font-bold text-on-surface mb-1">2. Regulatory Classification.—</h4>
+                            <p class="text-on-surface-variant">Classified under <strong>${doc.category || 'Statute'}</strong> administered by <strong>${doc.authority || doc.sector || 'Government of Khyber Pakhtunkhwa'}</strong>.</p>
+                        </div>
+                    </div>
+                </section>
+                <section class="mt-8 pt-4 border-t border-outline-variant/40" id="ch-2">
+                    <h3 class="font-headline font-bold text-lg text-primary mb-3">CHAPTER II — SUBSTANTIVE POLICY MANDATE</h3>
+                    <div class="pl-4 border-l-2 border-outline-variant space-y-4">
+                        <div>
+                            <h4 class="font-bold text-on-surface mb-1">3. Core Objectives & Substantive Scope.—</h4>
                             <p class="text-on-surface-variant leading-relaxed">${doc.summary || 'Official regulatory provisions and administrative procedures established under the authority of Khyber Pakhtunkhwa.'}</p>
                         </div>
                         <div>
-                            <h4 class="font-bold text-on-surface mb-1">3. Administrative Custodianship.—</h4>
-                            <p class="text-on-surface-variant">Administrative oversight shall vest in the <strong>${doc.sector || doc.authority || 'Government of Khyber Pakhtunkhwa'}</strong> in accordance with Khyber Pakhtunkhwa Rules of Business.</p>
+                            <h4 class="font-bold text-on-surface mb-1">4. Institutional Execution & Responsibilities.—</h4>
+                            <p class="text-on-surface-variant">Execution shall vest in the <strong>${doc.sector || 'relevant provincial department'}</strong> in accordance with Khyber Pakhtunkhwa Rules of Business.</p>
+                        </div>
+                    </div>
+                </section>
+                <section class="mt-8 pt-4 border-t border-outline-variant/40" id="ch-3">
+                    <h3 class="font-headline font-bold text-lg text-primary mb-3">CHAPTER III — DELEGATED RULES & REGULATIONS</h3>
+                    <div class="pl-4 border-l-2 border-outline-variant space-y-4">
+                        <div>
+                            <h4 class="font-bold text-on-surface mb-1">5. Subordinate Legislation & SOPs.—</h4>
+                            <p class="text-on-surface-variant">Delegated subordinate rules framing operational procedures: <em>${doc.subordinate_rules || 'Khyber Pakhtunkhwa Subordinate Statutory Rules & Standard Operating Procedures'}</em>.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-on-surface mb-1">6. Enabling Enactments & Authority.—</h4>
+                            <p class="text-on-surface-variant">Parent legislative instrument: <em>${doc.parent_document || 'Constitution of the Islamic Republic of Pakistan'}</em>.</p>
+                        </div>
+                    </div>
+                </section>
+                <section class="mt-8 pt-4 border-t border-outline-variant/40" id="ch-4">
+                    <h3 class="font-headline font-bold text-lg text-primary mb-3">CHAPTER IV — COMPLIANCE, AUDIT & REVIEW</h3>
+                    <div class="pl-4 border-l-2 border-outline-variant space-y-4">
+                        <div>
+                            <h4 class="font-bold text-on-surface mb-1">7. Statutory Review & Performance Evaluation.—</h4>
+                            <p class="text-on-surface-variant">Implementation metrics and governance performance are reviewed annually by the Centre for Public Policy Research (CPPR) and competent oversight bodies.</p>
                         </div>
                     </div>
                 </section>
             `;
+            window.currentChapterIndex = 0;
+            updateReaderPageIndicator();
             switchTab("tabReader");
             showToast(`Loaded "${doc.title.substring(0, 32)}..." into Reader`);
             renderExecutiveBrief(doc);
@@ -1522,6 +1706,10 @@ populateReaderDropdown();
                 document.getElementById("readerDocIdRef").innerText = "Act No. XXVIII of 2013";
                 document.getElementById("readerDocEnactRef").innerText = "Enacted: 31st October, 2013";
                 document.getElementById("readerDocStatusRef").innerText = "In Force";
+                window.currentChapterIndex = 0;
+                updateReaderPageIndicator();
+                window.currentChapterIndex = 0;
+                updateReaderPageIndicator();
                 showToast("Loaded KP Local Government Act, 2013");
                 return;
             }

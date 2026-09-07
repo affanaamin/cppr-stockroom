@@ -6,10 +6,7 @@
     <title>Public Policy Stockroom | Centre for Public Policy Research (CPPR) - IMSciences</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <style>
       :root {
         --bg-color: #f8fafc;
@@ -1730,12 +1727,7 @@
         <div style="font-size: 2.2rem; margin-bottom: 0.5rem">🔐</div>
         <h2>CPPR Admin Access</h2>
         <p>Enter the administrator password to enable content editing mode.</p>
-        <input
-          type="password"
-          id="adminPassInput"
-          placeholder="Enter password"
-          onkeydown="if (event.key === 'Enter') adminLogin();"
-        />
+        <input type="password" id="adminPassInput" placeholder="Enter password" onkeydown="if (event.key === 'Enter') adminLogin();" />
         <button class="login-btn" onclick="adminLogin()">
           Unlock Admin Panel
         </button>
@@ -1750,11 +1742,7 @@
     <div class="admin-toolbar">
       <div class="admin-label"><span class="dot"></span> Admin Mode Active</div>
       <div class="admin-actions">
-        <button
-          class="admin-btn btn-edit"
-          id="globalEditToggleBtn"
-          onclick="toggleGlobalEdit()"
-        >
+        <button class="admin-btn btn-edit" id="globalEditToggleBtn" onclick="toggleGlobalEdit()" >
           🎯 Select to Edit (OFF)
         </button>
         <button class="admin-btn btn-add" onclick="showAddDocModal()">
@@ -1772,11 +1760,7 @@
       <div class="add-doc-form">
         <h3>➕ Add New Stockroom Document</h3>
         <label>Document Title *</label>
-        <input
-          type="text"
-          id="newDocTitle"
-          placeholder="e.g. The KP Local Government Act, 2013"
-        />
+        <input type="text" id="newDocTitle" placeholder="e.g. The KP Local Government Act, 2013" />
         <label>Document Type *</label>
         <select id="newDocType">
           <option value="Act">Act / Law</option>
@@ -1812,29 +1796,13 @@
           </option>
         </select>
         <label>Issuing Authority *</label>
-        <input
-          type="text"
-          id="newDocAuth"
-          placeholder="e.g. Provincial Assembly of Khyber Pakhtunkhwa"
-        />
+        <input type="text" id="newDocAuth" placeholder="e.g. Provincial Assembly of Khyber Pakhtunkhwa" />
         <label>Date / Year *</label>
-        <input
-          type="text"
-          id="newDocDate"
-          placeholder="e.g. 2024 or 15th March, 2024"
-        />
+        <input type="text" id="newDocDate" placeholder="e.g. 2024 or 15th March, 2024" />
         <label>Google Drive Link (optional)</label>
-        <input
-          type="url"
-          id="newDocDrive"
-          placeholder="https://drive.google.com/file/d/..."
-        />
+        <input type="url" id="newDocDrive" placeholder="https://drive.google.com/file/d/..." />
         <label>Executive Summary *</label>
-        <textarea
-          id="newDocSummary"
-          rows="3"
-          placeholder="Brief description of the document..."
-        ></textarea>
+        <textarea id="newDocSummary" rows="3" placeholder="Brief description of the document..." ></textarea>
         <div class="form-actions">
           <button class="cancel-btn" onclick="hideAddDocModal()">Cancel</button>
           <button class="submit-btn" onclick="addNewDocument()">
@@ -1844,24 +1812,13 @@
       </div>
     </div>
     <div class="top-bar">
-      <div
-        class="brand-logo"
-        style="display: flex; align-items: center; gap: 0.8rem"
-      >
-        <img
-          src="assets/cppr_logo.png"
-          alt="CPPR Logo"
-          style="height: 42px; width: auto; border-radius: 4px"
-          onerror="this.style.display = 'none'"
-        />
+      <div class="brand-logo" style="display: flex; align-items: center; gap: 0.8rem" >
+        <img src="assets/cppr_logo.png" alt="CPPR Logo" style="height: 42px; width: auto; border-radius: 4px" onerror="this.style.display = 'none'" />
         <div>
           <h2 data-editable="true" style="margin: 0; font-size: 1.25rem">
             Centre for Public Policy Research (CPPR)
           </h2>
-          <small
-            data-editable="true"
-            style="color: var(--muted-color); font-weight: 500"
-            >IMSciences Peshawar — Premier Public Policy Think Tank</small
+          <small data-editable="true" style="color: var(--muted-color); font-weight: 500" >IMSciences Peshawar — Premier Public Policy Think Tank</small
           >
         </div>
       </div>
@@ -1956,119 +1913,41 @@
     </div>
     <div id="tabHome" class="tab-content active">
       <div class="hero-banner">
-        <h2
-          data-editable="true"
-          style="color: #1f4e78; font-size: 1.6rem; margin-bottom: 0.5rem"
-        >
+        <h2 data-editable="true" style="color: #1f4e78; font-size: 1.6rem; margin-bottom: 0.5rem" >
           Centre for Public Policy Research (CPPR)
         </h2>
-        <p
-          style="
-            color: var(--muted-color);
-            font-size: 1rem;
-            line-height: 1.6;
-            max-width: 900px;
-          "
-        >
+        <p style=" color: var(--muted-color); font-size: 1rem; line-height: 1.6; max-width: 900px; " >
           The <strong>Centre for Public Policy Research (CPPR)</strong> at the
           Institute of Management Sciences (IMSciences), Peshawar, is a premier
           policy think tank dedicated to advancing evidence-based research,
           technical policy support, baseline evaluations, and legislative
           documentation.
         </p>
-        <div
-          style="
-            margin-top: 1.2rem;
-            display: flex;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-          "
-        >
-          <button
-            onclick="window.location.href='stockroom.html'"
-            style="
-              background: #1f4e78;
-              color: white;
-              border: none;
-              padding: 0.75rem 1.4rem;
-              border-radius: 8px;
-              font-weight: 600;
-              font-size: 0.95rem;
-              cursor: pointer;
-              display: inline-flex;
-              align-items: center;
-              gap: 0.5rem;
-              transition: background 0.2s;
-            "
-          >
+        <div style=" margin-top: 1.2rem; display: flex; gap: 0.75rem; flex-wrap: wrap; " >
+          <button onclick="window.location.href='stockroom.html'" style=" background: #1f4e78; color: white; border: none; padding: 0.75rem 1.4rem; border-radius: 8px; font-weight: 600; font-size: 0.95rem; cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem; transition: background 0.2s; " >
             📦 Access Public Policy Stockroom
           </button>
         </div>
       </div>
-      <div
-        style="
-          background: linear-gradient(
-            135deg,
-            rgba(31, 78, 120, 0.06),
-            rgba(59, 130, 246, 0.06)
-          );
-          border: 1px solid rgba(31, 78, 120, 0.2);
-          border-radius: 12px;
-          padding: 1.5rem 1.8rem;
-          margin-bottom: 2rem;
-          display: flex;
-          flex-direction: column;
-          gap: 1rem;
-        "
-      >
-        <div
-          style="
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-          "
-        >
+      <div style=" background: linear-gradient( 135deg, rgba(31, 78, 120, 0.06), rgba(59, 130, 246, 0.06) ); border: 1px solid rgba(31, 78, 120, 0.2); border-radius: 12px; padding: 1.5rem 1.8rem; margin-bottom: 2rem; display: flex; flex-direction: column; gap: 1rem; " >
+        <div style=" display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; " >
           <div>
-            <span class="badge badge-act" style="margin-bottom: 0.4rem"
-              >Flagship Digital Feature</span
+            <span class="badge badge-act" style="margin-bottom: 0.4rem" >Flagship Digital Feature</span
             >
             <h3 style="color: #1f4e78; font-size: 1.3rem; margin: 0.2rem 0">
               Public Policy Stockroom Platform
             </h3>
-            <p
-              id="heroSubtitle"
-              style="
-                color: var(--muted-color);
-                font-size: 0.95rem;
-                margin-top: 0.3rem;
-              "
-            >
+            <p id="heroSubtitle" style=" color: var(--muted-color); font-size: 0.95rem; margin-top: 0.3rem; " >
               A centralized institutional repository of Pakistan & Khyber Pakhtunkhwa public policies,
               primary Acts, statutory rules, Rules of Business, SOPs, and governance frameworks
               organized sector-wise (KP Rules of Business 1985) and structured by legal hierarchy.
             </p>
           </div>
-          <button
-            onclick="window.location.href='stockroom.html'"
-            class="btn-sm btn-preview"
-            style="
-              padding: 0.6rem 1.2rem;
-              font-size: 0.9rem;
-              border-radius: 8px;
-            "
-          >
+          <button onclick="window.location.href='stockroom.html'" class="btn-sm btn-preview" style=" padding: 0.6rem 1.2rem; font-size: 0.9rem; border-radius: 8px; " >
             Explore Stockroom ➔
           </button>
         </div>
-        <div
-          class="stats-grid"
-          style="
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            margin-top: 0.5rem;
-          "
-        >
+        <div class="stats-grid" style=" grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); margin-top: 0.5rem; " >
           <div class="stat-card" style="padding: 0.8rem">
             <div class="num" id="statPrimaryCount" style="font-size: 1.4rem" data-editable="true">
               2,095
@@ -2153,10 +2032,7 @@
             proceedings, court jurisdiction, and public ombudsman oversight.
           </p>
           <div style="margin-top: 1rem; display: flex; gap: 0.5rem">
-            <button
-              class="btn-sm btn-preview"
-              onclick="openPreview( 'The North-West Frontier Province Civil Courts (amendment) Act, 2009', 'completed/Civil-Courts-Amendment-Act-2009-Act.pdf', 'https://drive.google.com/file/d/1QPjaPn12LZPOZGJK782ZDXF8sDBWs4B-/view?usp=sharing')"
-            >
+            <button class="btn-sm btn-preview" onclick="openPreview( 'The North-West Frontier Province Civil Courts (amendment) Act, 2009', 'completed/Civil-Courts-Amendment-Act-2009-Act.pdf', 'https://drive.google.com/file/d/1QPjaPn12LZPOZGJK782ZDXF8sDBWs4B-/view?usp=sharing')" >
               Preview Document
             </button>
           </div>
@@ -2172,10 +2048,7 @@
             proceedings, court jurisdiction, and public ombudsman oversight.
           </p>
           <div style="margin-top: 1rem; display: flex; gap: 0.5rem">
-            <button
-              class="btn-sm btn-preview"
-              onclick="openPreview( 'The Code of Criminal Procedure (north-West Frontier Province) (amendment) Act, 2008', 'completed/Code of Criminal Procedure.pdf', 'https://drive.google.com/file/d/1cPf8j9w2PRsupgkAWcNICRiTwIP2fO9T/view?usp=sharing')"
-            >
+            <button class="btn-sm btn-preview" onclick="openPreview( 'The Code of Criminal Procedure (north-West Frontier Province) (amendment) Act, 2008', 'completed/Code of Criminal Procedure.pdf', 'https://drive.google.com/file/d/1cPf8j9w2PRsupgkAWcNICRiTwIP2fO9T/view?usp=sharing')" >
               Preview Document
             </button>
           </div>
@@ -2191,10 +2064,7 @@
             compliance for provincial public policy.
           </p>
           <div style="margin-top: 1rem; display: flex; gap: 0.5rem">
-            <button
-              class="btn-sm btn-preview"
-              onclick="openPreview( 'The North-West Frontier Province Establishment of District Development Advisory Committees (amendment) Act, 2010', 'completed/Establishment-Of-District-Development-Advisory-Committees-Amendment-Act-2010-Act.pdf', 'https://drive.google.com/file/d/1JchhXBusmbP292FvttKM2OPgzWD4RtFl/view?usp=sharing')"
-            >
+            <button class="btn-sm btn-preview" onclick="openPreview( 'The North-West Frontier Province Establishment of District Development Advisory Committees (amendment) Act, 2010', 'completed/Establishment-Of-District-Development-Advisory-Committees-Amendment-Act-2010-Act.pdf', 'https://drive.google.com/file/d/1JchhXBusmbP292FvttKM2OPgzWD4RtFl/view?usp=sharing')" >
               Preview Document
             </button>
           </div>
@@ -2210,10 +2080,7 @@
             administration, human rights safeguards, and community support.
           </p>
           <div style="margin-top: 1rem; display: flex; gap: 0.5rem">
-            <button
-              class="btn-sm btn-preview"
-              onclick="openPreview( 'The North-West Frontier Province Establishment of a Commission on the Status of Women Act, 2009', 'completed/Establishment-of-A-Commission-On-The-Status-Of-Women-Act.pdf', 'https://drive.google.com/file/d/1rbOgPVLZ59mRZhyBaojFaqG8dlJ5MtEw/view?usp=sharing')"
-            >
+            <button class="btn-sm btn-preview" onclick="openPreview( 'The North-West Frontier Province Establishment of a Commission on the Status of Women Act, 2009', 'completed/Establishment-of-A-Commission-On-The-Status-Of-Women-Act.pdf', 'https://drive.google.com/file/d/1rbOgPVLZ59mRZhyBaojFaqG8dlJ5MtEw/view?usp=sharing')" >
               Preview Document
             </button>
           </div>
@@ -2231,58 +2098,22 @@
           and Pakistan.
         </p>
       </div>
-      <div
-        style="
-          background: linear-gradient(
-            135deg,
-            rgba(31, 78, 120, 0.05),
-            rgba(59, 130, 246, 0.05)
-          );
-          border: 1px solid var(--border-color);
-          border-radius: 16px;
-          padding: 1.8rem;
-          margin-bottom: 2.5rem;
-          box-shadow: var(--shadow-sm);
-        "
-      >
-        <div
-          style="
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-          "
-        >
+      <div style=" background: linear-gradient( 135deg, rgba(31, 78, 120, 0.05), rgba(59, 130, 246, 0.05) ); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.8rem; margin-bottom: 2.5rem; box-shadow: var(--shadow-sm); " >
+        <div style=" display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; " >
           <div>
-            <span class="badge badge-act" style="margin-bottom: 0.4rem"
-              >Empirical Research & Field Studies</span
+            <span class="badge badge-act" style="margin-bottom: 0.4rem" >Empirical Research & Field Studies</span
             >
             <h3 style="color: #1f4e78; font-size: 1.4rem; margin: 0.2rem 0">
               CPPR Flagship Research Projects & Baseline Studies
             </h3>
-            <p
-              style="
-                color: var(--muted-color);
-                font-size: 0.95rem;
-                margin-top: 0.2rem;
-              "
-            >
+            <p style=" color: var(--muted-color); font-size: 0.95rem; margin-top: 0.2rem; " >
               Key policy initiatives, impact assessments, digital readiness
               evaluations, and baseline surveys conducted by CPPR IMSciences
               Peshawar.
             </p>
           </div>
         </div>
-        <div
-          id="cpprProjectsGrid"
-          style="
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 1.4rem;
-          "
-        >
+        <div id="cpprProjectsGrid" style=" display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.4rem; " >
         </div>
       </div>
       <h3 style="color: #1f4e78; font-size: 1.3rem; margin-bottom: 1rem">
@@ -2294,108 +2125,58 @@
             <span data-editable="true">🏛️ Governance</span>< & Local Government
           </h3>
           <div class="dept-count">Key Research Domain</div>
-          <p
-            style="
-              font-size: 0.9rem;
-              color: var(--muted-color);
-              line-height: 1.6;
-            "
-          >
+          <p style=" font-size: 0.9rem; color: var(--muted-color); line-height: 1.6; " >
             Analysis of local council devolution, Tehsil Rules of Business,
             Village and Neighbourhood Council planning manuals, and provincial
             administrative structures.
           </p>
-          <button
-            class="btn-sm btn-preview"
-            style="margin-top: 1rem"
-            onclick="filterStockroomBySector('Governance')"
-          >
+          <button class="btn-sm btn-preview" style="margin-top: 1rem" onclick="filterStockroomBySector('Governance')" >
             View Governance Policies ➔
           </button>
         </div>
         <div class="dept-card">
           <h3>💊 Healthcare & Public Health</h3>
           <div class="dept-count">Key Research Domain</div>
-          <p
-            style="
-              font-size: 0.9rem;
-              color: var(--muted-color);
-              line-height: 1.6;
-            "
-          >
+          <p style=" font-size: 0.9rem; color: var(--muted-color); line-height: 1.6; " >
             Health sector baseline surveys, medical university governance
             charters, healthcare protection acts, and emergency health SOPs.
           </p>
-          <button
-            class="btn-sm btn-preview"
-            style="margin-top: 1rem"
-            onclick="filterStockroomBySector('Health')"
-          >
+          <button class="btn-sm btn-preview" style="margin-top: 1rem" onclick="filterStockroomBySector('Health')" >
             View Health Policies ➔
           </button>
         </div>
         <div class="dept-card">
           <h3>⚖️ Law, Justice & Human Rights</h3>
           <div class="dept-count">Key Research Domain</div>
-          <p
-            style="
-              font-size: 0.9rem;
-              color: var(--muted-color);
-              line-height: 1.6;
-            "
-          >
+          <p style=" font-size: 0.9rem; color: var(--muted-color); line-height: 1.6; " >
             Judicial administration, Civil Courts amendments, Code of Criminal
             Procedure updates, and statutory commissions on the status of women.
           </p>
-          <button
-            class="btn-sm btn-preview"
-            style="margin-top: 1rem"
-            onclick="filterStockroomBySector('Law & Justice')"
-          >
+          <button class="btn-sm btn-preview" style="margin-top: 1rem" onclick="filterStockroomBySector('Law & Justice')" >
             View Law Policies ➔
           </button>
         </div>
         <div class="dept-card">
           <h3>💼 Economic Policy & Public Finance</h3>
           <div class="dept-count">Key Research Domain</div>
-          <p
-            style="
-              font-size: 0.9rem;
-              color: var(--muted-color);
-              line-height: 1.6;
-            "
-          >
+          <p style=" font-size: 0.9rem; color: var(--muted-color); line-height: 1.6; " >
             Public procurement regulations (KPPRA), provincial financial rules,
             mineral sector taking-over acts, and commercial governance
             frameworks.
           </p>
-          <button
-            class="btn-sm btn-preview"
-            style="margin-top: 1rem"
-            onclick="filterStockroomBySector('Finance & Taxation')"
-          >
+          <button class="btn-sm btn-preview" style="margin-top: 1rem" onclick="filterStockroomBySector('Finance & Taxation')" >
             View Economic Policies ➔
           </button>
         </div>
         <div class="dept-card">
           <h3>🎓 Higher Education & Human Resource</h3>
           <div class="dept-count">Key Research Domain</div>
-          <p
-            style="
-              font-size: 0.9rem;
-              color: var(--muted-color);
-              line-height: 1.6;
-            "
-          >
+          <p style=" font-size: 0.9rem; color: var(--muted-color); line-height: 1.6; " >
             University charter legislation, Civil Servants
             appointment/promotion/transfer rules, and youth development
             frameworks.
           </p>
-          <button
-            class="btn-sm btn-preview"
-            style="margin-top: 1rem"
-            onclick="filterStockroomBySector('Higher Education')"
-          >
+          <button class="btn-sm btn-preview" style="margin-top: 1rem" onclick="filterStockroomBySector('Higher Education')" >
             View Education Policies ➔
           </button>
         </div>
@@ -2403,10 +2184,7 @@
     </div>
     <div id="tabStockroom" class="tab-content">
       <div style="margin-bottom: 1rem">
-        <h2
-          data-editable="true"
-          style="color: #1f4e78; font-size: 1.5rem; margin-bottom: 0.3rem"
-        >
+        <h2 data-editable="true" style="color: #1f4e78; font-size: 1.5rem; margin-bottom: 0.3rem" >
           CPPR Public Policy Stockroom
         </h2>
         <p style="color: var(--muted-color); font-size: 0.95rem">
@@ -2425,23 +2203,13 @@
       </div>
       <div class="controls-card">
         <div class="search-row">
-          <input
-            type="text"
-            id="searchInput"
-            class="search-input"
-            placeholder="Search"
-            onkeyup="applyFilters()"
-          />
+          <input type="text" id="searchInput" class="search-input" placeholder="Search" onkeyup="applyFilters()" />
           <button class="btn-reset" onclick="resetFilters()">
             Clear Filters
           </button>
         </div>
         <div class="filter-grid">
-          <select
-            id="sectorFilter"
-            class="select-input"
-            onchange="applyFilters()"
-          >
+          <select id="sectorFilter" class="select-input" onchange="applyFilters()" >
             <option value="ALL">All Official KP Departments</option>
             <option value="Establishment & Administration Department">Establishment & Administration Department</option>
             <option value="Health Department">Health Department</option>
@@ -2472,11 +2240,7 @@
             <option value="Irrigation Department">Irrigation Department</option>
             <option value="Public Health Engineering Department">Public Health Engineering Department</option>
           </select>
-          <select
-            id="typeFilter"
-            class="select-input"
-            onchange="applyFilters()"
-          >
+          <select id="typeFilter" class="select-input" onchange="applyFilters()" >
             <option value="ALL">All Legal & Policy Categories</option>
             <option value="Constitution & Amendments">Constitutional Framework & Amendments</option>
             <option value="Act / Legislation">Primary Acts & Legislation</option>
@@ -2487,22 +2251,14 @@
             <option value="Guidelines & SOPs">Guidelines, SOPs & Manuals</option>
             <option value="International Commitments">International Treaties & Conventions</option>
           </select>
-          <select
-            id="eraFilter"
-            class="select-input"
-            onchange="applyFilters()"
-          >
+          <select id="eraFilter" class="select-input" onchange="applyFilters()" >
             <option value="ALL">All Constitutional Eras</option>
             <option value="Post-18th Amendment (2010 – Present)">Post-18th Amendment (2010 – Present) [Core Scope]</option>
             <option value="Post-1973 Constitution Era (1973 – 2009)">Post-1973 Constitution Era (1973 – 2009)</option>
             <option value="Post-Independence Era (1947 – 1972)">Post-Independence Era (1947 – 1972)</option>
             <option value="Pre-Partition Era (Pre-1947)">Pre-Partition Era (Pre-1947)</option>
           </select>
-          <select
-            id="yearFilter"
-            class="select-input"
-            onchange="applyFilters()"
-          >
+          <select id="yearFilter" class="select-input" onchange="applyFilters()" >
             <option value="ALL">All Enactment Years</option>
             <option value="2008">2008</option>
             <option value="2009">2009</option>
@@ -2522,46 +2278,20 @@
       <div class="counter-bar">
         <span id="counterText">Showing 2,095 Documents</span>
         <div class="pagination-container">
-          <label
-            style="
-              font-size: 0.85rem;
-              font-weight: 600;
-              color: var(--muted-color);
-            "
-            >Rows per page:</label
+          <label style=" font-size: 0.85rem; font-weight: 600; color: var(--muted-color); " >Rows per page:</label
           >
-          <select
-            id="pageSizeSelect"
-            class="select-input"
-            style="width: auto; padding: 0.4rem 0.8rem; font-size: 0.85rem"
-            onchange="changePageSize()"
-          >
+          <select id="pageSizeSelect" class="select-input" style="width: auto; padding: 0.4rem 0.8rem; font-size: 0.85rem" onchange="changePageSize()" >
             <option value="15" selected>15</option>
             <option value="25">25</option>
             <option value="50">50</option>
             <option value="100">100</option>
             <option value="ALL">All</option>
           </select>
-          <div
-            style="
-              display: flex;
-              gap: 0.3rem;
-              align-items: center;
-              margin-left: 0.5rem;
-            "
-          >
+          <div style=" display: flex; gap: 0.3rem; align-items: center; margin-left: 0.5rem; " >
             <button id="prevPageBtn" class="page-btn" onclick="prevPage()">
               &laquo; Prev
             </button>
-            <span
-              id="pageIndicator"
-              style="
-                font-size: 0.85rem;
-                font-weight: 600;
-                min-width: 85px;
-                text-align: center;
-              "
-              >Page 1 of 1</span
+            <span id="pageIndicator" style=" font-size: 0.85rem; font-weight: 600; min-width: 85px; text-align: center; " >Page 1 of 1</span
             >
             <button id="nextPageBtn" class="page-btn" onclick="nextPage()">
               Next &raquo;
@@ -2584,26 +2314,11 @@
           <tbody id="policyTableBody"></tbody>
         </table>
       </div>
-      <div
-        style="
-          margin-top: 3rem;
-          padding-top: 2rem;
-          border-top: 2px solid var(--border-color);
-        "
-      >
-        <h2
-          data-editable="true"
-          style="color: #1f4e78; margin-bottom: 0.5rem; font-size: 1.4rem"
-        >
+      <div style=" margin-top: 3rem; padding-top: 2rem; border-top: 2px solid var(--border-color); " >
+        <h2 data-editable="true" style="color: #1f4e78; margin-bottom: 0.5rem; font-size: 1.4rem" >
           ⚖️ Provincial Legislative Evolution Timeline
         </h2>
-        <p
-          style="
-            color: var(--muted-color);
-            font-size: 0.93rem;
-            margin-bottom: 1.5rem;
-          "
-        >
+        <p style=" color: var(--muted-color); font-size: 0.93rem; margin-bottom: 1.5rem; " >
           Chronological record of legislative enactments from 2008 to 2022
           catalogued in the CPPR Stockroom.
         </p>
@@ -2859,26 +2574,11 @@
           </div>
         </div>
       </div>
-      <div
-        style="
-          margin-top: 3rem;
-          padding-top: 2rem;
-          border-top: 2px solid var(--border-color);
-        "
-      >
-        <h2
-          data-editable="true"
-          style="color: #1f4e78; margin-bottom: 0.5rem; font-size: 1.4rem"
-        >
+      <div style=" margin-top: 3rem; padding-top: 2rem; border-top: 2px solid var(--border-color); " >
+        <h2 data-editable="true" style="color: #1f4e78; margin-bottom: 0.5rem; font-size: 1.4rem" >
           🏛️ Provincial Enforcing Departmental Directory
         </h2>
-        <p
-          style="
-            color: var(--muted-color);
-            font-size: 0.93rem;
-            margin-bottom: 1.5rem;
-          "
-        >
+        <p style=" color: var(--muted-color); font-size: 0.93rem; margin-bottom: 1.5rem; " >
           Directory of government departments and authorities whose legal
           instruments are catalogued in the CPPR Stockroom.
         </p>
@@ -3176,87 +2876,24 @@
           </p>
           <p style="margin-top: 1rem">
             <strong>🌐 Web Platform:</strong>
-            <a
-              href="https://affanaamin.github.io/cppr-stockroom/"
-              target="_blank"
-              style="color: #3b82f6; font-weight: 600"
-              >affanaamin.github.io/cppr-stockroom</a
+            <a href="https://affanaamin.github.io/cppr-stockroom/" target="_blank" style="color: #3b82f6; font-weight: 600" >affanaamin.github.io/cppr-stockroom</a
             >
           </p>
         </div>
         <div class="about-card">
           <h3>✉️ Policy Inquiries & Research Desk</h3>
-          <p
-            style="
-              margin-bottom: 1rem;
-              color: var(--muted-color);
-              font-size: 0.95rem;
-            "
-          >
+          <p style=" margin-bottom: 1rem; color: var(--muted-color); font-size: 0.95rem; " >
             Have questions regarding public policy research, baseline surveys,
             third-party evaluations, or policy stockroom access? Send a note
             directly to CPPR:
           </p>
           <div id="inquiryFormContainer">
             <div id="inquiryFormContainer">
-            <form
-              id="inquiryForm"
-              onsubmit="submitInquiry(event)"
-              style="display: flex; flex-direction: column; gap: 0.75rem"
-            >
-              <input
-                type="text"
-                id="inqName"
-                placeholder="Your Name"
-                required
-                style="
-                  padding: 0.65rem;
-                  border-radius: 6px;
-                  border: 1px solid var(--border-color);
-                  background: var(--input-bg);
-                  color: var(--text-color);
-                "
-              />
-              <input
-                type="email"
-                id="inqEmail"
-                placeholder="Your Email / Organization"
-                required
-                style="
-                  padding: 0.65rem;
-                  border-radius: 6px;
-                  border: 1px solid var(--border-color);
-                  background: var(--input-bg);
-                  color: var(--text-color);
-                "
-              />
-              <textarea
-                id="inqMsg"
-                placeholder="Your Policy Stockroom or Research Inquiry..."
-                rows="3"
-                required
-                style="
-                  padding: 0.65rem;
-                  border-radius: 6px;
-                  border: 1px solid var(--border-color);
-                  background: var(--input-bg);
-                  color: var(--text-color);
-                "
-              ></textarea>
-              <button
-                type="submit"
-                id="inqSubmitBtn"
-                style="
-                  background: #1f4e78;
-                  color: white;
-                  padding: 0.65rem 1.2rem;
-                  border-radius: 6px;
-                  border: none;
-                  font-weight: 600;
-                  font-size: 0.9rem;
-                  cursor: pointer;
-                "
-              >
+            <form id="inquiryForm" onsubmit="submitInquiry(event)" style="display: flex; flex-direction: column; gap: 0.75rem" >
+              <input type="text" id="inqName" placeholder="Your Name" required style=" padding: 0.65rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color); " />
+              <input type="email" id="inqEmail" placeholder="Your Email / Organization" required style=" padding: 0.65rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color); " />
+              <textarea id="inqMsg" placeholder="Your Policy Stockroom or Research Inquiry..." rows="3" required style=" padding: 0.65rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color); " ></textarea>
+              <button type="submit" id="inqSubmitBtn" style=" background: #1f4e78; color: white; padding: 0.65rem 1.2rem; border-radius: 6px; border: none; font-weight: 600; font-size: 0.9rem; cursor: pointer; " >
                 Send Inquiry Directly to CPPR
               </button>
             </form>
@@ -3276,19 +2913,9 @@
         <div class="modal-header">
           <h3 id="modalTitle">PDF Document Preview</h3>
           <div class="modal-actions">
-            <a
-              id="modalLocalBtn"
-              href="#"
-              target="_blank"
-              class="btn-sm btn-pdf"
-              >Open Local PDF</a
+            <a id="modalLocalBtn" href="#" target="_blank" class="btn-sm btn-pdf" >Open Local PDF</a
             >
-            <a
-              id="modalDriveBtn"
-              href="#"
-              target="_blank"
-              class="btn-sm btn-drive"
-              >Open on Drive</a
+            <a id="modalDriveBtn" href="#" target="_blank" class="btn-sm btn-drive" >Open on Drive</a
             >
             <button class="close-btn" onclick="closePreview()">&times;</button>
           </div>
@@ -3331,36 +2958,20 @@
             </div>
             <div id="briefTagsContainer" style="margin-top: 0.8rem;"></div>
             <h3>Executive Objective & Summary</h3>
-            <p
-              id="briefSummary"
-              style="margin-top: 0.5rem; line-height: 1.7; color: #334155"
-            ></p>
+            <p id="briefSummary" style="margin-top: 0.5rem; line-height: 1.7; color: #334155" ></p>
           </div>
         </div>
       </div>
     </div>
-    <div
-      style="
-        background: var(--hover-bg);
-        border-left: 4px solid #1f4e78;
-        padding: 0.9rem 1.1rem;
-        border-radius: 6px;
-        margin-top: 1.5rem;
-      "
-    >
-      <strong style="color: #1f4e78; display: block; margin-bottom: 0.2rem"
-        >🏛️ Institutional Reference</strong
+    <div style=" background: var(--hover-bg); border-left: 4px solid #1f4e78; padding: 0.9rem 1.1rem; border-radius: 6px; margin-top: 1.5rem; " >
+      <strong style="color: #1f4e78; display: block; margin-bottom: 0.2rem" >🏛️ Institutional Reference</strong
       >
-      <span style="font-size: 0.88rem; color: var(--muted-color)"
-        >Centre for Public Policy Research (CPPR), Institute of Management
+      <span style="font-size: 0.88rem; color: var(--muted-color)" >Centre for Public Policy Research (CPPR), Institute of Management
         Sciences (IMSciences), Peshawar.</span
       >
     </div>
     <div id="projectModal" class="modal">
-      <div
-        class="modal-content"
-        style="max-width: 900px; height: 85%; max-height: 700px"
-      >
+      <div class="modal-content" style="max-width: 900px; height: 85%; max-height: 700px" >
         <div class="modal-header">
           <h3 id="projModalHeaderTitle">CPPR Research Project Details</h3>
           <div class="modal-actions">
@@ -3369,86 +2980,22 @@
             </button>
           </div>
         </div>
-        <div
-          class="modal-body"
-          style="
-            background: var(--bg-color);
-            padding: 1.5rem 2rem;
-            overflow-y: auto;
-          "
-        >
-          <div
-            class="brief-paper"
-            style="
-              margin: 0 auto;
-              max-width: 820px;
-              box-shadow: var(--shadow-md);
-              background: var(--card-bg);
-              color: var(--text-color);
-              padding: 2rem;
-              border-radius: 12px;
-              border: 1px solid var(--border-color);
-            "
-          >
-            <div
-              style="
-                display: flex;
-                gap: 0.5rem;
-                flex-wrap: wrap;
-                margin-bottom: 0.8rem;
-              "
-            >
+        <div class="modal-body" style=" background: var(--bg-color); padding: 1.5rem 2rem; overflow-y: auto; " >
+          <div class="brief-paper" style=" margin: 0 auto; max-width: 820px; box-shadow: var(--shadow-md); background: var(--card-bg); color: var(--text-color); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color); " >
+            <div style=" display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; " >
               <span id="projModalBadge" class="badge badge-act"></span>
               <span id="projModalSector" class="badge badge-rules"></span>
-              <span
-                id="projModalPartner"
-                class="badge badge-sops"
-                style="background: #e0f2fe; color: #0369a1"
-              ></span>
+              <span id="projModalPartner" class="badge badge-sops" style="background: #e0f2fe; color: #0369a1" ></span>
             </div>
-            <h2
-              id="projModalTitle"
-              style="
-                color: #1f4e78;
-                border-bottom: 2px solid #1f4e78;
-                padding-bottom: 0.75rem;
-                margin-bottom: 1.2rem;
-                font-size: 1.4rem;
-                line-height: 1.4;
-              "
-            ></h2>
-            <h4
-              style="color: #1f4e78; font-size: 1.05rem; margin-bottom: 0.8rem"
-            >
+            <h2 id="projModalTitle" style=" color: #1f4e78; border-bottom: 2px solid #1f4e78; padding-bottom: 0.75rem; margin-bottom: 1.2rem; font-size: 1.4rem; line-height: 1.4; " ></h2>
+            <h4 style="color: #1f4e78; font-size: 1.05rem; margin-bottom: 0.8rem" >
               🔍 Project Overview &amp; Scope
             </h4>
-            <div
-              id="projModalOverview"
-              style="
-                line-height: 1.75;
-                font-size: 0.95rem;
-                color: var(--text-color);
-                margin-bottom: 1.5rem;
-                display: flex;
-                flex-direction: column;
-                gap: 1rem;
-              "
-            ></div>
-            <div
-              style="
-                background: var(--hover-bg);
-                border-left: 4px solid #1f4e78;
-                padding: 0.9rem 1.1rem;
-                border-radius: 6px;
-                margin-top: 1.5rem;
-              "
-            >
-              <strong
-                style="color: #1f4e78; display: block; margin-bottom: 0.2rem"
-                >🏛️ Institutional Reference</strong
+            <div id="projModalOverview" style=" line-height: 1.75; font-size: 0.95rem; color: var(--text-color); margin-bottom: 1.5rem; display: flex; flex-direction: column; gap: 1rem; " ></div>
+            <div style=" background: var(--hover-bg); border-left: 4px solid #1f4e78; padding: 0.9rem 1.1rem; border-radius: 6px; margin-top: 1.5rem; " >
+              <strong style="color: #1f4e78; display: block; margin-bottom: 0.2rem" >🏛️ Institutional Reference</strong
               >
-              <span style="font-size: 0.88rem; color: var(--muted-color)"
-                >Centre for Public Policy Research (CPPR), Institute of
+              <span style="font-size: 0.88rem; color: var(--muted-color)" >Centre for Public Policy Research (CPPR), Institute of
                 Management Sciences (IMSciences), Peshawar.</span
               >
             </div>
@@ -3815,7 +3362,6 @@ function debounce(func, wait) {
       function closeBrief() {
         document.getElementById("briefModal").style.display = "none";
       }
-      // ── CPPR Projects Dataset ──────────────────────────────
       var cpprProjectsData = [
         {
           id: "proj-1",
@@ -3987,9 +3533,7 @@ function debounce(func, wait) {
               p.summary +
               "</p>" +
               "</div>" +
-              '<button class="btn-sm btn-preview proj-view-btn" data-projid="' +
-              p.id +
-              '" style="width:100%;justify-content:center;padding:0.6rem;margin-top:0.5rem;font-weight:600;">View Overview</button>' +
+              '<button class="btn-sm btn-preview proj-view-btn" data-projid="' + p.id + '" style="width:100%;justify-content:center;padding:0.6rem;margin-top:0.5rem;font-weight:600;">View Overview</button>' +
               "</div>"
             );
           })
@@ -4074,7 +3618,7 @@ function debounce(func, wait) {
           btn.disabled = true;
           btn.innerText = "Sending Inquiry...";
         }
-        fetch("https://formsubmit.co/ajax/affanaminbat@gmail.com", {
+        fetch("https:
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -4119,7 +3663,6 @@ function debounce(func, wait) {
         runFilters();
         renderResearchProjectsGrid();
       });
-      // ── ADMIN PANEL SYSTEM ─────────────────────────────────
       var ADMIN_PASSWORD = "cppr2024";
       function openAdminLogin() {
         var overlay = document.getElementById("adminOverlay");
@@ -4157,7 +3700,6 @@ function debounce(func, wait) {
       function adminLogout() {
         document.body.classList.remove("admin-mode");
         sessionStorage.removeItem("cppr_admin");
-        // Turn off global edit mode if on
         if (isGlobalEditMode) toggleGlobalEdit();
         var editables = document.querySelectorAll("[contenteditable]");
         for (var i = 0; i < editables.length; i++) {
@@ -4166,14 +3708,12 @@ function debounce(func, wait) {
         document.getElementById("adminOverlay").classList.remove("hidden");
         document.getElementById("adminPassInput").value = "";
       }
-      // Auto-restore admin session
       if (sessionStorage.getItem("cppr_admin") === "true") {
         document.addEventListener("DOMContentLoaded", function () {
           document.getElementById("adminOverlay").classList.add("hidden");
           enableAdminMode();
         });
       }
-      // ── Add Document ────────────────────────────
       function showAddDocModal() {
         document.getElementById("addDocModal").classList.add("visible");
       }
@@ -4228,13 +3768,8 @@ function debounce(func, wait) {
         var driveHtml = "";
         if (drive) {
           driveHtml =
-            '<button class="btn-sm btn-preview" onclick="openPreview(\'' + title.replace(/'/g,"\\'") +
-            "', '', '" +
-            drive.replace(/'/g, "\\'") +
-            "')\">Preview</button>" +
-            '<a href="' +
-            drive +
-            '" target="_blank" class="btn-sm btn-drive">Drive</a>';
+            '<button class="btn-sm btn-preview" onclick="openPreview(\'' + title.replace(/'/g,"\\'") + "', '', '" + drive.replace(/'/g, "\\'") + "')\">Preview</button>" +
+            '<a href="' + drive + '" target="_blank" class="btn-sm btn-drive">Drive</a>';
         }
         var tr = document.createElement("tr");
         tr.setAttribute("data-category", type);
@@ -4249,24 +3784,16 @@ function debounce(func, wait) {
             summary.toLowerCase(),
         );
         tr.innerHTML =
-          '<td><span class="badge ' +
-          typeClass +
-          '">' +
+          '<td><span class="badge ' + typeClass + '">' +
           type +
           "</span></td>" +
-          '<td class="col-title" contenteditable="true" data-raw="' +
-          title.replace(/"/g, "&quot;") +
-          '"><strong>' +
+          '<td class="col-title" contenteditable="true" data-raw="' + title.replace(/"/g, "&quot;") + '"><strong>' +
           title +
           "</strong></td>" +
-          '<td><span class="badge ' +
-          secClass +
-          '">' +
+          '<td><span class="badge ' + secClass + '">' +
           sector +
           "</span></td>" +
-          '<td class="col-auth" contenteditable="true" data-raw="' +
-          auth.replace(/"/g, "&quot;") +
-          '">' +
+          '<td class="col-auth" contenteditable="true" data-raw="' + auth.replace(/"/g, "&quot;") + '">' +
           auth +
           "</td>" +
           "<td>" +
@@ -4274,22 +3801,10 @@ function debounce(func, wait) {
           "</td>" +
           '<td class="no-print"><div class="action-btns">' +
           driveHtml +
-          '<button class="btn-sm btn-brief" onclick="openBrief(\'' + title.replace(/'/g,"\\'") +
-          "', '" +
-          type +
-          "', '" +
-          sector +
-          "', '" +
-          auth.replace(/'/g, "\\'") +
-          "', '" +
-          date +
-          "', '" +
-          summary.replace(/'/g, "\\'") +
-          "')\">Brief</button>" +
+          '<button class="btn-sm btn-brief" onclick="openBrief(\'' + title.replace(/'/g,"\\'") + "', '" + type + "', '" + sector + "', '" + auth.replace(/'/g, "\\'") + "', '" + date + "', '" + summary.replace(/'/g, "\\'") + "')\">Brief</button>" +
           '</div><span class="admin-row-actions"><button class="admin-row-btn del" onclick="deleteTableRow(this)" title="Delete row">✕</button></span></td>';
         var tbody = document.querySelector("#policyTable tbody");
         tbody.insertBefore(tr, tbody.firstChild);
-        // Clear form
         document.getElementById("newDocTitle").value = "";
         document.getElementById("newDocAuth").value = "";
         document.getElementById("newDocDate").value = "";
@@ -4307,7 +3822,6 @@ function debounce(func, wait) {
           applyFilters();
         }
       }
-      // ── GLOBAL EDIT MODE ─────────────────────────────────
       var isGlobalEditMode = false;
       function toggleGlobalEdit() {
         var btn = document.getElementById("globalEditToggleBtn");
@@ -4320,7 +3834,6 @@ function debounce(func, wait) {
           document.body.classList.remove("global-edit-mode");
           btn.classList.remove("active");
           btn.innerText = "🎯 Select to Edit (OFF)";
-          // Remove contenteditable from ALL elements we made editable
           var editables = document.querySelectorAll("[contenteditable='true']");
           for (var i = 0; i < editables.length; i++) {
             editables[i].removeAttribute("contenteditable");
@@ -4328,12 +3841,10 @@ function debounce(func, wait) {
           }
         }
       }
-      // Intercept clicks in capture phase when global edit mode is on
       document.addEventListener(
         "click",
         function (e) {
           if (!isGlobalEditMode) return;
-          // Check if click is inside admin UI. If so, ignore (let it work normally)
           if (
             e.target.closest(".admin-toolbar") ||
             e.target.closest(".admin-overlay") ||
@@ -4341,41 +3852,30 @@ function debounce(func, wait) {
           ) {
             return;
           }
-          // Prevent normal click actions (like button clicking or links)
           e.preventDefault();
           e.stopPropagation();
-          // Find closest element that makes sense to edit
           var el = e.target;
-          // Make editable and focus
           el.setAttribute("contenteditable", "true");
           el.setAttribute("spellcheck", "false");
           el.focus();
         },
         true,
       );
-      // ── Export HTML ─────────────────────────────
       function exportHTML() {
-        // Temporarily disable admin mode for clean export
         document.body.classList.remove("admin-mode");
         var overlay = document.getElementById("adminOverlay");
         overlay.classList.remove("hidden");
-        // Remove contenteditable from all elements
         var editables = document.querySelectorAll("[contenteditable]");
         for (var i = 0; i < editables.length; i++) {
           editables[i].removeAttribute("contenteditable");
         }
-        // Hide add doc modal
         var addModal = document.getElementById("addDocModal");
         addModal.classList.remove("visible");
-        // Clear password input
         document.getElementById("adminPassInput").value = "";
         document.getElementById("adminLoginError").style.display = "none";
-        // Get clean HTML
         var fullHtml = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
-        // Re-enable admin mode
         overlay.classList.add("hidden");
         enableAdminMode();
-        // Trigger download
         var blob = new Blob([fullHtml], { type: "text/html;charset=utf-8" });
         var url = URL.createObjectURL(blob);
         var a = document.createElement("a");
@@ -4386,13 +3886,11 @@ function debounce(func, wait) {
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
       }
-      // ── Analytics Charts (Chart.js) ─────────────────────────
       var chartsInitialized = false;
       function initAnalyticsCharts() {
         if (chartsInitialized) return;
         var docs = window.CPPR_DOCUMENTS || [];
         if (!docs.length || typeof Chart === 'undefined') return;
-        // 1. Timeline Chart Data
         var yearMap = {};
         docs.forEach(function(d) {
           var y = parseInt(d.year, 10);
@@ -4423,7 +3921,6 @@ function debounce(func, wait) {
             }
           });
         }
-        // 2. Hierarchy Distribution Chart
         var catMap = {};
         docs.forEach(function(d) {
           catMap[d.category] = (catMap[d.category] || 0) + 1;
@@ -4448,7 +3945,6 @@ function debounce(func, wait) {
             }
           });
         }
-        // 3. Sector Distribution Chart (Top 8)
         var secMap = {};
         docs.forEach(function(d) {
           secMap[d.sector] = (secMap[d.sector] || 0) + 1;
@@ -4476,7 +3972,6 @@ function debounce(func, wait) {
             }
           });
         }
-        // 4. Era Distribution Chart
         var eraMap = {};
         docs.forEach(function(d) {
           eraMap[d.time_period] = (eraMap[d.time_period] || 0) + 1;
@@ -4503,7 +3998,6 @@ function debounce(func, wait) {
         }
         chartsInitialized = true;
       }
-      // ── Batch Selection State ────────────────────────────────
       var selectedDocIds = new Set();
       function toggleSelectAll(masterCheckbox) {
         var checkboxes = document.querySelectorAll('.doc-select-checkbox');

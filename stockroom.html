@@ -206,18 +206,18 @@ html.dark .border-outline { border-color: #3a4468 !important; }
 html.dark .border-b.border-outline-variant { border-color: #252e4e !important; }
 html.dark .divide-outline-variant/60 > :not([hidden]) ~ :not([hidden]) { border-color: #1e2640 !important; }
 
-/* ── Header ── */
-html.dark header {
+/* ── Site Header only (fixed nav bar) ── */
+html.dark header.fixed {
   background: linear-gradient(135deg, #080e1c 0%, #0d1829 60%, #0f1e3c 100%) !important;
   border-color: #1a2847 !important;
   box-shadow: 0 1px 16px rgba(0,0,0,0.5) !important;
 }
-html.dark header .bg-surface-container-lowest { background-color: #0a1525 !important; }
-html.dark header .border-outline-variant { border-color: #1a2847 !important; }
+html.dark header.fixed .bg-surface-container-lowest { background-color: #0a1525 !important; }
+html.dark header.fixed .border-outline-variant { border-color: #1a2847 !important; }
 html.dark .bg-primary-container { background-color: #0f2240 !important; }
-html.dark header .bg-surface-container-lowest/10 { background-color: rgba(20,40,90,0.35) !important; }
-html.dark header .border-on-primary-container/20 { border-color: rgba(126,179,245,0.15) !important; }
-html.dark header .border-on-primary-container/30 { border-color: rgba(126,179,245,0.2) !important; }
+html.dark header.fixed .bg-surface-container-lowest\/10 { background-color: rgba(20,40,90,0.35) !important; }
+html.dark header.fixed .border-on-primary-container\/20 { border-color: rgba(126,179,245,0.15) !important; }
+html.dark header.fixed .border-on-primary-container\/30 { border-color: rgba(126,179,245,0.2) !important; }
 
 /* ── Nav buttons ── */
 html.dark .nav-btn { color: #8ba8d4 !important; }
@@ -293,7 +293,37 @@ html.dark .bg-surface-container-low.p-1\.5 { background-color: #1a2238 !importan
 html.dark .bg-outline-variant.border-white { background-color: #3a4468 !important; border-color: #111827 !important; }
 html.dark .bg-primary.border-white { background-color: #1a3a80 !important; border-color: #111827 !important; }
 
-/* ── Reader ── */
+
+/* ── Canvas Paper interior: stays light (white paper on dark bg) ── */
+html.dark .canvas-paper { color: #1a1a2e !important; background-color: #fafbfc !important; }
+html.dark .canvas-paper header {
+  background: transparent !important;
+  border-color: #002046 !important;
+  box-shadow: none !important;
+  color: #002046 !important;
+}
+html.dark .canvas-paper h2,
+html.dark .canvas-paper #readerTitleHead { color: #002046 !important; }
+html.dark .canvas-paper h3 { color: #002046 !important; }
+html.dark .canvas-paper h4 { color: #191c1e !important; }
+html.dark .canvas-paper strong { color: #191c1e !important; }
+html.dark .canvas-paper p { color: #2d3250 !important; }
+html.dark .canvas-paper li { color: #44474e !important; }
+html.dark .canvas-paper em { color: #44474e !important; }
+html.dark .canvas-paper .text-primary { color: #002046 !important; }
+html.dark .canvas-paper .text-on-surface { color: #191c1e !important; }
+html.dark .canvas-paper .text-on-surface-variant { color: #44474e !important; }
+html.dark .canvas-paper .text-outline { color: #74777f !important; }
+html.dark .canvas-paper .border-outline-variant { border-color: #c4c6cf !important; }
+html.dark .canvas-paper .border-b-2.border-primary { border-color: #002046 !important; }
+html.dark .canvas-paper .text-green-700 { color: #166534 !important; }
+html.dark .canvas-paper #readerSubHead { color: #44474e !important; }
+html.dark .canvas-paper #readerDocIdRef,
+html.dark .canvas-paper #readerDocEnactRef { color: #74777f !important; }
+html.dark .canvas-paper #readerDocStatusRef { color: #166534 !important; }
+html.dark .canvas-paper ins { color: #166534 !important; }
+html.dark .canvas-paper del { color: #ba1a1a !important; }
+        /* ── Reader ── */
 html.dark #tabReader > div { background-color: #0d1117 !important; }
 html.dark #tabReader .bg-surface-container-low { background-color: #161c2e !important; }
 html.dark #tabReader aside { background-color: #111827 !important; border-color: #252e4e !important; }
@@ -2126,7 +2156,11 @@ populateReaderDropdown();
             const docs = allDocuments.filter(d => selectedDocIds.has(d.id));
             if (!docs.length) return alert("No documents selected.");
             const win = window.open('', '_blank');
-            let html = `<html><head><title>CPPR Policy Dossier</title><style>body{font-family:serif;padding:40px;} h1{color:#002046;} .card{border-bottom:1px solid #ccc;padding:15px 0;}</style></head><body>`;
+            let html = `<html><head><title>CPPR Policy Dossier</title><style>body{font-family:serif;padding:40px;} h1{color:#002046;} .card{border-bottom:1px solid #ccc;padding:15px 0;}
+html.dark #readerCanvasArticle.canvas-paper { box-shadow: 0 8px 48px rgba(0,0,0,0.7) !important; }
+html.dark .flex-1.overflow-y-auto.p-4.bg-\[\#e2e8f0\],
+html.dark .flex-1.overflow-y-auto.p-8.bg-\[\#e2e8f0\] { background-color: #0d1117 !important; }
+</style></head><body>`;
             html += `<h1>Centre for Public Policy Research (CPPR) — Statutory Dossier</h1>`;
             html += `<p>Total Selected Instruments: ${docs.length} | Generated: ${new Date().toLocaleDateString()}</p><hr/>`;
             docs.forEach(d => {

@@ -2,6 +2,16 @@
 <html class="light" lang="en">
 <head>
     <meta charset="utf-8"/>
+    <script>
+      // Restore theme before paint to prevent flash
+      (function() {
+        try {
+          if (localStorage.getItem('stockroom-theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+          }
+        } catch(e) {}
+      })();
+    </script>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>CPPR Public Policy Stockroom | IMSciences Peshawar</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -102,10 +112,7 @@
         details.faq-item[open] summary::after {
             transform: rotate(180deg);
         }
-        /* High Contrast reading mode */
-        body.high-contrast-mode,
-        body.high-contrast-mode * { color: inherit !important; }
-        body.high-contrast-mode { background:#000 !important; color:#fff !important; }
+        /* High Contrast: replaced by Dark Mode toggle */
         body.high-contrast-mode header { background:#111 !important; border-color:#444 !important; }
         body.high-contrast-mode nav, body.high-contrast-mode aside { background:#111 !important; border-color:#333 !important; }
         body.high-contrast-mode .canvas-paper {
@@ -162,6 +169,222 @@
         }
       html, body { scroll-behavior: smooth; }
   .portal-tab { scroll-behavior: smooth; }
+
+/* ─────────────────────────────────────────────────────────────
+   DARK MODE — full-app override via html.dark class
+   ───────────────────────────────────────────────────────────── */
+html.dark { color-scheme: dark; }
+
+/* Body */
+html.dark body { background-color: #0d1117 !important; color: #e2e8f0 !important; }
+
+/* Background utilities */
+html.dark .bg-background { background-color: #0d1117 !important; }
+html.dark .bg-surface { background-color: #161b27 !important; }
+html.dark .bg-surface-bright { background-color: #1e2533 !important; }
+html.dark .bg-surface-container-lowest { background-color: #161b27 !important; }
+html.dark .bg-surface-container-low { background-color: #1c2234 !important; }
+html.dark .bg-surface-container { background-color: #222840 !important; }
+html.dark .bg-surface-container-high { background-color: #28304c !important; }
+html.dark .bg-surface-container-highest { background-color: #2e3858 !important; }
+html.dark .bg-\[\#e2e8f0\] { background-color: #0d1117 !important; }
+html.dark .bg-\[\#e2e8f0\],
+html.dark [style*="background-color: rgb(226, 232, 240)"] { background-color: #0d1117 !important; }
+
+/* Text */
+html.dark .text-on-background, html.dark .text-on-surface { color: #e2e8f0 !important; }
+html.dark .text-on-surface-variant { color: #8b95b0 !important; }
+html.dark .text-outline { color: #5c6880 !important; }
+html.dark .text-primary { color: #7eb3f5 !important; }
+html.dark .text-on-primary { color: #dce8ff !important; }
+html.dark .text-on-primary-container { color: #8ba8d4 !important; }
+html.dark .text-secondary { color: #f9c74f !important; }
+
+/* Borders */
+html.dark .border-outline-variant { border-color: #252e4e !important; }
+html.dark .border-outline { border-color: #3a4468 !important; }
+html.dark .border-b.border-outline-variant { border-color: #252e4e !important; }
+html.dark .divide-outline-variant/60 > :not([hidden]) ~ :not([hidden]) { border-color: #1e2640 !important; }
+
+/* ── Header ── */
+html.dark header {
+  background: linear-gradient(135deg, #080e1c 0%, #0d1829 60%, #0f1e3c 100%) !important;
+  border-color: #1a2847 !important;
+  box-shadow: 0 1px 16px rgba(0,0,0,0.5) !important;
+}
+html.dark header .bg-surface-container-lowest { background-color: #0a1525 !important; }
+html.dark header .border-outline-variant { border-color: #1a2847 !important; }
+html.dark .bg-primary-container { background-color: #0f2240 !important; }
+html.dark header .bg-surface-container-lowest/10 { background-color: rgba(20,40,90,0.35) !important; }
+html.dark header .border-on-primary-container/20 { border-color: rgba(126,179,245,0.15) !important; }
+html.dark header .border-on-primary-container/30 { border-color: rgba(126,179,245,0.2) !important; }
+
+/* ── Nav buttons ── */
+html.dark .nav-btn { color: #8ba8d4 !important; }
+html.dark .nav-btn:hover { background-color: rgba(126,179,245,0.1) !important; color: #c9dcf8 !important; }
+html.dark nav .bg-primary-container { background-color: rgba(126,179,245,0.15) !important; color: #7eb3f5 !important; border-color: rgba(126,179,245,0.4) !important; }
+html.dark #mobileNavSelect { background-color: #0f2240 !important; color: #c9dcf8 !important; border-color: #253560 !important; }
+
+/* ── Toolbar bars ── */
+html.dark .bg-surface-container-lowest.border-b { background-color: #111827 !important; }
+html.dark .bg-surface-container-low.border-b { background-color: #161c2e !important; }
+html.dark .bg-surface-container-low.border-t { background-color: #111827 !important; }
+
+/* ── Inputs / Selects ── */
+html.dark input[type="text"], html.dark input[type="email"],
+html.dark textarea, html.dark select {
+  background-color: #1a2238 !important;
+  color: #e2e8f0 !important;
+  border-color: #252e4e !important;
+}
+html.dark input::placeholder, html.dark textarea::placeholder { color: #4e5a78 !important; }
+html.dark input:focus, html.dark textarea:focus, html.dark select:focus {
+  border-color: #7eb3f5 !important;
+  box-shadow: 0 0 0 2px rgba(126,179,245,0.18) !important;
+}
+html.dark #clearSearchBtn { color: #5c6880 !important; }
+
+/* ── Category pills ── */
+html.dark .cat-pill { background-color: #1a2238 !important; color: #8b95b0 !important; border-color: #252e4e !important; }
+html.dark .cat-pill.bg-primary { background-color: #1a3a80 !important; color: #7eb3f5 !important; border-color: #7eb3f5 !important; }
+
+/* ── Repo table ── */
+html.dark .zebra-row:nth-child(even) { background-color: #1a2030 !important; }
+html.dark .zebra-row:nth-child(odd) { background-color: #161b27 !important; }
+html.dark .repo-row:hover { background-color: rgba(126,179,245,0.06) !important; box-shadow: inset 3px 0 0 #7eb3f5 !important; }
+
+/* ── Status pills / color-specific ── */
+html.dark .bg-\[\#166534\] { background-color: #14532d !important; }
+html.dark .bg-green-100 { background-color: rgba(20,83,45,0.35) !important; }
+html.dark .text-green-700, html.dark .text-green-800, html.dark .text-green-900 { color: #86efac !important; }
+html.dark .text-\[\#166534\] { color: #4ade80 !important; }
+html.dark .bg-green-50, html.dark .bg-green-50\/60 { background-color: rgba(20,83,45,0.18) !important; }
+html.dark .border-green-300 { border-color: #166534 !important; }
+html.dark .border-green-600 { border-color: #22c55e !important; }
+html.dark .text-red-700, html.dark .text-red-800, html.dark .text-red-900 { color: #fca5a5 !important; }
+html.dark del { color: #fca5a5 !important; }
+html.dark ins { color: #86efac !important; }
+html.dark .border-red-600 { border-color: #dc2626 !important; }
+html.dark .bg-red-50\/60, html.dark .bg-red-50 { background-color: rgba(127,29,29,0.18) !important; }
+
+/* ── Buttons ── */
+html.dark .bg-primary.text-on-primary { background-color: #1a3a80 !important; }
+html.dark .bg-primary.text-on-primary:hover { background-color: #1f4799 !important; }
+html.dark .border-primary.text-primary { border-color: #7eb3f5 !important; color: #7eb3f5 !important; }
+html.dark .border-primary.text-primary:hover { background-color: rgba(126,179,245,0.1) !important; }
+html.dark .hover\:bg-surface-container:hover { background-color: #222840 !important; }
+html.dark .hover\:bg-surface:hover { background-color: #1c2234 !important; }
+html.dark .hover\:bg-surface-container-low/50:hover { background-color: rgba(28,34,52,0.5) !important; }
+html.dark .hover\:bg-primary\/5:hover { background-color: rgba(126,179,245,0.1) !important; }
+html.dark .hover\:bg-primary-container:hover { background-color: #1f4799 !important; }
+html.dark #prevPageBtn, html.dark #nextPageBtn {
+  background-color: #1a2238 !important; border-color: #252e4e !important; color: #8b95b0 !important;
+}
+html.dark #prevPageBtn:hover:not(:disabled), html.dark #nextPageBtn:hover:not(:disabled) { background-color: #222840 !important; }
+html.dark #densityComfortableBtn.bg-white { background-color: #1a3a80 !important; color: #7eb3f5 !important; }
+html.dark .bg-white.shadow-sm { background-color: #1c2234 !important; }
+
+/* ── Inspector ── */
+html.dark #inspectorDrawer { background-color: #111827 !important; border-color: #252e4e !important; }
+html.dark #inspTitle { color: #7eb3f5 !important; }
+html.dark #inspAuthority { background-color: #1a2238 !important; border-color: #252e4e !important; color: #8b95b0 !important; }
+html.dark .bg-surface-container-low\/50 { background-color: rgba(26,34,56,0.7) !important; }
+html.dark .bg-surface-container-low.p-1\.5 { background-color: #1a2238 !important; border-color: rgba(126,179,245,0.15) !important; }
+html.dark .bg-outline-variant.border-white { background-color: #3a4468 !important; border-color: #111827 !important; }
+html.dark .bg-primary.border-white { background-color: #1a3a80 !important; border-color: #111827 !important; }
+
+/* ── Reader ── */
+html.dark #tabReader > div { background-color: #0d1117 !important; }
+html.dark #tabReader .bg-surface-container-low { background-color: #161c2e !important; }
+html.dark #tabReader aside { background-color: #111827 !important; border-color: #252e4e !important; }
+html.dark #tabReader aside .bg-surface-container-low { background-color: #1a2238 !important; }
+html.dark #tabReader aside .bg-\[\#166534\] { background-color: #14532d !important; }
+html.dark .canvas-paper {
+  background-color: #f9fafb !important;
+  box-shadow: 0 4px 40px rgba(0,0,0,0.6) !important;
+}
+html.dark #readerDocSelector { background-color: #1a2238 !important; color: #e2e8f0 !important; border-color: #252e4e !important; }
+
+/* ── Analytics ── */
+html.dark #tabAnalytics .bg-surface-container-low { background-color: #161c2e !important; }
+html.dark #tabAnalytics .bg-surface.border { background-color: #111827 !important; border-color: #252e4e !important; }
+html.dark #tabAnalytics table th { background-color: #1a2238 !important; color: #8b95b0 !important; }
+html.dark #tabAnalytics table td { border-color: #252e4e !important; }
+
+/* ── Lineage ── */
+html.dark #lineageTreeCanvas .bg-surface { background-color: #1a2238 !important; border-color: #252e4e !important; }
+html.dark #lineageTreeCanvas .bg-surface-container-low { background-color: #161c2e !important; }
+
+/* ── Brief ── */
+html.dark #briefBg { background: linear-gradient(135deg, #0a1628 0%, #0f2040 100%) !important; }
+html.dark #tabBrief .bg-surface-container-low { background-color: #161c2e !important; }
+html.dark #tabBrief .border-outline-variant { border-color: #252e4e !important; }
+
+/* ── Glossary / FAQ ── */
+html.dark .faq-item { background-color: #111827 !important; border-color: #252e4e !important; }
+html.dark .faq-item summary { color: #7eb3f5 !important; }
+html.dark .faq-item .border-outline-variant/60 { border-color: rgba(37,46,78,0.7) !important; }
+html.dark .bg-surface.border-l-4 { background-color: #111827 !important; }
+html.dark .border-l-4.border-primary { border-left-color: #7eb3f5 !important; }
+html.dark #tabGlossary .bg-surface-container { background-color: #1a2238 !important; }
+html.dark .font-mono.text-\[9px\].px-1\.5.bg-surface-container { background-color: #1a2238 !important; }
+
+/* ── Inquiry ── */
+html.dark #tabInquiry .bg-surface-container-low { background-color: #161c2e !important; }
+html.dark #inqResultBox { background-color: rgba(20,83,45,0.25) !important; border-color: #16a34a !important; color: #86efac !important; }
+
+/* ── Batch action bar ── */
+html.dark #batchActionBar { background-color: #0d1829 !important; border-color: #1a2847 !important; }
+
+/* ── Modals ── */
+html.dark #settingsModal > div { background-color: #111827 !important; border-color: #252e4e !important; box-shadow: 0 20px 60px rgba(0,0,0,0.7) !important; }
+html.dark #settingsModal .bg-surface-container-low { background-color: #1a2238 !important; }
+html.dark #settingsModal .border-outline-variant { border-color: #252e4e !important; }
+html.dark #settingsModal .text-on-surface { color: #e2e8f0 !important; }
+html.dark #citationModal > div { background-color: #111827 !important; border-color: #252e4e !important; box-shadow: 0 20px 60px rgba(0,0,0,0.7) !important; }
+html.dark #citationModal .bg-surface-container-low { background-color: #1a2238 !important; }
+html.dark #citationModal .text-on-surface { color: #e2e8f0 !important; }
+
+/* ── Toast ── */
+html.dark #portalToast {
+  background: linear-gradient(135deg, #1a2540 0%, #1e2d55 100%) !important;
+  border-color: #2a3a6e !important;
+  color: #c9dcf8 !important;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6) !important;
+}
+
+/* ── Scrollbars ── */
+html.dark ::-webkit-scrollbar-track { background: #0d1117 !important; }
+html.dark ::-webkit-scrollbar-thumb { background: #2a3152 !important; }
+html.dark ::-webkit-scrollbar-thumb:hover { background: #3d4d7a !important; }
+
+/* ─────────────────────────────────────────────────────────────
+   GLOBAL UI IMPROVEMENTS (light + dark)
+   ───────────────────────────────────────────────────────────── */
+/* Smoother modal backdrops */
+#settingsModal, #citationModal { backdrop-filter: blur(4px); }
+#settingsModal > div, #citationModal > div { transition: transform 0.2s ease, opacity 0.2s ease; }
+
+/* Better focus ring */
+button:focus-visible { outline: 2px solid #7eb3f5; outline-offset: 2px; }
+
+/* Polished toast */
+#portalToast {
+  transition: opacity 0.3s ease, transform 0.3s ease !important;
+  transform: translateY(0);
+}
+
+/* Reader paper shadow lift */
+.canvas-paper {
+  transition: box-shadow 0.3s ease;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+}
+.canvas-paper:hover { box-shadow: 0 4px 32px rgba(0,0,0,0.12); }
+
+/* Dark mode btn transition */
+#darkModeBtn { transition: all 0.25s ease; }
+#darkModeBtn:hover { transform: rotate(20deg) scale(1.1); }
+
 </style>
     <script src="documents_data.js"></script>
 </head>
@@ -231,7 +454,11 @@
                 <span class="text-on-primary-container/80">Instruments</span>
             </div>
 
-</div>
+            <button id="darkModeBtn" onclick="toggleDarkMode()" title="Toggle Dark Mode"
+                class="flex items-center justify-center w-8 h-8 rounded-lg bg-surface-container-lowest/10 border border-on-primary-container/20 text-on-primary hover:bg-surface-container-lowest/20 transition-colors font-body text-base">
+                <span class="material-symbols-outlined text-lg leading-none">dark_mode</span>
+            </button>
+        </div>
     </header>
     <div class="flex-1 mt-16 overflow-y-auto flex flex-col relative">
         <section id="tabRepo" class="portal-tab active flex-1 flex flex-col overflow-hidden">
@@ -432,10 +659,7 @@
                                 <span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-outline text-sm">search</span>
                                 <input id="readerSearchInput" oninput="searchWithinReader(this.value)" type="text" placeholder="Search within document..." class="pl-7 pr-3 py-1 bg-surface border border-outline-variant rounded font-body text-xs text-on-surface focus:outline-none focus:border-primary w-44"/>
                             </div>
-                            <button onclick="toggleHighContrast()" id="contrastBtn" class="flex items-center gap-1.5 px-2.5 py-1 bg-surface border border-outline-variant rounded hover:bg-surface-container font-mono text-xs text-on-surface transition-colors">
-                                <span class="material-symbols-outlined text-sm">contrast</span>
-                                <span class="hidden sm:inline">High Contrast</span>
-                            </button>
+                            
                         </div>
                     </div>
                     <div class="flex-1 overflow-y-auto p-4 md:p-8 bg-[#e2e8f0] flex justify-center custom-scrollbar">
@@ -1256,6 +1480,16 @@ function downloadDocPDF() {
 populateReaderDropdown();
             // Initialize reader: show only first page
             setTimeout(showReaderPage, 50, 0);
+            // Sync dark mode button icon to current state
+            (function() {
+                const isDark = document.documentElement.classList.contains('dark');
+                const btn = document.getElementById('darkModeBtn');
+                if (btn) {
+                    const icon = btn.querySelector('.material-symbols-outlined');
+                    if (icon) icon.innerText = isDark ? 'light_mode' : 'dark_mode';
+                    btn.title = isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+                }
+            })();
             if (allDocuments.length > 0) {
                 currentActiveDoc = allDocuments[0];
             }
@@ -2240,7 +2474,20 @@ populateReaderDropdown();
         // KEYBOARD SHORTCUTS & TOAST
         // -------------------------------------------------------------
 
-function showToast(msg) {
+function toggleDarkMode() {
+            const root = document.documentElement;
+            const isDark = root.classList.toggle('dark');
+            localStorage.setItem('stockroom-theme', isDark ? 'dark' : 'light');
+            const btn = document.getElementById('darkModeBtn');
+            if (btn) {
+                const icon = btn.querySelector('.material-symbols-outlined');
+                if (icon) icon.innerText = isDark ? 'light_mode' : 'dark_mode';
+                btn.title = isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+            }
+            showToast(isDark ? '🌙 Dark Mode Enabled' : '☀️ Light Mode Enabled');
+        }
+
+        function showToast(msg) {
             const toast = document.getElementById("portalToast");
             const text = document.getElementById("toastText");
             if (!toast || !text) return;

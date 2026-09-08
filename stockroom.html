@@ -103,16 +103,29 @@
             transform: rotate(180deg);
         }
         /* High Contrast reading mode */
-        body.high-contrast-mode {
-            background-color: #000000 !important;
-            color: #ffffff !important;
-        }
+        body.high-contrast-mode,
+        body.high-contrast-mode * { color: inherit !important; }
+        body.high-contrast-mode { background:#000 !important; color:#fff !important; }
+        body.high-contrast-mode header { background:#111 !important; border-color:#444 !important; }
+        body.high-contrast-mode nav, body.high-contrast-mode aside { background:#111 !important; border-color:#333 !important; }
         body.high-contrast-mode .canvas-paper {
-            background-color: #ffffff !important;
-            color: #000000 !important;
-            border-color: #000000 !important;
-            box-shadow: 0 0 0 4px #ffffff !important;
+            background:#fff !important; color:#000 !important;
+            border:2px solid #fff !important; box-shadow:0 0 0 3px #fff,0 0 0 6px #000 !important;
         }
+        body.high-contrast-mode .canvas-paper h2,
+        body.high-contrast-mode .canvas-paper h3,
+        body.high-contrast-mode .canvas-paper h4,
+        body.high-contrast-mode .canvas-paper strong { color:#000 !important; }
+        body.high-contrast-mode .canvas-paper p,
+        body.high-contrast-mode .canvas-paper li,
+        body.high-contrast-mode .canvas-paper ol,
+        body.high-contrast-mode .canvas-paper span { color:#111 !important; }
+        body.high-contrast-mode .canvas-paper section { border-color:#aaa !important; }
+        body.high-contrast-mode .portal-tab { background:#0a0a0a !important; }
+        body.high-contrast-mode button,
+        body.high-contrast-mode select,
+        body.high-contrast-mode input { background:#222 !important; color:#fff !important; border-color:#666 !important; }
+        body.high-contrast-mode #contrastBtn { background:#ffff00 !important; color:#000 !important; border-color:#ffff00 !important; font-weight:800; }
         /* Animated KPI Counter */
         .kpi-counter { transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
         /* Table Row Hover Effects */
@@ -395,13 +408,13 @@
                                 <option value="5">The Khyber Pakhtunkhwa Police Act, 2017</option>
                                 <option value="134">The Khyber Pakhtunkhwa Civil Servants Act, 1973</option>
                             </select>
-                            <div class="flex items-center gap-1 bg-surface-container-highest rounded px-1.5 py-0.5 border border-outline-variant">
-                                <button onclick="changeReaderChapter(-1)" class="p-0.5 hover:bg-surface rounded text-on-surface-variant" title="Previous Page / Chapter">
-                                    <span class="material-symbols-outlined text-xs">chevron_left</span>
+                            <div class="flex items-center gap-0.5 bg-surface-container-highest rounded px-1 py-0.5 border border-outline-variant">
+                                <button id="readerPrevBtn" onclick="changeReaderChapter(-1)" class="p-1 hover:bg-surface rounded text-on-surface-variant transition-opacity disabled:opacity-30 disabled:cursor-not-allowed" title="Previous Chapter">
+                                    <span class="material-symbols-outlined text-sm">chevron_left</span>
                                 </button>
-                                <span class="font-mono text-xs text-on-surface font-semibold px-1" id="readerPageIndicator">Page 1 of 6</span>
-                                <button onclick="changeReaderChapter(1)" class="p-0.5 hover:bg-surface rounded text-on-surface-variant" title="Next Page / Chapter">
-                                    <span class="material-symbols-outlined text-xs">chevron_right</span>
+                                <span class="font-mono text-xs text-on-surface font-semibold px-2 min-w-[80px] text-center" id="readerPageIndicator">Page 1 of 5</span>
+                                <button id="readerNextBtn" onclick="changeReaderChapter(1)" class="p-1 hover:bg-surface rounded text-on-surface-variant transition-opacity disabled:opacity-30 disabled:cursor-not-allowed" title="Next Chapter">
+                                    <span class="material-symbols-outlined text-sm">chevron_right</span>
                                 </button>
                             </div>
                             <div class="flex items-center bg-surface-container-highest rounded p-0.5 border border-outline-variant">
@@ -1163,29 +1176,43 @@ function downloadDocPDF() {
             showToast(isHighContrast ? "High Contrast Mode Active" : "Standard Contrast Restored");
         }
 
-        function updateReaderPageIndicator() {
+        function getReaderSections() {
             const canvas = document.getElementById("readerCanvasArticle");
-            if (!canvas) return;
-            const sections = canvas.querySelectorAll("section");
+            if (!canvas) return [];
+            // Only top-level sections directly inside readerStatutoryBody
+            return Array.from(document.getElementById("readerStatutoryBody")?.children || [])
+                .filter(el => el.tagName === 'SECTION');
+        }
+        function updateReaderPageIndicator() {
+            const sections = getReaderSections();
             const total = sections.length || 1;
             const current = (window.currentChapterIndex || 0) + 1;
             const indicator = document.getElementById("readerPageIndicator");
-            if (indicator) {
-                indicator.innerText = "Page " + current + " of " + total;
-            }
+            if (indicator) indicator.innerText = "Page " + current + " of " + total;
+            // Prev/Next button states
+            const prevBtn = document.getElementById("readerPrevBtn");
+            const nextBtn = document.getElementById("readerNextBtn");
+            if (prevBtn) prevBtn.disabled = (window.currentChapterIndex || 0) <= 0;
+            if (nextBtn) nextBtn.disabled = (window.currentChapterIndex || 0) >= sections.length - 1;
+        }
+        function showReaderPage(idx) {
+            const sections = getReaderSections();
+            if (!sections.length) return;
+            if (idx < 0) idx = 0;
+            if (idx >= sections.length) idx = sections.length - 1;
+            window.currentChapterIndex = idx;
+            sections.forEach((s, i) => {
+                s.style.display = i === idx ? '' : 'none';
+            });
+            // Also scroll the reader container to top
+            const scrollEl = document.getElementById("readerCanvasArticle")?.closest('.overflow-y-auto');
+            if (scrollEl) scrollEl.scrollTop = 0;
+            updateReaderPageIndicator();
         }
         function changeReaderChapter(delta) {
-            const canvas = document.getElementById("readerCanvasArticle");
-            if (!canvas) return;
-            const sections = canvas.querySelectorAll("section");
-            if (sections.length === 0) return;
             if (typeof window.currentChapterIndex === "undefined") window.currentChapterIndex = 0;
-            window.currentChapterIndex += delta;
-            if (window.currentChapterIndex < 0) window.currentChapterIndex = 0;
-            if (window.currentChapterIndex >= sections.length) window.currentChapterIndex = sections.length - 1;
-            // Scroll smoothly to the target chapter section
-            sections[window.currentChapterIndex].scrollIntoView({ behavior: "smooth", block: "start" });
-            updateReaderPageIndicator();
+            showReaderPage(window.currentChapterIndex + delta);
+            const sections = getReaderSections();
             showToast("Page " + (window.currentChapterIndex + 1) + " of " + sections.length);
         }
         function filterByKeyword(kw) {
@@ -1227,6 +1254,8 @@ function downloadDocPDF() {
             renderGlossary();
             changeLineageRoot("KP-LGA-2013");
 populateReaderDropdown();
+            // Initialize reader: show only first page
+            setTimeout(showReaderPage, 50, 0);
             if (allDocuments.length > 0) {
                 currentActiveDoc = allDocuments[0];
             }
@@ -1540,7 +1569,7 @@ populateReaderDropdown();
                 </section>
             `;
             window.currentChapterIndex = 0;
-            updateReaderPageIndicator();
+            showReaderPage(0);
             switchTab("tabReader");
             showToast(`Loaded "${doc.title.substring(0, 32)}..." into Reader`);
             renderExecutiveBrief(doc);
@@ -1707,9 +1736,7 @@ populateReaderDropdown();
                 document.getElementById("readerDocEnactRef").innerText = "Enacted: 31st October, 2013";
                 document.getElementById("readerDocStatusRef").innerText = "In Force";
                 window.currentChapterIndex = 0;
-                updateReaderPageIndicator();
-                window.currentChapterIndex = 0;
-                updateReaderPageIndicator();
+                showReaderPage(0);
                 showToast("Loaded KP Local Government Act, 2013");
                 return;
             }

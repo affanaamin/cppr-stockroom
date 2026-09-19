@@ -1761,7 +1761,85 @@ populateReaderDropdown();
             if (!currentActiveDoc) return;
             launchDocumentInReader(currentActiveDoc.id);
         }
-        function launchDocumentInReader(docId) {
+        
+        // -------------------------------------------------------------
+        // FULL TEXT READER ENGINE (DYNAMIC LEGISLATION)
+        // -------------------------------------------------------------
+        const fullTextDataMap = {
+            "11": { // RTI
+                title: "Khyber Pakhtunkhwa Right to Information Act, 2013",
+                content: `
+                <p><span class="font-bold">Preamble.-</span>WHEREAS Article 19A of the Constitution of the Islamic Republic of Pakistan provides that every citizen shall have the right to have access to information in all matters of public importance;</p>
+                <p>AND WHEREAS it is expedient to provide for a law which gives effect to the constitutional right of access to information, promotes transparency, and holds the government accountable;</p>
+                <section class="mt-8 pt-4 border-t border-outline-variant/40" id="ch-1">
+                    <h3 class="font-headline font-bold text-lg text-primary mb-3">CHAPTER I - PRELIMINARY</h3>
+                    <div class="pl-4 border-l-2 border-outline-variant space-y-4">
+                        <div><h4 class="font-bold text-on-surface mb-1">1. Short title, extent and commencement.-</h4><p class="text-on-surface-variant">(1) This Act may be called the Khyber Pakhtunkhwa Right to Information Act, 2013.<br>(2) It extends to the whole of the Province of the Khyber Pakhtunkhwa.<br>(3) It shall come into force at once.</p></div>
+                        <div><h4 class="font-bold text-on-surface mb-1">2. Definitions.-</h4><p class="text-on-surface-variant">In this Act, unless the context otherwise requires:<br>(a) "applicant" means a citizen of Pakistan or a legal entity seeking information under this Act;<br>(b) "Commission" means the Khyber Pakhtunkhwa Information Commission established under section 24;</p></div>
+                    </div>
+                </section>
+                <section class="mt-8 pt-4 border-t border-outline-variant/40" id="ch-2">
+                    <h3 class="font-headline font-bold text-lg text-primary mb-3">CHAPTER II - RIGHT TO INFORMATION</h3>
+                    <div class="pl-4 border-l-2 border-outline-variant space-y-4">
+                        <div><h4 class="font-bold text-on-surface mb-1">4. Right to Information.-</h4><p class="text-on-surface-variant">Subject to the provisions of this Act, every citizen shall have the right to access any information held by a public body.</p></div>
+                        <div><h4 class="font-bold text-on-surface mb-1">5. Proactive Disclosure.-</h4><p class="text-on-surface-variant">Each public body shall publish in an accessible manner, including on the internet, the categories of information specified in the Schedule to this Act, within six months of the commencement of this Act.</p></div>
+                    </div>
+                </section>
+                <section class="mt-8 pt-4 border-t border-outline-variant/40" id="ch-3">
+                    <h3 class="font-headline font-bold text-lg text-primary mb-3">CHAPTER III - EXEMPTIONS</h3>
+                    <div class="pl-4 border-l-2 border-outline-variant space-y-4">
+                        <div><h4 class="font-bold text-on-surface mb-1">14. Exempt information.-</h4><p class="text-on-surface-variant">Information may be exempt from disclosure if its disclosure is likely to:<br>(a) cause grave and significant damage to the national security of Pakistan;<br>(b) endanger the life or physical safety of any person;<br>(c) involve an unwarranted invasion of the privacy of an identifiable individual.</p></div>
+                    </div>
+                </section>
+                `
+            },
+            "5": { // Police Act
+                title: "Khyber Pakhtunkhwa Police Act, 2017",
+                content: `
+                <p><span class="font-bold">Preamble.-</span>WHEREAS it is expedient to regulate the police in the Province of the Khyber Pakhtunkhwa and to make it operationally autonomous, politically neutral, and accountable;</p>
+                <section class="mt-8 pt-4 border-t border-outline-variant/40" id="ch-1">
+                    <h3 class="font-headline font-bold text-lg text-primary mb-3">CHAPTER I - CONSTITUTION AND ORGANIZATION</h3>
+                    <div class="pl-4 border-l-2 border-outline-variant space-y-4">
+                        <div><h4 class="font-bold text-on-surface mb-1">3. Constitution of Police.-</h4><p class="text-on-surface-variant">The police in the Province shall constitute one separate service to be known as the Khyber Pakhtunkhwa Police.</p></div>
+                        <div><h4 class="font-bold text-on-surface mb-1">4. Superintendence.-</h4><p class="text-on-surface-variant">The superintendence of police throughout the Province shall vest in the Government and shall be exercised in such a manner that police functions are performed efficiently and strictly in accordance with law.</p></div>
+                    </div>
+                </section>
+                <section class="mt-8 pt-4 border-t border-outline-variant/40" id="ch-2">
+                    <h3 class="font-headline font-bold text-lg text-primary mb-3">CHAPTER II - RESPONSIBILITIES AND POWERS</h3>
+                    <div class="pl-4 border-l-2 border-outline-variant space-y-4">
+                        <div><h4 class="font-bold text-on-surface mb-1">15. Attitude and Responsibilities.-</h4><p class="text-on-surface-variant">It shall be the duty of every police officer to:<br>(a) protect life, property and liberty of citizens;<br>(b) preserve and promote public peace;<br>(c) prevent the commission of offenses and public nuisances.</p></div>
+                    </div>
+                </section>
+                <section class="mt-8 pt-4 border-t border-outline-variant/40" id="ch-3">
+                    <h3 class="font-headline font-bold text-lg text-primary mb-3">CHAPTER III - PUBLIC SAFETY COMMISSIONS</h3>
+                    <div class="pl-4 border-l-2 border-outline-variant space-y-4">
+                        <div><h4 class="font-bold text-on-surface mb-1">44. Provincial Public Safety Commission.-</h4><p class="text-on-surface-variant">The Government shall establish a Provincial Public Safety Commission consisting of thirteen members to evaluate the performance of police and redress public grievances.</p></div>
+                    </div>
+                </section>
+                `
+            },
+            "134": { // Civil Servants
+                title: "Khyber Pakhtunkhwa Civil Servants Act, 1973",
+                content: `
+                <p><span class="font-bold">Preamble.-</span>WHEREAS it is expedient to regulate by law, the appointments to, and the conditions of service of persons in the service of the Province of Khyber Pakhtunkhwa;</p>
+                <section class="mt-8 pt-4 border-t border-outline-variant/40" id="ch-1">
+                    <h3 class="font-headline font-bold text-lg text-primary mb-3">CHAPTER I - APPOINTMENTS</h3>
+                    <div class="pl-4 border-l-2 border-outline-variant space-y-4">
+                        <div><h4 class="font-bold text-on-surface mb-1">5. Appointments.-</h4><p class="text-on-surface-variant">Appointments to a civil service of the Province or to a civil post in connection with the affairs of the Province shall be made in the prescribed manner by the Governor or by a person authorized by him.</p></div>
+                        <div><h4 class="font-bold text-on-surface mb-1">6. Probation.-</h4><p class="text-on-surface-variant">An initial appointment to a service or post referred to in section 5, not being an adhoc appointment, shall be on probation as may be prescribed.</p></div>
+                    </div>
+                </section>
+                <section class="mt-8 pt-4 border-t border-outline-variant/40" id="ch-2">
+                    <h3 class="font-headline font-bold text-lg text-primary mb-3">CHAPTER II - TERMS AND CONDITIONS</h3>
+                    <div class="pl-4 border-l-2 border-outline-variant space-y-4">
+                        <div><h4 class="font-bold text-on-surface mb-1">8. Seniority.-</h4><p class="text-on-surface-variant">For proper administration of a service, cadre or post, the appointing authority shall cause a seniority list of the members for the time being of such service, cadre or post to be prepared.</p></div>
+                        <div><h4 class="font-bold text-on-surface mb-1">10. Postings and Transfers.-</h4><p class="text-on-surface-variant">Every civil servant shall be liable to serve anywhere within or outside the Province, in any post under the Federal Government, or any Provincial Government or local authority.</p></div>
+                    </div>
+                </section>
+                `
+            }
+        };
+function launchDocumentInReader(docId) {
             const doc = allDocuments.find(d => d.id === docId);
             if (!doc) return;
             currentActiveDoc = doc;
@@ -1795,64 +1873,40 @@ populateReaderDropdown();
                 selector.value = doc.id;
             }
             // Populate reader statutory body with multiple distinct chapters
+            
             const body = document.getElementById("readerStatutoryBody");
-            body.innerHTML = `
-                <p><span class="font-bold">Preamble.—</span>WHEREAS it is expedient to provide an authoritative statutory framework for <strong>${doc.title}</strong> across the Province of Khyber Pakhtunkhwa;</p>
-                <p>AND WHEREAS this instrument is enacted and administered under constitutional authority: <em>${doc.legal_authority || 'Constitution of Pakistan (Article 140A / Provincial Competence)'}</em>;</p>
-                <section class="mt-8 pt-4 border-t border-outline-variant/40" id="ch-1">
-                    <h3 class="font-headline font-bold text-lg text-primary mb-3">CHAPTER I — PRELIMINARY & JURISDICTION</h3>
-                    <div class="pl-4 border-l-2 border-outline-variant space-y-4">
-                        <div>
-                            <h4 class="font-bold text-on-surface mb-1">1. Short title, extent and commencement.—</h4>
-                            <ol class="list-[lower-alpha] pl-5 space-y-1 text-on-surface-variant">
-                                <li>This instrument may be cited as the <strong>${doc.title}</strong>.</li>
-                                <li>It extends to the territorial jurisdiction of ${doc.geographical_scope || 'Khyber Pakhtunkhwa'}.</li>
-                                <li>It shall come into force on such date as Government may, by notification in the official Gazette, appoint.</li>
-                            </ol>
+            
+            if (fullTextDataMap[docId]) {
+                body.innerHTML = fullTextDataMap[docId].content;
+            } else {
+                body.innerHTML = `
+                    <p><span class="font-bold">Preamble.-</span>WHEREAS it is expedient to provide an authoritative statutory framework for <strong>${doc.title}</strong> across the Province of Khyber Pakhtunkhwa;</p>
+                    <p>AND WHEREAS this instrument is enacted and administered under constitutional authority: <em>${doc.legal_authority || 'Constitution of Pakistan (Article 140A / Provincial Competence)'}</em>;</p>
+                    <section class="mt-8 pt-4 border-t border-outline-variant/40" id="ch-1">
+                        <h3 class="font-headline font-bold text-lg text-primary mb-3">CHAPTER I - PRELIMINARY & JURISDICTION</h3>
+                        <div class="pl-4 border-l-2 border-outline-variant space-y-4">
+                            <div>
+                                <h4 class="font-bold text-on-surface mb-1">1. Short title, extent and commencement.-</h4>
+                                <p class="text-on-surface-variant">(1) This instrument may be cited as ${doc.title}.<br>(2) It shall extend to the whole of the Province of Khyber Pakhtunkhwa.<br>(3) It shall come into force at once.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-on-surface mb-1">2. Definitions.-</h4>
+                                <p class="text-on-surface-variant">In this instrument, unless there is anything repugnant in the subject or context, the terms shall carry the legal meanings assigned by the parent Act or the General Clauses Act, 1897.</p>
+                            </div>
                         </div>
-                        <div>
-                            <h4 class="font-bold text-on-surface mb-1">2. Regulatory Classification.—</h4>
-                            <p class="text-on-surface-variant">Classified under <strong>${doc.category || 'Statute'}</strong> administered by <strong>${doc.authority || doc.sector || 'Government of Khyber Pakhtunkhwa'}</strong>.</p>
+                    </section>
+                    <section class="mt-8 pt-4 border-t border-outline-variant/40" id="ch-2">
+                        <h3 class="font-headline font-bold text-lg text-primary mb-3">CHAPTER II - SUBSTANTIVE PROVISIONS</h3>
+                        <div class="pl-4 border-l-2 border-outline-variant space-y-4">
+                            <div>
+                                <h4 class="font-bold text-on-surface mb-1">3. Institutional Mandate.-</h4>
+                                <p class="text-on-surface-variant">The designated competent authority shall exercise jurisdiction in accordance with the regulatory boundaries established under this framework.</p>
+                            </div>
                         </div>
-                    </div>
-                </section>
-                <section class="mt-8 pt-4 border-t border-outline-variant/40" id="ch-2">
-                    <h3 class="font-headline font-bold text-lg text-primary mb-3">CHAPTER II — SUBSTANTIVE POLICY MANDATE</h3>
-                    <div class="pl-4 border-l-2 border-outline-variant space-y-4">
-                        <div>
-                            <h4 class="font-bold text-on-surface mb-1">3. Core Objectives & Substantive Scope.—</h4>
-                            <p class="text-on-surface-variant leading-relaxed">${doc.summary || 'Official regulatory provisions and administrative procedures established under the authority of Khyber Pakhtunkhwa.'}</p>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-on-surface mb-1">4. Institutional Execution & Responsibilities.—</h4>
-                            <p class="text-on-surface-variant">Execution shall vest in the <strong>${doc.sector || 'relevant provincial department'}</strong> in accordance with Khyber Pakhtunkhwa Rules of Business.</p>
-                        </div>
-                    </div>
-                </section>
-                <section class="mt-8 pt-4 border-t border-outline-variant/40" id="ch-3">
-                    <h3 class="font-headline font-bold text-lg text-primary mb-3">CHAPTER III — DELEGATED RULES & REGULATIONS</h3>
-                    <div class="pl-4 border-l-2 border-outline-variant space-y-4">
-                        <div>
-                            <h4 class="font-bold text-on-surface mb-1">5. Subordinate Legislation & SOPs.—</h4>
-                            <p class="text-on-surface-variant">Delegated subordinate rules framing operational procedures: <em>${doc.subordinate_rules || 'Khyber Pakhtunkhwa Subordinate Statutory Rules & Standard Operating Procedures'}</em>.</p>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-on-surface mb-1">6. Enabling Enactments & Authority.—</h4>
-                            <p class="text-on-surface-variant">Parent legislative instrument: <em>${doc.parent_document || 'Constitution of the Islamic Republic of Pakistan'}</em>.</p>
-                        </div>
-                    </div>
-                </section>
-                <section class="mt-8 pt-4 border-t border-outline-variant/40" id="ch-4">
-                    <h3 class="font-headline font-bold text-lg text-primary mb-3">CHAPTER IV — COMPLIANCE, AUDIT & REVIEW</h3>
-                    <div class="pl-4 border-l-2 border-outline-variant space-y-4">
-                        <div>
-                            <h4 class="font-bold text-on-surface mb-1">7. Statutory Review & Performance Evaluation.—</h4>
-                            <p class="text-on-surface-variant">Implementation metrics and governance performance are reviewed annually by the Centre for Public Policy Research (CPPR) and competent oversight bodies.</p>
-                        </div>
-                    </div>
-                </section>
-            `;
-            window.currentChapterIndex = 0;
+                    </section>
+                `;
+            }
+window.currentChapterIndex = 0;
             showReaderPage(0);
             switchTab("tabReader");
             showToast(`Loaded "${doc.title.substring(0, 32)}..." into Reader`);

@@ -964,6 +964,12 @@ button:focus-visible { outline: 2px solid #7eb3f5; outline-offset: 2px; }
                                 <option value="KP-LGA-2013">Khyber Pakhtunkhwa Local Government Act, 2013</option>
                                 <option value="KP-RTI-2013">Khyber Pakhtunkhwa Right to Information Act, 2013</option>
                                 <option value="KP-KPPRA-2012">Khyber Pakhtunkhwa Public Procurement Act, 2012</option>
+                            
+                                <option value="KP-FOOD-2014">Khyber Pakhtunkhwa Food Safety Authority Act, 2014</option>
+                                <option value="KP-RTS-2014">Khyber Pakhtunkhwa Right to Public Services Act, 2014</option>
+                                <option value="KP-POLICE-2017">Khyber Pakhtunkhwa Police Act, 2017</option>
+                                <option value="KP-MTI-2015">Khyber Pakhtunkhwa MTI Reforms Act, 2015</option>
+                                <option value="KP-ENV-2014">Khyber Pakhtunkhwa Environmental Protection Act, 2014</option>
                             </select>
                         </div>
                     </div>
@@ -2442,7 +2448,63 @@ html.dark #densityComfortableBtn.bg-white, html.dark #densityCompactBtn.bg-white
                     { title: "KPPRA Dispute Resolution Mechanism Guidelines", desc: "Framework for grievance redressal and vendor arbitration." }
                 ]
             }
-        };
+        ,
+            "KP-FOOD-2014": {
+                apex: "Article 38(a), Constitution of the Islamic Republic of Pakistan",
+                apexDesc: '"The State shall secure the well-being of the people... by preventing the concentration of wealth and means of production... and ensuring equitable adjustment of rights..."',
+                act: "Khyber Pakhtunkhwa Food Safety and Halal Food Authority Act, 2014",
+                actDesc: "Establishment of the KP Food Safety and Halal Food Authority to ensure safe, hygienic, and halal food across the province.",
+                rules: [
+                    { title: "KP Food Safety Authority (Business) Rules, 2017", desc: "Regulating internal meetings, financial administration, and corporate governance of the Authority." },
+                    { title: "KP Food Safety (Sampling & Testing) Regulations", desc: "Standard operating procedures for food sampling, laboratory testing protocols, and chain of custody." },
+                    { title: "Food Handlers Medical Fitness Guidelines", desc: "Mandatory statutory requirements for health screening of commercial food handlers." }
+                ]
+            },
+            "KP-RTS-2014": {
+                apex: "Article 37(d), Constitution of the Islamic Republic of Pakistan",
+                apexDesc: '"The State shall ensure inexpensive and expeditious justice" (Interpreted broadly to include prompt delivery of administrative services).',
+                act: "Khyber Pakhtunkhwa Right to Public Services Act, 2014",
+                actDesc: "Statutory guarantee providing citizens with the right to public services within stipulated time limits and penalizing non-compliance.",
+                rules: [
+                    { title: "KP Right to Public Services Rules, 2014", desc: "Procedures for filing complaints, designated service timelines, and appellate mechanisms." },
+                    { title: "RTS Commission Financial Rules", desc: "Administrative guidelines on budget utilization, expenditures, and commission funding." },
+                    { title: "Notified Public Services Schedule", desc: "Official gazette notifications categorizing statutory services, timelines, and designated officers." }
+                ]
+            },
+            "KP-POLICE-2017": {
+                apex: "Article 142(c), Constitution of the Islamic Republic of Pakistan",
+                apexDesc: "Exclusive provincial competence over public order and police administration, post-18th Amendment.",
+                act: "Khyber Pakhtunkhwa Police Act, 2017",
+                actDesc: "A landmark law establishing an operationally autonomous, politically neutral, and democratically accountable police force in KP.",
+                rules: [
+                    { title: "KP Police (Posting and Transfer) Rules", desc: "Tenure protections and administrative procedures for the posting of provincial police officers." },
+                    { title: "Public Safety Commissions Regulations", desc: "Framework for District and Provincial Public Safety Commissions for civilian oversight." },
+                    { title: "Regional Police Complaint Authority SOPs", desc: "Procedures for independent investigations of police misconduct and citizen grievances." }
+                ]
+            },
+            "KP-MTI-2015": {
+                apex: "Article 38(d), Constitution of the Islamic Republic of Pakistan",
+                apexDesc: '"The State shall provide basic necessities of life, such as food, clothing, housing, education and medical relief..."',
+                act: "Khyber Pakhtunkhwa Medical Teaching Institutions Reforms Act, 2015",
+                actDesc: "Providing institutional and financial autonomy to government teaching hospitals and medical colleges in Khyber Pakhtunkhwa.",
+                rules: [
+                    { title: "MTI Board of Governors (BoG) Rules", desc: "Selection criteria, tenure, and governance powers of the independent Boards of Governors." },
+                    { title: "MTI Employee Service Regulations", desc: "Statutory terms for Institutional Employees, moving away from standard civil service rules." },
+                    { title: "Hospital Management Committee Guidelines", desc: "Standard operating procedures for clinical governance and hospital administration." }
+                ]
+            },
+            "KP-ENV-2014": {
+                apex: "Article 9, Constitution of the Islamic Republic of Pakistan",
+                apexDesc: '"No person shall be deprived of life or liberty save in accordance with law." (Interpreted by superior courts to include the right to a clean and healthy environment).',
+                act: "Khyber Pakhtunkhwa Environmental Protection Act, 2014",
+                actDesc: "Provincial framework for the protection, conservation, rehabilitation and improvement of the environment, following federal devolution.",
+                rules: [
+                    { title: "KP Environmental Assessment Rules, 2017", desc: "Mandatory Initial Environmental Examinations (IEE) and Environmental Impact Assessments (EIA) for development projects." },
+                    { title: "KP Environmental Quality Standards (KPEQS)", desc: "Permissible limits for industrial effluents, vehicular emissions, and ambient air quality." },
+                    { title: "Environmental Protection Tribunal Procedures", desc: "Statutory rules governing the adjudication of environmental offenses and civil penalties." }
+                ]
+            }
+};
         function changeLineageRoot(val) {
             const data = lineageDataMap[val] || lineageDataMap["KP-LGA-2013"];
             const canvas = document.getElementById("lineageTreeCanvas");

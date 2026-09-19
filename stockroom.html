@@ -1670,12 +1670,14 @@ populateReaderDropdown();
         // FILTERING & PAGINATION ENGINE
         // -------------------------------------------------------------
        
-        function sortDocuments(column) {
-            if (currentSortColumn === column) {
-                currentSortDirection = currentSortDirection === 'asc' ? 'desc' : 'asc';
-            } else {
-                currentSortColumn = column;
-                currentSortDirection = column === 'year' ? 'desc' : 'asc';
+        function sortDocuments(column, preserveDirection = false) {
+            if (!preserveDirection) {
+                if (currentSortColumn === column) {
+                    currentSortDirection = currentSortDirection === 'asc' ? 'desc' : 'asc';
+                } else {
+                    currentSortColumn = column;
+                    currentSortDirection = column === 'year' ? 'desc' : 'asc';
+                }
             }
             
             filteredDocuments.sort((a, b) => {
@@ -1754,7 +1756,7 @@ populateReaderDropdown();
                 }
                 return true;
             });
-            sortDocuments(currentSortColumn);
+            sortDocuments(currentSortColumn, true);
             const countLabel = document.getElementById("filteredCountLabel");
             if (countLabel) countLabel.innerText = `${filteredDocuments.length.toLocaleString()} of ${allDocuments.length.toLocaleString()} shown`;
         }
@@ -2076,8 +2078,19 @@ populateReaderDropdown();
             }
 };
 function launchDocumentInReader(docId) {
-            const doc = allDocuments.find(d => d.id === docId);
+            let doc = allDocuments.find(d => d.id == docId);
+            if (!doc && fullTextDataMap[docId]) {
+                // Synthesize metadata for our mock acts
+                doc = {
+                    id: docId,
+                    title: fullTextDataMap[docId].title,
+                    year: (docId.match(/\d{4}/) || ['2024'])[0],
+                    sector: "General Administration",
+                    status: "In Force"
+                };
+            }
             if (!doc) return;
+            
             currentActiveDoc = doc;
             // Populate Reader Canvas
             document.getElementById("readerTitleHead").innerText = doc.title;
@@ -2329,10 +2342,9 @@ window.currentChapterIndex = 0;
                 showToast("Loaded KP Local Government Act, 2013");
                 return;
             }
-            const docId = parseInt(val, 10);
-            if (!isNaN(docId)) {
-                launchDocumentInReader(docId);
-            }
+            let docId = parseInt(val, 10);
+            if (isNaN(docId)) docId = val; // allow strings like 'kp-mti-2015'
+            launchDocumentInReader(docId);
         }
         function readerZoom(delta) {
             if (delta === 0) readerZoomLevel = 100;

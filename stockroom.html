@@ -951,7 +951,24 @@ button:focus-visible { outline: 2px solid #7eb3f5; outline-offset: 2px; }
                         </div>
                     </div>
                 </div>
-                <div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-6 mt-6 shadow-sm">
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                    <div class="bg-surface-container-lowest border border-outline-variant p-6 rounded-lg shadow-sm">
+                        <h3 class="font-headline font-bold text-base text-primary mb-1">Top Sectoral Volume (Polar Distribution)</h3>
+                        <p class="font-body text-xs text-on-surface-variant mb-4">Relative legislative footprint across the 7 most highly-regulated provincial departments.</p>
+                        <div class="h-64 relative flex items-center justify-center">
+                            <canvas id="analyticsSectorChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-surface-container-lowest border border-outline-variant p-6 rounded-lg shadow-sm">
+                        <h3 class="font-headline font-bold text-base text-primary mb-1">Statutory Force Status</h3>
+                        <p class="font-body text-xs text-on-surface-variant mb-4">Current juridical status of all 1,374 instruments (Active, Amended, Repealed).</p>
+                        <div class="h-64 relative flex items-center justify-center">
+                            <canvas id="analyticsStatusChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-6 mt-6 shadow-sm">
                     <h3 class="font-headline font-bold text-base text-primary mb-3">Departmental Legislative Burden (Top Sectors)</h3>
                     <div class="overflow-x-auto">
                         <table class="w-full text-left font-body text-xs">
@@ -2132,17 +2149,59 @@ window.currentChapterIndex = 0;
             renderExecutiveBrief(doc);
             renderRedlineStudio(doc);
         }
+        
+        const briefDataMap = {
+            "kp-lga-2013": { // Note: ID might be different, let's match by string inclusion for safety
+                imp: "Fundamentally restructures provincial governance by devolving 30% of the provincial development budget directly to Village/Neighbourhood Councils.",
+                fisc: "Requires massive provincial transfers via the PFC Award. Eliminates overlapping TMA/District administrative budgets.",
+                bot: "Capacity deficits at the Village Council level regarding procurement and auditing. Political friction over mayoral resource allocation.",
+                soc: "Empowers grassroots democracy and hyper-localizes the resolution of municipal service delivery failures.",
+                reg: "Mandates the establishment of the Local Government Commission and District Accounts Committees."
+            },
+            "11": { // RTI
+                imp: "Pierces the traditional veil of bureaucratic secrecy (Official Secrets Act) by legally mandating proactive disclosure of public records.",
+                fisc: "Requires budgetary allocations for the establishment of the Information Commission and designated Public Information Officers (PIOs) in every department.",
+                bot: "Bureaucratic resistance to classifying files as public. Delays in the Right to Information Commission's enforcement of penalty clauses.",
+                soc: "Dramatically increases citizen trust, investigative journalism capacity, and civil society oversight of public funds.",
+                reg: "Empowers the Commission to levy direct salary deductions on non-compliant government officials."
+            },
+            "5": { // Police Act
+                imp: "Severs the Police Department from direct political and bureaucratic (Home Department) control, granting the IGP absolute operational autonomy.",
+                fisc: "Grants the Police Department independent financial autonomy to re-appropriate funds across heads without Finance Department bottlenecks.",
+                bot: "Friction between the District Administration (DCs) and District Police Officers (DPOs). Under-resourcing of the newly established Public Safety Commissions.",
+                soc: "Attempts to depoliticize FIR registration and localized policing through civilian oversight boards.",
+                reg: "Establishes independent Regional Complaint Authorities and Provincial Public Safety Commissions."
+            },
+            "kp-mti-2015": {
+                imp: "Transforms major tertiary care hospitals from bureaucratic appendages of the Health Department into autonomous corporate entities.",
+                fisc: "Shifts hospital funding from line-item budgeting to a one-line block grant, allowing BoGs to retain revenue and cross-subsidize services.",
+                bot: "Fierce resistance from legacy civil servant doctors refusing to opt for institutional employment. Legal challenges over BoG appointments.",
+                soc: "Aims to introduce performance-based metrics, evening shifts (IBP), and competitive healthcare delivery.",
+                reg: "Grants absolute hiring, firing, and procurement powers to the private-sector led Board of Governors."
+            },
+            "82": { // KPPRA
+                imp: "Overhauls public procurement by replacing outdated financial rules with a modern, transparency-first electronic bidding (e-GP) framework.",
+                fisc: "Reduces procurement cartelization and bid-rigging, theoretically saving the provincial exchequer up to 15% on infrastructure projects.",
+                bot: "Low digital literacy among rural contractors. Bureaucratic delays in standardizing bidding documents across 28 distinct departments.",
+                soc: "Levels the playing field for SME vendors to compete for government contracts without relying on political patronage.",
+                reg: "Mandates the strict publication of procurement plans and grievance redressal mechanisms before contract award."
+            }
+        };
+
         function renderExecutiveBrief(doc) {
             const titleEl = document.getElementById("briefTitle");
             const subtitleEl = document.getElementById("briefSubtitle");
             const badgeEl = document.getElementById("briefBadge");
             const sectorDateEl = document.getElementById("briefSectorDate");
             const objContainer = document.getElementById("briefObjectives");
+
             if (!titleEl || !doc) return;
+
             titleEl.innerText = doc.title;
             subtitleEl.innerText = doc.summary || "Comprehensive regulatory and policy framework.";
             badgeEl.innerText = "CPPR Policy Brief: " + (doc.id || 'DOC');
             sectorDateEl.innerText = "Issued: " + (doc.year || '2024') + " | Sector: " + (doc.sector || 'General');
+
             // Quick Stats Bar
             const statType = document.getElementById("briefStatType");
             const statYear = document.getElementById("briefStatYear");
@@ -2152,85 +2211,58 @@ window.currentChapterIndex = 0;
             if (statYear) statYear.innerText = doc.year || '\u2014';
             if (statSector) statSector.innerText = doc.sector || 'General';
             if (statStatus) statStatus.innerText = doc.status || 'Active';
-            // Core Objectives
-            objContainer.innerHTML = '<div class="p-4 bg-surface-container-low rounded border border-outline-variant">' +
-                '<h4 class="font-bold text-primary text-xs mb-1">1. Statutory Authority</h4>' +
-                '<p class="font-body text-xs text-on-surface-variant">' + (doc.legal_authority || 'Enacted under provincial legislative competence.') + '</p>' +
-                '</div>' +
-                '<div class="p-4 bg-surface-container-low rounded border border-outline-variant">' +
-                '<h4 class="font-bold text-primary text-xs mb-1">2. Implementation Mandate</h4>' +
-                '<p class="font-body text-xs text-on-surface-variant">Administered by the ' + (doc.authority || doc.sector || 'Government of Khyber Pakhtunkhwa') + '.</p>' +
-                '</div>' +
-                '<div class="p-4 bg-surface-container-low rounded border border-outline-variant">' +
-                '<h4 class="font-bold text-primary text-xs mb-1">3. Geographic Scope</h4>' +
-                '<p class="font-body text-xs text-on-surface-variant">Applies to the entirety of ' + (doc.geographical_scope || 'Khyber Pakhtunkhwa') + '.</p>' +
-                '</div>';
-            // Key Provisions
-            var provisionsEl = document.getElementById("briefProvisions");
-            if (provisionsEl) {
-                var icons = ['article', 'account_balance', 'payments', 'security', 'policy'];
-                var sections = doc.sections || doc.chapters || [];
-                if (sections.length > 0) {
-                    provisionsEl.innerHTML = sections.slice(0, 5).map(function(s, i) {
-                        return '<div class="flex items-start gap-3 p-3 bg-surface-container-low rounded border border-outline-variant">' +
-                            '<span class="material-symbols-outlined text-primary text-sm mt-0.5">' + icons[i % icons.length] + '</span>' +
-                            '<div><p class="font-mono text-xs font-bold text-on-surface">' + (s.title || s.name || 'Section ' + (i+1)) + '</p>' +
-                            '<p class="font-body text-xs text-on-surface-variant">' + (s.description || s.summary || 'Statutory provision governing specific regulatory matters.') + '</p></div></div>';
-                    }).join('');
-                } else {
-                    provisionsEl.innerHTML = '<div class="flex items-start gap-3 p-3 bg-surface-container-low rounded border border-outline-variant">' +
-                        '<span class="material-symbols-outlined text-primary text-sm mt-0.5">article</span>' +
-                        '<div><p class="font-mono text-xs font-bold text-on-surface">Preliminary \u2014 Definitions & Scope</p>' +
-                        '<p class="font-body text-xs text-on-surface-variant">Defines applicability, jurisdictional extent, and core terminology for ' + (doc.title || 'this legislation') + '.</p></div></div>' +
-                        '<div class="flex items-start gap-3 p-3 bg-surface-container-low rounded border border-outline-variant">' +
-                        '<span class="material-symbols-outlined text-primary text-sm mt-0.5">account_balance</span>' +
-                        '<div><p class="font-mono text-xs font-bold text-on-surface">Substantive Provisions</p>' +
-                        '<p class="font-body text-xs text-on-surface-variant">Core regulatory framework governing ' + (doc.sector || 'public policy') + ' administration and implementation mandates.</p></div></div>' +
-                        '<div class="flex items-start gap-3 p-3 bg-surface-container-low rounded border border-outline-variant">' +
-                        '<span class="material-symbols-outlined text-primary text-sm mt-0.5">payments</span>' +
-                        '<div><p class="font-mono text-xs font-bold text-on-surface">Enforcement & Penalties</p>' +
-                        '<p class="font-body text-xs text-on-surface-variant">Mechanisms for compliance enforcement, dispute resolution, and penalties for contravention.</p></div></div>';
-                }
-            }
-            // Implementation Timeline
-            var timelineEl = document.getElementById("briefTimeline");
-            if (timelineEl) {
-                var year = doc.year || '\u2014';
-                timelineEl.innerHTML = '<div class="flex items-center gap-2">' +
-                    '<div class="w-2 h-2 rounded-full bg-primary flex-shrink-0"></div>' +
-                    '<p class="font-body text-xs text-on-surface-variant"><strong class="text-on-surface">Enacted:</strong> ' + year + ' \u2014 Upon provincial gazette notification</p></div>' +
-                    '<div class="flex items-center gap-2">' +
-                    '<div class="w-2 h-2 rounded-full bg-secondary flex-shrink-0"></div>' +
-                    '<p class="font-body text-xs text-on-surface-variant"><strong class="text-on-surface">Administered by:</strong> ' + (doc.authority || doc.sector || 'Relevant Provincial Department') + '</p></div>' +
-                    '<div class="flex items-center gap-2">' +
-                    '<div class="w-2 h-2 rounded-full bg-tertiary flex-shrink-0"></div>' +
-                    '<p class="font-body text-xs text-on-surface-variant"><strong class="text-on-surface">Review Status:</strong> Subject to periodic legislative review & amendment</p></div>';
-            }
-            // Stakeholder Analysis
-            var stakeholdersEl = document.getElementById("briefStakeholders");
-            if (stakeholdersEl) {
-                var sector = doc.sector || 'Governance';
-                stakeholdersEl.innerHTML = '<div class="flex items-center justify-between">' +
-                    '<span class="font-body text-xs text-on-surface">KP Provincial Assembly</span>' +
-                    '<span class="font-mono text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded">Legislative Authority</span></div>' +
-                    '<div class="flex items-center justify-between">' +
-                    '<span class="font-body text-xs text-on-surface">' + sector + ' Department</span>' +
-                    '<span class="font-mono text-[10px] bg-secondary/10 text-secondary px-2 py-0.5 rounded">Implementing Body</span></div>' +
-                    '<div class="flex items-center justify-between">' +
-                    '<span class="font-body text-xs text-on-surface">Citizens of KP</span>' +
-                    '<span class="font-mono text-[10px] bg-tertiary/10 text-tertiary px-2 py-0.5 rounded">Beneficiary</span></div>' +
-                    '<div class="flex items-center justify-between">' +
-                    '<span class="font-body text-xs text-on-surface">CPPR Research Team</span>' +
-                    '<span class="font-mono text-[10px] bg-outline-variant/20 text-on-surface-variant px-2 py-0.5 rounded">Observer & Analyst</span></div>';
-            }
-            // CPPR Assessment
-            var assessmentEl = document.getElementById("briefAssessment");
-            if (assessmentEl) {
-                assessmentEl.innerText = doc.summary
-                    ? 'This ' + (doc.category || 'legislation') + ' \u2014 ' + doc.title + ' \u2014 ' + doc.summary + '. CPPR recommends continued monitoring of implementation effectiveness and inter-institutional coordination under this statutory framework.'
-                    : 'The ' + (doc.title || 'selected document') + ' represents a significant regulatory instrument within the ' + (doc.sector || 'policy') + ' domain. CPPR recommends thorough stakeholder consultation and periodic review for optimal implementation outcomes.';
+
+            // Check if we have a bespoke brief for this document ID or Title
+            let bespoke = briefDataMap[doc.id];
+            if (!bespoke && doc.title.toLowerCase().includes("local government act")) bespoke = briefDataMap["kp-lga-2013"];
+            if (!bespoke && doc.title.toLowerCase().includes("teaching institutions")) bespoke = briefDataMap["kp-mti-2015"];
+
+            if (bespoke) {
+                objContainer.innerHTML = 
+                    '<div class="p-4 bg-surface-container-low rounded border border-outline-variant">' +
+                    '<h4 class="font-bold text-primary text-xs mb-1">1. Strategic Policy Implication</h4>' +
+                    '<p class="font-body text-xs text-on-surface-variant">' + bespoke.imp + '</p></div>' +
+                    
+                    '<div class="p-4 bg-surface-container-low rounded border border-outline-variant">' +
+                    '<h4 class="font-bold text-primary text-xs mb-1">2. Fiscal & Economic Impact</h4>' +
+                    '<p class="font-body text-xs text-on-surface-variant">' + bespoke.fisc + '</p></div>' +
+                    
+                    '<div class="p-4 bg-surface-container-low rounded border border-outline-variant">' +
+                    '<h4 class="font-bold text-primary text-xs mb-1">3. Implementation Bottlenecks</h4>' +
+                    '<p class="font-body text-xs text-on-surface-variant">' + bespoke.bot + '</p></div>' +
+                    
+                    '<div class="p-4 bg-surface-container-low rounded border border-outline-variant">' +
+                    '<h4 class="font-bold text-primary text-xs mb-1">4. Socio-Political Dynamics</h4>' +
+                    '<p class="font-body text-xs text-on-surface-variant">' + bespoke.soc + '</p></div>' +
+                    
+                    '<div class="p-4 bg-surface-container-low rounded border border-outline-variant">' +
+                    '<h4 class="font-bold text-primary text-xs mb-1">5. Regulatory Mandate</h4>' +
+                    '<p class="font-body text-xs text-on-surface-variant">' + bespoke.reg + '</p></div>';
+            } else {
+                // Fallback Generic Brief
+                objContainer.innerHTML = 
+                    '<div class="p-4 bg-surface-container-low rounded border border-outline-variant">' +
+                    '<h4 class="font-bold text-primary text-xs mb-1">1. Statutory Authority</h4>' +
+                    '<p class="font-body text-xs text-on-surface-variant">' + (doc.legal_authority || 'Enacted under provincial legislative competence.') + '</p></div>' +
+                    
+                    '<div class="p-4 bg-surface-container-low rounded border border-outline-variant">' +
+                    '<h4 class="font-bold text-primary text-xs mb-1">2. Implementation Mandate</h4>' +
+                    '<p class="font-body text-xs text-on-surface-variant">Administered by the ' + (doc.authority || doc.sector || 'Government of Khyber Pakhtunkhwa') + ' through departmental rules of business.</p></div>' +
+                    
+                    '<div class="p-4 bg-surface-container-low rounded border border-outline-variant">' +
+                    '<h4 class="font-bold text-primary text-xs mb-1">3. Geographic Scope</h4>' +
+                    '<p class="font-body text-xs text-on-surface-variant">Applicable to ' + (doc.geographical_scope || 'the entire territorial jurisdiction of Khyber Pakhtunkhwa') + '.</p></div>' +
+                    
+                    '<div class="p-4 bg-surface-container-low rounded border border-outline-variant">' +
+                    '<h4 class="font-bold text-primary text-xs mb-1">4. Delegated Legislation</h4>' +
+                    '<p class="font-body text-xs text-on-surface-variant">Empowers the executive to frame statutory rules, guidelines, and SOPs for ' + (doc.subordinate_rules || 'administrative enforcement') + '.</p></div>' +
+                    
+                    '<div class="p-4 bg-surface-container-low rounded border border-outline-variant">' +
+                    '<h4 class="font-bold text-primary text-xs mb-1">5. Policy Objectives</h4>' +
+                    '<p class="font-body text-xs text-on-surface-variant">Aligns with ' + (doc.sector || 'sectoral') + ' development goals to ensure ' + (doc.summary || 'efficient public service delivery') + '.</p></div>';
             }
         }
+
         function renderRedlineStudio(doc) {
             const container = document.getElementById("redlinePanesContainer");
             if (!container || !doc) return;
@@ -2684,6 +2716,62 @@ html.dark #densityComfortableBtn.bg-white, html.dark #densityCompactBtn.bg-white
                     }
                 });
             }
+            
+            // 2A. Sector Polar Chart
+            const sectorCountMap = {};
+            allDocuments.forEach(d => {
+                const s = d.sector || 'General Admin';
+                sectorCountMap[s] = (sectorCountMap[s] || 0) + 1;
+            });
+            const topSectors = Object.entries(sectorCountMap).sort((a,b) => b[1] - a[1]).slice(0, 7);
+            const ctxSector = document.getElementById('analyticsSectorChart');
+            if (ctxSector) {
+                new Chart(ctxSector, {
+                    type: 'polarArea',
+                    data: {
+                        labels: topSectors.map(t => t[0].substring(0, 20) + '...'),
+                        datasets: [{
+                            data: topSectors.map(t => t[1]),
+                            backgroundColor: ['rgba(0,32,70,0.8)', 'rgba(2,132,199,0.8)', 'rgba(5,150,105,0.8)', 'rgba(217,119,6,0.8)', 'rgba(139,92,246,0.8)', 'rgba(220,38,38,0.8)', 'rgba(100,116,139,0.8)']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { position: 'right', labels: { boxWidth: 10, font: { size: 9 } } } }
+                    }
+                });
+            }
+
+            // 2B. Status Pie Chart
+            const statusCountMap = { "In Force": 0, "Amended": 0, "Repealed/Superseded": 0 };
+            allDocuments.forEach(d => {
+                const stat = (d.status || "In Force").toLowerCase();
+                if (stat.includes("amend")) statusCountMap["Amended"]++;
+                else if (stat.includes("repeal") || stat.includes("supersed")) statusCountMap["Repealed/Superseded"]++;
+                else statusCountMap["In Force"]++;
+            });
+            const ctxStatus = document.getElementById('analyticsStatusChart');
+            if (ctxStatus) {
+                new Chart(ctxStatus, {
+                    type: 'pie',
+                    data: {
+                        labels: Object.keys(statusCountMap),
+                        datasets: [{
+                            data: Object.values(statusCountMap),
+                            backgroundColor: ['#166534', '#d97706', '#475569'],
+                            borderColor: '#ffffff',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } } }
+                    }
+                });
+            }
+
             // 3. Departmental Breakdown Table
             const secTable = document.getElementById("sectorTableBody");
             if (secTable) {

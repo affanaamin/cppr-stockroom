@@ -993,9 +993,12 @@ button:focus-visible { outline: 2px solid #7eb3f5; outline-offset: 2px; }
                     <p class="font-body text-xs text-on-surface-variant">Side-by-side synchronized statutory comparison: Original Act vs. Subsequent Amendments</p>
                 </div>
                 <div class="flex items-center gap-3">
-                    <select id="redlineSelector" onchange="changeRedlineComparison(this.value)" class="bg-surface-container-low border border-outline-variant rounded font-mono text-xs py-1.5 px-2.5 text-on-surface">
-                        <option value="LGA">KP Local Government Act (2013 vs 2019/2021)</option>
+                    <select id="redlineSelector" onchange="changeRedlineComparison(this.value)" class="bg-surface-container-low border border-outline-variant rounded font-mono text-xs py-1.5 px-2.5 text-on-surface focus:outline-none focus:border-primary">
+                        <option value="LGA">KP Local Government Act (2013 vs 2019)</option>
                         <option value="RTI">KP Right to Information Act (2013 vs 2015)</option>
+                        <option value="KPPRA">KP Public Procurement Act (2012 vs 2022)</option>
+                        <option value="POLICE">KP Police Act (2017 vs 2020)</option>
+                        <option value="FOOD">KP Food Safety Act (2014 vs 2021)</option>
                     </select>
                     <span class="px-2.5 py-1 bg-red-100 text-red-800 border border-red-300 rounded font-mono text-[11px] font-bold" id="redlineAmendedBadge">14 Clauses Amended</span>
                     <span class="px-2.5 py-1 bg-green-100 text-green-800 border border-green-300 rounded font-mono text-[11px] font-bold" id="redlineInsertedBadge">6 Sections Inserted</span>
@@ -2641,19 +2644,152 @@ html.dark #densityComfortableBtn.bg-white, html.dark #densityCompactBtn.bg-white
         // -------------------------------------------------------------
         // REDLINE DYNAMICS
         // -------------------------------------------------------------
+        
+        const redlineDataMap = {
+            "LGA": {
+                amendedCount: "14 Clauses Amended",
+                insertedCount: "6 Sections Inserted",
+                origTitle: "Original Enactment - Act XXVIII of 2013",
+                amendTitle: "Amended Enactment - Local Government (Amendment) Act, 2019",
+                origContent: `
+                    <p class="p-3 bg-red-50/60 dark:bg-red-900/10 border-l-4 border-red-500 rounded-r">
+                        <strong class="text-red-900 dark:text-red-400 block font-mono text-[11px] mb-1">Section 23 (Original):</strong>
+                        <del class="text-red-700 dark:text-red-300">"23. Powers and Functions of Village and Neighbourhood Councils.- Every Village Council shall consist of such members as may be determined by District Government..."</del>
+                        <span class="text-red-600 dark:text-red-500 block text-[10px] mt-1 font-mono">[Repealed & Replaced by Amendment]</span>
+                    </p>
+                    <p class="p-3 bg-surface-container-low border-l-4 border-outline rounded-r text-on-surface-variant">
+                        <strong class="text-on-surface block font-mono text-[11px] mb-1">Section 24 (Original):</strong>
+                        "24. Executive Functions.- The executive authority of the Local Council shall vest in the Nazim, assisted by the Secretary of the Local Council."
+                    </p>
+                `,
+                amendContent: `
+                    <p class="p-3 bg-green-50/60 dark:bg-green-900/10 border-l-4 border-green-600 rounded-r">
+                        <strong class="text-green-900 dark:text-green-400 block font-mono text-[11px] mb-1">Section 23 (Substituted):</strong>
+                        <ins class="text-green-800 dark:text-green-300 no-underline font-medium">"23. Reorganized Structure of Village Councils.- The Village Council and Neighbourhood Council shall be directly elected through adult franchise on non-party basis..."</ins>
+                        <span class="text-green-700 dark:text-green-500 block text-[10px] mt-1 font-mono">[Enacted by Provincial Assembly under Section 4 of Amendment Act]</span>
+                    </p>
+                    <p class="p-3 bg-green-50/60 dark:bg-green-900/10 border-l-4 border-green-600 rounded-r">
+                        <strong class="text-green-900 dark:text-green-400 block font-mono text-[11px] mb-1">Section 23A (Newly Inserted):</strong>
+                        <ins class="text-green-800 dark:text-green-300 no-underline font-medium">"23A. Devolution of Developmental Budget.- Government shall ensure not less than thirty percent of the total provincial development budget is allocated directly to local council tiers."</ins>
+                    </p>
+                `
+            },
+            "RTI": {
+                amendedCount: "4 Clauses Amended",
+                insertedCount: "2 Sections Inserted",
+                origTitle: "Original Enactment - Act XXVII of 2013",
+                amendTitle: "Amended Enactment - Right to Information (Amendment) Act, 2015",
+                origContent: `
+                    <p class="p-3 bg-red-50/60 dark:bg-red-900/10 border-l-4 border-red-500 rounded-r">
+                        <strong class="text-red-900 dark:text-red-400 block font-mono text-[11px] mb-1">Section 12 (Original):</strong>
+                        <del class="text-red-700 dark:text-red-300">"12. Time limit for providing information.- A designated officer shall provide the requested information to the applicant within twenty-one (21) days of receipt of the request."</del>
+                    </p>
+                `,
+                amendContent: `
+                    <p class="p-3 bg-green-50/60 dark:bg-green-900/10 border-l-4 border-green-600 rounded-r">
+                        <strong class="text-green-900 dark:text-green-400 block font-mono text-[11px] mb-1">Section 12 (Substituted):</strong>
+                        <ins class="text-green-800 dark:text-green-300 no-underline font-medium">"12. Time limit for providing information.- A designated officer shall provide the requested information to the applicant no later than ten (10) working days, prioritizing matters of life and liberty."</ins>
+                    </p>
+                `
+            },
+            "KPPRA": {
+                amendedCount: "9 Clauses Amended",
+                insertedCount: "3 Sections Inserted",
+                origTitle: "Original Enactment - KPPRA Act, 2012",
+                amendTitle: "Amended Enactment - KPPRA (Amendment) Act, 2022",
+                origContent: `
+                    <p class="p-3 bg-red-50/60 dark:bg-red-900/10 border-l-4 border-red-500 rounded-r">
+                        <strong class="text-red-900 dark:text-red-400 block font-mono text-[11px] mb-1">Section 14 (Original):</strong>
+                        <del class="text-red-700 dark:text-red-300">"14. Public Procurement.- All procuring entities shall advertise their procurement requirements in print media and the official website."</del>
+                    </p>
+                    <p class="p-3 bg-surface-container-low border-l-4 border-outline rounded-r text-on-surface-variant mt-4">
+                        <strong class="text-on-surface block font-mono text-[11px] mb-1">Section 22 (Original):</strong>
+                        "22. Bidding Methods.- The standard method of procurement shall be single stage one envelope."
+                    </p>
+                `,
+                amendContent: `
+                    <p class="p-3 bg-green-50/60 dark:bg-green-900/10 border-l-4 border-green-600 rounded-r">
+                        <strong class="text-green-900 dark:text-green-400 block font-mono text-[11px] mb-1">Section 14 (Substituted):</strong>
+                        <ins class="text-green-800 dark:text-green-300 no-underline font-medium">"14. Electronic Public Procurement.- All procuring entities shall mandatorily process procurement through the centralized e-Procurement (e-GP) system."</ins>
+                    </p>
+                    <p class="p-3 bg-green-50/60 dark:bg-green-900/10 border-l-4 border-green-600 rounded-r mt-4">
+                        <strong class="text-green-900 dark:text-green-400 block font-mono text-[11px] mb-1">Section 22A (Newly Inserted):</strong>
+                        <ins class="text-green-800 dark:text-green-300 no-underline font-medium">"22A. Two Envelope Bidding.- For complex technical infrastructure, the two envelope bidding method shall be mandatory to separate technical evaluation from financial bids."</ins>
+                    </p>
+                `
+            },
+            "POLICE": {
+                amendedCount: "7 Clauses Amended",
+                insertedCount: "1 Section Inserted",
+                origTitle: "Original Enactment - KP Police Act, 2017",
+                amendTitle: "Amended Enactment - KP Police (Amendment) Act, 2020",
+                origContent: `
+                    <p class="p-3 bg-red-50/60 dark:bg-red-900/10 border-l-4 border-red-500 rounded-r">
+                        <strong class="text-red-900 dark:text-red-400 block font-mono text-[11px] mb-1">Section 9 (Original):</strong>
+                        <del class="text-red-700 dark:text-red-300">"9. Tenure of Inspector General.- The Provincial Police Officer shall be appointed for a fixed tenure of three years and shall not be transferred before completion of tenure."</del>
+                    </p>
+                `,
+                amendContent: `
+                    <p class="p-3 bg-green-50/60 dark:bg-green-900/10 border-l-4 border-green-600 rounded-r">
+                        <strong class="text-green-900 dark:text-green-400 block font-mono text-[11px] mb-1">Section 9 (Substituted):</strong>
+                        <ins class="text-green-800 dark:text-green-300 no-underline font-medium">"9. Tenure of Inspector General.- The Provincial Police Officer shall hold office for a period of three years, provided the Provincial Government may, in consultation with the Provincial Public Safety Commission, transfer the officer citing compelling reasons."</ins>
+                    </p>
+                `
+            },
+            "FOOD": {
+                amendedCount: "11 Clauses Amended",
+                insertedCount: "4 Sections Inserted",
+                origTitle: "Original Enactment - KP Food Safety Act, 2014",
+                amendTitle: "Amended Enactment - KP Food Safety (Amendment) Act, 2021",
+                origContent: `
+                    <p class="p-3 bg-red-50/60 dark:bg-red-900/10 border-l-4 border-red-500 rounded-r">
+                        <strong class="text-red-900 dark:text-red-400 block font-mono text-[11px] mb-1">Section 18 (Original):</strong>
+                        <del class="text-red-700 dark:text-red-300">"18. Penalties.- Any person who sells adulterated food shall be punished with a fine which may extend to five hundred thousand rupees."</del>
+                    </p>
+                `,
+                amendContent: `
+                    <p class="p-3 bg-green-50/60 dark:bg-green-900/10 border-l-4 border-green-600 rounded-r">
+                        <strong class="text-green-900 dark:text-green-400 block font-mono text-[11px] mb-1">Section 18 (Substituted):</strong>
+                        <ins class="text-green-800 dark:text-green-300 no-underline font-medium">"18. Penalties.- Any person who sells adulterated food shall be punished with imprisonment for a term which may extend to three years, or with fine up to two million rupees, and the immediate sealing of the premises."</ins>
+                    </p>
+                `
+            }
+        };
+
         function changeRedlineComparison(val) {
+            const data = redlineDataMap[val] || redlineDataMap["LGA"];
+            
+            // Update Badges
             const badgeAmended = document.getElementById("redlineAmendedBadge");
             const badgeInserted = document.getElementById("redlineInsertedBadge");
-            if (val === "RTI") {
-                badgeAmended.innerText = "4 Clauses Amended";
-                badgeInserted.innerText = "2 Sections Inserted";
-            } else {
-                badgeAmended.innerText = "14 Clauses Amended";
-                badgeInserted.innerText = "6 Sections Inserted";
+            if (badgeAmended) badgeAmended.innerText = data.amendedCount;
+            if (badgeInserted) badgeInserted.innerText = data.insertedCount;
+            
+            // Update Panes HTML
+            const container = document.getElementById("redlinePanesContainer");
+            if (container) {
+                container.innerHTML = `
+                    <div class="flex flex-col bg-surface-container-lowest overflow-y-auto p-6 font-body text-xs leading-relaxed space-y-4">
+                        <div class="sticky top-0 bg-surface-container-low p-2.5 rounded border border-outline-variant font-mono font-bold text-xs text-primary mb-2">
+                            ${data.origTitle}
+                        </div>
+                        <div class="space-y-4">
+                            ${data.origContent}
+                        </div>
+                    </div>
+                    <div class="flex flex-col bg-surface-container-lowest overflow-y-auto p-6 font-body text-xs leading-relaxed space-y-4 border-t md:border-t-0 md:border-l border-outline-variant">
+                        <div class="sticky top-0 bg-surface-container-low p-2.5 rounded border border-outline-variant font-mono font-bold text-xs text-green-800 dark:text-green-400 mb-2">
+                            ${data.amendTitle}
+                        </div>
+                        <div class="space-y-4">
+                            ${data.amendContent}
+                        </div>
+                    </div>
+                `;
             }
-            showToast(`Switched comparison model to ${val}`);
+            showToast(`Switched Redline Comparison to ${val}`);
         }
-        // -------------------------------------------------------------
+        
         // FAQS & GLOSSARY (PDF OCR DATA)
         // -------------------------------------------------------------
         function renderFAQs() {

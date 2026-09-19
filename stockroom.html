@@ -535,14 +535,26 @@ button:focus-visible { outline: 2px solid #7eb3f5; outline-offset: 2px; }
             </div>
             <div class="flex-1 flex overflow-hidden">
                 <div class="w-full lg:w-[60%] flex flex-col border-r border-outline-variant bg-surface-container-lowest overflow-hidden">
-                    <div class="grid grid-cols-[2.5rem_1fr_9rem_5rem_6.5rem_5rem] gap-2 px-4 py-2.5 bg-surface-container-low border-b border-outline-variant font-mono text-[11px] font-semibold text-on-surface-variant uppercase tracking-wider sticky top-0 z-10">
+                    <div class="grid grid-cols-[2.5rem_1fr_9rem_5rem_6.5rem_5rem] gap-2 px-4 py-2.5 bg-surface-container-low border-b border-outline-variant font-mono text-[11px] font-semibold text-on-surface-variant uppercase tracking-wider sticky top-0 z-10 select-none">
                         <div class="flex items-center justify-center">
                             <input id="masterCheckbox" onchange="toggleSelectAll(this)" type="checkbox" class="rounded border-outline-variant text-primary focus:ring-primary w-3.5 h-3.5"/>
                         </div>
-                        <div>Document Title & Authority</div>
-                        <div>Sector / Department</div>
-                        <div>Year</div>
-                        <div>Status</div>
+                        <div class="cursor-pointer hover:text-primary flex items-center justify-between" onclick="sortDocuments('title')">
+                            Document Title & Authority <span id="sort-icon-title" class="sort-icon material-symbols-outlined text-sm">unfold_more</span>
+                        </div>
+                        <div class="cursor-pointer hover:text-primary flex items-center justify-between" onclick="sortDocuments('sector')">
+                            Sector <span id="sort-icon-sector" class="sort-icon material-symbols-outlined text-sm">unfold_more</span>
+                        </div>
+                        <div class="cursor-pointer hover:text-primary flex items-center justify-between" onclick="sortDocuments('year')">
+                            Year <span id="sort-icon-year" class="sort-icon material-symbols-outlined text-sm text-primary">arrow_drop_down</span>
+                        </div>
+                        <div class="cursor-pointer hover:text-primary flex items-center justify-between" onclick="sortDocuments('category')">
+                            Category <span id="sort-icon-category" class="sort-icon material-symbols-outlined text-sm">unfold_more</span>
+                        </div>
+                        <div class="cursor-pointer hover:text-primary flex items-center justify-between" onclick="sortDocuments('status')">
+                            Status <span id="sort-icon-status" class="sort-icon material-symbols-outlined text-sm">unfold_more</span>
+                        </div>
+                    </div>
                         <div class="text-right">Action</div>
                     </div>
                     <div id="repoTableBody" class="flex-1 overflow-y-auto divide-y divide-outline-variant/60">
@@ -1302,12 +1314,22 @@ button:focus-visible { outline: 2px solid #7eb3f5; outline-offset: 2px; }
             </div>
             <div class="space-y-3 font-body text-xs">
                 <div>
-                    <label class="font-mono text-[10px] text-on-surface-variant uppercase tracking-wider block mb-1">Standard Academic Format (CPPR / APA 7th)</label>
-                    <div id="citeTextApa" class="p-3 bg-surface-container-low border border-outline-variant rounded font-mono text-xs text-on-surface select-all"></div>
+                    <label class="font-mono text-[10px] text-on-surface-variant uppercase tracking-wider block mb-1 flex items-center justify-between"><span>APA 7th (Public Policy standard)</span></label>
+                    <div id="citeTextApa" class="p-3 bg-surface-container-low border border-outline-variant rounded font-mono text-xs text-on-surface select-all leading-relaxed"></div>
                 </div>
                 <div>
-                    <label class="font-mono text-[10px] text-on-surface-variant uppercase tracking-wider block mb-1">Legal Citation (Pakistan Law Site / OSCOLA)</label>
-                    <div id="citeTextOscola" class="p-3 bg-surface-container-low border border-outline-variant rounded font-mono text-xs text-on-surface select-all"></div>
+                    <label class="font-mono text-[10px] text-on-surface-variant uppercase tracking-wider block mb-1 flex items-center justify-between"><span>Bluebook (Legal / Judicial Standard)</span></label>
+                    <div id="citeTextBluebook" class="p-3 bg-surface-container-low border border-outline-variant rounded font-mono text-xs text-on-surface select-all leading-relaxed"></div>
+                </div>
+                <div>
+                    <label class="font-mono text-[10px] text-on-surface-variant uppercase tracking-wider block mb-1 flex items-center justify-between"><span>Chicago (Manual of Style)</span></label>
+                    <div id="citeTextChicago" class="p-3 bg-surface-container-low border border-outline-variant rounded font-mono text-xs text-on-surface select-all leading-relaxed"></div>
+                </div>
+                <div>
+                    <label class="font-mono text-[10px] text-on-surface-variant uppercase tracking-wider block mb-1 flex items-center justify-between"><span>OSCOLA (Commonwealth Law standard)</span></label>
+                    <div id="citeTextOscola" class="p-3 bg-surface-container-low border border-outline-variant rounded font-mono text-xs text-on-surface select-all leading-relaxed"></div>
+                </div>
+            </div>
                 </div>
             </div>
             <div class="flex justify-end gap-2 pt-2">
@@ -1497,7 +1519,10 @@ function downloadDocPDF() {
             showToast("Filtering by keyword: " + kw);
         }
         // Core State
-        let allDocuments = [];
+        
+        let currentSortColumn = 'year';
+        let currentSortDirection = 'desc';
+let allDocuments = [];
         let filteredDocuments = [];
         let currentActiveDoc = null;
         let selectedDocIds = new Set();
@@ -1595,7 +1620,45 @@ populateReaderDropdown();
         // -------------------------------------------------------------
         // FILTERING & PAGINATION ENGINE
         // -------------------------------------------------------------
-        function debounceRunFilters() {
+       
+        function sortDocuments(column) {
+            if (currentSortColumn === column) {
+                currentSortDirection = currentSortDirection === 'asc' ? 'desc' : 'asc';
+            } else {
+                currentSortColumn = column;
+                currentSortDirection = column === 'year' ? 'desc' : 'asc';
+            }
+            
+            filteredDocuments.sort((a, b) => {
+                let valA = a[column] || '';
+                let valB = b[column] || '';
+                
+                if (column === 'year' || column === 'id') {
+                    valA = parseInt(valA) || 0;
+                    valB = parseInt(valB) || 0;
+                } else {
+                    valA = valA.toString().toLowerCase();
+                    valB = valB.toString().toLowerCase();
+                }
+                
+                if (valA < valB) return currentSortDirection === 'asc' ? -1 : 1;
+                if (valA > valB) return currentSortDirection === 'asc' ? 1 : -1;
+                return 0;
+            });
+            
+            sortDocuments(currentSortColumn); // This calls renderRepoTable
+            updateSortUI();
+        }
+
+        function updateSortUI() {
+            document.querySelectorAll('.sort-icon').forEach(el => el.innerHTML = 'unfold_more');
+            const activeIcon = document.getElementById('sort-icon-' + currentSortColumn);
+            if (activeIcon) {
+                activeIcon.innerHTML = currentSortDirection === 'asc' ? 'arrow_drop_up' : 'arrow_drop_down';
+                activeIcon.classList.add('text-primary');
+            }
+        }
+ function debounceRunFilters() {
             clearTimeout(debounceTimer);
             debounceTimer = setTimeout(runFilters, 150);
         }
@@ -2116,8 +2179,24 @@ window.currentChapterIndex = 0;
         function openCiteModal() {
             const doc = currentActiveDoc || allDocuments[0];
             if (!doc) return;
-            document.getElementById("citeTextApa").innerText = `Government of Khyber Pakhtunkhwa. (${doc.year || '2024'}). ${doc.title}. Centre for Public Policy Research (CPPR) Stockroom, IMSciences Peshawar.`;
-            document.getElementById("citeTextOscola").innerText = `${doc.title} (${doc.year || '2024'}), ${doc.authority || 'Khyber Pakhtunkhwa Gazette'}.`;
+            
+            const title = doc.title || "Unknown Document";
+            const year = doc.year || "2024";
+            const authority = doc.authority || "Provincial Assembly of Khyber Pakhtunkhwa";
+            const jurisdiction = doc.jurisdiction || "Khyber Pakhtunkhwa";
+            
+            // APA
+            document.getElementById("citeTextApa").innerHTML = `${authority}. (${year}). <i>${title}</i>. Government of ${jurisdiction}, Centre for Public Policy Research (CPPR) Stockroom.`;
+            
+            // Bluebook (Rule 12 - Statutes)
+            document.getElementById("citeTextBluebook").innerHTML = `${title}, KP Act No. ${doc.id || 'XX'} of ${year}, KP. Code ${year} (Pak.).`;
+            
+            // Chicago (Notes & Bibliography)
+            document.getElementById("citeTextChicago").innerHTML = `${authority}. "${title}." ${jurisdiction} Gazette (${year}). CPPR Digital Stockroom.`;
+            
+            // OSCOLA
+            document.getElementById("citeTextOscola").innerHTML = `<i>${title}</i> (${year}) ${jurisdiction} [Pak].`;
+            
             document.getElementById("citationModal").classList.remove("hidden");
         }
         function openCiteModalFromInspector() { openCiteModal(); }

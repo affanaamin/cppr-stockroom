@@ -3392,8 +3392,26 @@ html.dark #densityComfortableBtn.bg-white, html.dark #densityCompactBtn.bg-white
             // Update Badges
             const badgeAmended = document.getElementById("redlineAmendedBadge");
             const badgeInserted = document.getElementById("redlineInsertedBadge");
-            if (badgeAmended) badgeAmended.innerText = data.amendedCount;
-            if (badgeInserted) badgeInserted.innerText = data.insertedCount;
+            if (badgeAmended) badgeAmended.innerText = data.amendedCount || "Multiple Clauses Amended";
+            if (badgeInserted) badgeInserted.innerText = data.insertedCount || "Various Sections Inserted";
+            
+            // Build dynamic HTML if using the new clauses format
+            let origContent = data.origContent;
+            let amendContent = data.amendContent;
+            
+            if (data.clauses) {
+                origContent = data.clauses.map(c => `
+                    <p class="p-3 bg-red-50/60 dark:bg-red-900/10 border-l-4 border-red-500 rounded-r">
+                        <strong class="text-red-900 dark:text-red-400 block font-mono text-[11px] mb-1">${c.ref} (Original):</strong>
+                        <span class="text-red-700 dark:text-red-300">${c.original}</span>
+                    </p>`).join("");
+                    
+                amendContent = data.clauses.map(c => `
+                    <p class="p-3 bg-green-50/60 dark:bg-green-900/10 border-l-4 border-green-600 rounded-r">
+                        <strong class="text-green-900 dark:text-green-400 block font-mono text-[11px] mb-1">${c.ref} (Amended):</strong>
+                        <span class="text-green-800 dark:text-green-300 no-underline font-medium">${c.revised}</span>
+                    </p>`).join("");
+            }
             
             // Update Panes HTML
             const container = document.getElementById("redlinePanesContainer");
@@ -3401,18 +3419,18 @@ html.dark #densityComfortableBtn.bg-white, html.dark #densityCompactBtn.bg-white
                 container.innerHTML = `
                     <div class="flex flex-col bg-surface-container-lowest overflow-y-auto p-6 font-body text-xs leading-relaxed space-y-4">
                         <div class="sticky top-0 bg-surface-container-low p-2.5 rounded border border-outline-variant font-mono font-bold text-xs text-primary mb-2">
-                            ${data.origTitle}
+                            ${data.origTitle || 'Original Enactment'}
                         </div>
                         <div class="space-y-4">
-                            ${data.origContent}
+                            ${origContent}
                         </div>
                     </div>
                     <div class="flex flex-col bg-surface-container-lowest overflow-y-auto p-6 font-body text-xs leading-relaxed space-y-4 border-t md:border-t-0 md:border-l border-outline-variant">
                         <div class="sticky top-0 bg-surface-container-low p-2.5 rounded border border-outline-variant font-mono font-bold text-xs text-green-800 dark:text-green-400 mb-2">
-                            ${data.amendTitle}
+                            ${data.amendTitle || 'Amended Enactment'}
                         </div>
                         <div class="space-y-4">
-                            ${data.amendContent}
+                            ${amendContent}
                         </div>
                     </div>
                 `;

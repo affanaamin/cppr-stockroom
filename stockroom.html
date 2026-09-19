@@ -2227,8 +2227,12 @@ window.currentChapterIndex = 0;
 
             // Check if we have a bespoke brief for this document ID or Title
             let bespoke = briefDataMap[doc.id];
-            if (!bespoke && doc.title.toLowerCase().includes("local government act")) bespoke = briefDataMap["kp-lga-2013"];
-            if (!bespoke && doc.title.toLowerCase().includes("teaching institutions")) bespoke = briefDataMap["kp-mti-2015"];
+            
+            const docTitle = doc.title || "";
+            if (!bespoke && docTitle.toLowerCase().includes("local government act")) bespoke = briefDataMap["kp-lga-2013"];
+            if (!bespoke && docTitle.toLowerCase().includes("teaching institutions")) bespoke = briefDataMap["kp-mti-2015"];
+
+            
 
             if (bespoke) {
                 objContainer.innerHTML = 

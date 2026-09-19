@@ -132,7 +132,6 @@
         body.high-contrast-mode button,
         body.high-contrast-mode select,
         body.high-contrast-mode input { background:#222 !important; color:#fff !important; border-color:#666 !important; }
-        body.high-contrast-mode #contrastBtn { background:#ffff00 !important; color:#000 !important; border-color:#ffff00 !important; font-weight:800; }
         /* Animated KPI Counter */
         .kpi-counter { transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
         /* Table Row Hover Effects */
@@ -427,7 +426,7 @@ button:focus-visible { outline: 2px solid #7eb3f5; outline-offset: 2px; }
                 </div>
                 <div>
                     <h1 class="font-headline font-bold text-base md:text-lg text-on-primary tracking-tight leading-none">CPPR IMSciences</h1>
-                    <span class="font-mono text-[10px] text-on-primary-container tracking-wider uppercase">Policy Stockroom Platform</span>
+                    <span class="font-mono text-[10px] text-on-primary-container tracking-wider uppercase hidden sm:block">Policy Stockroom Platform</span>
                 </div>
             </div>
             <nav class="hidden md:flex items-center gap-1 h-16 pl-2 lg:pl-4 border-l border-on-primary-container/20 overflow-x-auto no-scrollbar">
@@ -484,6 +483,10 @@ button:focus-visible { outline: 2px solid #7eb3f5; outline-offset: 2px; }
                 <span class="text-on-primary-container/80">Instruments</span>
             </div>
 
+            <a href="index.html" title="Back to CPPR Home" class="hidden sm:flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-surface-container-lowest/10 border border-on-primary-container/20 text-on-primary hover:bg-surface-container-lowest/20 transition-colors font-mono text-xs font-semibold">
+                <span class="material-symbols-outlined text-sm leading-none">arrow_back</span>
+                <span class="hidden lg:inline">CPPR Home</span>
+            </a>
             <button id="darkModeBtn" onclick="toggleDarkMode()" title="Toggle Dark Mode"
                 class="flex items-center justify-center w-8 h-8 rounded-lg bg-surface-container-lowest/10 border border-on-primary-container/20 text-on-primary hover:bg-surface-container-lowest/20 transition-colors font-body text-base">
                 <span class="material-symbols-outlined text-lg leading-none">dark_mode</span>
@@ -2258,6 +2261,13 @@ input[type="checkbox"] {
 }
 input[type="checkbox"]:hover {
     transform: scale(1.1);
+}
+
+
+/* Dark mode density button fix */
+html.dark #densityComfortableBtn, html.dark #densityCompactBtn { color: #8b95b0 !important; }
+html.dark #densityComfortableBtn.bg-white, html.dark #densityCompactBtn.bg-white {
+    background-color: #28304c !important; color: #7eb3f5 !important;
 }
 
 </style></head><body>`;

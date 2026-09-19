@@ -1695,7 +1695,8 @@ populateReaderDropdown();
                 return 0;
             });
             
-            sortDocuments(currentSortColumn); // This calls renderRepoTable
+            currentPage = 1;
+            renderRepoTable();
             updateSortUI();
         }
 
@@ -1753,8 +1754,7 @@ populateReaderDropdown();
                 }
                 return true;
             });
-            currentPage = 1;
-            renderRepoTable();
+            sortDocuments(currentSortColumn);
             const countLabel = document.getElementById("filteredCountLabel");
             if (countLabel) countLabel.innerText = `${filteredDocuments.length.toLocaleString()} of ${allDocuments.length.toLocaleString()} shown`;
         }

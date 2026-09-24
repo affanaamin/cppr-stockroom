@@ -1795,6 +1795,158 @@ function downloadDocPDF() {
         let _constitutionTabInitialized = false;
         const _origSwitchTab = typeof switchTab !== 'undefined' ? null : null;
 
+                // SETTINGS & DISPLAY CONTROLS
+        // -------------------------------------------------------------
+        function openSettingsModal() {
+            const modal = document.getElementById("settingsModal");
+            if (modal) modal.classList.remove("hidden");
+        }
+        function closeSettingsModal() {
+            const modal = document.getElementById("settingsModal");
+            if (modal) modal.classList.add("hidden");
+        }
+        function setFontSize(sz) {
+            const article = document.getElementById("readerCanvasArticle");
+            if (!article) return;
+            if (sz === 'sm') article.style.fontSize = "0.875rem";
+            else if (sz === 'lg') article.style.fontSize = "1.125rem";
+            else article.style.fontSize = "1rem";
+            showToast("Font size set to: " + sz.toUpperCase());
+        }
+        function setCanvasBg(theme) {
+            const container = document.getElementById("readerCanvasArticle")?.parentElement;
+            if (!container) return;
+            if (theme === 'ivory') container.style.backgroundColor = "#fefae0";
+            else if (theme === 'pure') container.style.backgroundColor = "#ffffff";
+            else container.style.backgroundColor = "#e2e8f0";
+            showToast("Canvas theme: " + theme);
+        }
+        function setDensity(mode) {
+            currentDensity = mode;
+            const comBtn = document.getElementById("densityComfortableBtn");
+            const comPacBtn = document.getElementById("densityCompactBtn");
+            if (comBtn) comBtn.className = mode === "comfortable" ? "p-1 rounded bg-white shadow-sm text-primary" : "p-1 rounded text-outline hover:text-primary transition-colors";
+            if (comPacBtn) comPacBtn.className = mode === "compact" ? "p-1 rounded bg-white shadow-sm text-primary" : "p-1 rounded text-outline hover:text-primary transition-colors";
+            renderRepoTable();
+            showToast("Density set to: " + mode);
+        }
+        function toggleHighContrast() {
+            isHighContrast = !isHighContrast;
+            document.body.classList.toggle("high-contrast-mode", isHighContrast);
+            const btn = document.getElementById("contrastBtn");
+            if (btn) {
+                if (isHighContrast) {
+                    btn.classList.add("bg-primary", "text-white");
+                    btn.classList.remove("bg-surface", "text-on-surface");
+                } else {
+                    btn.classList.remove("bg-primary", "text-white");
+                    btn.classList.add("bg-surface", "text-on-surface");
+                }
+            }
+            showToast(isHighContrast ? "High Contrast Mode Active" : "Standard Contrast Restored");
+        }
+
+        function getReaderSections() {
+            const canvas = document.getElementById("readerCanvasArticle");
+            if (!canvas) return [];
+            // Only top-level sections directly inside readerStatutoryBody
+            return Array.from(document.getElementById("readerStatutoryBody")?.children || [])
+                .filter(el => el.tagName === 'SECTION');
+        }
+        function updateReaderPageIndicator() {
+            const sections = getReaderSections();
+            const total = sections.length || 1;
+            const current = (window.currentChapterIndex || 0) + 1;
+            const indicator = document.getElementById("readerPageIndicator");
+            if (indicator) indicator.innerText = "Page " + current + " of " + total;
+            // Prev/Next button states
+            const prevBtn = document.getElementById("readerPrevBtn");
+            const nextBtn = document.getElementById("readerNextBtn");
+            if (prevBtn) prevBtn.disabled = (window.currentChapterIndex || 0) <= 0;
+            if (nextBtn) nextBtn.disabled = (window.currentChapterIndex || 0) >= sections.length - 1;
+        }
+        function showReaderPage(idx) {
+            const sections = getReaderSections();
+            if (!sections.length) return;
+            if (idx < 0) idx = 0;
+            if (idx >= sections.length) idx = sections.length - 1;
+            window.currentChapterIndex = idx;
+            sections.forEach((s, i) => {
+                s.style.display = i === idx ? '' : 'none';
+            });
+            // Also scroll the reader container to top
+            const scrollEl = document.getElementById("readerCanvasArticle")?.closest('.overflow-y-auto');
+            if (scrollEl) scrollEl.scrollTop = 0;
+            updateReaderPageIndicator();
+        }
+        function changeReaderChapter(delta) {
+            if (typeof window.currentChapterIndex === "undefined") window.currentChapterIndex = 0;
+            showReaderPage(window.currentChapterIndex + delta);
+            const sections = getReaderSections();
+            showToast("Page " + (window.currentChapterIndex + 1) + " of " + sections.length);
+        }
+        function filterByKeyword(kw) {
+            const input = document.getElementById("repoSearchInput");
+            if (input) input.value = kw;
+            switchTab("tabRepo");
+            runFilters();
+            showToast("Filtering by keyword: " + kw);
+        }
+        // Core State
+        
+        let currentSortColumn = 'year';
+        let currentSortDirection = 'desc';
+let allDocuments = [];
+        let filteredDocuments = [];
+        let currentActiveDoc = null;
+        let selectedDocIds = new Set();
+        let currentDensity = "comfortable";
+        let currentPage = 1;
+        const pageSize = 50;
+        let debounceTimer = null;
+        let activeCategoryFilter = "ALL";
+        let chartsInitialized = false;
+        let readerZoomLevel = 100;
+        let isHighContrast = false;
+        let faqsExpanded = false;
+        // Initialize Application
+        document.addEventListener("DOMContentLoaded", function() {
+            // Load dataset
+            if (window.CPPR_DOCUMENTS && window.CPPR_DOCUMENTS.length) {
+                allDocuments = window.CPPR_DOCUMENTS;
+            } else if (window.EMBEDDED_DOCUMENTS_FALLBACK && window.EMBEDDED_DOCUMENTS_FALLBACK.length) {
+                allDocuments = window.EMBEDDED_DOCUMENTS_FALLBACK;
+            } else {
+                console.warn("No document data found.");
+                allDocuments = [];
+            }
+            document.getElementById("headerTotalBadge").innerText = allDocuments.length.toLocaleString();
+            populateSectorDropdown();
+            runFilters();
+            renderFAQs();
+            renderGlossary();
+            changeLineageRoot("KP-LGA-2013");
+populateReaderDropdown();
+            // Initialize reader: show only first page
+            setTimeout(showReaderPage, 50, 0);
+            // Sync dark mode button icon to current state
+            (function() {
+                const isDark = document.documentElement.classList.contains('dark');
+                const btn = document.getElementById('darkModeBtn');
+                if (btn) {
+                    const icon = btn.querySelector('.material-symbols-outlined');
+                    if (icon) icon.innerText = isDark ? 'light_mode' : 'dark_mode';
+                    btn.title = isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+                }
+            })();
+            if (allDocuments.length > 0) {
+                currentActiveDoc = allDocuments[0];
+            }
+            loadReaderDocumentFromSelector("default");
+            updateReaderPageIndicator();
+            switchTab("tabRepo");
+        });
+
         // -------------------------------------------------------------
         // TAB SWITCHING
         // -------------------------------------------------------------

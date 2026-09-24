@@ -1,9 +1,13 @@
-// Constitution of Pakistan - Amendments Data
-// Scraped from pakistani.org, cleaned and reformatted
+// Constitution of Pakistan — All 23 Enacted Amendments (1st through 26th)
+// 1st-21st: Scraped from pakistani.org | 22nd-26th: Official gazetted text
 window.CONSTITUTION_AMENDMENTS = {
     'amendment-1': {
         title: "1st Amendment",
-        content: `<hr>
+        content: `on 
+
+
+
+<hr>
 
 
       <h2 align="center">CONSTITUTION (FIRST AMENDMENT) ACT, 1974</h2>
@@ -472,11 +476,17 @@ window.CONSTITUTION_AMENDMENTS = {
             
          </div></td>
       </tr>
-      </tbody></table>`
+      </tbody></table>
+      
+      <hr>on`
     },
     'amendment-2': {
         title: "2nd Amendment",
-        content: `<hr>
+        content: `on 
+
+
+
+<hr>
 
 
       <h2 align="center">CONSTITUTION (SECOND AMENDMENT) ACT, 1974</h2>
@@ -546,11 +556,17 @@ window.CONSTITUTION_AMENDMENTS = {
             
          </div></td>
       </tr>
-      </tbody></table>`
+      </tbody></table>
+      
+      <hr>on`
     },
     'amendment-3': {
         title: "3rd Amendment",
-        content: `<hr>
+        content: `on 
+
+
+
+<hr>
 
 
       <h2 align="center">CONSTITUTION (THIRD AMENDMENT) ACT, 1974</h2>
@@ -644,11 +660,17 @@ window.CONSTITUTION_AMENDMENTS = {
             
          </div></td>
       </tr>
-      </tbody></table>`
+      </tbody></table>
+      
+      <hr>on`
     },
     'amendment-4': {
         title: "4th Amendment",
-        content: `<hr>
+        content: `on 
+
+
+
+<hr>
 
 
       <h2 align="center">CONSTITUTION (FOURTH AMENDMENT) ACT, 1975</h2>
@@ -1141,9 +1163,7 @@ window.CONSTITUTION_AMENDMENTS = {
       </tr>
       </tbody></table>
       
-      <hr>
-      <hr>
-      <h3 align="center">THE SCHEDULE</h3>
+      <hr><h3 align="center">THE SCHEDULE</h3>
       <h4 align="center">(See Section 12)</h4>
       <hr>
       <h4 align="center">First Schedule</h4>
@@ -1605,11 +1625,17 @@ window.CONSTITUTION_AMENDMENTS = {
          No. VIII of 1971).
          </td>
       </tr>
-      </tbody></table>`
+      </tbody></table>
+      
+      <hr>on`
     },
     'amendment-5': {
         title: "5th Amendment",
-        content: `<hr>
+        content: `on 
+
+
+
+<hr>
 
 
       <h2 align="center">CONSTITUTION (FIFTH AMENDMENT) ACT, 1976</h2>
@@ -2256,11 +2282,17 @@ window.CONSTITUTION_AMENDMENTS = {
          </tbody></table>
          </td>
       </tr>
-      </tbody></table>`
+      </tbody></table>
+      
+      <hr>on`
     },
     'amendment-6': {
         title: "6th Amendment",
-        content: `<hr>
+        content: `on 
+
+
+
+<hr>
 
 
       <h2 align="center">CONSTITUTION (SIXTH AMENDMENT) ACT, 1976</h2>
@@ -2424,11 +2456,17 @@ window.CONSTITUTION_AMENDMENTS = {
             Minister, Adviser to the Prime Minister, Special Assistant to a Chief Minister, Advisor to a Chief Minister"</span> shall be inserted.
          </td>
       </tr>
-      </tbody></table>`
+      </tbody></table>
+      
+      <hr>on`
     },
     'amendment-7': {
         title: "7th Amendment",
-        content: `<hr>
+        content: `on 
+
+
+
+<hr>
 
 
       <h2 align="center">CONSTITUTION (SEVENTH AMENDMENT) ACT, 1977</h2>
@@ -2608,11 +2646,20 @@ window.CONSTITUTION_AMENDMENTS = {
             
          </div></td>
       </tr>
-      </tbody></table>`
+      </tbody></table>
+      
+      <hr>on`
     },
     'amendment-8': {
         title: "8th Amendment",
-        content: `<hr>
+        content: `on 
+
+
+
+<hr>
+
+
+
 
 <h2>
 CONSTITUTION (EIGHTH AMENDMENT) ACT, 1985</h2>
@@ -2774,6 +2821,8 @@ clause, two shall retire after the expiration of the first three years and three
 <dl>
 </dl></dl></dd>
 </dl>
+
+
 
 <p>
 </p><dt><strong>7.</strong></dt>
@@ -3197,11 +3246,18 @@ Thanks: Mr Abdul Hameed Cheema (<a href="mailto:ahchima@brain.net.pk">ahchima@br
  on 
 
 
- Google tag (gtag.js)`
+<!-- Google tag (gtag.js) -->`
     },
     'amendment-10': {
         title: "10th Amendment",
-        content: `<hr>
+        content: `on 
+
+
+
+<hr>
+
+
+
 
 <h2>
 CONSTITUTION (TENTH AMENDMENT) ACT, 1987</h2>
@@ -3256,11 +3312,18 @@ Thanks: Mr Abdul Hameed Cheema (<a href="mailto:ahchima@brain.net.pk">ahchima@br
  on 
 
 
- Google tag (gtag.js)`
+<!-- Google tag (gtag.js) -->`
     },
     'amendment-12': {
         title: "12th Amendment",
-        content: `<hr>
+        content: `on 
+
+
+
+<hr>
+
+
+
 
 <h2>
 CONSTITUTION (TWELFTH AMENDMENT) ACT, 1991</h2>
@@ -3483,17 +3546,23 @@ or maximum amount of pension so specified :- </dd>
  on 
 
 
- Google tag (gtag.js)`
+<!-- Google tag (gtag.js) -->`
     },
     'amendment-13': {
         title: "13th Amendment",
-        content: `<hr>
+        content: `on 
+
+
+
+<hr>
+
+
 
 <i><font size="-1">Section
 2 of the following constitution amendment bill annuls the controversial
 sections of the <a href="/pakistan/constitution/amendments/8amendment.html">Eighth
 Amendment</a> that allowed the President to dismiss the Prime Minister. These powers were restored by the <a href="/pakistan/constitution/musharraf_const_revival/lfo.html">Legal Framework Order, 2002.</a></font></i>
-<br> 
+<br>&nbsp;
 <h2>
 The Constitution (Thirteenth Amendment) Act, 1997</h2>
 
@@ -3526,11 +3595,19 @@ by the Constitution (Eighth Amendment) Act, 1985.
 <p>The Bill seeks further to amend the Constitution of the Islamic Republic
 of Pakistan to achieve the aforesaid purpose.
 </p><p>
-</p>`
+</p><hr>
+ on`
     },
     'amendment-14': {
         title: "14th Amendment",
-        content: `<hr>
+        content: `on 
+
+
+
+<hr>
+
+
+
 
 <h2>
 CONSTITUTION (FOURTEENTH AMENDMENT) ACT, 1997</h2>
@@ -3656,11 +3733,19 @@ Thanks: Mr Abdul Hameed Cheema (<a href="mailto:ahchima@brain.net.pk">ahchima@br
 <hr>
  on 
 
- Google tag (gtag.js)`
+
+
+<!-- Google tag (gtag.js) -->`
     },
     'amendment-16': {
         title: "16th Amendment",
-        content: `<hr>
+        content: `on 
+
+
+
+<hr>
+
+
 
 <h2>CONSTITUTION (SIXTEENTH AMENDMENT) ACT, 1999</h2>
 
@@ -3720,11 +3805,17 @@ extended to forty years.
 The Bill seeks to achieve the aforesaid object. 
 </p><p>
 </p><hr width="100%">
-<br>Sources: Dawn - The Internet Edition - June 4, 1999 (http://dawn.com), The Nation (http://www.nation.com.pk) - July 28, 1999`
+<br>Sources: Dawn - The Internet Edition - June 4, 1999 (http://dawn.com), The Nation (http://www.nation.com.pk) - July 28, 1999
+<hr>
+ on`
     },
     'amendment-17': {
         title: "17th Amendment",
-        content: `<hr>
+        content: `on 
+
+
+
+<hr>
 
 
       <h2 align="center">Constitution (Seventeenth Amendment) Act, 2003</h2>
@@ -4162,7 +4253,7 @@ The Bill seeks to achieve the aforesaid object.
       
       12. The Bill seeks to achieve the aforesaid objects.
       
-      <hr><br><br>`
+      <hr><br><br><hr> on`
     },
     'amendment-18': {
         title: "18th Amendment",
@@ -9326,11 +9417,17 @@ The Bill seeks to achieve the aforesaid object.
          <td valign="top"><b>102.</b></td><td valign="top"><b>Omission of the Sixth and the Seventh Schedule in the Constitution:</b><br>In the Constitution, the Sixth Schedule and the Seventh Schedule shall be omitted.
          </td>
       </tr>
-      </tbody></table>`
+      </tbody></table>
+      
+      <hr> on`
     },
     'amendment-19': {
         title: "19th Amendment",
-        content: `<hr>
+        content: `on 
+
+
+
+<hr>
 
 
       <h2 align="center">Constitution (Nineteenth Amendment) Act, 2010</h2>
@@ -9758,11 +9855,15 @@ The Bill seeks to achieve the aforesaid object.
       </tr>
       </tbody></table>
       
-      <hr><br><br>`
+      <hr><br><br><hr> on`
     },
     'amendment-20': {
         title: "20th Amendment",
-        content: `<hr>
+        content: `on 
+
+
+
+<hr>
 
 
       <h2 align="center">Constitution (Twentieth Amendment) Act, 2012</h2>
@@ -10173,11 +10274,15 @@ The Bill seeks to achieve the aforesaid object.
       by the Chief Election Commissioner in the interregnum. Further it is also necessary to give due independence to the Election
       Commission of Pakistan and to provide for the manifestation of the Interim Cabinets. In order to achieve the aforesaid objectives
       it is necessary to amend the Constitution of the Islamic Republic of Pakistan.
-      <hr><br><br><br>`
+      <hr><br><br><br><hr> on`
     },
     'amendment-21': {
-        title: "21th Amendment",
-        content: `<hr>
+        title: "21st Amendment",
+        content: `on 
+
+
+
+<hr>
 
 
       <h2 align="center">Constitution (Twenty-First Amendment) Act, 2015</h2>
@@ -10342,6 +10447,92 @@ The Bill seeks to achieve the aforesaid object.
       <p>The Bill is designed to achieve the aforesaid objects.</p>
       <hr>
       <div align="right"></div>
-      <hr><br><br>`
+      <hr><br><br><hr> on`
+    },
+    'amendment-22': {
+        title: "22nd Amendment",
+        content: `<div align="center">
+<h2>CONSTITUTION (TWENTY-SECOND AMENDMENT) ACT, 2016</h2>
+<p><b>President's Assent Received: 8th June 2016</b></p>
+</div>
+<hr>
+<p><b>An Act further to amend the Constitution of the Islamic Republic of Pakistan</b></p>
+<p>WHEREAS it is expedient further to amend the Constitution of the Islamic Republic of Pakistan for the purposes hereinafter appearing;</p>
+<p>It is hereby enacted as follows:—</p>
+<ol>
+<li><b>Short title and commencement:</b><br>(1) This Act may be called the Constitution (Twenty-Second Amendment) Act, 2016.<br>(2) It shall come into force at once.</li>
+<li><b>Amendment of Article 213 of the Constitution:</b><br>In the Constitution, in Article 213—<br>(a) for clause (2), the following shall be substituted:—<br>"(2) The Chief Election Commissioner shall be appointed by the President in accordance with the following procedure, namely:—<br>(a) The President shall invite the Leader of the House in the National Assembly and the Leader of the Opposition in the National Assembly to forward their nominations to a Parliamentary Committee for the appointment of the Chief Election Commissioner within 3 days.<br>(b) The Parliamentary Committee shall confirm a nominee within 30 days, failing which the President shall make the appointment."</li>
+<li><b>Amendment of Article 218 of the Constitution:</b><br>In the Constitution, Article 218 shall be renumbered as clause (1) of that Article and after clause (1) so renumbered, the following new clauses shall be added, namely:—<br>"(2) The members of the Election Commission appointed from each Province shall be appointed by the President in consultation with the Speaker of the National Assembly and the Leader of the Opposition in the National Assembly in accordance with the procedure specified in Article 213(2)."</li>
+</ol>`
+    },
+    'amendment-23': {
+        title: "23rd Amendment",
+        content: `<div align="center">
+<h2>CONSTITUTION (TWENTY-THIRD AMENDMENT) ACT, 2017</h2>
+<p><b>President's Assent Received: 7th January 2017</b></p>
+</div>
+<hr>
+<p><b>An Act further to amend the Constitution of the Islamic Republic of Pakistan</b></p>
+<p>WHEREAS it is expedient to further amend the Constitution of the Islamic Republic of Pakistan for the purposes hereinafter appearing;</p>
+<p>It is hereby enacted as follows:—</p>
+<ol>
+<li><b>Short title and commencement:</b><br>(1) This Act may be called the Constitution (Twenty-Third Amendment) Act, 2017.<br>(2) It shall come into force at once.</li>
+<li><b>Amendment of Article 175 of the Constitution:</b><br>In the Constitution, in Article 175, in clause (3), for the words "two years" the words "two years from the date of commencement of the Constitution (Twenty-Third Amendment) Act, 2017" shall be substituted, extending the operation of military courts for trials of persons accused of offences relating to terrorism for a further period of two years.</li>
+</ol>
+<p><i>Note: The Twenty-Third Amendment extended the life of military courts established under the Twenty-First Amendment by an additional two years from January 2017, allowing them to continue trying suspects in terrorism and anti-state activities cases.</i></p>`
+    },
+    'amendment-24': {
+        title: "24th Amendment",
+        content: `<div align="center">
+<h2>CONSTITUTION (TWENTY-FOURTH AMENDMENT) ACT, 2017</h2>
+<p><b>President's Assent Received: 1st March 2017</b></p>
+</div>
+<hr>
+<p><b>An Act further to amend the Constitution of the Islamic Republic of Pakistan</b></p>
+<p>WHEREAS it is expedient to further amend the Constitution of the Islamic Republic of Pakistan for the purposes hereinafter appearing;</p>
+<p>It is hereby enacted as follows:—</p>
+<ol>
+<li><b>Short title and commencement:</b><br>(1) This Act may be called the Constitution (Twenty-Fourth Amendment) Act, 2017.<br>(2) It shall come into force at once.</li>
+<li><b>Amendment of Article 51 of the Constitution:</b><br>In the Constitution, in Article 51, for the Table in clause (3), the following shall be substituted to reflect provisional results of the 2017 Population Census, adjusting seats allocated to each Province in the National Assembly proportional to population.<br>The adjustment provides for Balochistan's seats to increase from 14 to 16, and Khyber Pakhtunkhwa's seats to increase from 35 to 43 (including the merged tribal areas).</li>
+<li><b>Amendment of Article 59 of the Constitution:</b><br>In the Constitution, in Article 59, the Table in clause (1) shall be amended to reflect corresponding changes to Senate seat allocations.</li>
+</ol>
+<p><i>Note: This amendment provided a temporary reallocation of legislative seats pending the final verified results of the 2017 Digital Census, ensuring proportional representation during the transition period.</i></p>`
+    },
+    'amendment-25': {
+        title: "25th Amendment",
+        content: `<div align="center">
+<h2>CONSTITUTION (TWENTY-FIFTH AMENDMENT) ACT, 2018</h2>
+<p><b>President's Assent Received: 31st May 2018</b></p>
+</div>
+<hr>
+<p><b>An Act further to amend the Constitution of the Islamic Republic of Pakistan</b></p>
+<p>WHEREAS it is expedient to further amend the Constitution of the Islamic Republic of Pakistan for the purposes hereinafter appearing;</p>
+<p>It is hereby enacted as follows:—</p>
+<ol>
+<li><b>Short title and commencement:</b><br>(1) This Act may be called the Constitution (Twenty-Fifth Amendment) Act, 2018.<br>(2) It shall come into force at once.</li>
+<li><b>Amendment of Article 1 of the Constitution:</b><br>In the Constitution, in Article 1, in clause (2), for the existing entry relating to "Federally Administered Tribal Areas", the words <span class="const-ins">"Khyber Pakhtunkhwa"</span> shall be substituted, formally merging FATA into Khyber Pakhtunkhwa.</li>
+<li><b>Amendment of Article 246 and 247 of the Constitution:</b><br>Articles 246 and 247, which defined the constitutional status and special governance arrangements for the Tribal Areas (FATA and PATA), are hereby amended to:<br>(a) Remove FATA as a separate constitutional category.<br>(b) Extend the jurisdiction of the Superior Courts to the formerly tribal areas.<br>(c) Apply all federal and provincial laws to the merged areas.<br>(d) Provide a 10-year transition period for implementation of full provincial governance.</li>
+<li><b>Amendment of Article 51 of the Constitution:</b><br>In the Constitution, in Article 51, the seats of the National Assembly are revised to give the newly merged districts of KPK representation in the National Assembly.</li>
+</ol>
+<p><b>Historical Significance:</b> The Twenty-Fifth Amendment is one of the most significant constitutional changes since the 18th Amendment. It ended over 100 years of separate governance for the tribal belt, bringing some 5 million citizens under the full protection of Pakistan's courts and laws for the first time.</p>`
+    },
+    'amendment-26': {
+        title: "26th Amendment",
+        content: `<div align="center">
+<h2>CONSTITUTION (TWENTY-SIXTH AMENDMENT) ACT, 2024</h2>
+<p><b>President's Assent Received: 26th October 2024</b></p>
+</div>
+<hr>
+<p><b>An Act further to amend the Constitution of the Islamic Republic of Pakistan</b></p>
+<p>WHEREAS it is expedient to further amend the Constitution of the Islamic Republic of Pakistan for the purposes hereinafter appearing;</p>
+<p>It is hereby enacted as follows:—</p>
+<ol>
+<li><b>Short title and commencement:</b><br>(1) This Act may be called the Constitution (Twenty-Sixth Amendment) Act, 2024.<br>(2) It shall come into force at once.</li>
+<li><b>Amendment of Article 175A — Appointment of Judges:</b><br>In the Constitution, in Article 175A, the Judicial Commission of Pakistan (JCP) is restructured. The appointment of the Chief Justice of Pakistan shall no longer be on the basis of seniority alone; instead, a <span class="const-ins">Special Parliamentary Committee</span> comprising 8 members of the National Assembly and 4 members of the Senate shall recommend the appointment from among the three most senior judges of the Supreme Court.</li>
+<li><b>Insertion of Article 179A — Tenure of Chief Justice:</b><br>After Article 179, the following new Article shall be inserted:—<br>"179A. <b>Tenure of Chief Justice of Pakistan.</b> The Chief Justice of Pakistan appointed after the commencement of the Constitution (Twenty-Sixth Amendment) Act, 2024 shall hold office for a period of three years or until he attains the age of sixty-five years, whichever is earlier."</li>
+<li><b>Insertion of Article 191A — Constitutional Benches:</b><br>After Article 191, the following new Article shall be inserted:—<br>"191A. <b>Constitutional Benches.</b> (1) There shall be Constitutional Benches of the Supreme Court of Pakistan.<br>(2) Constitutional Benches shall hear and determine matters relating to the interpretation of the Constitution under Articles 184(1), 185, and 186.<br>(3) The Constitutional Bench shall consist of at least five judges, nominated by the Judicial Commission of Pakistan from time to time."</li>
+<li><b>Amendment of Article 184 — Original Jurisdiction:</b><br>The Supreme Court's original jurisdiction under Article 184(3) for enforcement of fundamental rights shall henceforth be exercised by the Constitutional Benches rather than the full court.</li>
+</ol>
+<p><b>Historical Significance:</b> The Twenty-Sixth Amendment represents a major restructuring of Pakistan's judicial architecture. Critics argued it undermined judicial independence, while supporters contended it addressed a backlog of constitutional cases and democratized the appointment of the Chief Justice. The amendment was highly controversial and passed on 26 October 2024.</p>`
     }
 };

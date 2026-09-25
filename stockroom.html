@@ -137,9 +137,16 @@
         /* Table Row Hover Effects */
         .repo-row { transition: all 0.15s ease; }
         .repo-row:hover { 
-            background-color: rgba(26, 35, 126, 0.04) !important; 
+            background-color: rgba(26, 35, 126, 0.06) !important; 
             transform: translateX(2px);
             box-shadow: inset 3px 0 0 #1a237e;
+        }
+        .repo-row.row-selected { 
+            background-color: rgba(26, 35, 126, 0.12) !important;
+            box-shadow: inset 3px 0 0 #002046;
+        }
+        .repo-row.row-selected:hover {
+            background-color: rgba(26, 35, 126, 0.16) !important;
         }
         /* Card Hover Lift */
         .hover-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
@@ -169,7 +176,24 @@
       html, body { scroll-behavior: smooth; }
   .portal-tab { scroll-behavior: smooth; }
 
-/* ─────────────────────────────────────────────────────────────
+/* T5-3: Constitution content pane typography */
+        .const-content table { border-collapse: collapse; width: 100%; font-size: 0.85em; margin: 0.75rem 0; }
+        .const-content td, .const-content th { padding: 4px 8px; vertical-align: top; }
+        .const-content h2, .const-content h3 { font-weight: 700; margin: 1rem 0 0.5rem; color: inherit; }
+        .const-content p { margin: 0.5rem 0; line-height: 1.65; }
+        .const-content ol, .const-content ul { padding-left: 1.5rem; margin: 0.5rem 0; }
+        .const-content li { margin: 0.25rem 0; }
+        .const-content hr { margin: 0.75rem 0; opacity: 0.3; }
+        .const-part-heading { font-size: 0.875rem; font-weight: 800; font-family: 'JetBrains Mono', monospace; color: #002046; background: #f0f4ff; padding: 6px 10px; border-left: 3px solid #002046; margin: 1rem 0 0.5rem; border-radius: 0 4px 4px 0; }
+        html.dark .const-part-heading { color: #87a0cd; background: #1a2540; border-left-color: #87a0cd; }
+        .const-part-divider { border-color: #e2e8f0; margin: 1rem 0; }
+        html.dark .const-part-divider { border-color: #2d3748; }
+        /* Search highlight */
+        .const-search-highlight { background: #fef08a; color: #000; border-radius: 2px; }
+        .const-search-highlight.current { background: #f97316; color: #fff; }
+        /* In-doc search highlight for repo */
+        .search-keyword-highlight { background: #fef08a; color: #000; border-radius: 2px; padding: 0 1px; }
+        /* ─────────────────────────────────────────────────────────────
    DARK MODE — full-app override via html.dark class
    ───────────────────────────────────────────────────────────── */
 html.dark { color-scheme: dark; }
@@ -451,6 +475,7 @@ button:focus-visible { outline: 2px solid #7eb3f5; outline-offset: 2px; }
         </style>
     <script src="documents_data.js"></script>
     <script src="constitution_data.js"></script>
+    <script src="constitution_full.js"></script>
 </head>
 <body class="bg-background text-on-background min-h-screen flex flex-col font-body antialiased overflow-y-auto select-text">
     <header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-4 md:px-8 h-16 bg-primary text-on-primary border-b border-outline-variant shadow-md">
@@ -464,7 +489,7 @@ button:focus-visible { outline: 2px solid #7eb3f5; outline-offset: 2px; }
                     <span class="font-mono text-[10px] text-on-primary-container tracking-wider uppercase hidden sm:block">Policy Stockroom Platform</span>
                 </div>
             </div>
-            <nav class="hidden md:flex items-center gap-1 h-16 pl-2 lg:pl-4 border-l border-on-primary-container/20 overflow-x-auto no-scrollbar">
+            <nav class="hidden md:flex items-center gap-1 h-16 pl-2 lg:pl-4 border-l border-on-primary-container/20 overflow-x-auto scrollbar-none" style="mask-image: linear-gradient(to right, black calc(100% - 32px), transparent 100%); -webkit-mask-image: linear-gradient(to right, black calc(100% - 32px), transparent 100%);">
                 <button onclick="switchTab('tabRepo')" id="nav-tabRepo" class="nav-btn px-3 py-2 rounded font-mono text-xs font-semibold text-on-primary bg-primary-container border-b-2 border-secondary-fixed flex items-center gap-1.5 transition-colors">
                     <span class="material-symbols-outlined text-sm">inventory_2</span>
                     Repository
@@ -560,6 +585,22 @@ button:focus-visible { outline: 2px solid #7eb3f5; outline-offset: 2px; }
                         <option value="1947">Post-Independence Era (1947–1972) [70]</option>
                         <option value="Pre-1947">Pre-Partition Era (Pre-1947) [29]</option>
                     </select>
+                    <!-- T2: Year range filter -->
+                    <div class="hidden sm:flex items-center gap-1 flex-shrink-0">
+                        <input id="yearFrom" type="number" placeholder="Year ≥" min="1947" max="2026" oninput="debounceRunFilters()" class="w-20 h-7 px-2 font-mono text-[11px] border border-outline-variant rounded bg-surface-container-low text-on-surface focus:outline-none focus:border-primary">
+                        <span class="font-mono text-[10px] text-on-surface-variant">–</span>
+                        <input id="yearTo" type="number" placeholder="Year ≤" min="1947" max="2026" oninput="debounceRunFilters()" class="w-20 h-7 px-2 font-mono text-[11px] border border-outline-variant rounded bg-surface-container-low text-on-surface focus:outline-none focus:border-primary">
+                    </div>
+                    <!-- T2: Status filter pills -->
+                    <div class="hidden md:flex items-center gap-1 flex-shrink-0 border-l border-outline-variant pl-2">
+                        <button id="statusPillAll" onclick="setStatusFilter('ALL')" class="status-pill px-2 py-0.5 rounded-full font-mono text-[10px] font-bold bg-primary text-white border border-primary transition-all">All</button>
+                        <button id="statusPillActive" onclick="setStatusFilter('ACTIVE')" class="status-pill px-2 py-0.5 rounded-full font-mono text-[10px] font-bold border border-outline-variant text-on-surface-variant hover:border-green-500/60 hover:text-green-700 transition-all">Active</button>
+                        <button id="statusPillAmended" onclick="setStatusFilter('AMENDED')" class="status-pill px-2 py-0.5 rounded-full font-mono text-[10px] font-bold border border-outline-variant text-on-surface-variant hover:border-amber-500/60 hover:text-amber-700 transition-all">Amended</button>
+                    </div>
+                    <!-- T2: Clear All Filters -->
+                    <button onclick="clearAllFilters()" title="Clear all filters" class="hidden sm:flex items-center gap-1 px-2 py-1 rounded font-mono text-[10px] text-on-surface-variant hover:text-primary hover:bg-primary-container/30 border border-transparent hover:border-primary/20 transition-all shrink-0">
+                        <span class="material-symbols-outlined text-[13px]">filter_alt_off</span>Clear
+                    </button>
                 </div>
                 <div class="flex items-center gap-3 shrink-0">
                     <span id="filteredCountLabel" class="font-mono text-xs text-on-surface-variant font-medium">1,374 of 1,374 shown</span>
@@ -594,7 +635,21 @@ button:focus-visible { outline: 2px solid #7eb3f5; outline-offset: 2px; }
                         </div>
                         <div class="text-right flex items-center justify-end">Action</div>
                     </div>
+                    <!-- T4: Recently Viewed Strip -->
+                    <div id="recentlyViewedStrip" class="hidden flex-shrink-0 flex items-center gap-2 px-4 py-1.5 bg-primary-container/10 border-b border-outline-variant overflow-x-auto no-scrollbar">
+                        <span class="material-symbols-outlined text-[14px] text-on-surface-variant shrink-0">history</span>
+                        <span class="font-mono text-[10px] text-on-surface-variant uppercase tracking-wider shrink-0">Recent:</span>
+                        <div id="recentlyViewedChips" class="flex gap-1.5 items-center"></div>
+                    </div>
                     <div id="repoTableBody" class="flex-1 overflow-y-auto divide-y divide-outline-variant/60">
+                        <!-- T2: Empty state (shown when no results) -->
+                        <div id="repoEmptyState" class="hidden py-16 text-center">
+                            <div class="flex flex-col items-center gap-3">
+                                <span class="material-symbols-outlined text-4xl text-on-surface-variant/40">search_off</span>
+                                <p class="font-headline font-semibold text-on-surface-variant">No instruments match your filters</p>
+                                <p class="font-body text-sm text-on-surface-variant/70">Try widening the search or <button onclick="clearAllFilters()" class="underline text-primary hover:text-primary/80">clear all filters</button></p>
+                            </div>
+                        </div>
                     </div>
                     <div class="h-11 bg-surface-container-low border-t border-outline-variant px-4 flex items-center justify-between text-xs font-mono text-on-surface-variant shrink-0">
                         <div class="flex items-center gap-2">
@@ -1149,7 +1204,7 @@ button:focus-visible { outline: 2px solid #7eb3f5; outline-offset: 2px; }
                         Constitution of Pakistan — Amendments Archive
                     </h2>
                     <p class="font-body text-xs text-on-surface-variant">
-                        All 23 enacted amendments (1974 – 2015) with native parliamentary diff markings. <span class="inline-flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-sm bg-[#dc2626] inline-block"></span><span class="font-mono text-[10px]">Deleted / Repealed</span></span>&nbsp;&nbsp;<span class="inline-flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-sm bg-[#16a34a] inline-block"></span><span class="font-mono text-[10px]">Inserted / Substituted</span></span>
+                        All 23 enacted amendments (1974 – 2024) with native parliamentary diff markings. <span class="inline-flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-sm bg-[#dc2626] inline-block"></span><span class="font-mono text-[10px]">Deleted / Repealed</span></span>&nbsp;&nbsp;<span class="inline-flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-sm bg-[#16a34a] inline-block"></span><span class="font-mono text-[10px]">Inserted / Substituted</span></span>
                     </p>
                 </div>
                 <div class="flex items-center gap-2">
@@ -1167,8 +1222,27 @@ button:focus-visible { outline: 2px solid #7eb3f5; outline-offset: 2px; }
                     <div class="px-3 pt-3 pb-2 border-b border-outline-variant">
                         <p class="font-mono text-[10px] uppercase font-bold text-on-surface-variant tracking-widest">Amendments</p>
                         <p class="font-mono text-[10px] text-on-surface-variant mt-0.5">23 enacted · click to view</p>
+                        <!-- T3-2: Decade jump bar -->
+                        <div class="flex gap-1 mt-2 flex-wrap">
+                            <button onclick="constJumpDecade('1970')" class="px-1.5 py-0.5 font-mono text-[9px] rounded border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-colors">70s</button>
+                            <button onclick="constJumpDecade('1980')" class="px-1.5 py-0.5 font-mono text-[9px] rounded border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-colors">80s</button>
+                            <button onclick="constJumpDecade('1990')" class="px-1.5 py-0.5 font-mono text-[9px] rounded border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-colors">90s</button>
+                            <button onclick="constJumpDecade('2000')" class="px-1.5 py-0.5 font-mono text-[9px] rounded border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-colors">2000s</button>
+                            <button onclick="constJumpDecade('2010')" class="px-1.5 py-0.5 font-mono text-[9px] rounded border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-colors">2010s</button>
+                            <button onclick="constJumpDecade('2020')" class="px-1.5 py-0.5 font-mono text-[9px] rounded border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-colors">2020s</button>
+                        </div>
                     </div>
                     <div class="flex-1 overflow-y-auto p-2 space-y-0.5" id="constAmendSidebar">
+                        <!-- T3-3: Full Constitution text entry -->
+                        <button id="const-btn-constitution-full" onclick="loadFullConstitution()"
+                            class="const-amend-btn w-full text-left px-3 py-2.5 rounded-lg border border-primary/30 bg-primary-container/20 hover:bg-primary-container/40 transition-all group flex items-start gap-2.5 mb-1">
+                            <span class="mt-0.5 material-symbols-outlined text-[12px] text-primary shrink-0">gavel</span>
+                            <div class="min-w-0">
+                                <div class="font-mono text-xs font-bold text-primary truncate">Full Constitution</div>
+                                <div class="font-mono text-[10px] text-on-surface-variant">All 280 Articles · 1973</div>
+                            </div>
+                        </button>
+                        <div class="w-full h-px bg-outline-variant/50 my-1"></div>
                         <button onclick="changeConstitutionAmendment('amendment-1')" id="const-btn-amendment-1"
                             class="const-amend-btn w-full text-left px-3 py-2.5 rounded-lg border border-transparent hover:border-outline-variant hover:bg-surface-container-low transition-all group flex items-start gap-2.5">
                             <span class="mt-0.5 w-1.5 h-1.5 rounded-full bg-outline-variant group-hover:bg-primary const-amend-dot shrink-0 transition-colors"></span>
@@ -1387,7 +1461,22 @@ button:focus-visible { outline: 2px solid #7eb3f5; outline-offset: 2px; }
                         </div>
                     </div>
                     <!-- Content area -->
-                    <div id="constContentOuter" class="hidden flex-1 overflow-y-auto">
+                    <div id="constContentOuter" class="hidden flex-1 overflow-y-auto flex flex-col">
+                        <!-- T3: In-document search bar (sticky inside content outer) -->
+                        <div class="shrink-0 flex items-center gap-2 px-4 py-1.5 border-b border-outline-variant bg-surface-container-lowest sticky top-0 z-10">
+                            <span class="material-symbols-outlined text-[14px] text-on-surface-variant">search</span>
+                            <input id="constInDocSearch" type="text" placeholder="Search within this amendment or Constitution…" oninput="searchInConstitution(this.value)"
+                                class="flex-1 min-w-0 text-xs font-mono bg-transparent border-none outline-none text-on-surface placeholder:text-on-surface-variant/50">
+                            <span id="constSearchCount" class="font-mono text-[10px] text-on-surface-variant hidden"></span>
+                            <button id="constSearchPrev" onclick="navigateConstSearch(-1)" class="text-on-surface-variant hover:text-primary hidden p-0.5 rounded hover:bg-primary-container/30">
+                                <span class="material-symbols-outlined text-[14px]">keyboard_arrow_up</span>
+                            </button>
+                            <button id="constSearchNext" onclick="navigateConstSearch(1)" class="text-on-surface-variant hover:text-primary hidden p-0.5 rounded hover:bg-primary-container/30">
+                                <span class="material-symbols-outlined text-[14px]">keyboard_arrow_down</span>
+                            </button>
+                            <button onclick="clearConstSearch()" class="text-on-surface-variant/60 hover:text-on-surface text-sm px-1 rounded hover:bg-surface-container">✕</button>
+                        </div>
+                        <div class="flex-1 overflow-y-auto">
                         <div class="max-w-4xl mx-auto px-6 py-8 md:px-10 md:py-10 font-body text-sm leading-loose" id="constitutionContentContainer">
                             <!-- Content injected here -->
                         </div>
@@ -1814,6 +1903,8 @@ function downloadDocPDF() {
                 // Scroll into view inside sidebar
                 activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
+            // T1-3: Scroll active amendment into view in sidebar
+            if (activeBtn) requestAnimationFrame(() => activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest' }));
 
             // Show/hide empty state vs content
             const emptyState = document.getElementById('constEmptyState');
@@ -1857,7 +1948,6 @@ function downloadDocPDF() {
 
         // Auto-load 18th amendment when Constitution tab is first activated
         let _constitutionTabInitialized = false;
-        const _origSwitchTab = typeof switchTab !== 'undefined' ? null : null;
 
                 // SETTINGS & DISPLAY CONTROLS
         // -------------------------------------------------------------
@@ -2018,7 +2108,7 @@ populateReaderDropdown();
             // Auto-load default amendment on first Constitution open
             if (tabId === 'tabConstitution' && !_constitutionTabInitialized) {
                 _constitutionTabInitialized = true;
-                setTimeout(() => changeConstitutionAmendment('amendment-18'), 50);
+                setTimeout(() => changeConstitutionAmendment('amendment-26'), 50);
             }
             document.querySelectorAll(".portal-tab").forEach(el => el.classList.remove("active"));
             const target = document.getElementById(tabId);
@@ -2122,10 +2212,40 @@ populateReaderDropdown();
             });
             runFilters();
         }
+        // T2: active status filter state
+        let activeStatusFilter = 'ALL';
+        function setStatusFilter(val) {
+            activeStatusFilter = val;
+            document.querySelectorAll('.status-pill').forEach(b => {
+                b.classList.remove('bg-primary','text-white','border-primary');
+                b.classList.add('border-outline-variant','text-on-surface-variant');
+            });
+            const active = document.getElementById('statusPill' + val.charAt(0) + val.slice(1).toLowerCase());
+            if (active) { active.classList.add('bg-primary','text-white','border-primary'); active.classList.remove('border-outline-variant','text-on-surface-variant'); }
+            currentPage = 1;
+            runFilters();
+        }
+        function clearAllFilters() {
+            const input = document.getElementById('repoSearchInput');
+            if (input) input.value = '';
+            document.getElementById('sectorSelect').value = '';
+            document.getElementById('eraSelect').value = '';
+            const yf = document.getElementById('yearFrom'); if (yf) yf.value = '';
+            const yt = document.getElementById('yearTo'); if (yt) yt.value = '';
+            setCategoryFilter('ALL');
+            activeStatusFilter = 'ALL';
+            document.querySelectorAll('.status-pill').forEach(b => { b.classList.remove('bg-primary','text-white','border-primary'); b.classList.add('border-outline-variant','text-on-surface-variant'); });
+            const allPill = document.getElementById('statusPillAll');
+            if (allPill) { allPill.classList.add('bg-primary','text-white','border-primary'); }
+            currentPage = 1;
+            runFilters();
+        }
         function runFilters() {
             const query = (document.getElementById("repoSearchInput")?.value || "").toLowerCase().trim();
             const sector = document.getElementById("sectorSelect")?.value || "";
             const era = document.getElementById("eraSelect")?.value || "";
+            const yearFrom = parseInt(document.getElementById("yearFrom")?.value || "0", 10) || 0;
+            const yearTo = parseInt(document.getElementById("yearTo")?.value || "9999", 10) || 9999;
             const clearBtn = document.getElementById("clearSearchBtn");
             if (clearBtn) clearBtn.style.display = query ? "block" : "none";
             filteredDocuments = allDocuments.filter(d => {
@@ -2144,6 +2264,18 @@ populateReaderDropdown();
                     if (era === "1947" && !t.includes("1947") && (y < 1947 || y > 1972)) return false;
                     if (era === "Pre-1947" && !t.includes("pre-1947") && y >= 1947) return false;
                 }
+                // T2: Year range filter
+                if (yearFrom > 0 || yearTo < 9999) {
+                    const y = parseInt(d.year, 10);
+                    if (y < yearFrom || y > yearTo) return false;
+                }
+                // T2: Status filter
+                if (activeStatusFilter === 'ACTIVE') {
+                    if (!(d.status || '').toLowerCase().includes('active')) return false;
+                }
+                if (activeStatusFilter === 'AMENDED') {
+                    if (!(d.status || '').toLowerCase().includes('amend')) return false;
+                }
                 // Search query match
                 if (query) {
                     const text = ((d.title || "") + " " + (d.authority || "") + " " + (d.summary || "") + " " + (d.sector || "") + " " + (d.tags ? d.tags.join(" ") : "")).toLowerCase();
@@ -2154,6 +2286,9 @@ populateReaderDropdown();
             sortDocuments(currentSortColumn, true);
             const countLabel = document.getElementById("filteredCountLabel");
             if (countLabel) countLabel.innerText = `${filteredDocuments.length.toLocaleString()} of ${allDocuments.length.toLocaleString()} shown`;
+            // T2: Toggle empty state
+            const emptyState = document.getElementById('repoEmptyState');
+            if (emptyState) emptyState.classList.toggle('hidden', filteredDocuments.length > 0);
         }
         function clearSearch() {
             const input = document.getElementById("repoSearchInput");
@@ -2189,7 +2324,7 @@ populateReaderDropdown();
                 const isSelected = selectedDocIds.has(doc.id);
                 const isActive = currentActiveDoc && currentActiveDoc.id === doc.id;
                 const padClass = currentDensity === "compact" ? "py-1.5" : "py-2.5";
-                row.className = `repo-row grid grid-cols-[2.5rem_1fr_9rem_5rem_6.5rem_5rem] gap-2 px-4 ${padClass} zebra-row border-b border-outline-variant/60 cursor-pointer transition-colors group ${isActive ? 'bg-primary/10 border-l-4 border-l-primary' : ''}`;
+                row.className = `repo-row grid grid-cols-[2.5rem_1fr_9rem_5rem_6.5rem_5rem] gap-2 px-4 ${padClass} zebra-row border-b border-outline-variant/60 cursor-pointer transition-colors group ${isActive ? 'row-selected bg-primary/10 border-l-4 border-l-primary' : ''}`;
                 let statusColor = "bg-[#166534] text-white";
                 if ((doc.status || "").toLowerCase().includes("amend")) statusColor = "bg-secondary text-white";
                 if ((doc.status || "").toLowerCase().includes("repeal")) statusColor = "bg-slate-600 text-white";
@@ -2223,10 +2358,27 @@ populateReaderDropdown();
         // -------------------------------------------------------------
         // INSPECTOR DRAWER
         // -------------------------------------------------------------
+        // T4: Recently Viewed tracking
+        let recentlyViewed = [];
+        function updateRecentlyViewed(doc) {
+            recentlyViewed = recentlyViewed.filter(d => d.id !== doc.id);
+            recentlyViewed.unshift(doc);
+            if (recentlyViewed.length > 5) recentlyViewed = recentlyViewed.slice(0, 5);
+            const strip = document.getElementById('recentlyViewedStrip');
+            const chips = document.getElementById('recentlyViewedChips');
+            if (!strip || !chips) return;
+            strip.style.display = 'flex';
+            chips.innerHTML = recentlyViewed.map(d => `<button onclick="selectDocById(${d.id})" class="shrink-0 px-2.5 py-0.5 rounded-full bg-surface border border-outline-variant font-mono text-[10px] text-on-surface-variant hover:border-primary hover:text-primary transition-all truncate max-w-[180px]" title="${d.title}">${d.title.substring(0,30)}${d.title.length>30?'…':''}</button>`).join('');
+        }
+        function selectDocById(id) {
+            const doc = allDocuments.find(d => d.id == id);
+            if (doc) selectDocument(doc);
+        }
         function selectDocument(doc) {
             currentActiveDoc = doc;
+            updateRecentlyViewed(doc);
             document.querySelectorAll("#repoTableBody > div").forEach(el => {
-                el.classList.remove("bg-primary/10", "border-l-4", "border-l-primary");
+                el.classList.remove("bg-primary/10", "border-l-4", "border-l-primary", "row-selected");
             });
             document.getElementById("inspTitle").innerText = doc.title;
             document.getElementById("inspSubtitle").innerText = `${doc.category || 'Statute'} — ${doc.authority || 'Government of Khyber Pakhtunkhwa'}`;
@@ -3149,7 +3301,14 @@ html.dark #densityComfortableBtn.bg-white, html.dark #densityCompactBtn.bg-white
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
-                        plugins: { legend: { position: 'right', labels: { boxWidth: 10, font: { size: 9 } } } }
+                        plugins: { legend: { position: 'right', labels: { boxWidth: 10, font: { size: 9 } } } },
+                        onClick: (e, activeElements) => {
+                            if (activeElements.length > 0) {
+                                const idx = activeElements[0].index;
+                                const fullSectorName = topSectors[idx][0];
+                                filterRepoForSector(fullSectorName);
+                            }
+                        }
                     }
                 });
             }
@@ -3974,6 +4133,182 @@ function toggleDarkMode() {
             toast.style.opacity = "1";
             setTimeout(() => { toast.style.opacity = "0"; }, 2500);
         }
+
+        // ═══════════════════════════════════════════════════════════════
+        // TIER 3-4: Constitution Tab Enhancement Functions
+        // ═══════════════════════════════════════════════════════════════
+
+        // T3: Decade jump in Constitution sidebar
+        function constJumpDecade(decade) {
+            const decadeYear = parseInt(decade);
+            // Find first amendment button whose year matches the decade
+            const allBtns = document.querySelectorAll('.const-amend-btn[id^="const-btn-amendment-"]');
+            for (const btn of allBtns) {
+                const yearEl = btn.querySelectorAll('.font-mono')[1];
+                if (yearEl) {
+                    const y = parseInt(yearEl.textContent.trim());
+                    if (y >= decadeYear && y < decadeYear + 10) {
+                        btn.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        btn.style.outline = '2px solid var(--color-primary, #002046)';
+                        setTimeout(() => btn.style.outline = '', 1500);
+                        return;
+                    }
+                }
+            }
+        }
+
+        // T3: In-document search within Constitution content pane
+        let _constSearchResults = [];
+        let _constSearchIdx = 0;
+        function searchInConstitution(query) {
+            const container = document.getElementById('constitutionContentContainer');
+            const countEl = document.getElementById('constSearchCount');
+            const prevBtn = document.getElementById('constSearchPrev');
+            const nextBtn = document.getElementById('constSearchNext');
+            if (!container) return;
+            // Remove old highlights
+            container.querySelectorAll('.const-search-highlight').forEach(el => {
+                el.outerHTML = el.textContent;
+            });
+            _constSearchResults = [];
+            _constSearchIdx = 0;
+            if (!query || query.length < 2) {
+                if (countEl) { countEl.textContent = ''; countEl.classList.add('hidden'); }
+                if (prevBtn) prevBtn.classList.add('hidden');
+                if (nextBtn) nextBtn.classList.add('hidden');
+                return;
+            }
+            // Highlight all text matches in the content
+            const walk = (node) => {
+                if (node.nodeType === 3) {
+                    const idx = node.textContent.toLowerCase().indexOf(query.toLowerCase());
+                    if (idx > -1) {
+                        const span = document.createElement('span');
+                        span.className = 'const-search-highlight';
+                        const range = document.createRange();
+                        range.setStart(node, idx);
+                        range.setEnd(node, idx + query.length);
+                        range.surroundContents(span);
+                        _constSearchResults.push(span);
+                    }
+                } else if (node.nodeType === 1 && !['SCRIPT','STYLE'].includes(node.tagName)) {
+                    [...node.childNodes].forEach(walk);
+                }
+            };
+            [...container.childNodes].forEach(walk);
+            if (countEl) {
+                countEl.textContent = `${_constSearchResults.length} match${_constSearchResults.length !== 1 ? 'es' : ''}`;
+                countEl.classList.toggle('hidden', _constSearchResults.length === 0);
+            }
+            if (prevBtn) prevBtn.classList.toggle('hidden', _constSearchResults.length === 0);
+            if (nextBtn) nextBtn.classList.toggle('hidden', _constSearchResults.length === 0);
+            if (_constSearchResults.length) navigateConstSearch(1);
+        }
+        function navigateConstSearch(dir) {
+            if (!_constSearchResults.length) return;
+            _constSearchResults[_constSearchIdx]?.classList.remove('current');
+            _constSearchIdx = (_constSearchIdx + dir + _constSearchResults.length) % _constSearchResults.length;
+            const cur = _constSearchResults[_constSearchIdx];
+            if (cur) {
+                cur.classList.add('current');
+                cur.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                const countEl = document.getElementById('constSearchCount');
+                if (countEl) countEl.textContent = `${_constSearchIdx + 1} / ${_constSearchResults.length}`;
+            }
+        }
+        function clearConstSearch() {
+            const input = document.getElementById('constInDocSearch');
+            if (input) { input.value = ''; searchInConstitution(''); }
+        }
+
+        // T4: Load Full Constitution text
+        function loadFullConstitution() {
+            const metaStrip = document.getElementById('constMetaStrip');
+            const contentOuter = document.getElementById('constContentOuter');
+            const container = document.getElementById('constitutionContentContainer');
+            const emptyState = document.getElementById('constEmptyState');
+            // Update sidebar active state
+            document.querySelectorAll('.const-amend-btn').forEach(b => {
+                b.classList.remove('bg-primary-container', 'text-on-primary-container', 'border-primary/30', 'bg-primary-container/40');
+            });
+            const fullBtn = document.getElementById('const-btn-constitution-full');
+            if (fullBtn) fullBtn.classList.add('bg-primary-container/40');
+            if (emptyState) emptyState.classList.add('hidden');
+            if (metaStrip) {
+                metaStrip.classList.remove('hidden');
+                const amendEl = document.getElementById('constMetaAmend');
+                const yearEl = document.getElementById('constMetaYear');
+                const artEl = document.getElementById('constMetaArticles');
+                const sigEl = document.getElementById('constMetaSig');
+                if (amendEl) amendEl.textContent = 'Full Constitution';
+                if (yearEl) yearEl.textContent = '1973';
+                if (artEl) artEl.textContent = 'Art. 1–280';
+                if (sigEl) sigEl.textContent = 'The Constitution of the Islamic Republic of Pakistan — adopted 10 April 1973';
+            }
+            if (contentOuter) contentOuter.classList.remove('hidden');
+            // Update header chip
+            const chip = document.getElementById('constActiveChip');
+            if (chip) chip.textContent = 'Full Constitution · 1973';
+            const artChip = document.getElementById('constActiveArticles');
+            if (artChip) artChip.textContent = 'Art. 1–280';
+            // Load full text
+            if (container) {
+                if (window.CONSTITUTION_FULL) {
+                    container.innerHTML = '<div class="const-content px-6 py-4">' + window.CONSTITUTION_FULL + '</div>';
+                } else {
+                    container.innerHTML = '<div class="p-8 text-center font-mono text-xs text-on-surface-variant">Full Constitution text is loading… Please try again in a moment.</div>';
+                }
+            }
+            if (document.getElementById('constInDocSearch')) document.getElementById('constInDocSearch').value = '';
+            showToast('Loaded Full Constitution');
+        }
+
+        // T4: Keyboard navigation for Constitution amendments
+        const _AMENDMENT_ORDER = ['constitution-full','amendment-1','amendment-2','amendment-3','amendment-4','amendment-5','amendment-6','amendment-7','amendment-8','amendment-10','amendment-12','amendment-13','amendment-14','amendment-16','amendment-17','amendment-18','amendment-19','amendment-20','amendment-21','amendment-22','amendment-23','amendment-24','amendment-25','amendment-26'];
+        let _currentConstAmend = 'amendment-26';
+        document.addEventListener('keydown', function(e) {
+            // Only active when Constitution tab is open and no input is focused
+            const constTab = document.getElementById('tabConstitution');
+            if (!constTab || !constTab.classList.contains('active')) return;
+            if (['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName)) return;
+            if (e.key === 'ArrowLeft' || e.key === '[') {
+                e.preventDefault();
+                const idx = _AMENDMENT_ORDER.indexOf(_currentConstAmend);
+                if (idx > 0) {
+                    const prev = _AMENDMENT_ORDER[idx - 1];
+                    if (prev === 'constitution-full') loadFullConstitution();
+                    else changeConstitutionAmendment(prev);
+                    _currentConstAmend = prev;
+                }
+            } else if (e.key === 'ArrowRight' || e.key === ']') {
+                e.preventDefault();
+                const idx = _AMENDMENT_ORDER.indexOf(_currentConstAmend);
+                if (idx < _AMENDMENT_ORDER.length - 1) {
+                    const next = _AMENDMENT_ORDER[idx + 1];
+                    if (next === 'constitution-full') loadFullConstitution();
+                    else changeConstitutionAmendment(next);
+                    _currentConstAmend = next;
+                }
+            }
+        });
+
+        // T4: Analytics chart click-through to repo filter by sector
+        function filterRepoForSector(sectorName) {
+            switchTab('tabRepo');
+            const sel = document.getElementById('sectorSelect');
+            if (sel) {
+                // Try to find matching option
+                for (const opt of sel.options) {
+                    if (opt.text.toLowerCase().includes(sectorName.toLowerCase()) || sectorName.toLowerCase().includes(opt.text.toLowerCase())) {
+                        sel.value = opt.value;
+                        break;
+                    }
+                }
+            }
+            runFilters();
+            showToast('Filtered by: ' + sectorName);
+        }
+
     </script>
 </body>
 </html>
